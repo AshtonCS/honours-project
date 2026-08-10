@@ -1,33 +1,37 @@
 import numpy as np
 from param import output
 
-class PauliTerm:
-    def __init__(self, coefficient, gates):
+class pauli_term:
+    def __init__(self, coefficient, paulis):
         self.coefficient = coefficient
-        self.gates = gates
+        self.paulis = paulis
 
 class Compiler:
-    def __init__(self, pauliTerm, angle):
-        self.pauliTerm = pauliTerm
+    def __init__(self, pauli_term, angle):
+        self.pauli_term = pauli_term
         self.angle = angle
-        self.last_non_idt_idx = pauliTerm.gates[-1][1][0] if pauliTerm.gates else 0
-        self.output = []
 
     def compile(self):
-        computeGates = []
+        if not self.pauli_term.paulis:
+            return []
+        last_non_idt_idx = self.pauli_term.paulis[-1][1][0]
+        
+        compute_gates = []
+        output = []
 
-        for gate in self.pauliTerm.gates:
+        for gate in self.pauli_term.paulis:
             if gate[0] == "X":
-                computeGates.append(("H", [gate[1][0]], None))
+                compute_gates.append(("H", [gate[1][0]], None))
             elif gate[0] == "Y":
-                computeGates.append(("S", [gate[1][0]], -1))
-                computeGates.append(("H", [gate[1][0]], None))
-            if gate != self.pauliTerm.gates[-1]:
-                computeGates.append(("CNOT", [gate[1][0], self.last_non_idt_idx], None))
-        self.output = computeGates.copy()
-        uncomputeGates = [self.inverse_gate(gate) for gate in computeGates[::-1]]
-        self.output.append(("RZ", [self.last_non_idt_idx], self.angle * 2))
-        self.output.extend(uncomputeGates)
+                compute_gates.append(("S", [gate[1][0]], -1))
+                compute_gates.append(("H", [gate[1][0]], None))
+            if gate != self.pauli_term.paulis[-1]:
+                compute_gates.append(("CNOT", [gate[1][0], last_non_idt_idx], None))
+        output = compute_gates.copy()
+        uncompute_gates = [self.inverse_gate(gate) for gate in compute_gates[::-1]]
+        output.append(("RZ", [last_non_idt_idx], self.angle * 2))
+        output.extend(uncompute_gates)
+        return output
 
     def inverse_gate(self, gate):
         return gate[0], gate[1], -gate[2] if gate[2] is not None else None
@@ -45,38 +49,36 @@ class Simulator:
     def __init__(self, hamiltonian, t):
         self.hamiltonian = hamiltonian
         self.t = t
-        self.output = []
-        self.counts = {"total": 0, "single_qubit": 0, "two_qubit": 0, "CNOT": 0, "RZ": 0}
 
     def standard_simulation(self):
+        output = []
         for term in self.hamiltonian.terms:
             compiler = Compiler(term, self.t * term.coefficient)
-            compiler.compile()
-            self.output.extend(compiler.output)
-        self.optimise()
-        self.count_gates()
-        self.print_output()
-        print(self.counts)
+            compiled_term = compiler.compile()
+            output.extend(compiled_term)
+        output = self.optimise(output)
+        counts = self.count_gates(output)
+        return output, counts
 
     def first_order_trotter_simulation(self, num_steps):
+        output = []
         for term in self.hamiltonian.terms:
             compiler = Compiler(term, self.t * term.coefficient / num_steps)
-            compiler.compile()
-            self.output.extend(compiler.output)
+            compiled_term = compiler.compile()
+            output.extend(compiled_term)
 
-        trotter_step = self.output.copy()
+        trotter_step = output.copy()
         for _ in range(num_steps - 1):
-            self.output.extend(trotter_step)
+            output.extend(trotter_step)
         
-        self.optimise()
-        self.count_gates()
-        self.print_output()
-        print(self.counts)
+        output = self.optimise(output)
+        counts = self.count_gates(output)
+        return output, counts
     
-    def optimise(self):
+    def optimise(self, output):
         optimised = []
 
-        for gate in self.output:
+        for gate in output:
             if optimised and self.can_cancel(optimised[-1], gate):
                 optimised.pop()
             elif optimised and self.can_merge_rz(optimised[-1], gate):
@@ -85,15 +87,16 @@ class Simulator:
             else:
                 optimised.append(gate)
 
-        self.output = optimised
+        return optimised
 
-    def count_gates(self):
-        self.counts = {"total": 0, "single_qubit": 0, "two_qubit": 0, "CNOT": 0, "RZ": 0}
+    def count_gates(self, output):
+        counts = {"total": 0, "single_qubit": 0, "two_qubit": 0, "CNOT": 0, "RZ": 0}
 
-        for gate in self.output:
+        for gate in output:
             gate_counts = self.get_gate_counts(gate)
-            for key in self.counts:
-                self.counts[key] += gate_counts[key]
+            for key in counts:
+                counts[key] += gate_counts[key]
+        return counts
 
     def can_cancel(self, gate1, gate2):
         return (gate1[0] == gate2[0] 
@@ -107,8 +110,8 @@ class Simulator:
             )
         )
 
-    def print_output(self):
-        for gate in self.output:
+    def print_output(self, output):
+        for gate in output:
             print(gate[0], gate[1], gate[2] if gate[2] is not None else "")
 
     def get_gate_counts(self, gate):
@@ -128,20 +131,21 @@ class Simulator:
 
     def merge_rz(self, gate1, gate2):
         angle = gate1[2] + gate2[2]
-
-        if np.isclose(angle, 0):
-            return None
-
         return ("RZ", gate1[1], angle)
 
 
-hamiltonian = Hamiltonian([PauliTerm(1, [("X", [0]), ("Y", [1]), ("Z", [3]), ("X", [4])]),
-                           PauliTerm(2, [("X", [0]), ("Z", [1]), ("Y", [2])])], num_qubits=6)
+hamiltonian = Hamiltonian([pauli_term(1, [("X", [0]), ("Y", [1]), ("Z", [3]), ("X", [4])]),
+                           pauli_term(2, [("X", [0]), ("Z", [1]), ("Y", [2])])], num_qubits=6)
 
 t = 3
-simulator = Simulator(hamiltonian, t)
-simulator.standard_simulation()
 
-trotter_simulator = Simulator(hamiltonian, t)
+simulator = Simulator(hamiltonian, t)
+
+std_output, std_counts = simulator.standard_simulation()
+simulator.print_output(std_output)
+print("Gate counts:", std_counts)
+
 num_steps = 3
-trotter_simulator.first_order_trotter_simulation(num_steps)
+trotter_output, trotter_counts = simulator.first_order_trotter_simulation(num_steps)
+simulator.print_output(trotter_output)
+print("Gate counts:", trotter_counts)
