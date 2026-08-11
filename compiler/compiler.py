@@ -1,7 +1,4 @@
-import numpy as np
-from param import output
-
-class pauli_term:
+class PauliTerm:
     def __init__(self, coefficient, paulis):
         self.coefficient = coefficient
         self.paulis = paulis
@@ -157,8 +154,8 @@ class Simulator:
         return ("RZ", gate1[1], angle)
 
 
-hamiltonian = Hamiltonian([pauli_term(1, [("X", [0]), ("Y", [1]), ("Z", [3]), ("X", [4])]),
-                           pauli_term(2, [("X", [0]), ("Z", [1]), ("Y", [2])])], num_qubits=6)
+hamiltonian = Hamiltonian([PauliTerm(1, [("X", [0]), ("Y", [1]), ("Z", [3]), ("X", [4])]),
+                           PauliTerm(2, [("X", [0]), ("Z", [1]), ("Y", [2])])], num_qubits=6)
 
 t = 3
 
