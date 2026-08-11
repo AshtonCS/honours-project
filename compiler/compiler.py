@@ -36,10 +36,6 @@ class Compiler:
     def inverse_gate(self, gate):
         return gate[0], gate[1], -gate[2] if gate[2] is not None else None
 
-    def print_output(self):
-        for gate in self.output:
-            print(gate[0], gate[1], gate[2] if gate[2] is not None else "")
-
 class Hamiltonian:
     def __init__(self, terms, num_qubits):
         self.terms = terms
@@ -74,6 +70,33 @@ class Simulator:
         output = self.optimise(output)
         counts = self.count_gates(output)
         return output, counts
+
+    def second_order_trotter_simulation(self, num_steps):
+            output = []
+            compiled_term_stack = []
+            for i, term in enumerate(self.hamiltonian.terms):
+                if i == len(self.hamiltonian.terms) - 1:
+                    angle = self.t * term.coefficient / num_steps
+                else:
+                    angle = self.t * term.coefficient / (2 * num_steps)
+
+                compiler = Compiler(term, angle)
+                compiled_term = compiler.compile()
+
+                output.extend(compiled_term)
+                compiled_term_stack.append(compiled_term)
+
+            for term in reversed(compiled_term_stack[:-1]):
+                output.extend(term)
+    
+            trotter_step = output.copy()
+
+            for _ in range(num_steps - 1):
+                output.extend(trotter_step)
+            
+            output = self.optimise(output)
+            counts = self.count_gates(output)
+            return output, counts
     
     def optimise(self, output):
         optimised = []
@@ -146,6 +169,11 @@ simulator.print_output(std_output)
 print("Gate counts:", std_counts)
 
 num_steps = 3
-trotter_output, trotter_counts = simulator.first_order_trotter_simulation(num_steps)
-simulator.print_output(trotter_output)
-print("Gate counts:", trotter_counts)
+first_order_trotter_output, first_order_trotter_counts = simulator.first_order_trotter_simulation(num_steps)
+simulator.print_output(first_order_trotter_output)
+print("Gate counts:", first_order_trotter_counts)
+
+num_steps = 3
+second_order_trotter_output, second_order_trotter_counts = simulator.second_order_trotter_simulation(num_steps)
+simulator.print_output(second_order_trotter_output)
+print("Gate counts:", second_order_trotter_counts)
