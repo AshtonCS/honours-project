@@ -159,18 +159,18 @@ hamiltonian = Hamiltonian([PauliTerm(1, [("X", [0]), ("Y", [1]), ("Z", [3]), ("X
 
 t = 3
 
-simulator = Simulator(hamiltonian, t)
+# simulator = Simulator(hamiltonian, t)
 
-std_output, std_counts = simulator.standard_simulation()
-simulator.print_output(std_output)
-print("Gate counts:", std_counts)
+# std_output, std_counts = simulator.standard_simulation()
+# simulator.print_output(std_output)
+# print("Gate counts:", std_counts)
 
-num_steps = 3
-first_order_trotter_output, first_order_trotter_counts = simulator.first_order_trotter_simulation(num_steps)
-simulator.print_output(first_order_trotter_output)
-print("Gate counts:", first_order_trotter_counts)
+# num_steps = 3
+# first_order_trotter_output, first_order_trotter_counts = simulator.first_order_trotter_simulation(num_steps)
+# simulator.print_output(first_order_trotter_output)
+# print("Gate counts:", first_order_trotter_counts)
 
-num_steps = 3
-second_order_trotter_output, second_order_trotter_counts = simulator.second_order_trotter_simulation(num_steps)
-simulator.print_output(second_order_trotter_output)
-print("Gate counts:", second_order_trotter_counts)
+# num_steps = 3
+# second_order_trotter_output, second_order_trotter_counts = simulator.second_order_trotter_simulation(num_steps)
+# simulator.print_output(second_order_trotter_output)
+# print("Gate counts:", second_order_trotter_counts)
