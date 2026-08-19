@@ -154,6 +154,18 @@ class HamiltonianSimulator:
         return ("RZ", gate1[1], angle)
 
 
+class StateVectorSimulator:
+    def __init__(self, num_qubits):
+        self.num_qubits = num_qubits
+        self.state_vector = [0] * (2 ** num_qubits)
+        self.state_vector[0] = 1
+
+    # TODO: Optional State Vector Simulation Implementation in case I want to verify the results of the Pauli Simulator.
+    # This was not considered in Childs et al., but could be useful for testing, validation and personal experience.
+
+    
+
+
 hamiltonian = Hamiltonian([PauliTerm(1, [("X", [0]), ("Y", [1]), ("Z", [3]), ("X", [4])]),
                            PauliTerm(2, [("X", [0]), ("Z", [1]), ("Y", [2])])], num_qubits=6)
 
