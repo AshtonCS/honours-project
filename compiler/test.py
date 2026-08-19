@@ -2,7 +2,7 @@
 
 import pytest
 
-from pauli_simulator import PauliTerm, Hamiltonian, Simulator
+from pauli_simulator import PauliTerm, Hamiltonian, HamiltonianSimulator
 
 
 # ============================================================
@@ -31,9 +31,9 @@ def test_single_z_pauli():
         num_qubits=1
     )
 
-    simulator = Simulator(hamiltonian, t=1)
+    hamiltonian_simulator = HamiltonianSimulator(hamiltonian, t=1)
 
-    output, counts = simulator.standard_simulation()
+    output, counts = hamiltonian_simulator.standard_simulation()
 
     assert output == [
         ("RZ", [0], 2)
@@ -52,9 +52,9 @@ def test_single_x_pauli():
         num_qubits=1
     )
 
-    simulator = Simulator(hamiltonian, t=1)
+    hamiltonian_simulator = HamiltonianSimulator(hamiltonian, t=1)
 
-    output, counts = simulator.standard_simulation()
+    output, counts = hamiltonian_simulator.standard_simulation()
 
     assert gate_names(output) == ["H", "RZ", "H"]
 
@@ -74,9 +74,9 @@ def test_single_y_pauli():
         num_qubits=1
     )
 
-    simulator = Simulator(hamiltonian, t=1)
+    hamiltonian_simulator = HamiltonianSimulator(hamiltonian, t=1)
 
-    output, counts = simulator.standard_simulation()
+    output, counts = hamiltonian_simulator.standard_simulation()
 
     assert gate_names(output) == ["S", "H", "RZ", "H", "S"]
 
@@ -106,9 +106,9 @@ def test_standard_two_term_hamiltonian():
         num_qubits=2
     )
 
-    simulator = Simulator(hamiltonian, t=1)
+    hamiltonian_simulator = HamiltonianSimulator(hamiltonian, t=1)
 
-    output, counts = simulator.standard_simulation()
+    output, counts = hamiltonian_simulator.standard_simulation()
 
     assert rz_gates(output) == [
         ("RZ", [0], 2),
@@ -132,9 +132,9 @@ def test_standard_coefficient_scales_angle():
         num_qubits=1
     )
 
-    simulator = Simulator(hamiltonian, t=1)
+    hamiltonian_simulator = HamiltonianSimulator(hamiltonian, t=1)
 
-    output, _ = simulator.standard_simulation()
+    output, _ = hamiltonian_simulator.standard_simulation()
 
     assert rz_gates(output) == [
         ("RZ", [0], 4)
@@ -151,9 +151,9 @@ def test_standard_time_scales_angle():
         num_qubits=1
     )
 
-    simulator = Simulator(hamiltonian, t=3)
+    hamiltonian_simulator = HamiltonianSimulator(hamiltonian, t=3)
 
-    output, _ = simulator.standard_simulation()
+    output, _ = hamiltonian_simulator.standard_simulation()
 
     assert rz_gates(output) == [
         ("RZ", [0], 6)
@@ -178,14 +178,14 @@ def test_first_order_single_step_equals_standard():
         num_qubits=2
     )
 
-    simulator = Simulator(hamiltonian, t=1)
+    hamiltonian_simulator = HamiltonianSimulator(hamiltonian, t=1)
 
     standard_output, standard_counts = (
-        simulator.standard_simulation()
+        hamiltonian_simulator.standard_simulation()
     )
 
     trotter_output, trotter_counts = (
-        simulator.first_order_trotter_simulation(1)
+        hamiltonian_simulator.first_order_trotter_simulation(1)
     )
 
     assert trotter_output == standard_output
@@ -209,9 +209,9 @@ def test_first_order_two_steps():
         num_qubits=2
     )
 
-    simulator = Simulator(hamiltonian, t=1)
+    hamiltonian_simulator = HamiltonianSimulator(hamiltonian, t=1)
 
-    output, counts = simulator.first_order_trotter_simulation(2)
+    output, counts = hamiltonian_simulator.first_order_trotter_simulation(2)
 
     assert rz_gates(output) == [
         ("RZ", [0], 1),
@@ -239,9 +239,9 @@ def test_first_order_noncommuting_terms():
         num_qubits=1
     )
 
-    simulator = Simulator(hamiltonian, t=1)
+    hamiltonian_simulator = HamiltonianSimulator(hamiltonian, t=1)
 
-    output, counts = simulator.first_order_trotter_simulation(2)
+    output, counts = hamiltonian_simulator.first_order_trotter_simulation(2)
 
     assert counts["RZ"] == 4
 
@@ -271,9 +271,9 @@ def test_second_order_single_step_two_terms():
         num_qubits=2
     )
 
-    simulator = Simulator(hamiltonian, t=1)
+    hamiltonian_simulator = HamiltonianSimulator(hamiltonian, t=1)
 
-    output, counts = simulator.second_order_trotter_simulation(1)
+    output, counts = hamiltonian_simulator.second_order_trotter_simulation(1)
 
     assert rz_gates(output) == [
         ("RZ", [0], 1),
@@ -301,9 +301,9 @@ def test_second_order_two_steps():
         num_qubits=2
     )
 
-    simulator = Simulator(hamiltonian, t=1)
+    hamiltonian_simulator = HamiltonianSimulator(hamiltonian, t=1)
 
-    output, counts = simulator.second_order_trotter_simulation(2)
+    output, counts = hamiltonian_simulator.second_order_trotter_simulation(2)
 
     print(rz_gates(output))
 
@@ -334,9 +334,9 @@ def test_second_order_three_terms():
         num_qubits=3
     )
 
-    simulator = Simulator(hamiltonian, t=1)
+    hamiltonian_simulator = HamiltonianSimulator(hamiltonian, t=1)
 
-    output, counts = simulator.second_order_trotter_simulation(1)
+    output, counts = hamiltonian_simulator.second_order_trotter_simulation(1)
 
     assert rz_gates(output) == [
         ("RZ", [0], 1),
@@ -364,10 +364,10 @@ def test_second_order_is_symmetric():
         num_qubits=3
     )
 
-    simulator = Simulator(hamiltonian, t=1)
+    hamiltonian_simulator = HamiltonianSimulator(hamiltonian, t=1)
 
     # num_steps=1 avoids inter-step optimisation.
-    output, _ = simulator.second_order_trotter_simulation(1)
+    output, _ = hamiltonian_simulator.second_order_trotter_simulation(1)
 
     rz = rz_gates(output)
 
@@ -394,14 +394,14 @@ def test_rz_merging():
         num_qubits=1
     )
 
-    simulator = Simulator(hamiltonian, t=1)
+    hamiltonian_simulator = HamiltonianSimulator(hamiltonian, t=1)
 
     output = [
         ("RZ", [0], 1),
         ("RZ", [0], 2)
     ]
 
-    optimised = simulator.optimise(output)
+    optimised = hamiltonian_simulator.optimise(output)
 
     assert optimised == [
         ("RZ", [0], 3)
@@ -418,14 +418,14 @@ def test_inverse_gates_cancel():
         num_qubits=1
     )
 
-    simulator = Simulator(hamiltonian, t=1)
+    hamiltonian_simulator = HamiltonianSimulator(hamiltonian, t=1)
 
     output = [
         ("H", [0], None),
         ("H", [0], None)
     ]
 
-    optimised = simulator.optimise(output)
+    optimised = hamiltonian_simulator.optimise(output)
 
     assert optimised == []
 
@@ -440,14 +440,14 @@ def test_inverse_parameterised_gates_cancel():
         num_qubits=1
     )
 
-    simulator = Simulator(hamiltonian, t=1)
+    hamiltonian_simulator = HamiltonianSimulator(hamiltonian, t=1)
 
     output = [
         ("S", [0], -1),
         ("S", [0], 1)
     ]
 
-    optimised = simulator.optimise(output)
+    optimised = hamiltonian_simulator.optimise(output)
 
     assert optimised == []
 
@@ -474,10 +474,10 @@ def test_first_order_rz_scaling():
         num_qubits=2
     )
 
-    simulator = Simulator(hamiltonian, t=1)
+    hamiltonian_simulator = HamiltonianSimulator(hamiltonian, t=1)
 
     for n in [1, 2, 3, 5]:
-        output, counts = simulator.first_order_trotter_simulation(n)
+        output, counts = hamiltonian_simulator.first_order_trotter_simulation(n)
 
         assert counts["RZ"] == 2 * n
 
@@ -503,10 +503,10 @@ def test_second_order_rz_scaling():
         num_qubits=2
     )
 
-    simulator = Simulator(hamiltonian, t=1)
+    hamiltonian_simulator = HamiltonianSimulator(hamiltonian, t=1)
 
     for n in [1, 2, 3, 5]:
-        output, counts = simulator.second_order_trotter_simulation(n)
+        output, counts = hamiltonian_simulator.second_order_trotter_simulation(n)
 
         assert counts["RZ"] == 2 * n + 1
 
@@ -526,14 +526,14 @@ def test_second_order_uses_more_gates_than_first_order():
         num_qubits=1
     )
 
-    simulator = Simulator(hamiltonian, t=1)
+    hamiltonian_simulator = HamiltonianSimulator(hamiltonian, t=1)
 
     first_output, first_counts = (
-        simulator.first_order_trotter_simulation(3)
+        hamiltonian_simulator.first_order_trotter_simulation(3)
     )
 
     second_output, second_counts = (
-        simulator.second_order_trotter_simulation(3)
+        hamiltonian_simulator.second_order_trotter_simulation(3)
     )
 
     assert second_counts["total"] > first_counts["total"]
