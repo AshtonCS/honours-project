@@ -13,3 +13,9 @@ Using commuting terms to improve bounds is a particularly apt approach to Heisen
 ### Empirical Bounding
 
 The empirical method used in this study just allocate fixed values of r depending on the system size, given that actual simulation error can only be directly computed for small instances. No guarantee of correctness, but is believed to better capture the true performance of product formula simulations and indicate the extent to which the other rigorous bounds like Commutator Bounding are loose.
+
+## Rz Decomposition - 20/08/2026
+
+I want to discuss the strategy I should use to decompose a Rz gate into Clifford+T gates for resource estimation. I can see that Childs et al. used an approach from N.J. Ross' "Optimal ancilla-free Cliﬀord+T approximation of z-rotations", first Trotterising, then optimising at the Rz level, then decomposing the rotations into Clifford+T gates to determine final gate counts.
+
+I am also aware that Solovay Kitaev and more simple approximation methods that don't require direct decomposition may be able to achieve the same goal, so would like to discuss what might be best for my project.
