@@ -53,7 +53,8 @@ class HamiltonianSimulator:
         counts = self.count_gates(output)
         return output, counts
 
-    def first_order_trotter_simulation(self, num_steps):
+    def first_order_trotter_simulation(self, epsilon, method):
+        num_steps = self.determine_num_steps(epsilon, method)
         output = []
         for term in self.hamiltonian.terms:
             compiler = Compiler(term, self.t * term.coefficient / num_steps)
@@ -68,33 +69,47 @@ class HamiltonianSimulator:
         counts = self.count_gates(output)
         return output, counts
 
-    def second_order_trotter_simulation(self, num_steps):
-            output = []
-            compiled_term_stack = []
-            for i, term in enumerate(self.hamiltonian.terms):
-                if i == len(self.hamiltonian.terms) - 1:
-                    angle = self.t * term.coefficient / num_steps
-                else:
-                    angle = self.t * term.coefficient / (2 * num_steps)
+    def second_order_trotter_simulation(self, epsilon, method):
+        num_steps = self.determine_num_steps(epsilon, method)
+        output = []
+        compiled_term_stack = []
+        for i, term in enumerate(self.hamiltonian.terms):
+            if i == len(self.hamiltonian.terms) - 1:
+                angle = self.t * term.coefficient / num_steps
+            else:
+                angle = self.t * term.coefficient / (2 * num_steps)
 
-                compiler = Compiler(term, angle)
-                compiled_term = compiler.compile()
+            compiler = Compiler(term, angle)
+            compiled_term = compiler.compile()
 
-                output.extend(compiled_term)
-                compiled_term_stack.append(compiled_term)
+            output.extend(compiled_term)
+            compiled_term_stack.append(compiled_term)
 
-            for term in reversed(compiled_term_stack[:-1]):
-                output.extend(term)
+        for term in reversed(compiled_term_stack[:-1]):
+            output.extend(term)
+
+        trotter_step = output.copy()
+
+        for _ in range(num_steps - 1):
+            output.extend(trotter_step)
+        
+        output = self.optimise(output)
+        counts = self.count_gates(output)
+        return output, counts
     
-            trotter_step = output.copy()
+    def determine_num_steps(self, epsilon, method):
+        if method == "commutator":
+            return self.generate_commutator_bound(epsilon)
+        elif method == "empirical":
+            return self.generate_empirical_bound(epsilon)
+        return num_steps
 
-            for _ in range(num_steps - 1):
-                output.extend(trotter_step)
-            
-            output = self.optimise(output)
-            counts = self.count_gates(output)
-            return output, counts
-    
+    def generate_commutator_bound(self, epsilon):
+        return 1
+
+    def generate_empirical_bound(self, epsilon):
+        return 1
+
     def optimise(self, output):
         optimised = []
 
@@ -163,8 +178,6 @@ class StateVectorSimulator:
     # TODO: Optional State Vector Simulation Implementation in case I want to verify the results of the Pauli Simulator.
     # This was not considered in Childs et al., but could be useful for testing, validation and personal experience.
 
-    
-
 
 hamiltonian = Hamiltonian([PauliTerm(1, [("X", [0]), ("Y", [1]), ("Z", [3]), ("X", [4])]),
                            PauliTerm(2, [("X", [0]), ("Z", [1]), ("Y", [2])])], num_qubits=6)
@@ -178,11 +191,16 @@ hamiltonian_simulator.print_output(std_output)
 print("Gate counts:", std_counts)
 
 num_steps = 3
-first_order_trotter_output, first_order_trotter_counts = hamiltonian_simulator.first_order_trotter_simulation(num_steps)
+epsilon = 0.01
+method = "commutator"
+
+first_order_trotter_output, first_order_trotter_counts = hamiltonian_simulator.first_order_trotter_simulation(epsilon, method)
 hamiltonian_simulator.print_output(first_order_trotter_output)
 print("Gate counts:", first_order_trotter_counts)
 
+method = "empirical"
+
 num_steps = 3
-second_order_trotter_output, second_order_trotter_counts = hamiltonian_simulator.second_order_trotter_simulation(num_steps)
+second_order_trotter_output, second_order_trotter_counts = hamiltonian_simulator.second_order_trotter_simulation(epsilon, method)
 hamiltonian_simulator.print_output(second_order_trotter_output)
 print("Gate counts:", second_order_trotter_counts)
