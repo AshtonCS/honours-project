@@ -26,7 +26,7 @@ class Compiler:
                 compute_gates.append(("CNOT", [gate[1][0], last_non_idt_idx], None))
         output = compute_gates.copy()
         uncompute_gates = [self.inverse_gate(gate) for gate in compute_gates[::-1]]
-        output.append(("RZ", [last_non_idt_idx], self.angle * 2))
+        output.append(("RZ", [last_non_idt_idx], -self.angle * 2))
         output.extend(uncompute_gates)
         return output
 
@@ -166,23 +166,80 @@ class StateVectorSimulator:
     
 
 
-hamiltonian = Hamiltonian([PauliTerm(1, [("X", [0]), ("Y", [1]), ("Z", [3]), ("X", [4])]),
-                           PauliTerm(2, [("X", [0]), ("Z", [1]), ("Y", [2])])], num_qubits=6)
+# hamiltonian = Hamiltonian([PauliTerm(1, [("X", [0]), ("Y", [1]), ("Z", [3]), ("X", [4])]),
+#                            PauliTerm(2, [("X", [0]), ("Z", [1]), ("Y", [2])])], num_qubits=6)
 
-t = 3
+# t = 3
 
-hamiltonian_simulator = HamiltonianSimulator(hamiltonian, t)
+# hamiltonian_simulator = HamiltonianSimulator(hamiltonian, t)
 
-std_output, std_counts = hamiltonian_simulator.standard_simulation()
+# std_output, std_counts = hamiltonian_simulator.standard_simulation()
+# hamiltonian_simulator.print_output(std_output)
+# print("Gate counts:", std_counts)
+
+# num_steps = 3
+# first_order_trotter_output, first_order_trotter_counts = hamiltonian_simulator.first_order_trotter_simulation(num_steps)
+# hamiltonian_simulator.print_output(first_order_trotter_output)
+# print("Gate counts:", first_order_trotter_counts)
+
+# num_steps = 3
+# second_order_trotter_output, second_order_trotter_counts = hamiltonian_simulator.second_order_trotter_simulation(num_steps)
+# hamiltonian_simulator.print_output(second_order_trotter_output)
+# print("Gate counts:", second_order_trotter_counts)
+
+# --------------------------------------------------
+# Small Hamiltonian test
+# H = Z(0) + 2 Z(1)
+# --------------------------------------------------
+
+hamiltonian = Hamiltonian(
+    [
+        PauliTerm(1.0, [("Z", [0])]),
+        PauliTerm(2.0, [("Z", [1])])
+    ],
+    num_qubits=2
+)
+
+t = 1.0
+
+hamiltonian_simulator = HamiltonianSimulator(
+    hamiltonian,
+    t
+)
+
+
+# --------------------------------------------------
+# Standard simulation
+# --------------------------------------------------
+
+print("Hamiltonian:")
+print("1.0 * Z(0) + 2.0 * Z(1)")
+
+print("\nStandard simulation:")
+
+std_output, std_counts = (
+    hamiltonian_simulator.standard_simulation()
+)
+
 hamiltonian_simulator.print_output(std_output)
+
 print("Gate counts:", std_counts)
 
-num_steps = 3
-first_order_trotter_output, first_order_trotter_counts = hamiltonian_simulator.first_order_trotter_simulation(num_steps)
-hamiltonian_simulator.print_output(first_order_trotter_output)
-print("Gate counts:", first_order_trotter_counts)
 
-num_steps = 3
-second_order_trotter_output, second_order_trotter_counts = hamiltonian_simulator.second_order_trotter_simulation(num_steps)
-hamiltonian_simulator.print_output(second_order_trotter_output)
-print("Gate counts:", second_order_trotter_counts)
+# --------------------------------------------------
+# First-order Trotter simulation
+# --------------------------------------------------
+
+num_steps = 1
+
+print("\nFirst-order Trotter simulation:")
+
+first_order_output, first_order_counts = (
+    hamiltonian_simulator.first_order_trotter_simulation(
+        num_steps
+    )
+)
+
+hamiltonian_simulator.print_output(first_order_output)
+
+print("Gate counts:", first_order_counts)
