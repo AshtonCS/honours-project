@@ -78,3 +78,12 @@ I am also aware that Solovay Kitaev and more simple approximation methods that d
 * Check that my interpretation of the Childs error bound and error allocation is correct.
 * Once the baseline is validated, start looking at scaling with number of qubits.
 * Keep optimisation separate for now — first get a reliable baseline implementation matching the existing methodology.
+
+## Notes on Circuit Preparation and Rz Decomposition - 26/08/2026
+
+I have been experimenting with aspects of my code - notably, given the classical computational overhead of simulating circuits by generating full expansions before optimisation, I decided to attempt implementing a naive approach that would write and optimise a single trotter step before repeating it N times. This test was supposed to indicate that these simulations could be conducted to a lower degree of accuracy significantly more efficiently and potentially set up an approach that incorporates gate cancellation around the step boundaries for increased effectiveness.
+
+My initial results after implementing a naive stepwise approach were surprising - while I saw a significant reduction in the time taken to produce optimised circuits using the stepwise approach, I was seeing exactly the same gate counts outputted for either process. This made limited sense given that I was conscious that the new approach ignored boundary conditions.
+
+After adding some in-progress displays, it became clear that this was not the case - the two methods produced different results, with full circuits being more streamlined than stepwise ones, but running qp.clifford_t_decomposition(circuit, epsilon=epsilon, method="gridsynth") somehow reduced the gate count of the stepwise implementation to map the full implementation. I am now looking into this matter to understand what optimisation this function may run.
+

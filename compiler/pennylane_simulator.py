@@ -188,17 +188,27 @@ def build_full_circuit(n_qubits, coupling, t, order, epsilon, fixed_steps=None):
     counts = get_gate_counts(optimised)
     print_time("Gate counting before GridSynth", start)
 
+    print("Gate counts before GridSynth:")
+    for gate, count in counts["Gate Breakdown"].items():
+        print(f"  {gate}: {count}")
+
     start = time.perf_counter()
 
     final_circuit = gridsynth_decompose(
         optimised,
         epsilon_synthesis
     )
+
     print_time("GridSynth decomposition", start)
 
     start = time.perf_counter()
 
     counts = get_gate_counts(final_circuit)
+
+    print("Gate counts after GridSynth:")
+    for gate, count in counts["Gate Breakdown"].items():
+        print(f"  {gate}: {count}")
+
     print_time("Gate counting after GridSynth", start)
 
     return final_circuit, counts
@@ -265,17 +275,27 @@ def build_stepwise_circuit(n_qubits, coupling, t, order, epsilon, fixed_steps=No
     counts = get_gate_counts(circuit)
     print_time("Gate counting before GridSynth", start)
 
+    print("Gate counts before GridSynth:")
+    for gate, count in counts["Gate Breakdown"].items():
+        print(f"  {gate}: {count}")
+
     start = time.perf_counter()
 
     final_circuit = gridsynth_decompose(
         circuit,
         epsilon_synthesis
     )
+
     print_time("GridSynth decomposition", start)
 
     start = time.perf_counter()
 
     counts = get_gate_counts(final_circuit)
+
+    print("Gate counts after GridSynth:")
+    for gate, count in counts["Gate Breakdown"].items():
+        print(f"  {gate}: {count}")
+            
     print_time("Gate counting after GridSynth", start)
 
     return final_circuit, counts
@@ -286,7 +306,7 @@ t = 1.0
 order = 2
 epsilon = 1e-4
 
-full_circuit, gate_counts = build_full_circuit(
+full_circuit, gate_counts_1 = build_full_circuit(
     n_qubits,
     coupling,
     t,
@@ -295,7 +315,7 @@ full_circuit, gate_counts = build_full_circuit(
     fixed_steps=50
 )
 
-stepwise_circuit, gate_counts = build_stepwise_circuit(
+stepwise_circuit, gate_counts_2 = build_stepwise_circuit(
     n_qubits,
     coupling,
     t,
@@ -304,3 +324,6 @@ stepwise_circuit, gate_counts = build_stepwise_circuit(
     fixed_steps=50
 )
 
+print("\n=== Gate Counts ===")
+print("Full circuit:", gate_counts_1)
+print("Stepwise circuit:", gate_counts_2)
