@@ -116,8 +116,10 @@ def trotter_error(H, time, steps, order):
         trotter.error(method="commutator-bound").error
     )
 
+def determine_trotter_steps(H, time, order, epsilon, fixed_steps=None):
+    if fixed_steps is not None:
+        return fixed_steps
 
-def find_trotter_steps(H, time, order, epsilon):
     lower = 0
     upper = 1
 
@@ -135,77 +137,100 @@ def find_trotter_steps(H, time, order, epsilon):
 
     return upper
 
-def build_full_circuit(n_qubits, coupling, t, order, epsilon):
+def print_time(label, start):
+    print(f"{label}: {time.perf_counter() - start:.3f}s")
+
+def build_full_circuit(n_qubits, coupling, t, order, epsilon, fixed_steps=None):
+
+    start = time.perf_counter()
+
     epsilon_synthesis = epsilon / 2
     epsilon_trotter = epsilon / 2
 
-    H = build_heisenberg(
-        n_qubits,
-        coupling,
-    )
+    H = build_heisenberg(n_qubits, coupling)
 
-    steps = find_trotter_steps(
+    print("\n=== Full-Circuit Optimisation ===")
+    print("Hamiltonian:")
+    print(H)
+    print_time("Hamiltonian construction", start)
+
+    start = time.perf_counter()
+
+    steps = determine_trotter_steps(
         H,
         time=t,
         order=order,
         epsilon=epsilon_trotter,
+        fixed_steps=fixed_steps
     )
 
-    steps = 10
+    print("Trotter steps used:", steps)
+    print_time("Trotter-step calculation", start)
 
-    print("Minimum Trotter steps:", steps)
+    start = time.perf_counter()
 
     circuit = build_trotter_circuit(
         H,
         n_qubits,
         t,
         steps,
-        order,
+        order
     )
+    print_time("Circuit construction", start)
+
+    start = time.perf_counter()
 
     optimised = optimise_circuit(circuit)
+    print_time("Optimisation", start)
 
-    print("Hamiltonian:")
-    print(H)
+    start = time.perf_counter()
 
     counts = get_gate_counts(optimised)
+    print_time("Gate counting before GridSynth", start)
 
-    print("\nGate counts BEFORE GridSynth:")
-    for name, count in counts.items():
-        print(f"{name}: {count}")
+    start = time.perf_counter()
 
     final_circuit = gridsynth_decompose(
         optimised,
-        epsilon_synthesis,
+        epsilon_synthesis
     )
+    print_time("GridSynth decomposition", start)
+
+    start = time.perf_counter()
 
     counts = get_gate_counts(final_circuit)
-
-    print("\nGate counts AFTER GridSynth:")
-    for name, count in counts.items():
-        print(f"{name}: {count}")
+    print_time("Gate counting after GridSynth", start)
 
     return final_circuit, counts
 
-def build_stepwise_circuit(n_qubits, coupling, t, order, epsilon):
+def build_stepwise_circuit(n_qubits, coupling, t, order, epsilon, fixed_steps=None):
+
+    start = time.perf_counter()
+
     epsilon_synthesis = epsilon / 2
     epsilon_trotter = epsilon / 2
 
-    H = build_heisenberg(
-        n_qubits,
-        coupling,
-    )
+    H = build_heisenberg(n_qubits, coupling)
 
-    steps = find_trotter_steps(
+    print("\n=== Stepwise Optimisation ===")
+    print("Hamiltonian:")
+    print(H)
+    print_time("Hamiltonian construction", start)
+
+    start = time.perf_counter()
+
+    steps = determine_trotter_steps(
         H,
         time=t,
         order=order,
         epsilon=epsilon_trotter,
+        fixed_steps=fixed_steps
     )
 
-    steps = 10
+    print("Trotter steps used:", steps)
+    print_time("Trotter-step calculation", start)
 
-    print("Minimum Trotter steps:", steps)
+    start = time.perf_counter()
 
     trotter_step = build_trotter_step(
         H,
@@ -213,38 +238,45 @@ def build_stepwise_circuit(n_qubits, coupling, t, order, epsilon):
         steps,
         order
     )
+    print_time("Single Trotter step construction", start)
+
+    start = time.perf_counter()
 
     optimised_step = optimise_circuit(trotter_step)
+    print_time("Single-step optimisation", start)
+
+    start = time.perf_counter()
 
     step_qscript = qp.tape.make_qscript(optimised_step)()
-
     step_operations = step_qscript.operations
+    print_time("Optimised-step extraction", start)
+
+    start = time.perf_counter()
 
     circuit = repeat_operations(
         step_operations,
         n_qubits,
         steps
     )
+    print_time("Step repetition/full circuit construction", start)
 
-    print("Hamiltonian:")
-    print(H)
+    start = time.perf_counter()
 
     counts = get_gate_counts(circuit)
+    print_time("Gate counting before GridSynth", start)
 
-    print("\nGate counts BEFORE GridSynth:")
-    for name, count in counts.items():
-        print(f"{name}: {count}")
+    start = time.perf_counter()
 
     final_circuit = gridsynth_decompose(
         circuit,
         epsilon_synthesis
     )
+    print_time("GridSynth decomposition", start)
+
+    start = time.perf_counter()
 
     counts = get_gate_counts(final_circuit)
-
-    print("\nGate counts AFTER GridSynth:")
-    for name, count in counts.items():
-        print(f"{name}: {count}")
+    print_time("Gate counting after GridSynth", start)
 
     return final_circuit, counts
 
@@ -259,7 +291,8 @@ full_circuit, gate_counts = build_full_circuit(
     coupling,
     t,
     order,
-    epsilon
+    epsilon,
+    fixed_steps=50
 )
 
 stepwise_circuit, gate_counts = build_stepwise_circuit(
@@ -267,6 +300,7 @@ stepwise_circuit, gate_counts = build_stepwise_circuit(
     coupling,
     t,
     order,
-    epsilon
+    epsilon,
+    fixed_steps=50
 )
 
