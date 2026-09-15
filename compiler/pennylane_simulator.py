@@ -1,13 +1,63 @@
 import pennylane as qp
+import numpy as np
 import time
 
+# Configuration Settings
 
-def build_heisenberg(n_qubits, coupling):
-    return qp.spin.heisenberg(
+n_qubits = 4
+t = 4.0
+order = 2
+epsilon = 1e-3
+
+coupling = [1.0, 1.0, 1.0]
+
+random_field = np.array([
+    0.0236432494,
+    0.9009273927,
+    -0.7116807746,
+    0.8972988943,
+])
+
+boundary_condition = True
+trotter_error_method = "commutator-bound"
+rz_synthesis = True
+simulation_mode = "stepwise" # "global", "stepwise", "single step", "two step"
+
+def build_heisenberg(
+    n_qubits,
+    coupling,
+    field_strength=1.0,
+    seed=None,
+    random_field=None,
+):
+    if random_field is None:
+        rng = np.random.default_rng(seed)
+        random_field = rng.uniform(
+            -field_strength,
+            field_strength,
+            size=n_qubits,
+        )
+    else:
+        random_field = np.asarray(random_field, dtype=float)
+
+        if random_field.shape != (n_qubits,):
+            raise ValueError(
+                f"random_field must contain exactly {n_qubits} values"
+            )
+
+    exchange = qp.spin.heisenberg(
         lattice="chain", # implies 1D chain of qubits
         n_cells=[n_qubits],
         coupling=coupling, #coupling constants, J_x, J_y, J_z in the literature
-        boundary_condition=False, # False: 1-2-...-N; True: 1-2-...-N-1
+        boundary_condition=boundary_condition, # periodic chain: 1-2-...-N-1
+    )
+
+    exchange_coefficients, exchange_operators = exchange.terms()
+
+    return qp.Hamiltonian(
+        list(exchange_coefficients) + list(random_field),
+        exchange_operators
+        + [qp.PauliZ(wire) for wire in range(n_qubits)],
     )
 
 
@@ -104,6 +154,27 @@ def get_gate_counts(circuit):
         "Gate Breakdown": gates,
     }
 
+
+def scale_gate_counts(counts, repetitions):
+    scaled_breakdown = {
+        gate: count * repetitions
+        for gate, count in counts["Gate Breakdown"].items()
+    }
+
+    return {
+        "Total Gates": counts["Total Gates"] * repetitions,
+        "Clifford+T Gates": counts["Clifford+T Gates"] * repetitions,
+        "Clifford Gates": counts["Clifford Gates"] * repetitions,
+        "CNOTs": counts["CNOTs"] * repetitions,
+        "T Gates": counts["T Gates"] * repetitions,
+        "Gate Breakdown": scaled_breakdown,
+    }
+
+def print_gate_counts(counts, label):
+    print(f"\n=== {label} ===")
+    for gate, count in counts["Gate Breakdown"].items():
+        print(f"  {gate}: {count}")
+
 def trotter_error(H, time, steps, order):
     trotter = qp.TrotterProduct(
         H,
@@ -113,7 +184,7 @@ def trotter_error(H, time, steps, order):
     )
 
     return float(
-        trotter.error(method="commutator-bound").error
+        trotter.error(method=trotter_error_method).error
     )
 
 def determine_trotter_steps(H, time, order, epsilon, fixed_steps=None):
@@ -135,19 +206,51 @@ def determine_trotter_steps(H, time, order, epsilon, fixed_steps=None):
         else:
             lower = middle
 
+    print(f"Determined Trotter steps: {upper}")
+
     return upper
+
+def build_trotter_block(H, n_qubits, time, steps, order, block_steps):
+    step_time = time / steps
+
+    dev = qp.device("default.qubit", wires=n_qubits)
+
+    @qp.qnode(dev)
+    def block():
+        for _ in range(block_steps):
+            qp.TrotterProduct(
+                H,
+                time=step_time,
+                n=1,
+                order=order,
+            )
+        return qp.state()
+
+    return block
 
 def print_time(label, start):
     print(f"{label}: {time.perf_counter() - start:.3f}s")
 
-def build_full_circuit(n_qubits, coupling, t, order, epsilon, fixed_steps=None):
+def build_full_circuit(
+    n_qubits,
+    coupling,
+    t,
+    order,
+    epsilon,
+    fixed_steps=None,
+    random_field=None,
+):
 
     start = time.perf_counter()
 
     epsilon_synthesis = epsilon / 2
     epsilon_trotter = epsilon / 2
 
-    H = build_heisenberg(n_qubits, coupling)
+    H = build_heisenberg(
+        n_qubits,
+        coupling,
+        random_field=random_field,
+    )
 
     print("\n=== Full-Circuit Optimisation ===")
     print("Hamiltonian:")
@@ -180,17 +283,28 @@ def build_full_circuit(n_qubits, coupling, t, order, epsilon, fixed_steps=None):
 
     start = time.perf_counter()
 
+    raw_counts = get_gate_counts(circuit)
+
+    print_time("Raw gate counting", start)
+
+    print_gate_counts(
+        raw_counts,
+        "Raw Trotter circuit"
+    )
+
+    start = time.perf_counter()
+
     optimised = optimise_circuit(circuit)
+
     print_time("Optimisation", start)
 
     start = time.perf_counter()
 
     counts = get_gate_counts(optimised)
-    print_time("Gate counting before GridSynth", start)
 
-    print("Gate counts before GridSynth:")
-    for gate, count in counts["Gate Breakdown"].items():
-        print(f"  {gate}: {count}")
+    print_gate_counts(counts, "After qml.compile")
+
+    print_time("Gate counting before GridSynth", start)
 
     start = time.perf_counter()
 
@@ -205,22 +319,32 @@ def build_full_circuit(n_qubits, coupling, t, order, epsilon, fixed_steps=None):
 
     counts = get_gate_counts(final_circuit)
 
-    print("Gate counts after GridSynth:")
-    for gate, count in counts["Gate Breakdown"].items():
-        print(f"  {gate}: {count}")
+    print_gate_counts(counts, "After GridSynth / Clifford+T decomposition")
 
     print_time("Gate counting after GridSynth", start)
 
     return final_circuit, counts
 
-def build_stepwise_circuit(n_qubits, coupling, t, order, epsilon, fixed_steps=None):
+def build_stepwise_circuit(
+    n_qubits,
+    coupling,
+    t,
+    order,
+    epsilon,
+    fixed_steps=None,
+    random_field=None,
+):
 
     start = time.perf_counter()
 
     epsilon_synthesis = epsilon / 2
     epsilon_trotter = epsilon / 2
 
-    H = build_heisenberg(n_qubits, coupling)
+    H = build_heisenberg(
+        n_qubits,
+        coupling,
+        random_field=random_field,
+    )
 
     print("\n=== Stepwise Optimisation ===")
     print("Hamiltonian:")
@@ -252,13 +376,47 @@ def build_stepwise_circuit(n_qubits, coupling, t, order, epsilon, fixed_steps=No
 
     start = time.perf_counter()
 
+    dev = qp.device("default.qubit", wires=n_qubits)
+
+    @qp.qnode(dev)
+    def raw_step_qnode():
+        trotter_step()
+        return qp.state()
+
+    raw_step_counts = get_gate_counts(raw_step_qnode)
+    print_gate_counts(raw_step_counts, "Raw single Trotter step")
+
+    print_time("Raw single-step gate counting", start)
+
+    start = time.perf_counter()
+
     optimised_step = optimise_circuit(trotter_step)
+
     print_time("Single-step optimisation", start)
+
+    start = time.perf_counter()
+
+    dev = qp.device("default.qubit", wires=n_qubits)
+
+    @qp.qnode(dev)
+    def optimised_step_qnode():
+        optimised_step()
+        return qp.state()
+
+    optimised_step_counts = get_gate_counts(optimised_step_qnode)
+
+    print_gate_counts(
+        optimised_step_counts,
+        "After qml.compile — single Trotter step"
+    )
+
+    print_time("Optimised-step gate counting", start)
 
     start = time.perf_counter()
 
     step_qscript = qp.tape.make_qscript(optimised_step)()
     step_operations = step_qscript.operations
+
     print_time("Optimised-step extraction", start)
 
     start = time.perf_counter()
@@ -268,16 +426,18 @@ def build_stepwise_circuit(n_qubits, coupling, t, order, epsilon, fixed_steps=No
         n_qubits,
         steps
     )
-    print_time("Step repetition/full circuit construction", start)
+    print_time("Circuit construction", start)
 
     start = time.perf_counter()
 
     counts = get_gate_counts(circuit)
-    print_time("Gate counting before GridSynth", start)
 
-    print("Gate counts before GridSynth:")
-    for gate, count in counts["Gate Breakdown"].items():
-        print(f"  {gate}: {count}")
+    print_time("Gate counting after step repetition", start)
+
+    print_gate_counts(
+        counts,
+        "Repeated optimised Trotter step"
+    )
 
     start = time.perf_counter()
 
@@ -292,38 +452,378 @@ def build_stepwise_circuit(n_qubits, coupling, t, order, epsilon, fixed_steps=No
 
     counts = get_gate_counts(final_circuit)
 
-    print("Gate counts after GridSynth:")
-    for gate, count in counts["Gate Breakdown"].items():
-        print(f"  {gate}: {count}")
-            
+    print_gate_counts(counts, "After GridSynth / Clifford+T decomposition")
+
     print_time("Gate counting after GridSynth", start)
 
-    return final_circuit, counts
+    return circuit, counts
 
-n_qubits = 4
-coupling = [1.0, 2.0, 1.5]
-t = 1.0
-order = 2
-epsilon = 1e-4
 
-full_circuit, gate_counts_1 = build_full_circuit(
+def build_synthesised_stepwise_circuit(
     n_qubits,
     coupling,
     t,
     order,
     epsilon,
-    fixed_steps=50
-)
+    fixed_steps=None,
+    random_field=None,
+    synthesis_mode="single",
+):
+    if synthesis_mode not in {"single", "boundary", "full"}:
+        raise ValueError(
+            "synthesis_mode must be 'single', 'boundary', or 'full'"
+        )
 
-stepwise_circuit, gate_counts_2 = build_stepwise_circuit(
+    if synthesis_mode == "full":
+        return build_stepwise_circuit(
+            n_qubits,
+            coupling,
+            t,
+            order,
+            epsilon,
+            fixed_steps=fixed_steps,
+            random_field=random_field,
+        )
+
+    start = time.perf_counter()
+
+    epsilon_synthesis = epsilon / 2
+    epsilon_trotter = epsilon / 2
+
+    H = build_heisenberg(
+        n_qubits,
+        coupling,
+        random_field=random_field,
+    )
+
+    print("\n=== Synthesised Stepwise Optimisation ===")
+    print("Hamiltonian:")
+    print(H)
+    print_time("Hamiltonian construction", start)
+
+    start = time.perf_counter()
+
+    steps = determine_trotter_steps(
+        H,
+        time=t,
+        order=order,
+        epsilon=epsilon_trotter,
+        fixed_steps=fixed_steps,
+    )
+
+    print("Trotter steps used:", steps)
+    print_time("Trotter-step calculation", start)
+
+    start = time.perf_counter()
+
+    block_steps = 1 if synthesis_mode == "single" else 2
+
+    if steps % block_steps != 0:
+        raise ValueError(
+            f"steps must be divisible by {block_steps} in "
+            f"'{synthesis_mode}' mode"
+        )
+
+    step_time = t / steps
+
+    def trotter_block():
+        for _ in range(block_steps):
+            qp.TrotterProduct(
+                H,
+                time=step_time,
+                n=1,
+                order=order,
+            )
+
+    optimised_block = optimise_circuit(trotter_block)
+    print_time("Trotter-block optimisation", start)
+
+    start = time.perf_counter()
+
+    synthesised_step = gridsynth_decompose(
+        optimised_block,
+        epsilon_synthesis,
+    )
+    print_time("Trotter-block GridSynth decomposition", start)
+
+    start = time.perf_counter()
+
+    synthesised_block_qscript = qp.tape.make_qscript(synthesised_step)()
+    synthesised_operations = synthesised_block_qscript.operations
+    print_time("Synthesised-block extraction", start)
+
+    start = time.perf_counter()
+
+    repetitions = steps // block_steps
+    block_circuit = repeat_operations(
+        synthesised_operations,
+        n_qubits,
+        1,
+    )
+    block_counts = get_gate_counts(block_circuit)
+    counts = scale_gate_counts(block_counts, repetitions)
+    print_time("Synthesised-block gate counting", start)
+
+    start = time.perf_counter()
+
+    circuit = repeat_operations(
+        synthesised_operations,
+        n_qubits,
+        repetitions,
+    )
+    print_time("Compact repeated-circuit construction", start)
+
+    print_gate_counts(
+        counts,
+        "Repeated synthesised Trotter block",
+    )
+
+    return circuit, counts
+
+def build_circuit(
     n_qubits,
     coupling,
     t,
     order,
     epsilon,
-    fixed_steps=50
+    fixed_steps=None,
+    random_field=None,
+    simulation_mode="global",
+    gridsynth=True,
+):
+    valid_modes = {"global", "stepwise", "single step", "two step"}
+
+    if simulation_mode not in valid_modes:
+        raise ValueError(
+            "simulation_mode must be 'global', 'stepwise', "
+            "'single step', or 'two step'"
+        )
+
+    epsilon_trotter = epsilon
+    epsilon_synthesis = None
+    if gridsynth:
+        epsilon_trotter = epsilon / 2
+        epsilon_synthesis = epsilon / 2
+
+    start = time.perf_counter()
+
+    H = build_heisenberg(
+        n_qubits,
+        coupling,
+        random_field=random_field,
+    )
+
+    print(f"\n=== {simulation_mode} simulation ===")
+    print("Hamiltonian:")
+    print(H)
+    print_time("Hamiltonian construction", start)
+
+    start = time.perf_counter()
+
+    steps = determine_trotter_steps(
+        H,
+        time=t,
+        order=order,
+        epsilon=epsilon_trotter,
+        fixed_steps=fixed_steps,
+    )
+
+    print("Trotter steps used:", steps)
+    print_time("Trotter-step calculation", start)
+
+    if simulation_mode == "global":
+        circuit = build_trotter_circuit(
+            H,
+            n_qubits,
+            t,
+            steps,
+            order,
+        )
+        raw_counts = get_gate_counts(circuit)
+
+        start = time.perf_counter()
+        circuit = optimise_circuit(circuit)
+        print_time("Optimisation", start)
+
+        before_synthesis_counts = get_gate_counts(circuit)
+
+        if gridsynth:
+            start = time.perf_counter()
+            circuit = gridsynth_decompose(circuit, epsilon_synthesis)
+            print_time("GridSynth decomposition", start)
+
+        after_synthesis_counts = get_gate_counts(circuit)
+        print_gate_counts(raw_counts, f"Raw {simulation_mode} circuit")
+        print_gate_counts(before_synthesis_counts, "Before RZ synthesis")
+        print_gate_counts(after_synthesis_counts, "After RZ synthesis")
+        return circuit, before_synthesis_counts, after_synthesis_counts, raw_counts
+
+    if simulation_mode == "stepwise":
+        trotter_step = build_trotter_step(
+            H,
+            t,
+            steps,
+            order,
+        )
+        optimised_step = optimise_circuit(trotter_step)
+        step_qscript = qp.tape.make_qscript(optimised_step)()
+        step_operations = step_qscript.operations
+
+        circuit = repeat_operations(
+            step_operations,
+            n_qubits,
+            steps,
+        )
+
+        raw_counts = get_gate_counts(circuit)
+
+        before_synthesis_counts = get_gate_counts(circuit)
+
+        if gridsynth:
+            circuit = gridsynth_decompose(circuit, epsilon_synthesis)
+
+        after_synthesis_counts = get_gate_counts(circuit)
+        print_gate_counts(before_synthesis_counts, "Before RZ synthesis")
+        print_gate_counts(after_synthesis_counts, "After RZ synthesis")
+        return circuit, before_synthesis_counts, after_synthesis_counts, raw_counts
+
+    else:
+        block_steps = 1 if simulation_mode == "single step" else 2
+
+        if steps % block_steps != 0:
+            raise ValueError(
+                f"steps must be divisible by {block_steps} in "
+                f"'{simulation_mode}' mode"
+            )
+
+        repetitions = steps // block_steps
+
+        raw_block = build_trotter_block(
+            H,
+            n_qubits,
+            t,
+            steps,
+            order,
+            block_steps,
+        )
+
+        raw_block_counts = get_gate_counts(raw_block)
+        raw_counts = scale_gate_counts(raw_block_counts, repetitions)
+
+        optimised_block = optimise_circuit(raw_block)
+
+        before_synthesis_block_counts = get_gate_counts(optimised_block)
+        before_synthesis_counts = scale_gate_counts(
+            before_synthesis_block_counts,
+            repetitions,
+        )
+
+        if gridsynth:
+            block = gridsynth_decompose(
+                optimised_block,
+                epsilon_synthesis,
+            )
+        else:
+            block = optimised_block
+
+        block_qscript = qp.tape.make_qscript(block)()
+        block_operations = block_qscript.operations
+
+        block_counts = get_gate_counts(block)
+        after_synthesis_counts = scale_gate_counts(
+            block_counts,
+            repetitions,
+        )
+
+        circuit = repeat_operations(
+            block_operations,
+            n_qubits,
+            repetitions,
+        )
+        print_gate_counts(raw_counts, f"Raw {simulation_mode} circuit")
+        print_gate_counts(
+            before_synthesis_counts,
+            f"Before RZ synthesis ({simulation_mode})",
+        )
+        print_gate_counts(
+            after_synthesis_counts,
+            f"After RZ synthesis ({simulation_mode})",
+        )
+        return (
+            circuit,
+            before_synthesis_counts,
+            after_synthesis_counts,
+            raw_counts,
+        )
+
+
+# full_circuit, gate_counts_1 = build_full_circuit(
+#     n_qubits,
+#     coupling,
+#     t,
+#     order,
+#     epsilon,
+#     fixed_steps=10,
+#     random_field=random_field,
+# )
+
+# H = build_heisenberg(
+#     n_qubits,
+#     coupling,
+#     random_field=random_field,
+# )
+
+# stepwise_circuit, gate_counts_2 = build_synthesised_stepwise_circuit(
+#     n_qubits,
+#     coupling,
+#     t,
+#     order,
+#     epsilon,
+#     fixed_steps=10,
+#     random_field=random_field,
+#     synthesis_mode="full",
+# )
+
+# single_boundary_stepwise_circuit, gate_counts_3 = build_synthesised_stepwise_circuit(
+#     n_qubits,
+#     coupling,
+#     t,
+#     order,
+#     epsilon,
+#     fixed_steps=None,
+#     random_field=random_field,
+#     synthesis_mode="single",
+# )
+
+# two_step_boundary_stepwise_circuit, gate_counts_4 = build_synthesised_stepwise_circuit(
+#     n_qubits,
+#     coupling,
+#     t,
+#     order,
+#     epsilon,
+#     fixed_steps=None,
+#     random_field=random_field,
+#     synthesis_mode="boundary",
+# )
+
+
+# print("\n=== Gate Counts ===")
+# print("Full circuit:", gate_counts_1)
+# print("Stepwise circuit:", gate_counts_2)
+# print("Single boundary stepwise circuit:", gate_counts_3)
+# print("Two step boundary stepwise circuit:", gate_counts_4)
+
+single_boundary_stepwise_circuit, before_synthesis_counts, after_synthesis_counts, raw_counts = build_circuit(
+    n_qubits,
+    coupling,
+    t,
+    order,
+    epsilon,
+    fixed_steps=None,
+    random_field=random_field,
+    simulation_mode="single step",
+    gridsynth=True,
 )
 
-print("\n=== Gate Counts ===")
-print("Full circuit:", gate_counts_1)
-print("Stepwise circuit:", gate_counts_2)
+
+
