@@ -1,0 +1,68 @@
+$ cd /tmp && /tmp/simcount-main -n 4 -a pf4emp -g cz -f gatecount -m 1
+Hamiltonian: [(1.0,[X,X,I,I]),(1.0,[I,X,X,I]),(1.0,[I,I,X,X]),(1.0,[X,I,I,X]),(1.0,[Y,Y,I,I]),(1.0,[I,Y,Y,I]),(1.0,[I,I,Y,Y]),(1.0,[Y,I,I,Y]),(1.0,[Z,Z,I,I]),(1.0,[I,Z,Z,I]),(1.0,[I,I,Z,Z]),(1.0,[Z,I,I,Z]),(-0.8444192498333132,[Z,I,I,I]),(0.7998200058907112,[I,Z,I,I]),(0.2371705373647761,[I,I,Z,I]),(-0.5823152775681468,[I,I,I,Z])]
+   35: Subroutine: S, shape ([Q,Q,Q,Q],())
+Total gates: 35
+Inputs: 4
+Outputs: 4
+Qubits in circuit: 4
+
+Subroutine: "S"
+Shape: "([Q,Q,Q,Q],())"
+    1: Subroutine: S-2--7.519578139171461e-2, shape ([Q,Q,Q,Q],())
+    4: Subroutine: S-2-4.737037391935722e-2, shape ([Q,Q,Q,Q],())
+Total gates: 5
+Inputs: 4
+Outputs: 4
+Qubits in circuit: 4
+
+Subroutine: "S-2--7.519578139171461e-2"
+Shape: "([Q,Q,Q,Q],())"
+   64: "H, arity 1"
+    1: "Rot(exp(-i%Z),-0.017834223880237185), arity 1"
+   24: "Rot(exp(-i%Z),-0.037597890695857304), arity 1"
+    1: "Rot(exp(-i%Z),-0.060143090315677813), arity 1"
+    1: "Rot(exp(-i%Z),0.04378765231306998), arity 1"
+    1: "Rot(exp(-i%Z),0.06349676531342147), arity 1"
+   32: "S*, arity 1"
+   32: "S, arity 1"
+   48: "not, arity 1", controls 1
+Total gates: 204
+Inputs: 4
+Outputs: 4
+Qubits in circuit: 4
+
+Subroutine: "S-2-4.737037391935722e-2"
+Shape: "([Q,Q,Q,Q],())"
+   64: "H, arity 1"
+    1: "Rot(exp(-i%Z),-0.027584492437357406), arity 1"
+    1: "Rot(exp(-i%Z),-0.04000045560930717), arity 1"
+    1: "Rot(exp(-i%Z),0.011234857037624328), arity 1"
+   24: "Rot(exp(-i%Z),0.02368518695967861), arity 1"
+    1: "Rot(exp(-i%Z),0.03788777274722549), arity 1"
+   32: "S*, arity 1"
+   32: "S, arity 1"
+   48: "not, arity 1", controls 1
+Total gates: 204
+Inputs: 4
+Outputs: 4
+Qubits in circuit: 4
+
+Aggregated gate count:
+11200: "H, arity 1"
+   35: "Rot(exp(-i%Z),-0.017834223880237185), arity 1"
+  140: "Rot(exp(-i%Z),-0.027584492437357406), arity 1"
+  840: "Rot(exp(-i%Z),-0.037597890695857304), arity 1"
+  140: "Rot(exp(-i%Z),-0.04000045560930717), arity 1"
+   35: "Rot(exp(-i%Z),-0.060143090315677813), arity 1"
+  140: "Rot(exp(-i%Z),0.011234857037624328), arity 1"
+ 3360: "Rot(exp(-i%Z),0.02368518695967861), arity 1"
+  140: "Rot(exp(-i%Z),0.03788777274722549), arity 1"
+   35: "Rot(exp(-i%Z),0.04378765231306998), arity 1"
+   35: "Rot(exp(-i%Z),0.06349676531342147), arity 1"
+ 5600: "S*, arity 1"
+ 5600: "S, arity 1"
+ 8400: "not, arity 1", controls 1
+Total gates: 35700
+Inputs: 4
+Outputs: 4
+Qubits in circuit: 4

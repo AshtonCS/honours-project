@@ -1,0 +1,132 @@
+$ cd /tmp && /tmp/simcount-main -n 20 -a pf4com -g cz -f gatecount -m 1
+Hamiltonian: [(1.0,[X,X,I,I,I,I,I,I,I,I,I,I,I,I,I,I,I,I,I,I]),(1.0,[I,X,X,I,I,I,I,I,I,I,I,I,I,I,I,I,I,I,I,I]),(1.0,[I,I,X,X,I,I,I,I,I,I,I,I,I,I,I,I,I,I,I,I]),(1.0,[I,I,I,X,X,I,I,I,I,I,I,I,I,I,I,I,I,I,I,I]),(1.0,[I,I,I,I,X,X,I,I,I,I,I,I,I,I,I,I,I,I,I,I]),(1.0,[I,I,I,I,I,X,X,I,I,I,I,I,I,I,I,I,I,I,I,I]),(1.0,[I,I,I,I,I,I,X,X,I,I,I,I,I,I,I,I,I,I,I,I]),(1.0,[I,I,I,I,I,I,I,X,X,I,I,I,I,I,I,I,I,I,I,I]),(1.0,[I,I,I,I,I,I,I,I,X,X,I,I,I,I,I,I,I,I,I,I]),(1.0,[I,I,I,I,I,I,I,I,I,X,X,I,I,I,I,I,I,I,I,I]),(1.0,[I,I,I,I,I,I,I,I,I,I,X,X,I,I,I,I,I,I,I,I]),(1.0,[I,I,I,I,I,I,I,I,I,I,I,X,X,I,I,I,I,I,I,I]),(1.0,[I,I,I,I,I,I,I,I,I,I,I,I,X,X,I,I,I,I,I,I]),(1.0,[I,I,I,I,I,I,I,I,I,I,I,I,I,X,X,I,I,I,I,I]),(1.0,[I,I,I,I,I,I,I,I,I,I,I,I,I,I,X,X,I,I,I,I]),(1.0,[I,I,I,I,I,I,I,I,I,I,I,I,I,I,I,X,X,I,I,I]),(1.0,[I,I,I,I,I,I,I,I,I,I,I,I,I,I,I,I,X,X,I,I]),(1.0,[I,I,I,I,I,I,I,I,I,I,I,I,I,I,I,I,I,X,X,I]),(1.0,[I,I,I,I,I,I,I,I,I,I,I,I,I,I,I,I,I,I,X,X]),(1.0,[X,I,I,I,I,I,I,I,I,I,I,I,I,I,I,I,I,I,I,X]),(1.0,[Y,Y,I,I,I,I,I,I,I,I,I,I,I,I,I,I,I,I,I,I]),(1.0,[I,Y,Y,I,I,I,I,I,I,I,I,I,I,I,I,I,I,I,I,I]),(1.0,[I,I,Y,Y,I,I,I,I,I,I,I,I,I,I,I,I,I,I,I,I]),(1.0,[I,I,I,Y,Y,I,I,I,I,I,I,I,I,I,I,I,I,I,I,I]),(1.0,[I,I,I,I,Y,Y,I,I,I,I,I,I,I,I,I,I,I,I,I,I]),(1.0,[I,I,I,I,I,Y,Y,I,I,I,I,I,I,I,I,I,I,I,I,I]),(1.0,[I,I,I,I,I,I,Y,Y,I,I,I,I,I,I,I,I,I,I,I,I]),(1.0,[I,I,I,I,I,I,I,Y,Y,I,I,I,I,I,I,I,I,I,I,I]),(1.0,[I,I,I,I,I,I,I,I,Y,Y,I,I,I,I,I,I,I,I,I,I]),(1.0,[I,I,I,I,I,I,I,I,I,Y,Y,I,I,I,I,I,I,I,I,I]),(1.0,[I,I,I,I,I,I,I,I,I,I,Y,Y,I,I,I,I,I,I,I,I]),(1.0,[I,I,I,I,I,I,I,I,I,I,I,Y,Y,I,I,I,I,I,I,I]),(1.0,[I,I,I,I,I,I,I,I,I,I,I,I,Y,Y,I,I,I,I,I,I]),(1.0,[I,I,I,I,I,I,I,I,I,I,I,I,I,Y,Y,I,I,I,I,I]),(1.0,[I,I,I,I,I,I,I,I,I,I,I,I,I,I,Y,Y,I,I,I,I]),(1.0,[I,I,I,I,I,I,I,I,I,I,I,I,I,I,I,Y,Y,I,I,I]),(1.0,[I,I,I,I,I,I,I,I,I,I,I,I,I,I,I,I,Y,Y,I,I]),(1.0,[I,I,I,I,I,I,I,I,I,I,I,I,I,I,I,I,I,Y,Y,I]),(1.0,[I,I,I,I,I,I,I,I,I,I,I,I,I,I,I,I,I,I,Y,Y]),(1.0,[Y,I,I,I,I,I,I,I,I,I,I,I,I,I,I,I,I,I,I,Y]),(1.0,[Z,Z,I,I,I,I,I,I,I,I,I,I,I,I,I,I,I,I,I,I]),(1.0,[I,Z,Z,I,I,I,I,I,I,I,I,I,I,I,I,I,I,I,I,I]),(1.0,[I,I,Z,Z,I,I,I,I,I,I,I,I,I,I,I,I,I,I,I,I]),(1.0,[I,I,I,Z,Z,I,I,I,I,I,I,I,I,I,I,I,I,I,I,I]),(1.0,[I,I,I,I,Z,Z,I,I,I,I,I,I,I,I,I,I,I,I,I,I]),(1.0,[I,I,I,I,I,Z,Z,I,I,I,I,I,I,I,I,I,I,I,I,I]),(1.0,[I,I,I,I,I,I,Z,Z,I,I,I,I,I,I,I,I,I,I,I,I]),(1.0,[I,I,I,I,I,I,I,Z,Z,I,I,I,I,I,I,I,I,I,I,I]),(1.0,[I,I,I,I,I,I,I,I,Z,Z,I,I,I,I,I,I,I,I,I,I]),(1.0,[I,I,I,I,I,I,I,I,I,Z,Z,I,I,I,I,I,I,I,I,I]),(1.0,[I,I,I,I,I,I,I,I,I,I,Z,Z,I,I,I,I,I,I,I,I]),(1.0,[I,I,I,I,I,I,I,I,I,I,I,Z,Z,I,I,I,I,I,I,I]),(1.0,[I,I,I,I,I,I,I,I,I,I,I,I,Z,Z,I,I,I,I,I,I]),(1.0,[I,I,I,I,I,I,I,I,I,I,I,I,I,Z,Z,I,I,I,I,I]),(1.0,[I,I,I,I,I,I,I,I,I,I,I,I,I,I,Z,Z,I,I,I,I]),(1.0,[I,I,I,I,I,I,I,I,I,I,I,I,I,I,I,Z,Z,I,I,I]),(1.0,[I,I,I,I,I,I,I,I,I,I,I,I,I,I,I,I,Z,Z,I,I]),(1.0,[I,I,I,I,I,I,I,I,I,I,I,I,I,I,I,I,I,Z,Z,I]),(1.0,[I,I,I,I,I,I,I,I,I,I,I,I,I,I,I,I,I,I,Z,Z]),(1.0,[Z,I,I,I,I,I,I,I,I,I,I,I,I,I,I,I,I,I,I,Z]),(-0.8444192498333132,[Z,I,I,I,I,I,I,I,I,I,I,I,I,I,I,I,I,I,I,I]),(0.7998200058907112,[I,Z,I,I,I,I,I,I,I,I,I,I,I,I,I,I,I,I,I,I]),(0.2371705373647761,[I,I,Z,I,I,I,I,I,I,I,I,I,I,I,I,I,I,I,I,I]),(-0.5823152775681468,[I,I,I,Z,I,I,I,I,I,I,I,I,I,I,I,I,I,I,I,I]),(0.841818935557828,[I,I,I,I,Z,I,I,I,I,I,I,I,I,I,I,I,I,I,I,I]),(-0.8911512258940051,[I,I,I,I,I,Z,I,I,I,I,I,I,I,I,I,I,I,I,I,I]),(0.7946841762823653,[I,I,I,I,I,I,Z,I,I,I,I,I,I,I,I,I,I,I,I,I]),(2.4844876228166335e-2,[I,I,I,I,I,I,I,Z,I,I,I,I,I,I,I,I,I,I,I,I]),(-0.513179191270851,[I,I,I,I,I,I,I,I,Z,I,I,I,I,I,I,I,I,I,I,I]),(-0.16035972311853763,[I,I,I,I,I,I,I,I,I,Z,I,I,I,I,I,I,I,I,I,I]),(0.43049392458969216,[I,I,I,I,I,I,I,I,I,I,Z,I,I,I,I,I,I,I,I,I]),(-8.41290787887723e-2,[I,I,I,I,I,I,I,I,I,I,I,Z,I,I,I,I,I,I,I,I]),(0.9975772965737093,[I,I,I,I,I,I,I,I,I,I,I,I,Z,I,I,I,I,I,I,I]),(0.8325911512260209,[I,I,I,I,I,I,I,I,I,I,I,I,I,Z,I,I,I,I,I,I]),(0.2899516337613539,[I,I,I,I,I,I,I,I,I,I,I,I,I,I,Z,I,I,I,I,I]),(0.26434963704264924,[I,I,I,I,I,I,I,I,I,I,I,I,I,I,I,Z,I,I,I,I]),(-0.1339068245032593,[I,I,I,I,I,I,I,I,I,I,I,I,I,I,I,I,Z,I,I,I]),(0.6911367707025939,[I,I,I,I,I,I,I,I,I,I,I,I,I,I,I,I,I,Z,I,I]),(9.936289963680212e-2,[I,I,I,I,I,I,I,I,I,I,I,I,I,I,I,I,I,I,Z,I]),(-0.4861543885757733,[I,I,I,I,I,I,I,I,I,I,I,I,I,I,I,I,I,I,I,Z])]
+63860: Subroutine: S, shape ([Q,Q,Q,Q,Q,Q,Q,Q,Q,Q,Q,Q,Q,Q,Q,Q,Q,Q,Q,Q],())
+Total gates: 63860
+Inputs: 20
+Outputs: 20
+Qubits in circuit: 20
+
+Subroutine: "S"
+Shape: "([Q,Q,Q,Q,Q,Q,Q,Q,Q,Q,Q,Q,Q,Q,Q,Q,Q,Q,Q,Q],())"
+    1: Subroutine: S-2--2.0606423024663415e-4, shape ([Q,Q,Q,Q,Q,Q,Q,Q,Q,Q,Q,Q,Q,Q,Q,Q,Q,Q,Q,Q],())
+    4: Subroutine: S-2-1.2981233065905912e-4, shape ([Q,Q,Q,Q,Q,Q,Q,Q,Q,Q,Q,Q,Q,Q,Q,Q,Q,Q,Q,Q],())
+Total gates: 5
+Inputs: 20
+Outputs: 20
+Qubits in circuit: 20
+
+Subroutine: "S-2--2.0606423024663415e-4"
+Shape: "([Q,Q,Q,Q,Q,Q,Q,Q,Q,Q,Q,Q,Q,Q,Q,Q,Q,Q,Q,Q],())"
+  320: "H, arity 1"
+    1: "Rot(exp(-i%Z),-0.000005119640295529995), arity 1"
+    1: "Rot(exp(-i%Z),-0.00002047513942873119), arity 1"
+    1: "Rot(exp(-i%Z),-0.000048872364219253175), arity 1"
+    1: "Rot(exp(-i%Z),-0.00005447300447317064), arity 1"
+    1: "Rot(exp(-i%Z),-0.000059748660219787374), arity 1"
+    1: "Rot(exp(-i%Z),-0.00008870939919642748), arity 1"
+  120: "Rot(exp(-i%Z),-0.00010303211512331707), arity 1"
+    1: "Rot(exp(-i%Z),-0.0001424185666499745), arity 1"
+    1: "Rot(exp(-i%Z),-0.00016375598307480612), arity 1"
+    1: "Rot(exp(-i%Z),-0.0001648142938497278), arity 1"
+    1: "Rot(exp(-i%Z),-0.00017156725468754896), arity 1"
+    1: "Rot(exp(-i%Z),-0.00017346877096276477), arity 1"
+    1: "Rot(exp(-i%Z),-0.00020556499772997967), arity 1"
+    1: "Rot(exp(-i%Z),0.000017335993861966798), arity 1"
+    1: "Rot(exp(-i%Z),0.000027593406716035255), arity 1"
+    1: "Rot(exp(-i%Z),0.00003304440290698484), arity 1"
+    1: "Rot(exp(-i%Z),0.0001001790298628898), arity 1"
+    1: "Rot(exp(-i%Z),0.00010574787502781814), arity 1"
+    1: "Rot(exp(-i%Z),0.00011999434943293528), arity 1"
+    1: "Rot(exp(-i%Z),0.00017400460272234193), arity 1"
+    1: "Rot(exp(-i%Z),0.00018363439139719255), arity 1"
+  160: "S*, arity 1"
+  160: "S, arity 1"
+  240: "not, arity 1", controls 1
+Total gates: 1020
+Inputs: 20
+Outputs: 20
+Qubits in circuit: 20
+
+Subroutine: "S-2-1.2981233065905912e-4"
+Shape: "([Q,Q,Q,Q,Q,Q,Q,Q,Q,Q,Q,Q,Q,Q,Q,Q,Q,Q,Q,Q],())"
+  320: "H, arity 1"
+    1: "Rot(exp(-i%Z),-0.000010920991793770146), arity 1"
+    1: "Rot(exp(-i%Z),-0.000017382756979921695), arity 1"
+    1: "Rot(exp(-i%Z),-0.000020816669401858775), arity 1"
+    1: "Rot(exp(-i%Z),-0.00006310883424115099), arity 1"
+    1: "Rot(exp(-i%Z),-0.00006661698686460025), arity 1"
+    1: "Rot(exp(-i%Z),-0.00007559170335949806), arity 1"
+    1: "Rot(exp(-i%Z),-0.0001096160308742367), arity 1"
+    1: "Rot(exp(-i%Z),-0.00011568241760297848), arity 1"
+    1: "Rot(exp(-i%Z),0.000003225171288114126), arity 1"
+    1: "Rot(exp(-i%Z),0.000012898529582895461), arity 1"
+    1: "Rot(exp(-i%Z),0.00003078766021898305), arity 1"
+    1: "Rot(exp(-i%Z),0.00003431584249338265), arity 1"
+    1: "Rot(exp(-i%Z),0.00003763929735696328), arity 1"
+    1: "Rot(exp(-i%Z),0.000055883419685553176), arity 1"
+  120: "Rot(exp(-i%Z),0.00006490616532952956), arity 1"
+    1: "Rot(exp(-i%Z),0.00008971807500907944), arity 1"
+    1: "Rot(exp(-i%Z),0.00010315980506108844), arity 1"
+    1: "Rot(exp(-i%Z),0.00010382649907241561), arity 1"
+    1: "Rot(exp(-i%Z),0.00010808059782675892), arity 1"
+    1: "Rot(exp(-i%Z),0.00010927847801768996), arity 1"
+    1: "Rot(exp(-i%Z),0.00012949783388079665), arity 1"
+  160: "S*, arity 1"
+  160: "S, arity 1"
+  240: "not, arity 1", controls 1
+Total gates: 1020
+Inputs: 20
+Outputs: 20
+Qubits in circuit: 20
+
+Aggregated gate count:
+102176000: "H, arity 1"
+    63860: "Rot(exp(-i%Z),-0.000005119640295529995), arity 1"
+   255440: "Rot(exp(-i%Z),-0.000010920991793770146), arity 1"
+   255440: "Rot(exp(-i%Z),-0.000017382756979921695), arity 1"
+    63860: "Rot(exp(-i%Z),-0.00002047513942873119), arity 1"
+   255440: "Rot(exp(-i%Z),-0.000020816669401858775), arity 1"
+    63860: "Rot(exp(-i%Z),-0.000048872364219253175), arity 1"
+    63860: "Rot(exp(-i%Z),-0.00005447300447317064), arity 1"
+    63860: "Rot(exp(-i%Z),-0.000059748660219787374), arity 1"
+   255440: "Rot(exp(-i%Z),-0.00006310883424115099), arity 1"
+   255440: "Rot(exp(-i%Z),-0.00006661698686460025), arity 1"
+   255440: "Rot(exp(-i%Z),-0.00007559170335949806), arity 1"
+    63860: "Rot(exp(-i%Z),-0.00008870939919642748), arity 1"
+  7663200: "Rot(exp(-i%Z),-0.00010303211512331707), arity 1"
+   255440: "Rot(exp(-i%Z),-0.0001096160308742367), arity 1"
+   255440: "Rot(exp(-i%Z),-0.00011568241760297848), arity 1"
+    63860: "Rot(exp(-i%Z),-0.0001424185666499745), arity 1"
+    63860: "Rot(exp(-i%Z),-0.00016375598307480612), arity 1"
+    63860: "Rot(exp(-i%Z),-0.0001648142938497278), arity 1"
+    63860: "Rot(exp(-i%Z),-0.00017156725468754896), arity 1"
+    63860: "Rot(exp(-i%Z),-0.00017346877096276477), arity 1"
+    63860: "Rot(exp(-i%Z),-0.00020556499772997967), arity 1"
+   255440: "Rot(exp(-i%Z),0.000003225171288114126), arity 1"
+   255440: "Rot(exp(-i%Z),0.000012898529582895461), arity 1"
+    63860: "Rot(exp(-i%Z),0.000017335993861966798), arity 1"
+    63860: "Rot(exp(-i%Z),0.000027593406716035255), arity 1"
+   255440: "Rot(exp(-i%Z),0.00003078766021898305), arity 1"
+    63860: "Rot(exp(-i%Z),0.00003304440290698484), arity 1"
+   255440: "Rot(exp(-i%Z),0.00003431584249338265), arity 1"
+   255440: "Rot(exp(-i%Z),0.00003763929735696328), arity 1"
+   255440: "Rot(exp(-i%Z),0.000055883419685553176), arity 1"
+ 30652800: "Rot(exp(-i%Z),0.00006490616532952956), arity 1"
+   255440: "Rot(exp(-i%Z),0.00008971807500907944), arity 1"
+    63860: "Rot(exp(-i%Z),0.0001001790298628898), arity 1"
+   255440: "Rot(exp(-i%Z),0.00010315980506108844), arity 1"
+   255440: "Rot(exp(-i%Z),0.00010382649907241561), arity 1"
+    63860: "Rot(exp(-i%Z),0.00010574787502781814), arity 1"
+   255440: "Rot(exp(-i%Z),0.00010808059782675892), arity 1"
+   255440: "Rot(exp(-i%Z),0.00010927847801768996), arity 1"
+    63860: "Rot(exp(-i%Z),0.00011999434943293528), arity 1"
+   255440: "Rot(exp(-i%Z),0.00012949783388079665), arity 1"
+    63860: "Rot(exp(-i%Z),0.00017400460272234193), arity 1"
+    63860: "Rot(exp(-i%Z),0.00018363439139719255), arity 1"
+ 51088000: "S*, arity 1"
+ 51088000: "S, arity 1"
+ 76632000: "not, arity 1", controls 1
+Total gates: 325686000
+Inputs: 20
+Outputs: 20
+Qubits in circuit: 20

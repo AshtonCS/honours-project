@@ -1,0 +1,38 @@
+$ cd /tmp && /tmp/simcount-main -n 4 -a pf2com -g cz2ct -f gatecount -m 1
+Hamiltonian: [(1.0,[X,X,I,I]),(1.0,[I,X,X,I]),(1.0,[I,I,X,X]),(1.0,[X,I,I,X]),(1.0,[Y,Y,I,I]),(1.0,[I,Y,Y,I]),(1.0,[I,I,Y,Y]),(1.0,[Y,I,I,Y]),(1.0,[Z,Z,I,I]),(1.0,[I,Z,Z,I]),(1.0,[I,I,Z,Z]),(1.0,[Z,I,I,Z]),(-0.8444192498333132,[Z,I,I,I]),(0.7998200058907112,[I,Z,I,I]),(0.2371705373647761,[I,I,Z,I]),(-0.5823152775681468,[I,I,I,Z])]
+ 7629: Subroutine: S, shape ([Q,Q,Q,Q],())
+Total gates: 7629
+Inputs: 4
+Outputs: 4
+Qubits in circuit: 4
+
+Subroutine: "S"
+Shape: "([Q,Q,Q,Q],())"
+   64: "H, arity 1"
+    1: "Rot(exp(-i%Z),-0.00030531670078287945), arity 1"
+    1: "Rot(exp(-i%Z),-0.0004427417747192624), arity 1"
+    1: "Rot(exp(-i%Z),0.0001243520971895536), arity 1"
+   24: "Rot(exp(-i%Z),0.00026215755669157164), arity 1"
+    1: "Rot(exp(-i%Z),0.0004193577170746946), arity 1"
+   32: "S*, arity 1"
+   32: "S, arity 1"
+   48: "not, arity 1", controls 1
+Total gates: 204
+Inputs: 4
+Outputs: 4
+Qubits in circuit: 4
+
+Aggregated gate count:
+488256: "H, arity 1"
+  7629: "Rot(exp(-i%Z),-0.00030531670078287945), arity 1"
+  7629: "Rot(exp(-i%Z),-0.0004427417747192624), arity 1"
+  7629: "Rot(exp(-i%Z),0.0001243520971895536), arity 1"
+183096: "Rot(exp(-i%Z),0.00026215755669157164), arity 1"
+  7629: "Rot(exp(-i%Z),0.0004193577170746946), arity 1"
+244128: "S*, arity 1"
+244128: "S, arity 1"
+366192: "not, arity 1", controls 1
+Total gates: 1556316
+Inputs: 4
+Outputs: 4
+Qubits in circuit: 4

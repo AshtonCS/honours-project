@@ -1,0 +1,34 @@
+$ cd /tmp && /tmp/simcount-main -n 4 -a pf2com -g ct -f gatecount -m 1 -z 213612
+Hamiltonian: [(1.0,[X,X,I,I]),(1.0,[I,X,X,I]),(1.0,[I,I,X,X]),(1.0,[X,I,I,X]),(1.0,[Y,Y,I,I]),(1.0,[I,Y,Y,I]),(1.0,[I,I,Y,Y]),(1.0,[Y,I,I,Y]),(1.0,[Z,Z,I,I]),(1.0,[I,Z,Z,I]),(1.0,[I,I,Z,Z]),(1.0,[Z,I,I,Z]),(-0.8444192498333132,[Z,I,I,I]),(0.7998200058907112,[I,Z,I,I]),(0.2371705373647761,[I,I,Z,I]),(-0.5823152775681468,[I,I,I,Z])]
+ 7629: Subroutine: S, shape ([Q,Q,Q,Q],())
+Total gates: 7629
+Inputs: 4
+Outputs: 4
+Qubits in circuit: 4
+
+Subroutine: "S"
+Shape: "([Q,Q,Q,Q],())"
+ 2504: "H, arity 1"
+   32: "S*, arity 1"
+ 1257: "S, arity 1"
+ 2414: "T, arity 1"
+    3: "X, arity 1"
+   48: "not, arity 1", controls 1
+   86: "omega, arity 1"
+Total gates: 6344
+Inputs: 4
+Outputs: 4
+Qubits in circuit: 4
+
+Aggregated gate count:
+19103016: "H, arity 1"
+  244128: "S*, arity 1"
+ 9589653: "S, arity 1"
+18416406: "T, arity 1"
+   22887: "X, arity 1"
+  366192: "not, arity 1", controls 1
+  656094: "omega, arity 1"
+Total gates: 48398376
+Inputs: 4
+Outputs: 4
+Qubits in circuit: 4

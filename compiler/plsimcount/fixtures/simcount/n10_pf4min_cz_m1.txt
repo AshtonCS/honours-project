@@ -1,0 +1,92 @@
+$ cd /tmp && /tmp/simcount-main -n 10 -a pf4min -g cz -f gatecount -m 1
+Hamiltonian: [(1.0,[X,X,I,I,I,I,I,I,I,I]),(1.0,[I,X,X,I,I,I,I,I,I,I]),(1.0,[I,I,X,X,I,I,I,I,I,I]),(1.0,[I,I,I,X,X,I,I,I,I,I]),(1.0,[I,I,I,I,X,X,I,I,I,I]),(1.0,[I,I,I,I,I,X,X,I,I,I]),(1.0,[I,I,I,I,I,I,X,X,I,I]),(1.0,[I,I,I,I,I,I,I,X,X,I]),(1.0,[I,I,I,I,I,I,I,I,X,X]),(1.0,[X,I,I,I,I,I,I,I,I,X]),(1.0,[Y,Y,I,I,I,I,I,I,I,I]),(1.0,[I,Y,Y,I,I,I,I,I,I,I]),(1.0,[I,I,Y,Y,I,I,I,I,I,I]),(1.0,[I,I,I,Y,Y,I,I,I,I,I]),(1.0,[I,I,I,I,Y,Y,I,I,I,I]),(1.0,[I,I,I,I,I,Y,Y,I,I,I]),(1.0,[I,I,I,I,I,I,Y,Y,I,I]),(1.0,[I,I,I,I,I,I,I,Y,Y,I]),(1.0,[I,I,I,I,I,I,I,I,Y,Y]),(1.0,[Y,I,I,I,I,I,I,I,I,Y]),(1.0,[Z,Z,I,I,I,I,I,I,I,I]),(1.0,[I,Z,Z,I,I,I,I,I,I,I]),(1.0,[I,I,Z,Z,I,I,I,I,I,I]),(1.0,[I,I,I,Z,Z,I,I,I,I,I]),(1.0,[I,I,I,I,Z,Z,I,I,I,I]),(1.0,[I,I,I,I,I,Z,Z,I,I,I]),(1.0,[I,I,I,I,I,I,Z,Z,I,I]),(1.0,[I,I,I,I,I,I,I,Z,Z,I]),(1.0,[I,I,I,I,I,I,I,I,Z,Z]),(1.0,[Z,I,I,I,I,I,I,I,I,Z]),(-0.8444192498333132,[Z,I,I,I,I,I,I,I,I,I]),(0.7998200058907112,[I,Z,I,I,I,I,I,I,I,I]),(0.2371705373647761,[I,I,Z,I,I,I,I,I,I,I]),(-0.5823152775681468,[I,I,I,Z,I,I,I,I,I,I]),(0.841818935557828,[I,I,I,I,Z,I,I,I,I,I]),(-0.8911512258940051,[I,I,I,I,I,Z,I,I,I,I]),(0.7946841762823653,[I,I,I,I,I,I,Z,I,I,I]),(2.4844876228166335e-2,[I,I,I,I,I,I,I,Z,I,I]),(-0.513179191270851,[I,I,I,I,I,I,I,I,Z,I]),(-0.16035972311853763,[I,I,I,I,I,I,I,I,I,Z])]
+136920: Subroutine: S, shape ([Q,Q,Q,Q,Q,Q,Q,Q,Q,Q],())
+Total gates: 136920
+Inputs: 10
+Outputs: 10
+Qubits in circuit: 10
+
+Subroutine: "S"
+Shape: "([Q,Q,Q,Q,Q,Q,Q,Q,Q,Q],())"
+    1: Subroutine: S-2--4.805456377282375e-5, shape ([Q,Q,Q,Q,Q,Q,Q,Q,Q,Q],())
+    4: Subroutine: S-2-3.0272478220448122e-5, shape ([Q,Q,Q,Q,Q,Q,Q,Q,Q,Q],())
+Total gates: 5
+Inputs: 10
+Outputs: 10
+Qubits in circuit: 10
+
+Subroutine: "S-2--4.805456377282375e-5"
+Shape: "([Q,Q,Q,Q,Q,Q,Q,Q,Q,Q],())"
+  160: "H, arity 1"
+    1: "Rot(exp(-i%Z),-0.000001193909689134332), arity 1"
+    1: "Rot(exp(-i%Z),-0.000011397126712830512), arity 1"
+   60: "Rot(exp(-i%Z),-0.000024027281886411876), arity 1"
+    1: "Rot(exp(-i%Z),-0.000038188201428414835), arity 1"
+    1: "Rot(exp(-i%Z),-0.00003843500147985545), arity 1"
+    1: "Rot(exp(-i%Z),-0.00004045324172393426), arity 1"
+    1: "Rot(exp(-i%Z),0.000007706016541192126), arity 1"
+    1: "Rot(exp(-i%Z),0.000024660602173811226), arity 1"
+    1: "Rot(exp(-i%Z),0.000027982906641788074), arity 1"
+    1: "Rot(exp(-i%Z),0.00004057819869211494), arity 1"
+    1: "Rot(exp(-i%Z),0.000042823883415953535), arity 1"
+   80: "S*, arity 1"
+   80: "S, arity 1"
+  120: "not, arity 1", controls 1
+Total gates: 510
+Inputs: 10
+Outputs: 10
+Qubits in circuit: 10
+
+Subroutine: "S-2-3.0272478220448122e-5"
+Shape: "([Q,Q,Q,Q,Q,Q,Q,Q,Q,Q],())"
+  160: "H, arity 1"
+    1: "Rot(exp(-i%Z),-0.000004854486225543022), arity 1"
+    1: "Rot(exp(-i%Z),-0.000015535205890934018), arity 1"
+    1: "Rot(exp(-i%Z),-0.000017628126557615927), arity 1"
+    1: "Rot(exp(-i%Z),-0.000025562663349506117), arity 1"
+    1: "Rot(exp(-i%Z),-0.000026977356077001915), arity 1"
+    1: "Rot(exp(-i%Z),0.0000007521159745068947), arity 1"
+    1: "Rot(exp(-i%Z),0.000007179739926907162), arity 1"
+   60: "Rot(exp(-i%Z),0.000015136239110224061), arity 1"
+    1: "Rot(exp(-i%Z),0.00002405705941864266), arity 1"
+    1: "Rot(exp(-i%Z),0.000024212533708605245), arity 1"
+    1: "Rot(exp(-i%Z),0.000025483945392235172), arity 1"
+   80: "S*, arity 1"
+   80: "S, arity 1"
+  120: "not, arity 1", controls 1
+Total gates: 510
+Inputs: 10
+Outputs: 10
+Qubits in circuit: 10
+
+Aggregated gate count:
+109536000: "H, arity 1"
+   136920: "Rot(exp(-i%Z),-0.000001193909689134332), arity 1"
+   547680: "Rot(exp(-i%Z),-0.000004854486225543022), arity 1"
+   136920: "Rot(exp(-i%Z),-0.000011397126712830512), arity 1"
+   547680: "Rot(exp(-i%Z),-0.000015535205890934018), arity 1"
+   547680: "Rot(exp(-i%Z),-0.000017628126557615927), arity 1"
+  8215200: "Rot(exp(-i%Z),-0.000024027281886411876), arity 1"
+   547680: "Rot(exp(-i%Z),-0.000025562663349506117), arity 1"
+   547680: "Rot(exp(-i%Z),-0.000026977356077001915), arity 1"
+   136920: "Rot(exp(-i%Z),-0.000038188201428414835), arity 1"
+   136920: "Rot(exp(-i%Z),-0.00003843500147985545), arity 1"
+   136920: "Rot(exp(-i%Z),-0.00004045324172393426), arity 1"
+   547680: "Rot(exp(-i%Z),0.0000007521159745068947), arity 1"
+   547680: "Rot(exp(-i%Z),0.000007179739926907162), arity 1"
+   136920: "Rot(exp(-i%Z),0.000007706016541192126), arity 1"
+ 32860800: "Rot(exp(-i%Z),0.000015136239110224061), arity 1"
+   547680: "Rot(exp(-i%Z),0.00002405705941864266), arity 1"
+   547680: "Rot(exp(-i%Z),0.000024212533708605245), arity 1"
+   136920: "Rot(exp(-i%Z),0.000024660602173811226), arity 1"
+   547680: "Rot(exp(-i%Z),0.000025483945392235172), arity 1"
+   136920: "Rot(exp(-i%Z),0.000027982906641788074), arity 1"
+   136920: "Rot(exp(-i%Z),0.00004057819869211494), arity 1"
+   136920: "Rot(exp(-i%Z),0.000042823883415953535), arity 1"
+ 54768000: "S*, arity 1"
+ 54768000: "S, arity 1"
+ 82152000: "not, arity 1", controls 1
+Total gates: 349146000
+Inputs: 10
+Outputs: 10
+Qubits in circuit: 10

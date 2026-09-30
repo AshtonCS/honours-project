@@ -1,0 +1,34 @@
+$ cd /tmp && /tmp/simcount-main -n 2 -a pf2com -g cz -f gatecount -m 1
+Hamiltonian: [(1.0,[X,X]),(1.0,[Y,Y]),(1.0,[Z,Z]),(-0.8444192498333132,[Z,I]),(0.7998200058907112,[I,Z])]
+  612: Subroutine: S, shape ([Q,Q],())
+Total gates: 612
+Inputs: 2
+Outputs: 2
+Qubits in circuit: 2
+
+Subroutine: "S"
+Shape: "([Q,Q],())"
+   16: "H, arity 1"
+    1: "Rot(exp(-i%Z),-0.0027595400321350104), arity 1"
+    6: "Rot(exp(-i%Z),0.0016339869281045752), arity 1"
+    1: "Rot(exp(-i%Z),0.002613790868923893), arity 1"
+    8: "S*, arity 1"
+    8: "S, arity 1"
+   12: "not, arity 1", controls 1
+Total gates: 52
+Inputs: 2
+Outputs: 2
+Qubits in circuit: 2
+
+Aggregated gate count:
+ 9792: "H, arity 1"
+  612: "Rot(exp(-i%Z),-0.0027595400321350104), arity 1"
+ 3672: "Rot(exp(-i%Z),0.0016339869281045752), arity 1"
+  612: "Rot(exp(-i%Z),0.002613790868923893), arity 1"
+ 4896: "S*, arity 1"
+ 4896: "S, arity 1"
+ 7344: "not, arity 1", controls 1
+Total gates: 31824
+Inputs: 2
+Outputs: 2
+Qubits in circuit: 2

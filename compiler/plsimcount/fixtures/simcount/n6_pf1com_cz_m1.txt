@@ -1,0 +1,42 @@
+$ cd /tmp && /tmp/simcount-main -n 6 -a pf1com -g cz -f gatecount -m 1
+Hamiltonian: [(1.0,[X,X,I,I,I,I]),(1.0,[I,X,X,I,I,I]),(1.0,[I,I,X,X,I,I]),(1.0,[I,I,I,X,X,I]),(1.0,[I,I,I,I,X,X]),(1.0,[X,I,I,I,I,X]),(1.0,[Y,Y,I,I,I,I]),(1.0,[I,Y,Y,I,I,I]),(1.0,[I,I,Y,Y,I,I]),(1.0,[I,I,I,Y,Y,I]),(1.0,[I,I,I,I,Y,Y]),(1.0,[Y,I,I,I,I,Y]),(1.0,[Z,Z,I,I,I,I]),(1.0,[I,Z,Z,I,I,I]),(1.0,[I,I,Z,Z,I,I]),(1.0,[I,I,I,Z,Z,I]),(1.0,[I,I,I,I,Z,Z]),(1.0,[Z,I,I,I,I,Z]),(-0.8444192498333132,[Z,I,I,I,I,I]),(0.7998200058907112,[I,Z,I,I,I,I]),(0.2371705373647761,[I,I,Z,I,I,I]),(-0.5823152775681468,[I,I,I,Z,I,I]),(0.841818935557828,[I,I,I,I,Z,I]),(-0.8911512258940051,[I,I,I,I,I,Z])]
+2160461: Subroutine: S1, shape ([Q,Q,Q,Q,Q,Q],())
+Total gates: 2160461
+Inputs: 6
+Outputs: 6
+Qubits in circuit: 6
+
+Subroutine: "S1"
+Shape: "([Q,Q,Q,Q,Q,Q],())"
+   48: "H, arity 1"
+    1: "Rot(exp(-i%Z),-0.000001617197285861157), arity 1"
+    1: "Rot(exp(-i%Z),-0.000002345108520357405), arity 1"
+    1: "Rot(exp(-i%Z),-0.0000024748918658397585), arity 1"
+    1: "Rot(exp(-i%Z),0.000000658666471733883), arity 1"
+    1: "Rot(exp(-i%Z),0.000002221248166638633), arity 1"
+    1: "Rot(exp(-i%Z),0.000002337886966414561), arity 1"
+   18: "Rot(exp(-i%Z),0.0000027771850544860564), arity 1"
+   24: "S*, arity 1"
+   24: "S, arity 1"
+   36: "not, arity 1", controls 1
+Total gates: 156
+Inputs: 6
+Outputs: 6
+Qubits in circuit: 6
+
+Aggregated gate count:
+103702128: "H, arity 1"
+  2160461: "Rot(exp(-i%Z),-0.000001617197285861157), arity 1"
+  2160461: "Rot(exp(-i%Z),-0.000002345108520357405), arity 1"
+  2160461: "Rot(exp(-i%Z),-0.0000024748918658397585), arity 1"
+  2160461: "Rot(exp(-i%Z),0.000000658666471733883), arity 1"
+  2160461: "Rot(exp(-i%Z),0.000002221248166638633), arity 1"
+  2160461: "Rot(exp(-i%Z),0.000002337886966414561), arity 1"
+ 38888298: "Rot(exp(-i%Z),0.0000027771850544860564), arity 1"
+ 51851064: "S*, arity 1"
+ 51851064: "S, arity 1"
+ 77776596: "not, arity 1", controls 1
+Total gates: 337031916
+Inputs: 6
+Outputs: 6
+Qubits in circuit: 6
