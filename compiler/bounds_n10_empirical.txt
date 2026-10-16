@@ -1,0 +1,7 @@
+=== n=10  seed=1  t=10  eps_trotter=0.001  (Trotter number r / total gates) ===
+order                         ana                       min                       com                       emp                       tte                 empirical
+    1      434,925,093 / 1.13e+11    160,000,400 / 4.16e+10      10,002,133 / 2.6e+09        222,500 / 5.78e+07      7,505,009 / 1.95e+09        233,959 / 6.08e+07
+    2          681,117 / 3.47e+08        413,519 / 2.11e+08         62,998 / 3.21e+07          3,013 / 1.54e+06         10,880 / 5.55e+06          3,174 / 1.62e+06
+    4          174,530 / 4.45e+08        136,920 / 3.49e+08         12,485 / 3.18e+07             145 / 3.7e+05          1,077 / 2.75e+06            152 / 3.88e+05
+
+'tte' = Theory of Trotter Error (Childs et al. 2021), Props 15/16/J.2; 'empirical' = brute-force minimal r.

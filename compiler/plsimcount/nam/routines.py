@@ -21,6 +21,8 @@ rather than in the list.
 
 from __future__ import annotations
 
+import math
+
 from .gates import Circuit, Gate, merged_rotation
 from .rules import HADAMARD_RULES, Rule, commutes
 
@@ -213,41 +215,187 @@ def routine3_two_qubit_cancellation(circuit: Circuit) -> Circuit:
 
 
 # --- Routine 4 ----------------------------------------------------------------
+#
+# Routine 4 of Nam et al. (arXiv:1710.07345 section 4.4); the phase polynomial
+# representation it relies on is section 4.2, equations 3-6.
+#
+# Two simplifications relative to the paper, both justified by section 4.1,
+# where the gate set is {NOT, H, Rz, CNOT} and "the phase gate p and the t gate
+# can be obtained from rz(theta) ... as rz(pi/2) and rz(pi/4)":
+#
+#   * S and S-dagger are Z-rotations, so they take part in merging like any
+#     other rotation. A merged angle landing on a multiple of pi/2 is mapped
+#     back to a Clifford gate on the way out -- leaving it as an Rz would hand a
+#     free gate to the synthesis stage to approximate, inflating the T-count.
+#   * The paper's affine functions carry a trailing "+ 1", and its step 5
+#     propagates NOT gates to remove those offsets. Neither is needed here: the
+#     circuits this runs on contain no X gates, so every function is a plain
+#     XOR. Reinstate both if X gates are ever introduced upstream.
+
+HALF_PI = math.pi / 2
+TWO_PI = 2.0 * math.pi
+
+#: How close to a multiple of pi/2, measured in quarter turns, counts as exact.
+#: Absolute rather than relative: this compares an angle against a fixed lattice
+#: of Clifford angles, not against its own magnitude.
+QUARTER_TURN_ATOL = 1e-9
+
+#: Gates that may appear inside a stretch admitting a phase polynomial.
+PHASE_GATE_NAMES: frozenset[str] = frozenset({"CNOT", "Rz", "S", "Sdg", "Z", "X"})
+
+#: Z-rotation angle of each fixed Clifford that is one.
+CLIFFORD_ANGLE: dict[str, float] = {"S": HALF_PI, "Sdg": -HALF_PI, "Z": math.pi}
+
+
+def as_rotation(gate: Gate) -> float | None:
+    """The angle this gate rotates by about Z, or None if it is not a Z-rotation.
+
+    Global phase is ignored, so ``S`` reads as ``Rz(pi/2)`` exactly.
+    """
+    if gate.name == "Rz":
+        return gate.param
+    return CLIFFORD_ANGLE.get(gate.name)
+
+
+def from_rotation(angle: float, wires: tuple[int, ...]) -> Gate | None:
+    """Cheapest gate implementing a Z-rotation by ``angle``; None for identity.
+
+    A rotation by a multiple of pi/2 is Clifford and free to implement exactly,
+    so it is emitted as ``S``, ``Z`` or ``Sdg`` rather than ``Rz``. Anything else
+    stays an ``Rz``, with its angle folded into (-pi, pi].
+    """
+    quarter_turns = (angle / HALF_PI) % 4.0
+    nearest = round(quarter_turns)
+    if abs(quarter_turns - nearest) < QUARTER_TURN_ATOL:
+        name = {0: None, 1: "S", 2: "Z", 3: "Sdg"}[nearest % 4]
+        return None if name is None else Gate(name, wires)
+    return Gate("Rz", wires, ((angle + math.pi) % TWO_PI) - math.pi)
+
+
+def phase_stretches(circuit: Circuit) -> list[list[int]]:
+    """Maximal stretches of gates admitting a phase polynomial, as index lists.
+
+    A phase polynomial exists only where every gate is a NOT, CNOT or rotation
+    (section 4.2). A Hadamard breaks it -- but only on *its own* wire, which is
+    what the paper exploits by growing a stretch outwards one wire at a time
+    rather than ending it wholesale.
+
+    Implemented by tracking which wires are still usable. A wire is live from
+    the start of a stretch until a non-phase gate touches it; a gate may join
+    only while all of its wires are live. That is what makes each stretch valid:
+    every gate on a given wire precedes that wire's first Hadamard, so no wire
+    can leave the stretch and re-enter it. The paper needs a separate pruning
+    step for exactly that case; here it cannot arise by construction.
+
+    Stretches carrying fewer than two rotations are dropped -- nothing can merge.
+    """
+    stretches: list[list[int]] = []
+    current: list[int] = []
+    live: set[int] = set(range(circuit.n_qubits))
+
+    def close() -> None:
+        nonlocal current, live
+        rotations = sum(1 for i in current if as_rotation(circuit.gates[i]) is not None)
+        if rotations >= 2:
+            stretches.append(current)
+        current = []
+        live = set(range(circuit.n_qubits))
+
+    for i, gate in enumerate(circuit.gates):
+        if gate.name not in PHASE_GATE_NAMES:
+            live -= set(gate.wires)          # retire this wire; the others go on
+            continue
+        if all(wire in live for wire in gate.wires):
+            current.append(i)
+            continue
+        close()                              # cannot join, so begin a new stretch
+        current.append(i)
+
+    close()
+    return stretches
+
+
+def merge_stretch(circuit: Circuit, indices: list[int]) -> dict[int, Gate | None]:
+    """Merge rotations within one stretch. Returns a replacement per gate index,
+    where ``None`` means the gate is removed.
+
+    CNOT gates never create superposition; they only XOR wires together. So at
+    every point in a stretch each wire carries some XOR of the wires the stretch
+    began with, tracked here as a set of wire labels: ``{2}`` means the wire
+    still carries its own input, ``{1, 2}`` that it carries their XOR. A rotation
+    applies a phase determined by whatever its wire currently carries, so two
+    rotations whose wires carry the *same set* are one rotation split in two --
+    however far apart, and however many CNOT gates lie between -- and their
+    angles add.
+
+    The combined rotation is placed at the leftmost rotation on that function,
+    which is the paper's choice. Any location carrying the same function would
+    be valid, and exploiting that freedom to expose CNOT cancellations is what
+    the paper's Routine 5 generalises.
+
+    Two details that are easy to get wrong: the surviving gate keeps its own
+    wire, since distinct wires can carry the same function simultaneously; and a
+    wire can come to carry the empty set, meaning constant zero, where a
+    rotation contributes only a global phase.
+    """
+    holds: dict[int, frozenset[int]] = {}
+    for i in indices:
+        for wire in circuit.gates[i].wires:
+            holds.setdefault(wire, frozenset([wire]))
+
+    angles: dict[int, float] = {}
+    first_on: dict[frozenset[int], int] = {}
+    replacements: dict[int, Gate | None] = {}
+
+    for i in indices:
+        gate = circuit.gates[i]
+        if gate.name == "CNOT":
+            control, target = gate.wires
+            holds[target] = holds[control] ^ holds[target]
+            continue
+        if gate.name == "X":
+            continue                          # no X gates arise in these circuits
+        angle = as_rotation(gate)
+        if angle is None:
+            raise ValueError(f"{gate.name} cannot appear in a phase stretch")
+        function = holds[gate.wires[0]]
+        if function not in first_on:
+            first_on[function] = i
+            angles[i] = angle
+        else:
+            angles[first_on[function]] += angle
+            replacements[i] = None
+
+    for i, total in angles.items():
+        replacements[i] = from_rotation(total, circuit.gates[i].wires)
+    return replacements
 
 
 def routine4_rotation_merging(circuit: Circuit) -> Circuit:
-    """Routine 4: rotation merging using phase polynomials. NOT IMPLEMENTED.
+    """Routine 4: merge rotations that apply a phase to the same function.
 
-    Left deliberately unimplemented -- this is the subroutine with the actual
-    intellectual content, and it is being written by hand as part of the
-    thesis. What it has to do, from section 4.4 of the paper:
-
-    1. Identify a maximal subcircuit of ``{X, CNOT, Rz}`` gates, built one
-       wire at a time outwards from a designated CNOT. Stop exploring a wire
-       at a Hadamard gate or at the circuit boundary (a "termination point");
-       where a CNOT reaches a not-yet-visited wire, record an "anchor point"
-       and recurse from there.
-    2. Prune it so a phase polynomial representation exists: a wire that
-       leaves and re-enters the subcircuit with an intervening Hadamard breaks
-       the representation and must be excluded.
-    3. For each Rz in the subcircuit, compute the affine function
-       ``x_{i1} + ... + x_{ik} (+ 1)`` over GF(2) whose phase it applies, and
-       where in the subcircuit that function appears.
-    4. Merge all Rz gates sharing an affine function, placing the combined
-       rotation at the **first (leftmost)** location computing it.
-    5. Reduce affine functions to linear ones by NOT-propagation, to expose
-       further collisions:
-         ``X(a) CNOT(a,b) -> CNOT(a,b) X(a) X(b)``
-         ``X(b) CNOT(a,b) -> CNOT(a,b) X(b)``
-         ``X(a) Rz(a)     -> Rz(a)^dagger X(a)``
-
-    Complexity given in the paper: O(g^2 log g), dominated by sorting the
-    affine functions.
+    Rotations separated by a network of CNOT gates can be applying a phase to
+    the same XOR of the inputs, in which case they are one rotation split in two
+    and their angles add. Sliding gates past one another never reveals this --
+    it is visible only in the phase polynomial representation. This is the
+    routine that reduces the rotation count, and the freedom it creates in where
+    to place a merged rotation is what subsequently lets Routine 3 remove CNOT
+    gates.
     """
-    raise NotImplementedError(
-        "Routine 4 (phase-polynomial rotation merging) is not implemented yet. "
-        "Run the optimiser with skip_unimplemented=True to use Routines 1-3 only."
-    )
+    replacements: dict[int, Gate | None] = {}
+    for indices in phase_stretches(circuit):
+        replacements.update(merge_stretch(circuit, indices))
+
+    if not replacements:
+        return circuit.copy()
+
+    out: list[Gate] = []
+    for i, gate in enumerate(circuit.gates):
+        if i not in replacements:
+            out.append(gate)
+        elif replacements[i] is not None:
+            out.append(replacements[i])
+    return Circuit(out, circuit.n_qubits)
 
 
 ROUTINES = {

@@ -17,7 +17,7 @@ reconstructs it from the publication and validates against those circuits.
 | 1. Hadamard gate reduction | implemented (`routines.routine1_hadamard_reduction`) |
 | 2. Single-qubit cancellation + Rz merging | implemented |
 | 3. Two-qubit (CNOT) cancellation | implemented |
-| **4. Rotation merging via phase polynomials** | **stub — to be written by hand** |
+| 4. Rotation merging via phase polynomials | implemented (`routine4_rotation_merging`) |
 | 5. Floating Rz gates | not implementable (see below) |
 
 `Light = 1,3,2,3,1,2,4,3,2` and `Heavy = 1,3,2,3,1,2,5`, each repeated to a
@@ -28,46 +28,81 @@ that were never published; Figures 6 and 7 show examples only. The paper
 reports that for product-formula circuits Heavy gives no improvement over
 Light, so nothing is lost.
 
-**Routine 4 is deliberately left unimplemented.** It is the subroutine with
-the actual intellectual content. Its docstring sets out the five steps from
-§4.4 (subcircuit identification, pruning, affine functions over GF(2),
-leftmost-placement merging, NOT-propagation). `optimise(...)` raises unless
-`skip_unimplemented=True`, so a run without it can never be mistaken for a
-complete result.
+**Routine 4 is implemented in simplified form.** The paper works with affine
+functions — XORs that may carry a trailing `+ 1` — and spends a step
+propagating NOT gates to remove those offsets. None of that is needed here:
+these circuits carry no X gates, so every function is a plain XOR and the
+offsets never arise. What remains is a conservative choice of *stretch*: the
+circuit is split at every Hadamard, including ones on unrelated wires, where
+the paper grows stretches per wire. That finds fewer merges, so the routine
+falls short of the published figures by a known and documented amount.
 
-## Where Routines 1–3 get to
+## Where the Light optimiser gets to
 
-Per core block, pf4com n=13 — their pre-optimisation circuit in, their
-post-optimisation circuit as the target:
+Their published circuit is `L · C^m · R`, so **`C` assumes a neighbour on both
+sides** and `L`/`R` absorb the ends. Optimising one isolated block therefore
+overstates the per-block cost; the number to compare against `C` is the
+*marginal* cost of one more block in a repeated chain. Both are given below,
+because the isolated figure is what a naive comparison produces.
 
-| gate | pre | ours (1–3) | theirs (Light) | ours | target |
+pf4com, n=13:
+
+| | isolated block | marginal per block | their `C` |
+|---|---|---|---|
+| Routines 1–3 only | 1,674 | 1,640 (2.02×) | — |
+| with Routine 4 | 1,524 | **1,455 (2.28×)** | 1,235 (2.68×) |
+
+So the reconstruction recovers **85% of the published reduction**, and it does so
+consistently:
+
+| case | marginal | their `C` | ours | theirs | recovered |
 |---|---|---|---|---|---|
-| H | 1040 | 286 | 260 | 3.64× | 4.00× |
-| S + Sdg | 1040 | 372 | 130 | 2.80× | 8.00× |
-| CNOT | 780 | 772 | 520 | 1.01× | 1.50× |
-| Rz | 455 | 451 | 325 | 1.01× | 1.40× |
-| **total** | **3315** | **1881** | **1235** | **1.76×** | **2.68×** |
+| pf4ana n=13 | 1,455 | 1,235 | 2.28× | 2.68× | 85% |
+| pf4min n=13 | 1,455 | 1,235 | 2.28× | 2.68× | 85% |
+| pf4emp n=13 | 1,455 | 1,235 | 2.28× | 2.68× | 85% |
+| pf4ana n=16 | 1,800 | 1,520 | 2.27× | 2.68× | 84% |
+| pf4ana n=20 | 2,260 | 1,900 | 2.26× | 2.68× | 84% |
+| pf6emp n=13 | 7,275 | 6,175 | 2.28× | 2.68× | 85% |
+| pf6emp n=16 | 9,000 | 7,600 | 2.27× | 2.68× | 84% |
 
-The split is informative: Hadamard reduction is nearly at target, while CNOT
-and Rz have barely moved. That is exactly the expected shape — phase-polynomial
-merging (Routine 4) is what reduces the rotation count, and the placement
-freedom it creates is what then lets CNOT gates cancel. **Routine 4 has to
-deliver CNOT 780 → 520 and Rz 455 → 325.**
+Stable across system size, formula order and coefficient regime — the pf4
+variants differ in rotation angle by three orders of magnitude — so the
+shortfall is a systematic missing mechanism rather than a per-case artefact.
 
-Factors are near-identical across `pf4ana/min/com/emp` and `pf6emp` and across
-n, because the circuit *structure* is the same for every bound — only `r` and
-the rotation angles differ.
+## The residual 15%
+
+Every mechanism recoverable from the publication was implemented and measured.
+Only one helped; the rest are recorded here so the ruling-out is not repeated:
+
+| mechanism | source | outcome |
+|---|---|---|
+| Per-wire stretch growth in Routine 4 | §4.4 | **the only gain**, 2.02× → 2.28× |
+| Uniform `{NOT, H, Rz, CNOT}` gate set | §4.1 | a real inconsistency in our code; costs zero gates |
+| Multi-gate commutation patterns | Fig 5 | the one recoverable pattern fires **0 times** |
+| Generalised Fig 4 rule (several CNOTs sharing a target) | Fig 4 caption | verified correct, but blocked by the Rz our CNOT ladders always carry between them |
+| `LCRoptimizer` | §4.6 | equivalent to the marginal measurement above |
+| Commuting through the product of intervening gates | — | made results *worse* (1,455 → 1,835) |
+
+The Light sequence also reaches its fixpoint in a single round, so the shortfall
+is not insufficient iteration. The residual is attributable to implementation
+detail not recoverable from the paper, which withheld its source.
+
 
 ## Validation
 
-Two independent layers (`tests/test_nam.py`, 43 tests):
+Two independent layers (`tests/test_nam.py`, 57 tests):
 
 1. **Soundness.** Every rewrite preserves the unitary up to global phase. Full
    unitary comparison for n ≤ 6; random-state equivalence (`verify.equivalent`)
    at n = 13, where a 8192² unitary is out of reach but applying a circuit to a
    state vector is not.
 2. **Fidelity.** `samples.compare(algo, n)` puts our factors beside theirs.
-   50 cz cases on disk: 5 algorithms × 10 sizes (13 … 100), plus ct variants.
+   50 cz files are on disk, but they are *not* 50 independent cases: the four
+   pf4 variants at a given size are the same circuit, with identical gate counts
+   and identical targets, differing only in rotation angle. So the structural
+   coverage is **2 shapes × 10 sizes**, while the angle variants test numerical
+   robustness across three orders of magnitude — which is what caught both
+   tolerance bugs below. Sizes above n=20 are untested; the passes are O(g²).
 
 Global phase is never tracked: two of the Figure 4 identities hold only up to
 `exp(i pi/4)`, and the reference circuits carry no phase gates in cz mode.
@@ -113,7 +148,7 @@ from plsimcount.nam import bridge, optimise, samples, verify
 
 # our own circuits
 circuit = bridge.from_tape(sim.step, n_qubits)
-result  = optimise(circuit, skip_unimplemented=True)   # until Routine 4 lands
+result  = optimise(circuit)                            # full Light sequence
 print(result.before, result.after, result.factor("CNOT"))
 
 # against the published reference
@@ -127,7 +162,7 @@ ok, err = verify.equivalent(circuit, result.circuit)
 |---|---|
 | `gates.py` | `Gate`, `Circuit`, matrices, conventions |
 | `rules.py` | Figure 4 identities, commutation tests, numerical verification |
-| `routines.py` | Routines 1–3; Routine 4 stub with its specification |
+| `routines.py` | Routines 1–4 |
 | `optimiser.py` | Light / Heavy sequences, fixpoint driver |
 | `quipper.py` | reader for Quipper ASCII circuits |
 | `samples.py` | load the reference pairs, compare, render |

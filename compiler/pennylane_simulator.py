@@ -1,6 +1,7 @@
 import pennylane as qp
 import numpy as np
 import time
+import math
 
 # Configuration Settings
 
@@ -12,16 +13,18 @@ epsilon = 1e-3
 coupling = [1.0, 1.0, 1.0]
 
 random_field = np.array([
-    0.0236432494,
-    0.9009273927,
-    -0.7116807746,
-    0.8972988943,
+    -0.8444192498333132,
+     0.7998200058907112,
+     0.2371705373647761,
+    -0.5823152775681468,
 ])
+
+fixed_steps = None
 
 boundary_condition = True
 trotter_error_method = "commutator-bound"
-rz_synthesis = True
-simulation_mode = "stepwise" # "global", "stepwise", "single step", "two step"
+rz_synthesis = False
+simulation_mode = "single step" # "global", "stepwise", "single step", "two step"
 
 def build_heisenberg(
     n_qubits,
@@ -228,6 +231,141 @@ def build_trotter_block(H, n_qubits, time, steps, order, block_steps):
 
     return block
 
+import math
+
+
+def simcount_pf1com_error(n, m, l, t, steps):
+    """
+    SimCount's first-order commutator error bound (pf1com).
+
+    Parameters
+    ----------
+    n : int
+        Number of qubits/spins.
+    m : int
+        Number of Hamiltonian terms.
+    l : float
+        Maximum absolute Hamiltonian coefficient.
+    t : float
+        Total simulation time.
+    steps : int
+        Number of product-formula steps (r).
+
+    Returns
+    -------
+    float
+        Upper bound on the first-order product-formula error.
+    """
+
+    # SimCount's com1(n)
+    if n == 1:
+        com1 = 0
+    elif n == 2:
+        com1 = 4
+    else:
+        com1 = 10 * n
+
+    mlt = m * l * t
+
+    x = (l * t) ** 2 / steps
+    x_prime = com1
+
+    y = mlt ** 3 / (3 * steps ** 2)
+    y_prime = math.exp(mlt / steps)
+
+    return x * x_prime + y * y_prime
+
+
+def simcount_pf2com_error(n, m, l, t, steps):
+    """
+    SimCount's second-order commutator error bound (pf2com).
+    """
+
+    # SimCount's com2(n)
+    if n == 3:
+        com2 = 194
+    else:
+        com2 = 40 * n**2 - 58 * n
+
+    mlt = m * l * t
+
+    x = (l * t) ** 3 / steps**2
+    x_prime = com2
+
+    y = 4 * mlt**4 / (3 * steps**3)
+    y_prime = math.exp((2 * mlt) / steps)
+
+    return x * x_prime + y * y_prime
+
+
+def simcount_pf4com_error(n, m, l, t, steps):
+    """
+    SimCount's fourth-order commutator error bound (pf4com).
+    """
+
+    # SimCount's fourth-order coefficient
+    p = 0.414490771794376
+    fp1 = 4 * p - 1
+
+    # System-size-dependent commutator bound
+    if n == 3:
+        com4 = 23073564672
+    elif n == 4:
+        com4 = 94192316416
+    elif n == 5:
+        com4 = 278878851840
+    else:
+        com4 = (
+            1280000000 * n**4
+            - 7701760000 * n**3
+            + 23685120000 * n**2
+            - 30224677632 * n
+        )
+
+    mlt = m * l * t
+
+    x = (
+        ((fp1 / 2) * l * t) ** 5
+        / (120 * steps**4)
+    )
+    x_prime = com4
+
+    y = (
+        2 * (5 * fp1 * mlt) ** 6
+        / (720 * steps**5)
+    )
+    y_prime = math.exp(
+        (5 * fp1 * mlt) / steps
+    )
+
+    return x * x_prime + y * y_prime
+
+
+def determine_simcount_steps(error_function, n, m, l, t, epsilon):
+    """
+    Determine the minimum number of product-formula steps
+    satisfying the supplied error bound.
+    """
+
+    lower = 0
+    upper = 1
+
+    # Exponential search
+    while error_function(n, m, l, t, upper) > epsilon:
+        lower = upper
+        upper *= 2
+
+    # Binary search
+    while lower + 1 < upper:
+        middle = (lower + upper) // 2
+
+        if error_function(n, m, l, t, middle) <= epsilon:
+            upper = middle
+        else:
+            lower = middle
+
+    return upper
+
 def print_time(label, start):
     print(f"{label}: {time.perf_counter() - start:.3f}s")
 
@@ -250,6 +388,11 @@ def build_circuit(
             "'single step', or 'two step'"
         )
 
+    if order not in [1, 2, 4]:
+            raise ValueError(
+                "order must be 1, 2, or 4 to align with Simcount's commutator bound implementations"
+            )
+
     epsilon_trotter = epsilon
     epsilon_synthesis = None
     if gridsynth:
@@ -269,13 +412,30 @@ def build_circuit(
 
     start = time.perf_counter()
 
-    steps = determine_trotter_steps(
-        H,
-        time=t,
-        order=order,
+    # steps = determine_trotter_steps(
+    #     H,
+    #     time=t,
+    #     order=order,
+    #     epsilon=epsilon_trotter,
+    #     fixed_steps=fixed_steps,
+    # )
+
+    if order == 1:
+        error_function = simcount_pf1com_error
+    elif order == 2:
+        error_function = simcount_pf2com_error
+    else:
+        error_function = simcount_pf4com_error
+
+    steps = determine_simcount_steps(
+        error_function=error_function,
+        n=n_qubits,
+        m=4*n_qubits,
+        l = max(max(abs(x) for x in coupling),
+                max(abs(x) for x in random_field)),
+        t=t,
         epsilon=epsilon_trotter,
-        fixed_steps=fixed_steps,
-    )
+    ) if fixed_steps is None else fixed_steps
 
     print("Trotter steps used:", steps)
     print_time("Trotter-step calculation", start)
@@ -405,15 +565,15 @@ def build_circuit(
             raw_counts,
         )
 
-single_boundary_stepwise_circuit, before_synthesis_counts, after_synthesis_counts, raw_counts = build_circuit(
+circuit, before_synthesis_counts, after_synthesis_counts, raw_counts = build_circuit(
     n_qubits,
     coupling,
     t,
     order,
     epsilon,
-    fixed_steps=None,
+    fixed_steps=fixed_steps,
     random_field=random_field,
-    simulation_mode="single step",
+    simulation_mode=simulation_mode,
     gridsynth=True,
 )
 

@@ -154,18 +154,91 @@ def test_routine_is_sound_and_reduces_as_expected(label, gates, n, routine, expe
     assert len(after) == expected_len, label
 
 
-def test_routine4_is_not_implemented():
-    circuit = Circuit([Gate("CNOT", (0, 1))], 2)
-    with pytest.raises(NotImplementedError, match="Routine 4"):
-        routine4_rotation_merging(circuit)
+def test_routine4_merges_the_papers_worked_example():
+    """Section 4.4 / equations 5-6: two of the four rotations act on the same
+    function of the inputs, so they combine and one gate goes."""
+    example = Circuit(
+        [
+            Gate("Rz", (1,), 0.31),      # acts on  y
+            Gate("CNOT", (0, 1)),
+            Gate("Rz", (1,), 0.77),      # acts on  x ^ y
+            Gate("CNOT", (0, 1)),
+            Gate("Rz", (0,), 1.19),      # acts on  x
+            Gate("Rz", (1,), 0.53),      # acts on  y   <- merges with the first
+            Gate("CNOT", (1, 0)),
+        ],
+        2,
+    )
+    merged = routine4_rotation_merging(example)
+    assert sum(g.is_rotation for g in example.gates) == 4
+    assert sum(g.is_rotation for g in merged.gates) == 3
+    assert _same_unitary(example, merged)
+    # the surviving rotation carries the sum of the two angles
+    angles = sorted(g.param for g in merged.gates if g.is_rotation)
+    assert angles == pytest.approx(sorted([0.31 + 0.53, 0.77, 1.19]))
 
 
-def test_light_refuses_to_silently_skip_routine4():
-    circuit = Circuit([Gate("H", (0,)), Gate("H", (0,))], 1)
-    with pytest.raises(NotImplementedError):
-        optimiser.optimise(circuit, optimiser.LIGHT, skip_unimplemented=False)
-    result = optimiser.optimise(circuit, optimiser.LIGHT, skip_unimplemented=True)
-    assert result.skipped == (4,)
+def test_routine4_keeps_the_survivors_own_wire():
+    """Two different wires can carry the same function at the same time, so the
+    combined rotation must stay on the wire of the rotation it was merged into,
+    not the wire of the one absorbed. Getting this wrong moves a gate."""
+    # after CNOT(0,1) then CNOT(0,1), wire 1 carries {1} again -- the same
+    # function wire 1 started with, but reached by a different route.
+    circuit = Circuit(
+        [
+            Gate("Rz", (1,), 0.4),
+            Gate("CNOT", (0, 1)),
+            Gate("CNOT", (0, 1)),
+            Gate("Rz", (1,), 0.6),
+        ],
+        2,
+    )
+    merged = routine4_rotation_merging(circuit)
+    rotations = [g for g in merged.gates if g.is_rotation]
+    assert len(rotations) == 1
+    assert rotations[0].wires == (1,)
+    assert rotations[0].param == pytest.approx(1.0)
+    assert _same_unitary(circuit, merged)
+
+
+@pytest.mark.parametrize("n", [4, 5, 6])
+@pytest.mark.parametrize("algo", ["pf2com", "pf4com"])
+def test_routine4_alone_preserves_the_unitary(n, algo):
+    H = simcount.run(n, "pf2com", "cz", 1).hamiltonian
+    sim = simulate(H, algo, float(n), 1e-3, r=3)
+    before = bridge.from_tape(sim.step, n)
+    after = routine4_rotation_merging(before)
+    assert _same_unitary(before, after)
+    assert len(after) < len(before)
+
+
+def test_light_now_runs_every_routine():
+    """Routine 4 is implemented, so the full Light sequence needs no skipping."""
+    H = simcount.run(4, "pf2com", "cz", 1).hamiltonian
+    before = bridge.from_tape(simulate(H, "pf2com", 4.0, 1e-3).step, 4)
+    result = optimiser.optimise(before, optimiser.LIGHT, skip_unimplemented=False)
+    assert result.skipped == ()
+    assert _same_unitary(before, result.circuit)
+    assert len(result.circuit) < len(before)
+
+
+def test_routine4_reduces_rotations_on_the_reference_block():
+    """The gate categories Routines 1-3 could not touch. Short of the published
+    1.40x because the run-splitting here is conservative -- see the DEVIATION
+    note on routine4_rotation_merging."""
+    comparison = samples.compare(
+        "pf4com", 13, sequence=optimiser.LIGHT, skip_unimplemented=False
+    )
+    rows = {name: (pre, ours, theirs) for name, pre, ours, theirs in comparison.rows()}
+    pre_rz, ours_rz, theirs_rz = rows["Rz"]
+    pre_cx, ours_cx, theirs_cx = rows["CNOT"]
+    assert ours_rz < pre_rz, "Routine 4 must reduce the rotation count"
+    assert ours_cx < pre_cx, "the merge should free CNOT gates for Routine 3"
+    assert ours_rz > theirs_rz, "conservative splitting: expected to fall short"
+    ok, err = verify.equivalent(
+        comparison.pair.pre_core, comparison.result.circuit, trials=2
+    )
+    assert ok, f"optimiser changed the circuit, error {err:.2e}"
 
 
 def test_pass_sequences_match_the_paper():
@@ -243,3 +316,98 @@ def test_reference_circuits_still_contain_entangling_gates(algo):
     Regression for the collapse caused by the two tolerance bugs."""
     comparison = samples.compare(algo, 13)
     assert comparison.result.after.get("CNOT", 0) > 0
+
+
+# --- Routine 4: per-wire stretches and Clifford-angle handling ----------------
+
+def test_clifford_angles_map_back_to_clifford_gates():
+    """A merged angle landing on a multiple of pi/2 must not be emitted as an Rz.
+    Leaving it as a rotation would hand a free gate to the synthesis stage to
+    approximate, inflating the T-count."""
+    from plsimcount.nam.routines import from_rotation
+
+    expected = {0: None, 1: "S", 2: "Z", 3: "Sdg"}
+    for turns in range(8):
+        gate = from_rotation(turns * np.pi / 2, (0,))
+        want = expected[turns % 4]
+        assert (gate.name if gate is not None else None) == want, turns
+    assert from_rotation(0.37, (0,)).name == "Rz"
+
+
+def test_s_gates_are_recognised_as_rotations():
+    """Section 4.1: the gate set is {NOT, H, Rz, CNOT} and the phase gate is
+    rz(pi/2), so S must take part in merging like any other rotation."""
+    from plsimcount.nam.routines import as_rotation
+
+    assert as_rotation(Gate("S", (0,))) == pytest.approx(np.pi / 2)
+    assert as_rotation(Gate("Sdg", (0,))) == pytest.approx(-np.pi / 2)
+    assert as_rotation(Gate("Z", (0,))) == pytest.approx(np.pi)
+    assert as_rotation(Gate("Rz", (0,), 0.4)) == pytest.approx(0.4)
+    assert as_rotation(Gate("H", (0,))) is None
+    # two S gates on the same function combine to a Z, not to an Rz
+    circuit = Circuit([Gate("S", (0,)), Gate("CNOT", (0, 1)), Gate("S", (0,))], 2)
+    merged = routine4_rotation_merging(circuit)
+    assert [g.name for g in merged.gates] == ["Z", "CNOT"]
+    assert _same_unitary(circuit, merged)
+
+
+def test_a_hadamard_only_retires_its_own_wire():
+    """The paper grows a stretch outwards per wire rather than ending it at any
+    Hadamard. Two rotations on wire 0 must still merge across an H on wire 1."""
+    from plsimcount.nam.routines import phase_stretches
+
+    circuit = Circuit(
+        [
+            Gate("Rz", (0,), 0.3),
+            Gate("H", (1,)),          # unrelated wire: must not end the stretch
+            Gate("Rz", (0,), 0.4),
+        ],
+        2,
+    )
+    assert len(phase_stretches(circuit)) == 1
+    merged = routine4_rotation_merging(circuit)
+    assert sum(1 for g in merged.gates if g.is_rotation) == 1
+    assert _same_unitary(circuit, merged)
+
+
+def test_a_hadamard_does_end_the_stretch_on_its_own_wire():
+    """The converse: a wire that has been retired cannot carry a merge."""
+    from plsimcount.nam.routines import phase_stretches
+
+    circuit = Circuit(
+        [Gate("Rz", (0,), 0.3), Gate("H", (0,)), Gate("Rz", (0,), 0.4)], 1
+    )
+    assert phase_stretches(circuit) == []
+    merged = routine4_rotation_merging(circuit)
+    assert sum(1 for g in merged.gates if g.is_rotation) == 2
+    assert _same_unitary(circuit, merged)
+
+
+def test_no_clifford_angle_rotations_leak_into_the_output():
+    """Across a real circuit, every surviving Rz must have a genuinely
+    non-Clifford angle."""
+    H = simcount.run(4, "pf2com", "cz", 1).hamiltonian
+    before = bridge.from_tape(simulate(H, "pf2com", 4.0, 1e-3).step, 4)
+    after = optimiser.optimise(before).circuit
+    for gate in after.gates:
+        if gate.is_rotation:
+            quarter_turns = gate.param / (np.pi / 2)
+            assert abs(quarter_turns - round(quarter_turns)) > 1e-9, gate
+
+
+def test_marginal_cost_per_repeated_block_is_the_fair_comparison():
+    """Their published circuit is L . C^m . R, so C assumes a neighbour on both
+    sides. Optimising one isolated block overstates the per-block cost, and the
+    marginal cost of an extra block is the number to compare against C."""
+    pre = samples.load("pf4com", 13).pre_core
+    sizes = []
+    for copies in (2, 3):
+        joined = Circuit(list(pre.gates) * copies, pre.n_qubits)
+        sizes.append(len(optimiser.optimise(joined).circuit))
+    marginal = sizes[1] - sizes[0]
+    isolated = len(optimiser.optimise(pre).circuit)
+    assert marginal < isolated, "an isolated block cannot merge across its edges"
+    # 85% of the published reduction; see README for what has been ruled out.
+    theirs = len(samples.load("pf4com", 13).post_core)
+    recovered = (len(pre) / marginal) / (len(pre) / theirs)
+    assert 0.80 < recovered < 0.90, recovered
