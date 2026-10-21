@@ -24,6 +24,12 @@ How each row is made
 Rows with ``r_source == "fit"`` are extrapolations: r = ceil(a n^b) fitted to
 the measured sizes. They are labelled as such and are not measurements.
 
+Config key ``eps_trotter`` (a list) switches to an eps sweep: measured r and
+counts at every listed eps_trotter instead of the gate set's default, for
+gate sets without synthesis only (cz, cz2ct), and without paper_instance /
+extrapolate / bound_rows (which assume the default eps). Configs without the
+key behave exactly as before.
+
 Rows with ``r_source`` in ``ana | min | com | emp | tte`` (config section
 ``bound_rows``) take r from that Trotter bound (``bounds.steps``) instead of
 measuring it, everything else being identical. The bounds are Suzuki-specific
@@ -227,8 +233,10 @@ FIELDS = ["instance", "n", "t", "scheme", "family", "order", "q", "gatebase", "e
           "rz_total", "cnot_total", "t_total", "gates_total"]
 
 
-def _row(instance, n, t, key, spec, gatebase, r_source, r, search, merged, counts, eps_rot):
-    eps_trotter, eps_synth = GATEBASES[gatebase]
+def _row(instance, n, t, key, spec, gatebase, r_source, r, search, merged, counts, eps_rot, eps=None):
+    """One results row. ``eps`` = (eps_trotter, eps_synth); None means the
+    gatebase's defaults from ``GATEBASES``."""
+    eps_trotter, eps_synth = GATEBASES[gatebase] if eps is None else eps
     s = resources.summary(counts)
     emp = None
     if spec.family == "suzuki" and r_source == "measured":
@@ -254,18 +262,37 @@ class _dummy:
         self.n_qubits = n
 
 
+def gatebase_eps(gb: str, eps_trotter: float | None = None) -> tuple[float, float | None]:
+    """(eps_trotter, eps_synth) for a gate set, with an optional Trotter override.
+
+    The override exists only for the eps sweep (config key ``eps_trotter``)
+    and only for gate sets without synthesis: with synthesis, the split of
+    the total error between Trotter and rotation synthesis is part of the
+    gate set's definition (simcount's Main.hs), and changing one half alone
+    would be an unstated choice. Raises in that case.
+    """
+    default_trotter, eps_synth = GATEBASES[gb]
+    if eps_trotter is None:
+        return default_trotter, eps_synth
+    if eps_synth is not None:
+        raise ValueError(f"an eps_trotter override is only defined for gate sets without synthesis, not {gb!r}")
+    if not (isinstance(eps_trotter, float) and 0 < eps_trotter < 1):
+        raise ValueError(f"eps_trotter must be a float in (0, 1), got {eps_trotter!r}")
+    return eps_trotter, None
+
+
 def run_instance(rows, instance, H, n, t, keys, registry, gatebases, cfg, r_source="measured",
-                 r_given=None, hints=None, log=print):
+                 r_given=None, hints=None, log=print, eps_trotter: float | None = None):
     template, backend = cfg.get("template", "simcount"), cfg.get("synth_backend", "pygridsynth")
     evol = fastempirical.FastEvolution(H) if r_source == "measured" else None
     for key in keys:
         spec = registry[key]
         for gb in gatebases:
-            eps_trotter, eps_synth = GATEBASES[gb]
+            eps_trotter_gb, eps_synth = gatebase_eps(gb, eps_trotter)
             search = None
             if r_source == "measured":
                 start = (hints or {}).get((key, gb), 1)
-                search = fastempirical.steps(evol, spec.schedule, spec.order, t, eps_trotter, start=start)
+                search = fastempirical.steps(evol, spec.schedule, spec.order, t, eps_trotter_gb, start=start)
                 r = search.r
                 if hints is not None:
                     hints[(key, gb)] = r
@@ -277,7 +304,8 @@ def run_instance(rows, instance, H, n, t, keys, registry, gatebases, cfg, r_sour
                 if eps_synth is not None:
                     eps_rot = eps_synth / (resources.rotations(counts) * r)
                     counts = synthesised_counts(counts, eps_rot, backend)
-                rows.append(_row(instance, n, t, key, spec, gb, r_source, r, search, merged, counts, eps_rot))
+                rows.append(_row(instance, n, t, key, spec, gb, r_source, r, search, merged, counts, eps_rot,
+                                 eps=(eps_trotter_gb, eps_synth)))
             last = rows[-1]
             log(f"  {instance:8s} n={n:2d} {gb:3s} {spec.name:32s} r={r:>8,}"
                 + (f" ({search.evaluations} evals, {search.seconds:6.1f}s)" if search else f" ({r_source})")
@@ -308,6 +336,31 @@ def main(argv=None):
     rows: list[dict] = []
     hints: dict = {}
     t_start = time.perf_counter()
+
+    # 0. eps sweep: measured r for several eps_trotter (cz-type gate sets only)
+    sweep = cfg.get("eps_trotter")
+    if sweep is not None:
+        clash = [k for k in ("paper_instance", "extrapolate", "bound_rows") if k in cfg]
+        if clash:
+            raise ValueError(f"config key eps_trotter cannot be combined with {clash} "
+                             "(they assume the gate set's default eps)")
+        if not isinstance(sweep, list) or not sweep or len(set(sweep)) != len(sweep):
+            raise ValueError(f"eps_trotter must be a non-empty list of distinct floats, got {sweep!r}")
+        for eps in sweep:
+            for gb in cfg["gatebases"]:
+                gatebase_eps(gb, eps)  # raises for synthesis gate sets / bad values
+        for eps in sweep:
+            print(f"== eps sweep: eps_trotter = {eps:g}, simcount instances (seed {cfg['seed']}), t = n ==")
+            hints_eps: dict = {}
+            for n in cfg["sizes"]:
+                H = fixture_hamiltonian(n, cfg["seed"])
+                run_instance(rows, "simcount", H, n, float(n), keys, registry, cfg["gatebases"], cfg,
+                             hints=hints_eps, eps_trotter=eps)
+                _write(out_dir, rows, meta)
+        meta["seconds"] = round(time.perf_counter() - t_start, 1)
+        _write(out_dir, rows, meta)
+        print(f"done in {meta['seconds']:.0f}s -> {out_dir / 'results.csv'}")
+        return
 
     # 1. simcount instances, measured r
     print(f"== simcount instances (seed {cfg['seed']}), t = n ==")

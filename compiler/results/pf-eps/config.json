@@ -1,0 +1,12 @@
+{
+  "name": "pf-eps",
+  "description": "eps sweep: every pf-thesis formula at measured r for eps_trotter in {1e-2, 1e-3, 1e-4}, cz gate set (no synthesis), simcount seed 1, n = 4-10, t = n; merged and unmerged",
+  "schemes": ["lie-trotter", "suzuki2", "suzuki4", "suzuki6", "suzuki8",
+              "mo-q6", "mo-q14", "bm-q10", "mo-o8-q21", "morales-y8m10", "morales-m8"],
+  "sizes": [4, 5, 6, 7, 8, 10],
+  "seed": 1,
+  "gatebases": ["cz"],
+  "template": "simcount",
+  "synth_backend": "pygridsynth",
+  "eps_trotter": [0.01, 0.001, 0.0001]
+}
