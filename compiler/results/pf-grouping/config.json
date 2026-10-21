@@ -1,0 +1,8 @@
+{
+  "name": "pf-grouping",
+  "description": "Suzuki S2 and S4 under four groupings/compilations (X-Y-Z term by term; even/odd term by term; even/odd with 3-CNOT bond blocks; two groups with field-folded blocks, both outer choices), measured r, cz, simcount seed 1, even n, t = n",
+  "seed": 1,
+  "orders": [2, 4],
+  "sizes": [4, 6, 8, 10],
+  "gatebase": "cz"
+}
