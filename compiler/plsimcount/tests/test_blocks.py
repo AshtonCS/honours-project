@@ -93,3 +93,39 @@ def test_schedule_is_unchanged():
     """Blocking regroups the existing schedule; it must not alter it."""
     H = evenodd.even_odd(heisenberg(4, FIELDS_N4))
     assert len(formula.schedule(4, H, 0.1)) == 5 * (2 * 12 + 4)
+
+
+def _fig6_paper_convention(alpha, beta, gamma):
+    """Vatan & Williams, PRA 69, 032315 (2004), Fig. 6, transcribed gate by
+    gate in time order, top wire = first tensor factor, with the paper's
+    rotation convention R(theta) = exp(+i theta sigma / 2) (the one under
+    which the figure reproduces N; see blocks.canonical_block)."""
+    X = np.array([[0, 1], [1, 0]]); Y = np.array([[0, -1j], [1j, 0]]); Z = np.diag([1, -1]); I = np.eye(2)
+    P0, P1 = np.diag([1, 0]), np.diag([0, 1])
+    rz = lambda th: expm(0.5j * th * Z)  # noqa: E731
+    ry = lambda th: expm(0.5j * th * Y)  # noqa: E731
+    top = lambda g: np.kron(g, I)  # noqa: E731
+    bot = lambda g: np.kron(I, g)  # noqa: E731
+    cnot_bt = np.kron(I, P0) + np.kron(X, P1)  # control bottom, target top
+    cnot_tb = np.kron(P0, I) + np.kron(P1, X)  # control top, target bottom
+    gates = [bot(rz(np.pi / 2)), cnot_bt, top(rz(2 * gamma - np.pi / 2)), bot(ry(np.pi / 2 - 2 * alpha)),
+             cnot_tb, bot(ry(2 * beta - np.pi / 2)), cnot_bt, top(rz(-np.pi / 2))]
+    U = np.eye(4, dtype=complex)
+    for g in gates:
+        U = g @ U
+    return U
+
+
+@pytest.mark.parametrize("seed", range(5))
+def test_block_is_adjoint_of_vatan_williams_fig6(seed):
+    """The paper's claim (Fig. 6 = N(alpha, beta, gamma) up to e^{i pi/4}),
+    and this code's relation to it: block = e^{-i pi/4} Fig6^dagger, exactly,
+    which is exp(-i(aXX + bYY + cZZ)) including the global phase."""
+    a, b, c = np.random.default_rng(100 + seed).uniform(-2, 2, 3)
+    X = np.array([[0, 1], [1, 0]]); Y = np.array([[0, -1j], [1j, 0]]); Z = np.diag([1, -1])
+    G = a * np.kron(X, X) + b * np.kron(Y, Y) + c * np.kron(Z, Z)
+    F = _fig6_paper_convention(a, b, c)
+    assert np.linalg.norm(np.exp(1j * np.pi / 4) * F - expm(1j * G), 2) < 1e-12  # the paper's statement
+    U = qml.matrix(qml.tape.QuantumScript(blocks.canonical_block(0, 1, a, b, c)), wire_order=[0, 1])
+    assert np.linalg.norm(U - np.exp(-1j * np.pi / 4) * F.conj().T, 2) < 1e-12
+    assert np.linalg.norm(U - expm(-1j * G), 2) < 1e-12  # exact, not only up to phase

@@ -11,12 +11,19 @@ phase), so the step implements the same unitary as the term-by-term
 even/odd step and the Trotter number r is unchanged; only the gates per
 step change.
 
-Circuit: the 3-CNOT construction for the two-qubit 'canonical' gate. Its
-structure follows Vatan & Williams, PRA 69, 032315 (2004), as I recall it
--- the published figure has NOT been checked against this code. Signs,
-qubit roles and gate order here were fixed numerically, and correctness
-rests on the exact-matrix tests in ``tests/test_blocks.py``, not on the
-citation.
+Circuit: the 3-CNOT construction for the two-qubit canonical gate of
+F. Vatan and C. Williams, "Optimal quantum circuits for general two-qubit
+gates", Phys. Rev. A 69, 032315 (2004), arXiv:quant-ph/0308006, Sec. V,
+derived in Figs. 4 -> 5 -> 6. Checked against the published Fig. 6 (and the
+Fig. 5 caption) on 2026-10-21; see ``canonical_block`` for exactly what
+matches and what differs. In short: this code is the *adjoint* of Fig. 6 --
+the same eight gates on the same qubits with the same angle expressions,
+in reverse time order -- because the paper builds
+N(alpha, beta, gamma) = exp(+i(alpha XX + beta YY + gamma ZZ)) with
+R(theta) = exp(+i theta sigma/2), while this code needs exp(-i(...)) with
+PennyLane's R(theta) = exp(-i theta sigma/2). Correctness still rests on the
+exact-matrix tests in ``tests/test_blocks.py``; the citation records where
+the construction comes from.
 
 Gate set: {H, S, S-dagger, CNOT, RZ}, as ``exponentiate.simcount_template``.
 The fixed +-pi/2 parts are emitted as S / S-dagger rather than folded into
@@ -55,16 +62,44 @@ def _ry(theta_rot: float | None, q: int, extra: str | None = None) -> list:
 
 
 def canonical_block(q0: int, q1: int, a: float, b: float, c: float) -> list:
-    """exp(-i (a X_q0 X_q1 + b Y_q0 Y_q1 + c Z_q0 Z_q1)), up to global phase.
+    """exp(-i (a X_q0 X_q1 + b Y_q0 Y_q1 + c Z_q0 Z_q1)), exactly.
 
-    a, b, c are dimensionless (time x coupling). Time order, with
-    RZ(+-pi/2) written as S / S-dagger:
+    a, b, c are dimensionless (time x coupling). Rotations are PennyLane's,
+    RZ(theta) = exp(-i theta Z/2), RY(theta) = exp(-i theta Y/2). Time order
+    (left acts first), with RZ(+-pi/2) written as S / S-dagger:
 
-      q0: Sdg --X-- . ------ RZ(2c) Sdg --X--------------
+      q0: Sdg --X-- . ------------ RZ(2c-pi/2) --X------
       q1: ------.-- RY(2b-pi/2) --X-- RY(pi/2-2a) --.-- S
 
-    The global phase differs from the exact exponential; it is not tracked
-    (the Nam optimiser drops it too)."""
+    Relation to Vatan & Williams (PRA 69, 032315, Fig. 6), checked against
+    the published figure and numerically (``tests/test_blocks.py``,
+    ``test_block_is_adjoint_of_vatan_williams_fig6``):
+
+    * Paper, Fig. 6, time order, top wire = q0, bottom wire = q1:
+      bottom Rz(pi/2); CNOT bottom->top; top Rz(2 gamma - pi/2) and bottom
+      Ry(pi/2 - 2 alpha); CNOT top->bottom; bottom Ry(2 beta - pi/2);
+      CNOT bottom->top; top Rz(-pi/2). The Fig. 5 caption defines
+      S1 = Rz(pi/2), S2 = Rz(2 gamma - pi/2), T1 = Ry(pi/2 - 2 alpha),
+      T2 = Ry(2 beta - pi/2); Fig. 6 is Fig. 5 after the two
+      simplifications in the text. The paper states Fig. 6 equals
+      N(alpha, beta, gamma) = exp(+i(alpha XX + beta YY + gamma ZZ)) up to a
+      missing global phase e^{i pi/4}.
+    * What matches: the same eight gates, the same qubit for each gate, the
+      same CNOT directions, and the same angle expressions with
+      (alpha, beta, gamma) -> (a, b, c).
+    * What differs: (1) the time order is reversed -- this code is the
+      figure read right to left. (2) The rotation convention: Fig. 6 equals
+      e^{-i pi/4} N(alpha, beta, gamma) only if Rz(theta) = exp(+i theta Z/2),
+      Ry(theta) = exp(+i theta Y/2) (verified numerically; with PennyLane's
+      sign it does not reproduce N at all). Under PennyLane's convention each
+      gate here is the inverse of the paper's gate with the same label, so
+      reversing the order gives the adjoint: this block = e^{-i pi/4} x
+      (Fig. 6)^dagger = N(a, b, c)^dagger = exp(-i(aXX + bYY + cZZ)) -- the
+      opposite sign of the paper's N, which is what the Trotter step needs.
+      (3) The +-pi/2 parts are emitted as S / S-dagger, whose phases
+      e^{+-i pi/4} make the block exact *including* the global phase (the
+      paper's Fig. 6 omits e^{i pi/4}). The Nam optimiser drops global
+      phases, so nothing downstream depends on (3)."""
     ops = [qml.adjoint(qml.S(q0)), qml.CNOT([q1, q0])]
     ops += _ry(2 * b, q1, extra="Sdg")            # RY(2b - pi/2)
     ops += [qml.CNOT([q0, q1])]
