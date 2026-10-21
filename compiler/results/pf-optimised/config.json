@@ -1,0 +1,9 @@
+{
+  "name": "pf-optimised",
+  "description": "Nam et al. Light optimiser (plsimcount.nam reconstruction) on the merged cz step of S2, S4, M&O q=6, S6, M&O q=14; simcount seed 1, n = 4-10, t = n, r = pf-thesis measured cz r; per step unoptimised / isolated / marginal (3 steps - 2 steps), totals = marginal x r",
+  "source": "../pf-thesis/results.json",
+  "schemes": ["suzuki2", "suzuki4", "mo-q6", "suzuki6", "mo-q14"],
+  "sizes": [4, 5, 6, 7, 8, 10],
+  "seed": 1,
+  "gatebase": "cz"
+}
