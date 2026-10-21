@@ -3,8 +3,76 @@
   "description": "Hold-out check of pfcompare's r = ceil(a n^b) extrapolation on pf-thesis's measured r (seed 1, t = n, cz and ct): fit on a subset of measured sizes, predict a larger measured size",
   "source": "../pf-thesis/results.json",
   "checks": [
-    {"fit": [5, 6, 7, 8], "predict": 10},
-    {"fit": [6, 7, 8], "predict": 10},
-    {"fit": [4, 5, 6, 7], "predict": 8}
-  ]
+    {
+      "fit": [
+        5,
+        6,
+        7,
+        8
+      ],
+      "predict": 10
+    },
+    {
+      "fit": [
+        6,
+        7,
+        8
+      ],
+      "predict": 10
+    },
+    {
+      "fit": [
+        4,
+        5,
+        6,
+        7
+      ],
+      "predict": 8
+    }
+  ],
+  "spread": {
+    "targets": [
+      13,
+      20
+    ],
+    "windows": [
+      [
+        5,
+        6,
+        7,
+        8
+      ],
+      [
+        6,
+        7,
+        8
+      ],
+      [
+        6,
+        7,
+        8,
+        10
+      ],
+      [
+        5,
+        6,
+        7,
+        8,
+        10
+      ],
+      [
+        4,
+        5,
+        6,
+        7,
+        8,
+        10
+      ],
+      [
+        7,
+        8,
+        10
+      ]
+    ]
+  }
 }

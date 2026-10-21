@@ -104,6 +104,59 @@ def run_checks(rows: list[dict], checks: list[dict]) -> list[Check]:
     return out
 
 
+@dataclass
+class Spread:
+    """How much an extrapolated r depends on which measured sizes are fitted."""
+    scheme: str
+    order: int
+    gatebase: str
+    target: int
+    predictions: dict[str, int]   # window label "{6,7,8,10}" -> ceil(a target^b)
+    ratio_max_min: float          # max / min over the windows
+
+
+def window_spread(rows: list[dict], windows: list[list[int]], targets: list[int]) -> list[Spread]:
+    """For each (scheme, gatebase) and unmeasured target size, the prediction
+    from every fit window. Not an error estimate: it only shows how strongly
+    the extrapolated r depends on a choice the data do not fix."""
+    table = measured_r(rows)
+    orders = {row["scheme"]: int(row["order"]) for row in rows}
+    out: list[Spread] = []
+    for (scheme, gb), per in table.items():
+        for tg in targets:
+            preds: dict[str, int] = {}
+            for w in windows:
+                missing = [n for n in w if n not in per]
+                if missing:
+                    raise ValueError(f"{scheme}/{gb}: no measured r at n={missing}")
+                lbl = "{" + ",".join(map(str, w)) + "}"
+                preds[lbl] = predict(w, [per[n] for n in w], tg)[2]
+            out.append(Spread(scheme, orders[scheme], gb, tg, preds, max(preds.values()) / min(preds.values())))
+    return out
+
+
+def spread_table(spreads: list[Spread], scheme_order: list[str]) -> str:
+    windows = list(spreads[0].predictions)
+    lines = ["| scheme | gate set | n | " + " | ".join(windows) + " | max/min |",
+             "|---|---|---:|" + "---:|" * (len(windows) + 1)]
+    by = {(s.scheme, s.gatebase, s.target): s for s in spreads}
+    gbs, targets = [], []
+    for s in spreads:
+        if s.gatebase not in gbs:
+            gbs.append(s.gatebase)
+        if s.target not in targets:
+            targets.append(s.target)
+    for gb in gbs:
+        for tg in targets:
+            for sc in scheme_order:
+                s = by.get((sc, gb, tg))
+                if s is None:
+                    continue
+                lines.append(f"| {sc} | {gb} | {tg} | " + " | ".join(f"{s.predictions[w]:,}" for w in windows)
+                             + f" | {s.ratio_max_min:.2f} |")
+    return "\n".join(lines)
+
+
 # ------------------------------------------------------------------ output
 
 def markdown_table(results: list[Check], scheme_order: list[str]) -> str:
@@ -171,8 +224,11 @@ def main(argv: list[str] | None = None) -> None:
             "source_results_sha256": hashlib.sha256(source.read_bytes()).hexdigest(),
             "source_provenance": data["meta"]["provenance"]}
     write_environment(out_dir)
-    (out_dir / "results.json").write_text(json.dumps({"meta": meta, "rows": [asdict(c) for c in results]},
-                                                     indent=1))
+    spreads = []
+    if "spread" in cfg:
+        spreads = window_spread(data["rows"], cfg["spread"]["windows"], cfg["spread"]["targets"])
+    (out_dir / "results.json").write_text(json.dumps({"meta": meta, "rows": [asdict(c) for c in results],
+                                                      "spread": [asdict(x) for x in spreads]}, indent=1))
     with open(out_dir / "results.csv", "w", newline="") as fh:
         w = csv.DictWriter(fh, fieldnames=list(asdict(results[0])))
         w.writeheader()
@@ -185,6 +241,11 @@ def main(argv: list[str] | None = None) -> None:
           f"Source: `{cfg['source']}` (sha256 {meta['source_results_sha256'][:12]}...).",
           "rel. err = (predicted - measured) / measured; positive = over-prediction.", "",
           "## Summary", "", summary(results), "", "## Every scheme", "", markdown_table(results, order), ""]
+    if spreads:
+        md += ["## Dependence of the extrapolated r on the fit window", "",
+               "ceil(a n^b) at unmeasured n, fitted on each window of measured sizes. "
+               "The pf-thesis rows use {6,7,8,10}. This is a sensitivity, not an error bar.", "",
+               spread_table(spreads, order), ""]
     (out_dir / "table.md").write_text("\n".join(md))
     print("\n".join(md))
 

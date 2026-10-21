@@ -99,3 +99,19 @@ def test_main_writes_outputs(tmp_path):
         assert (out / f).exists()
     res = json.loads((out / "results.json").read_text())
     assert res["rows"][0]["r_measured"] == 64
+
+
+def test_window_spread_hand_check():
+    """r = n^2 exactly: every window predicts 169 at n = 13 (ratio 1).
+    Perturb r(10) to 120: window {6,7,8} still predicts 169 (or 170 from
+    rounding), window {8,10} gives b = log(120/64)/log(10/8) = 2.817...,
+    a = 64 / 8^b, prediction ceil(120 * 1.3^b) = ceil(251.28...) = 252."""
+    rows = _rows(lambda n: n ** 2, [6, 7, 8, 10])
+    [s] = pffit.window_spread(rows, [[6, 7, 8], [6, 7, 8, 10]], [13])
+    assert set(s.predictions.values()) <= {169, 170}
+    rows = _rows(lambda n: 120 if n == 10 else n ** 2, [6, 7, 8, 10])
+    [s] = pffit.window_spread(rows, [[6, 7, 8], [8, 10]], [13])
+    b = math.log(120 / 64) / math.log(10 / 8)
+    assert s.predictions["{8,10}"] == math.ceil(120 * 1.3 ** b) == 252
+    assert s.predictions["{6,7,8}"] in (169, 170)
+    assert s.ratio_max_min == pytest.approx(252 / s.predictions["{6,7,8}"])
