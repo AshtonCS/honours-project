@@ -44,7 +44,11 @@ by gate set), plus:
   `tte` is Childs et al. 2021 (Props. 15, 16, J.1/J.2). Pairs a bound does not
   define (`com`/`tte` above order 4) are skipped and listed in
   `results.json` under `meta.skipped`. `emp` ignores t and eps by
-  construction, so it gives the same r for `cz` and `ct`.
+  construction, so it gives the same r for `cz` and `ct`. Consequence, visible
+  in the T-count figures: `ct` halves the Trotter budget (5e-4), so measured r
+  rises (x2 for Lie-Trotter, x1.4 for S2) but `emp` does not, and the `emp`
+  T counts sit *below* measured. They do not meet the `ct` accuracy; this is
+  simcount's convention, reported as is, not corrected.
   The `com` row for Suzuki S2 at n = 4 reproduces simcount's own run
   (r = 5,503; 1,122,612 gates unmerged), which is checked in the tests.
 - **Synthesis precision**: the bound rows need eps_rot down to ~1e-17.

@@ -55,8 +55,9 @@ METHOD_STYLE: dict[str, tuple[str, str, str]] = {  # method -> (label, colour, m
     "min": ("Minimised bound", "brown", "triangle*"),
     "com": ("Commutator bound (2018)", "orange", "diamond*"),
     "emp": ("Empirical fit (2018)", "teal", "pentagon*"),
-    "tte": ("Commutator bound (2021)", "blue", "*"),
-    "measured": ("Measured $r$", "red", "star"),
+    "tte": ("Commutator bound (2021)", "blue", "oplus*"),
+    # measured needs a fillable mark: its fitted points are drawn open
+    "measured": ("Measured $r$", "red", "*"),
 }
 
 FAMILY_COLOUR = {"suzuki": "red", "paper": "blue", "historical": "green!50!black"}
