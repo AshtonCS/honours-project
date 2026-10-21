@@ -181,8 +181,10 @@ def best_formula(aggs: list[Agg], seed: int) -> dict[tuple[int, str], str]:
 
 # ------------------------------------------------------------------ reproduction
 
-def compare_rows(rows_a: list[dict], rows_b: list[dict], sources: tuple[str, ...]) -> tuple[int, list[str]]:
-    """Field-by-field comparison of the rows with r_source in ``sources``.
+def compare_rows(rows_a: list[dict], rows_b: list[dict], sources: tuple[str, ...],
+                 instances: tuple[str, ...] | None = None) -> tuple[int, list[str]]:
+    """Field-by-field comparison of the rows with r_source in ``sources``
+    (and instance in ``instances``, if given).
 
     Rows are matched on (instance, n, scheme, gatebase, r_source, merged).
     Returns (number of rows compared, list of differences); missing rows on
@@ -192,7 +194,7 @@ def compare_rows(rows_a: list[dict], rows_b: list[dict], sources: tuple[str, ...
     def index(rows):
         out = {}
         for r in rows:
-            if r["r_source"] not in sources:
+            if r["r_source"] not in sources or (instances is not None and r["instance"] not in instances):
                 continue
             k = (r["instance"], int(r["n"]), r["scheme"], r["gatebase"], r["r_source"], bool(r["merged"]))
             if k in out:
@@ -388,10 +390,12 @@ def main(argv: list[str] | None = None) -> None:
     if "reproduce" in cfg:
         refdata = json.loads((here / cfg["reproduce"]["results"]).read_text())
         sources = tuple(cfg["reproduce"]["r_sources"])
-        n_cmp, diffs = compare_rows(runs[ref]["rows"], refdata["rows"], sources)
+        instances = tuple(cfg["reproduce"]["instances"]) if "instances" in cfg["reproduce"] else None
+        n_cmp, diffs = compare_rows(runs[ref]["rows"], refdata["rows"], sources, instances)
         rep = [f"# Seed {ref} vs `{cfg['reproduce']['results']}`", "",
                f"Rows with r_source in {list(sources)}, matched on (instance, n, scheme, gate set, r_source, "
                f"merged); every field except {sorted(NONDETERMINISTIC)} compared.", "",
+               f"Instances compared: {list(instances) if instances else 'all'}.", "",
                f"{n_cmp} rows matched; {len(diffs)} differences.", ""] + [f"- {d}" for d in diffs]
         (out / "reproduction.md").write_text("\n".join(rep) + "\n")
 

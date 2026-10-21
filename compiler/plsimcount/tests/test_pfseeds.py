@@ -105,3 +105,10 @@ def test_figures_have_median_and_error_bars(tmp_path):
     assert "(4,1000) += (0,200) -= (0,100)" in tex
     assert (root / "cnot" / "B-order4-by-formula.tex").exists()
     assert "\\input{cnot/A-measured-by-order.tex}" in (root / "all.tex").read_text()
+
+
+def test_compare_rows_instance_filter():
+    a = [_row("suzuki2", 2, 4, 100, 10)]
+    b = a + [dict(a[0], instance="paper")]
+    assert S.compare_rows(a, b, ("measured",))[1] != []
+    assert S.compare_rows(a, b, ("measured",), ("simcount",)) == (1, [])
