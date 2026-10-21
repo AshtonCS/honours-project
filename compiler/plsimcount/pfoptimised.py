@@ -81,6 +81,9 @@ def optimise_case(H, spec, n: int, r: int) -> dict:
         out[f"opt{k}"] = _counts(res.circuit)
     out["seconds"] = round(time.perf_counter() - t0, 2)
     out["isolated"] = out["opt1"]
+    # ASSUMPTION: the optimised total is marginal x r (nam/README's per-block
+    # quantity scaled by r); the constant edge term opt(2) - 2 marginal is
+    # dropped from the total but recorded per row. (unconfirmed)
     out["marginal"] = {m: out["opt3"][m] - out["opt2"][m] for m in METRICS}
     out["edge"] = {m: out["opt2"][m] - 2 * out["marginal"][m] for m in METRICS}
     # soundness of every optimised chain
