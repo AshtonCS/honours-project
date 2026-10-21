@@ -1,0 +1,12 @@
+{
+  "name": "pf-seeds/seed2",
+  "description": "Every pf-thesis formula at measured r on simcount seed 2 (n = 4-10), extrapolated to 13/20 from n = 6,7,8,10; cz and ct; merged and unmerged. No bound rows, no paper instance. Identical across pf-seeds/seed* except the seed.",
+  "schemes": ["lie-trotter", "suzuki2", "suzuki4", "suzuki6", "suzuki8",
+              "mo-q6", "mo-q14", "bm-q10", "mo-o8-q21", "morales-y8m10", "morales-m8"],
+  "sizes": [4, 5, 6, 7, 8, 10],
+  "seed": 2,
+  "gatebases": ["cz", "ct"],
+  "template": "simcount",
+  "synth_backend": "pygridsynth",
+  "extrapolate": {"sizes": [13, 20], "fit_sizes": [6, 7, 8, 10]}
+}

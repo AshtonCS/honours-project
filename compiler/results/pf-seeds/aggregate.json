@@ -1,0 +1,8 @@
+{
+  "name": "pf-seeds aggregate",
+  "description": "Spread across simcount seeds 1-5 of r and merged gate totals, cost-order reversals relative to seed 1, and median/min-max figures. Seed 1 must reproduce pf-thesis's measured and fit rows.",
+  "runs": ["seed1/results.json", "seed2/results.json", "seed3/results.json", "seed4/results.json", "seed5/results.json"],
+  "reference_seed": 1,
+  "reproduce": {"results": "../pf-thesis/results.json", "r_sources": ["measured", "fit"]},
+  "out": "aggregate"
+}

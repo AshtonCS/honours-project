@@ -1,0 +1,56 @@
+$ cd /tmp && /tmp/simcount-main -n 13 -a pf2emp -g cz -f gatecount -m 4
+Hamiltonian: [(1.0,[X,X,I,I,I,I,I,I,I,I,I,I,I]),(1.0,[I,X,X,I,I,I,I,I,I,I,I,I,I]),(1.0,[I,I,X,X,I,I,I,I,I,I,I,I,I]),(1.0,[I,I,I,X,X,I,I,I,I,I,I,I,I]),(1.0,[I,I,I,I,X,X,I,I,I,I,I,I,I]),(1.0,[I,I,I,I,I,X,X,I,I,I,I,I,I]),(1.0,[I,I,I,I,I,I,X,X,I,I,I,I,I]),(1.0,[I,I,I,I,I,I,I,X,X,I,I,I,I]),(1.0,[I,I,I,I,I,I,I,I,X,X,I,I,I]),(1.0,[I,I,I,I,I,I,I,I,I,X,X,I,I]),(1.0,[I,I,I,I,I,I,I,I,I,I,X,X,I]),(1.0,[I,I,I,I,I,I,I,I,I,I,I,X,X]),(1.0,[X,I,I,I,I,I,I,I,I,I,I,I,X]),(1.0,[Y,Y,I,I,I,I,I,I,I,I,I,I,I]),(1.0,[I,Y,Y,I,I,I,I,I,I,I,I,I,I]),(1.0,[I,I,Y,Y,I,I,I,I,I,I,I,I,I]),(1.0,[I,I,I,Y,Y,I,I,I,I,I,I,I,I]),(1.0,[I,I,I,I,Y,Y,I,I,I,I,I,I,I]),(1.0,[I,I,I,I,I,Y,Y,I,I,I,I,I,I]),(1.0,[I,I,I,I,I,I,Y,Y,I,I,I,I,I]),(1.0,[I,I,I,I,I,I,I,Y,Y,I,I,I,I]),(1.0,[I,I,I,I,I,I,I,I,Y,Y,I,I,I]),(1.0,[I,I,I,I,I,I,I,I,I,Y,Y,I,I]),(1.0,[I,I,I,I,I,I,I,I,I,I,Y,Y,I]),(1.0,[I,I,I,I,I,I,I,I,I,I,I,Y,Y]),(1.0,[Y,I,I,I,I,I,I,I,I,I,I,I,Y]),(1.0,[Z,Z,I,I,I,I,I,I,I,I,I,I,I]),(1.0,[I,Z,Z,I,I,I,I,I,I,I,I,I,I]),(1.0,[I,I,Z,Z,I,I,I,I,I,I,I,I,I]),(1.0,[I,I,I,Z,Z,I,I,I,I,I,I,I,I]),(1.0,[I,I,I,I,Z,Z,I,I,I,I,I,I,I]),(1.0,[I,I,I,I,I,Z,Z,I,I,I,I,I,I]),(1.0,[I,I,I,I,I,I,Z,Z,I,I,I,I,I]),(1.0,[I,I,I,I,I,I,I,Z,Z,I,I,I,I]),(1.0,[I,I,I,I,I,I,I,I,Z,Z,I,I,I]),(1.0,[I,I,I,I,I,I,I,I,I,Z,Z,I,I]),(1.0,[I,I,I,I,I,I,I,I,I,I,Z,Z,I]),(1.0,[I,I,I,I,I,I,I,I,I,I,I,Z,Z]),(1.0,[Z,I,I,I,I,I,I,I,I,I,I,I,Z]),(-0.26889876550829905,[Z,I,I,I,I,I,I,I,I,I,I,I,I]),(-0.21680162241208456,[I,Z,I,I,I,I,I,I,I,I,I,I,I]),(-0.3867331710298958,[I,I,Z,I,I,I,I,I,I,I,I,I,I]),(0.9105771977689212,[I,I,I,Z,I,I,I,I,I,I,I,I,I]),(-0.23475690330515886,[I,I,I,I,Z,I,I,I,I,I,I,I,I]),(-0.2254420984522858,[I,I,I,I,I,Z,I,I,I,I,I,I,I]),(-0.5235663088453377,[I,I,I,I,I,I,Z,I,I,I,I,I,I]),(9.896138164086299e-2,[I,I,I,I,I,I,I,Z,I,I,I,I,I]),(0.6324716950332225,[I,I,I,I,I,I,I,I,Z,I,I,I,I]),(-0.9707043760008875,[I,I,I,I,I,I,I,I,I,Z,I,I,I]),(0.2922108972532993,[I,I,I,I,I,I,I,I,I,I,Z,I,I]),(-0.6968061030258452,[I,I,I,I,I,I,I,I,I,I,I,Z,I]),(0.5243553211811318,[I,I,I,I,I,I,I,I,I,I,I,I,Z])]
+ 4937: Subroutine: S, shape ([Q,Q,Q,Q,Q,Q,Q,Q,Q,Q,Q,Q,Q],())
+Total gates: 4937
+Inputs: 13
+Outputs: 13
+Qubits in circuit: 13
+
+Subroutine: "S"
+Shape: "([Q,Q,Q,Q,Q,Q,Q,Q,Q,Q,Q,Q,Q],())"
+  208: "H, arity 1"
+    1: "Rot(exp(-i%Z),-0.0005708772718973262), arity 1"
+    1: "Rot(exp(-i%Z),-0.0005936291836904427), arity 1"
+    1: "Rot(exp(-i%Z),-0.0006181567233070822), arity 1"
+    1: "Rot(exp(-i%Z),-0.0007080583252193413), arity 1"
+    1: "Rot(exp(-i%Z),-0.0010183372945895574), arity 1"
+    1: "Rot(exp(-i%Z),-0.0013786433086873386), arity 1"
+    1: "Rot(exp(-i%Z),-0.001834814530957259), arity 1"
+    1: "Rot(exp(-i%Z),-0.002556037449465574), arity 1"
+    1: "Rot(exp(-i%Z),0.0002605829372759204), arity 1"
+    1: "Rot(exp(-i%Z),0.000769443318673869), arity 1"
+   78: "Rot(exp(-i%Z),0.0013165890216730808), arity 1"
+    1: "Rot(exp(-i%Z),0.001380720918645881), arity 1"
+    1: "Rot(exp(-i%Z),0.0016654105803994112), arity 1"
+    1: "Rot(exp(-i%Z),0.0023977118839367986), arity 1"
+  104: "S*, arity 1"
+  104: "S, arity 1"
+  156: "not, arity 1", controls 1
+Total gates: 663
+Inputs: 13
+Outputs: 13
+Qubits in circuit: 13
+
+Aggregated gate count:
+1026896: "H, arity 1"
+   4937: "Rot(exp(-i%Z),-0.0005708772718973262), arity 1"
+   4937: "Rot(exp(-i%Z),-0.0005936291836904427), arity 1"
+   4937: "Rot(exp(-i%Z),-0.0006181567233070822), arity 1"
+   4937: "Rot(exp(-i%Z),-0.0007080583252193413), arity 1"
+   4937: "Rot(exp(-i%Z),-0.0010183372945895574), arity 1"
+   4937: "Rot(exp(-i%Z),-0.0013786433086873386), arity 1"
+   4937: "Rot(exp(-i%Z),-0.001834814530957259), arity 1"
+   4937: "Rot(exp(-i%Z),-0.002556037449465574), arity 1"
+   4937: "Rot(exp(-i%Z),0.0002605829372759204), arity 1"
+   4937: "Rot(exp(-i%Z),0.000769443318673869), arity 1"
+ 385086: "Rot(exp(-i%Z),0.0013165890216730808), arity 1"
+   4937: "Rot(exp(-i%Z),0.001380720918645881), arity 1"
+   4937: "Rot(exp(-i%Z),0.0016654105803994112), arity 1"
+   4937: "Rot(exp(-i%Z),0.0023977118839367986), arity 1"
+ 513448: "S*, arity 1"
+ 513448: "S, arity 1"
+ 770172: "not, arity 1", controls 1
+Total gates: 3273231
+Inputs: 13
+Outputs: 13
+Qubits in circuit: 13
