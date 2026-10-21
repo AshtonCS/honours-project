@@ -76,19 +76,59 @@ def _quipper(theta: float, eps: float, up_to_phase: bool) -> str:
 BACKENDS = {"pygridsynth": _pygridsynth, "quipper": _quipper}
 
 
+def _mp_mats() -> dict[str, mpmath.matrix]:
+    """The gate matrices of ``_MATS`` at the current mpmath precision."""
+    r = 1 / mpmath.sqrt(2)
+    w = mpmath.expjpi(mpmath.mpf(1) / 4)  # e^{i pi/4}
+    return {
+        "H": mpmath.matrix([[r, r], [r, -r]]),
+        "S": mpmath.matrix([[1, 0], [0, 1j]]),
+        "T": mpmath.matrix([[1, 0], [0, w]]),
+        "X": mpmath.matrix([[0, 1], [1, 0]]),
+        "W": mpmath.matrix([[w, 0], [0, w]]),
+        "I": mpmath.eye(2),
+    }
+
+
+def word_error(word: str, theta: float, up_to_phase: bool, eps: float) -> float:
+    """||U(word) - RZ(theta)|| in the operator norm, evaluated in mpmath.
+
+    Double precision cannot certify a word below eps ~ 1e-14: rounding over
+    the ~150 matrix products of a long word is itself ~1e-14. The bound
+    rows (``ana``/``min``/``com``) need eps_rot down to ~1e-17, so the check
+    runs with 20 more significant digits than eps has. ``theta`` is the
+    target exactly as given (a double); it is not rounded further.
+
+    For a 2x2 M the operator norm is sqrt(lambda_max(M^dag M)), and for the
+    Hermitian 2x2 A = M^dag M, lambda_max = (tr A + sqrt(tr^2 - 4 det A)) / 2.
+    """
+    dps = max(30, int(-mpmath.log10(eps)) + 20)
+    with mpmath.workdps(dps):
+        mats = _mp_mats()
+        U = mpmath.eye(2)
+        for ch in word:
+            U = U * mats[ch]
+        half = mpmath.mpf(theta) / 2
+        target = mpmath.matrix([[mpmath.expj(-half), 0], [0, mpmath.expj(half)]])
+        if up_to_phase:
+            tr = (U.H * target)[0, 0] + (U.H * target)[1, 1]
+            U = U * mpmath.expj(mpmath.arg(tr))
+        M = U - target
+        A = M.H * M
+        tr = mpmath.re(A[0, 0] + A[1, 1])
+        det = mpmath.re(A[0, 0] * A[1, 1] - A[0, 1] * A[1, 0])
+        lam = (tr + mpmath.sqrt(max(tr * tr - 4 * det, 0))) / 2
+        return float(mpmath.sqrt(max(lam, 0)))
+
+
 @lru_cache(maxsize=None)
 def synthesise(theta: float, eps: float, up_to_phase: bool = False, backend: str = "pygridsynth") -> str:
     """Clifford+T word for RZ(theta) in matrix order (rightmost applied
     first), as printed by gridsynth. Cached: a product-formula step has only
-    a handful of distinct angles."""
+    a handful of distinct angles. Every word is checked against eps in
+    high precision (``word_error``); a miss raises."""
     word = BACKENDS[backend](theta, eps, up_to_phase)
-    U = np.eye(2, dtype=complex)
-    for ch in word:
-        U = U @ _MATS[ch]
-    if up_to_phase:
-        tr = np.trace(U.conj().T @ rz_matrix(theta))
-        U = U * np.exp(1j * np.angle(tr))
-    err = distance(U, rz_matrix(theta))
+    err = word_error(word, theta, up_to_phase, eps)
     if err > eps:
         raise RuntimeError(f"gridsynth output for RZ({theta}) has error {err:.3e} > {eps:.3e}")
     return word

@@ -48,3 +48,41 @@ def test_registry_orders_and_cycles():
     assert (reg["mo-o8-q21"].order, reg["mo-o8-q21"].q) == (8, 21)
     assert (reg["morales-y8m10"].order, reg["morales-y8m10"].q) == (8, 21)
     assert (reg["morales-m8"].order, reg["morales-m8"].q) == (8, 17)
+
+
+def test_lie_trotter_is_simcounts_pf1():
+    reg = P.formula_registry()
+    spec = reg["lie-trotter"]
+    assert (spec.order, spec.q, spec.family) == (1, 1, "suzuki")
+    H = P.fixture_hamiltonian(4, 1)
+    assert spec.schedule(H, 0.3) == formula.schedule(1, H, 0.3)
+
+
+def test_bound_orders_match_bounds_module():
+    """BOUND_ORDERS lists exactly the orders each bound accepts."""
+    from plsimcount import bounds
+    H = P.fixture_hamiltonian(4, 1)
+    for bound, orders in P.BOUND_ORDERS.items():
+        for order in (1, 2, 4, 6, 8):
+            if order in orders:
+                assert bounds.steps(f"pf{order}{bound}", H, 4.0, 1e-3) >= 1
+            else:
+                with pytest.raises(ValueError):
+                    bounds.steps(f"pf{order}{bound}", H, 4.0, 1e-3)
+
+
+def test_bound_row_reproduces_simcount_pf2com_n4(tmp_path):
+    """A 'com' bound row at n = 4 must be simcount's own pf2com cz run:
+    r = 5503 and 204 gates per unmerged step, 1,122,612 in total (verified
+    against the simcount binary, 2026-09-22)."""
+    import json
+    cfg = {"name": "t", "schemes": ["suzuki2"], "sizes": [4], "seed": 1, "gatebases": ["cz"],
+           "bound_rows": {"schemes": ["lie-trotter", "suzuki2"], "bounds": ["com", "tte"], "sizes": [4]}}
+    (tmp_path / "config.json").write_text(json.dumps(cfg))
+    P.main([str(tmp_path / "config.json")])
+    rows = json.loads((tmp_path / "results.json").read_text())["rows"]
+    com = [r for r in rows if r["r_source"] == "com" and r["scheme"] == "suzuki2" and not r["merged"]]
+    assert len(com) == 1
+    assert com[0]["r"] == 5503
+    assert com[0]["gates_total"] == 1_122_612
+    assert {r["r_source"] for r in rows} == {"measured", "com", "tte"}

@@ -22,6 +22,14 @@ How each row is made
 
 Rows with ``r_source == "fit"`` are extrapolations: r = ceil(a n^b) fitted to
 the measured sizes. They are labelled as such and are not measurements.
+
+Rows with ``r_source`` in ``ana | min | com | emp | tte`` (config section
+``bound_rows``) take r from that Trotter bound (``bounds.steps``) instead of
+measuring it, everything else being identical. The bounds are Suzuki-specific
+(simcount's ``PF.hs``; tte = Childs et al. 2021, Props. 15, 16, J.1/J.2), so
+only ``family == "suzuki"`` formulas are accepted, and a (bound, order) pair
+the bound does not define (``BOUND_ORDERS``) is skipped and recorded in
+``meta["skipped"]``, never silently.
 """
 
 from __future__ import annotations
@@ -40,7 +48,7 @@ from pathlib import Path
 
 import numpy as np
 
-from . import bounds, fastempirical, resources, synthesis
+from . import bounds, fastempirical, formula, resources, synthesis
 from .compare import GATEBASES
 from .hamiltonian import Hamiltonian, heisenberg, parse_simcount
 from .simcount import FIXTURES
@@ -62,6 +70,9 @@ def formula_registry() -> dict[str, FormulaSpec]:
     S = _effts()
     from effts import morales as M
     return {
+        # simcount's pf1: every term once per step, in Hamiltonian order.
+        "lie-trotter": FormulaSpec("Lie-Trotter S1", "suzuki", 1, 1,
+                                   lambda H, d: formula.first_order(H, d)),
         "suzuki2": suzuki_formula(2),
         "suzuki4": suzuki_formula(4),
         "suzuki6": suzuki_formula(6),
@@ -75,6 +86,17 @@ def formula_registry() -> dict[str, FormulaSpec]:
         "morales-y8m10": weighted_formula(M.y8m10(), "Morales Y8m10 (21 steps)", "historical"),
         "morales-m8": weighted_formula(M.m8(), "Morales m=8 (17 steps)", "historical"),
     }
+
+
+# Orders for which each bound is defined (bounds.py): com and tte stop at 4,
+# emp is a fit for orders 1-8, ana/min take any order simcount supports.
+BOUND_ORDERS: dict[str, tuple[int, ...]] = {
+    "ana": (1, 2, 4, 6, 8),
+    "min": (1, 2, 4, 6, 8),
+    "com": (1, 2, 4),
+    "emp": (1, 2, 4, 6, 8),
+    "tte": (1, 2, 4),
+}
 
 
 # ------------------------------------------------------------------ instances
@@ -220,7 +242,7 @@ def run_instance(rows, instance, H, n, t, keys, registry, gatebases, cfg, r_sour
                 rows.append(_row(instance, n, t, key, spec, gb, r_source, r, search, merged, counts, eps_rot))
             last = rows[-1]
             log(f"  {instance:8s} n={n:2d} {gb:3s} {spec.name:32s} r={r:>8,}"
-                + (f" ({search.evaluations} evals, {search.seconds:6.1f}s)" if search else " (fit)")
+                + (f" ({search.evaluations} evals, {search.seconds:6.1f}s)" if search else f" ({r_source})")
                 + f"  merged gates={last['gates_total']:.3e}" + (f"  T={last['t_total']:.3e}" if eps_synth else ""))
 
 
@@ -286,6 +308,34 @@ def main(argv=None):
             run_instance(rows, "simcount", H, n, float(n), keys, registry, cfg["gatebases"], cfg,
                          r_source="fit", r_given=r_given)
             _write(out_dir, rows, meta)
+
+    # 4. r from a Trotter bound instead of measured (Suzuki formulas only)
+    b = cfg.get("bound_rows")
+    if b:
+        print(f"== bound rows: {b['bounds']} for {b['schemes']} ==")
+        meta["skipped"] = []
+        for key in b["schemes"]:
+            if registry[key].family != "suzuki":
+                raise ValueError(f"bound rows need a Suzuki formula (the bounds are Suzuki-specific), got {key!r}")
+        for n in b["sizes"]:
+            H = fixture_hamiltonian(n, cfg["seed"])
+            for bound in b["bounds"]:
+                keys_b = []
+                for key in b["schemes"]:
+                    order = registry[key].order
+                    if order in BOUND_ORDERS[bound]:
+                        keys_b.append(key)
+                    elif n == b["sizes"][0]:
+                        meta["skipped"].append(f"{bound} not defined for order {order} ({key})")
+                        print(f"  skipped: {bound} not defined for order {order} ({key})")
+                r_given = {}
+                for key in keys_b:
+                    for gb in cfg["gatebases"]:
+                        algo = f"pf{registry[key].order}{bound}"
+                        r_given[(key, gb)] = bounds.steps(algo, H, float(n), GATEBASES[gb][0])
+                run_instance(rows, "simcount", H, n, float(n), keys_b, registry, cfg["gatebases"], cfg,
+                             r_source=bound, r_given=r_given)
+                _write(out_dir, rows, meta)
 
     meta["seconds"] = round(time.perf_counter() - t_start, 1)
     _write(out_dir, rows, meta)

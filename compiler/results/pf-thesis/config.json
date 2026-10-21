@@ -1,0 +1,18 @@
+{
+  "name": "pf-thesis",
+  "description": "Every product formula at measured r (Suzuki incl. Lie-Trotter, Malezic-Ostmeyer, Blanes-Moan, Morales), plus Suzuki formulas with r from each Trotter bound (simcount's ana/min/com/emp and Childs et al. 2021 tte); cz and ct; merged and unmerged",
+  "schemes": ["lie-trotter", "suzuki2", "suzuki4", "suzuki6", "suzuki8",
+              "mo-q6", "mo-q14", "bm-q10", "mo-o8-q21", "morales-y8m10", "morales-m8"],
+  "sizes": [4, 5, 6, 7, 8, 10],
+  "seed": 1,
+  "gatebases": ["cz", "ct"],
+  "template": "simcount",
+  "synth_backend": "pygridsynth",
+  "paper_instance": {"n": 6, "t": 10.0, "gatebases": ["cz"]},
+  "extrapolate": {"sizes": [13, 20], "fit_sizes": [6, 7, 8, 10]},
+  "bound_rows": {
+    "schemes": ["lie-trotter", "suzuki2", "suzuki4", "suzuki6", "suzuki8"],
+    "bounds": ["ana", "min", "com", "emp", "tte"],
+    "sizes": [4, 5, 6, 7, 8, 10, 13, 20]
+  }
+}
