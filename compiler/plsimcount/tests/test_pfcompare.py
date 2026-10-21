@@ -86,3 +86,33 @@ def test_bound_row_reproduces_simcount_pf2com_n4(tmp_path):
     assert com[0]["r"] == 5503
     assert com[0]["gates_total"] == 1_122_612
     assert {r["r_source"] for r in rows} == {"measured", "com", "tte"}
+
+
+def test_provenance_records_package_versions():
+    """Every pinned package's version is in the provenance and equals the installed one."""
+    import sys
+    from importlib import metadata
+    prov = P.provenance()
+    assert prov["python"] == sys.version.split()[0]
+    for name in ("numpy", "scipy", "pennylane", "mpmath", "pygridsynth"):
+        assert prov[name] == metadata.version(name)
+    import numpy, scipy, pennylane, mpmath
+    assert prov["numpy"] == numpy.__version__
+    assert prov["scipy"] == scipy.__version__
+    assert prov["mpmath"] == mpmath.__version__
+    assert prov["pennylane"] == pennylane.__version__
+
+
+def test_environment_file_is_written_next_to_results(tmp_path):
+    """A run writes environment.txt with the full pip freeze beside results.json."""
+    import json
+    cfg = {"name": "t", "schemes": ["suzuki2"], "sizes": [4], "seed": 1, "gatebases": ["cz"]}
+    (tmp_path / "config.json").write_text(json.dumps(cfg))
+    P.main([str(tmp_path / "config.json")])
+    env = (tmp_path / "environment.txt").read_text()
+    assert (tmp_path / "results.json").exists()
+    lines = [ln for ln in env.splitlines() if not ln.startswith("#")]
+    assert lines == P.pip_freeze().splitlines()
+    names = {ln.split("==")[0].split(" @ ")[0].lower() for ln in lines}
+    for name in ("numpy", "scipy", "pennylane", "mpmath", "pygridsynth"):
+        assert name in names

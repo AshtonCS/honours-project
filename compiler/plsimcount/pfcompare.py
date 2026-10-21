@@ -4,7 +4,8 @@
 
 Everything the run depends on is in the config file; the results land next
 to it (``results.csv``, ``results.json``) together with the git commit, a
-dirty flag and a hash of every source file used, so each number can be
+dirty flag, a hash of every source file used, the versions of python and the
+numerical packages, and the full ``pip freeze`` (``environment.txt``), so each number can be
 traced back to the code and settings that produced it. Nothing is random:
 Hamiltonians come from the committed simcount fixtures (seed in the config).
 
@@ -157,6 +158,44 @@ def step_counts(H: Hamiltonian, spec: FormulaSpec, t: float, r: int, merged: boo
 
 # ------------------------------------------------------------------ provenance
 
+# Packages whose versions can change a number in results.json: numpy/scipy
+# (linear algebra in the error search), pennylane (tapes and gate templates),
+# mpmath (synthesis error checks), pygridsynth (the T counts).
+PINNED_PACKAGES: tuple[str, ...] = ("numpy", "scipy", "pennylane", "mpmath", "pygridsynth")
+
+
+def package_versions() -> dict[str, str]:
+    """Installed version of python and of every package in ``PINNED_PACKAGES``.
+
+    Raises ``importlib.metadata.PackageNotFoundError`` if one is missing: a
+    run whose environment cannot be recorded should not produce results.
+    """
+    from importlib import metadata
+    out = {"python": sys.version.split()[0]}
+    for name in PINNED_PACKAGES:
+        out[name] = metadata.version(name)
+    return out
+
+
+def pip_freeze() -> str:
+    """``pip freeze`` of the interpreter running this code (the whole environment).
+
+    Raises ``subprocess.CalledProcessError`` if pip fails, rather than writing
+    an empty or partial environment file.
+    """
+    res = subprocess.run([sys.executable, "-m", "pip", "freeze"], capture_output=True, text=True, check=True)
+    return res.stdout
+
+
+def write_environment(out_dir: Path) -> Path:
+    """Write ``environment.txt`` (header + full ``pip freeze``) into ``out_dir``."""
+    path = out_dir / "environment.txt"
+    header = [f"# python {sys.version.split()[0]} ({sys.executable})", f"# platform {platform.platform()}",
+              "# pip freeze:"]
+    path.write_text("\n".join(header) + "\n" + pip_freeze())
+    return path
+
+
 def provenance() -> dict:
     root = HERE.parent
     def git(*args):
@@ -174,8 +213,7 @@ def provenance() -> dict:
         "git_commit": git("rev-parse", "HEAD"),
         "git_dirty": bool(git("status", "--porcelain", "--", "plsimcount", "effts")),
         "source_sha256": h.hexdigest(),
-        "python": sys.version.split()[0],
-        "numpy": np.__version__,
+        **package_versions(),  # python, numpy, scipy, pennylane, mpmath, pygridsynth
         "platform": platform.platform(),
         "started": time.strftime("%Y-%m-%d %H:%M:%S %Z"),
     }
@@ -266,6 +304,7 @@ def main(argv=None):
         raise ValueError(f"unknown scheme ids {unknown}; known: {sorted(registry)}")
 
     meta = {"config": cfg, "only": args.only, "provenance": provenance()}
+    write_environment(out_dir)
     rows: list[dict] = []
     hints: dict = {}
     t_start = time.perf_counter()
