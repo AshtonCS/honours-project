@@ -33,7 +33,9 @@ def test_config_without_eps_reproduces_committed_thesis_rows(tmp_path):
     for r in rows:
         want = ref[_key(r)]
         for f, v in r.items():
-            if f != "search_seconds":
+            # search_seconds/search_evals are the search's cost, not its result;
+            # fields newer than the committed run are not in it to compare.
+            if f not in ("search_seconds", "search_evals") and f in want:
                 assert v == want[f], (f, v, want[f])
 
 

@@ -11,9 +11,11 @@ Hamiltonians come from the committed simcount fixtures (seed in the config).
 
 How each row is made
 --------------------
-1. r: the smallest Trotter number whose *measured* spectral error at time t
-   is <= eps_trotter (``fastempirical.steps``). The same search for every
-   formula. It is exact for this instance and not a bound.
+1. r: the smallest Trotter number from which the *measured* spectral error
+   at time t stays <= eps_trotter, checked up to r + 10
+   (``fastempirical.steps``; a passing r that fails again just above is a
+   "dip" and is not taken). The same search for every formula. It is exact
+   for this instance and not a bound.
 2. One step is compiled with simcount's gate template, unmerged and merged
    (``weighted.merge``); totals are per-step counts x r, as in simcount.
 3. ct: every rotation is synthesised to eps_rot = eps_synth / (rotations
@@ -228,7 +230,7 @@ def provenance() -> dict:
 # ------------------------------------------------------------------ run
 
 FIELDS = ["instance", "n", "t", "scheme", "family", "order", "q", "gatebase", "eps_trotter", "eps_synth",
-          "r_source", "r", "err_at_r", "err_at_r_minus_1", "search_evals", "search_seconds", "emp_reference_r",
+          "r_source", "r", "err_at_r", "err_at_r_minus_1", "search_window", "search_dips", "search_evals", "search_seconds", "emp_reference_r",
           "merged", "rz_per_step", "cnot_per_step", "t_per_step", "gates_per_step", "eps_rot",
           "rz_total", "cnot_total", "t_total", "gates_total"]
 
@@ -247,6 +249,8 @@ def _row(instance, n, t, key, spec, gatebase, r_source, r, search, merged, count
         "gatebase": gatebase, "eps_trotter": eps_trotter, "eps_synth": eps_synth, "r_source": r_source, "r": r,
         "err_at_r": search.err_r if search else None,
         "err_at_r_minus_1": search.err_r_minus_1 if search else None,
+        "search_window": search.window if search else None,
+        "search_dips": search.dips if search else None,
         "search_evals": search.evaluations if search else None,
         "search_seconds": round(search.seconds, 2) if search else None,
         "emp_reference_r": emp, "merged": merged,

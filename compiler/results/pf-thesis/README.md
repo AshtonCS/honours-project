@@ -38,6 +38,13 @@ As in `../pf-comparison/README.md` (measured r by `fastempirical`, simcount's
 gate template, per-step counts x r, merging, pygridsynth synthesis, eps split
 by gate set), plus:
 
+- **Measured r is "keeps working", not "first that works"** (decided
+  2026-10-21). Before the r^-p regime the error need not fall monotonically
+  in r, so r is the smallest value from which r, r + 1, ..., r + 10 all meet
+  eps (`fastempirical.WINDOW`). Passing values below it that fail again
+  above are recorded per row in `search_dips`. In this run's predecessor this
+  changed one row: M&O q = 14, n = 6, `cz`, from 14 (a dip; r = 15 fails) to
+  16.
 - **Bound rows** (`r_source` = `ana`, `min`, `com`, `emp`, `tte`): r from
   `bounds.steps`, for Suzuki formulas only, because the bounds are
   Suzuki-specific. `ana`/`min`/`com`/`emp` are simcount's `PF.hs` bounds;

@@ -1,10 +1,11 @@
 """Brute-force Trotter numbers, fast enough for n = 10 at order 8.
 
-Same quantity as ``empirical.py``: the smallest r with
+The smallest r from which the error stays within eps,
 
-    || S(t/r)^r - exp(-iHt) ||_2  <=  eps        (spectral norm)
+    || S(t/r')^r' - exp(-iHt) ||_2  <=  eps   for every r' >= r   (spectral norm)
 
-for one specific Hamiltonian instance. It is exact for that instance (the
+checked up to r + ``window`` (see "Definition of r" below), for one specific
+Hamiltonian instance. It is exact for that instance (the
 error is computed, not estimated), and it is not a bound: it says nothing
 about other fields or sizes. ``empirical.py`` is kept as the slow reference;
 the tests check that both return the same r.
@@ -24,10 +25,20 @@ What makes it fast (none of it changes the unitary; see the tests):
    so two evaluations predict the boundary and a check at r and r - 1 pins
    it. Far fewer step builds than doubling-then-bisection.
 
-The search assumes the error is monotone in r near the boundary, as
-``empirical.steps`` does. The result records the errors at r and r - 1 so a
-reader can see how close the boundary was (rounding can only matter when one
-of them is within ~1e-13 of eps).
+The result records the errors at r and r - 1 so a reader can see how close
+the boundary was (rounding can only matter when one of them is within ~1e-13
+of eps).
+
+Definition of r (chosen by the author, 2026-10-21). Before the error reaches
+its r^-p regime it need not fall monotonically: for M&O q = 14 on simcount's
+n = 6 seed-1 instance at eps = 1e-3 the errors at r = 13..17 are 1.37e-3,
+9.91e-4, 1.55e-3, 8.85e-4, 2.29e-4. "Smallest passing r" would give 14, a
+dip that fails again at 15; this module gives 16, the smallest r after which
+every larger r passes. "Every larger r" cannot be checked to infinity: it is
+checked for r + 1 .. r + ``window``, and beyond that rests on the error being
+monotone in the r^-p regime. ``empirical.steps`` (the slow reference) is a
+plain bisection and makes no such check; the two agree whenever the error is
+monotone near the boundary.
 """
 
 from __future__ import annotations
@@ -45,6 +56,12 @@ from .weighted import Schedule, commuting_blocks
 # 0.5 is far above eps (1e-3) and well below the ~2 where the spectral error
 # saturates; it only steers the search, never the answer.
 SCALING_REGION = 0.5
+
+# How far above the returned r every r must also pass (see "Definition of r").
+# ASSUMPTION: 10, the window used in the 2026-10-21 audit of pf-thesis, which
+# found one non-monotone case (failure 1 step above a dip); no case is known
+# that a larger window would change (unconfirmed).
+WINDOW = 10
 
 
 class _Term:
@@ -155,18 +172,24 @@ class SearchResult:
     r: int
     err_r: float          # error at r (<= eps)
     err_r_minus_1: float  # error at r - 1 (> eps), inf if r == 1
+    window: int           # r + 1 .. r + window were also checked to pass
+    dips: list[int]       # passing r below the answer (dips that fail again above)
     evaluations: int
     seconds: float
     trace: list[tuple[int, float]] = field(default_factory=list)
 
 
 def steps(evolution: FastEvolution, schedule_fn, order: int, t: float, eps: float,
-          start: int = 1, max_evals: int = 200) -> SearchResult:
-    """Smallest r with error <= eps, for the formula ``schedule_fn(H, d)``.
+          start: int = 1, max_evals: int = 200, window: int = WINDOW) -> SearchResult:
+    """Smallest r such that r, r + 1, ..., r + ``window`` all have error <= eps,
+    for the formula ``schedule_fn(H, d)``; r - 1 fails.
 
-    ``start`` is only a first guess (e.g. the previous size's r); the answer
-    does not depend on it as long as the error is monotone near the boundary.
+    ``start`` is only a first guess (e.g. the previous size's r). The answer
+    does not depend on it unless a failure lies more than ``window`` above a
+    passing run, which the module docstring discusses.
     """
+    if window < 0:
+        raise ValueError(f"window must be >= 0, got {window}")
     H = evolution.H
     cache: dict[int, float] = {}
     t0 = time.perf_counter()
@@ -178,19 +201,34 @@ def steps(evolution: FastEvolution, schedule_fn, order: int, t: float, eps: floa
             cache[r] = evolution.error(lambda d: schedule_fn(H, d), t, r)
         return cache[r]
 
-    lo, hi = 0, None  # lo: largest failing r (0 = none), hi: smallest passing r
+    lo, hi = 0, None  # lo: largest failing r found (0 = none), hi: smallest passing r above lo
     r = max(1, int(start))
     while True:
+        # Stage 1: bracket a boundary lo | lo + 1 with lo failing and lo + 1 passing.
         e = err(r)
         if e <= eps:
-            hi = r if hi is None else min(hi, r)
+            if r > lo:
+                hi = r if hi is None else min(hi, r)
         else:
-            lo = max(lo, r)
+            if r > lo:
+                lo = r
+                if hi is not None and hi <= lo:
+                    hi = None
         if hi is not None and hi - lo <= 1:
-            break
+            # Stage 2: the boundary only counts if nothing in the window above fails.
+            failing_above = [k for k in range(hi + 1, hi + window + 1) if err(k) > eps]
+            if not failing_above:
+                break
+            lo = max(failing_above)
+            passing_above = [k for k, v in cache.items() if k > lo and v <= eps]
+            hi = min(passing_above) if passing_above else None
+            if hi is not None and hi - lo <= 1:
+                continue  # re-check the window above the new boundary
+            r = lo + 1
+            continue
         if hi is None:  # still failing: go up
             nxt = math.ceil(r * (e / eps) ** (1 / order) * 1.01) if e < SCALING_REGION else 2 * r
-            nxt = max(nxt, r + 1)
+            nxt = max(nxt, r + 1, lo + 1)
         elif lo == 0:  # passing, nothing failing known: predict downwards
             nxt = math.floor(r * (e / eps) ** (1 / order)) if e > 0 else r // 2
             nxt = min(max(nxt, 1), hi - 1)
@@ -208,5 +246,6 @@ def steps(evolution: FastEvolution, schedule_fn, order: int, t: float, eps: floa
                 nxt = next(k for k in range(lo + 1, hi) if k not in cache)
         r = nxt
 
+    dips = sorted(k for k, v in cache.items() if k < hi and v <= eps)
     return SearchResult(hi, cache[hi], cache.get(hi - 1, math.inf) if hi > 1 else math.inf,
-                        len(cache), time.perf_counter() - t0, sorted(cache.items()))
+                        window, dips, len(cache), time.perf_counter() - t0, sorted(cache.items()))

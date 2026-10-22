@@ -91,6 +91,32 @@ def test_start_guess_does_not_change_answer():
     assert len(rs) == 1
 
 
+@pytest.mark.parametrize("start", [1, 9, 11, 14, 16, 40])
+def test_dip_is_not_taken_mo_q14_n6(start):
+    """M&O q = 14, simcount n = 6 seed 1, t = 6, eps = 1e-3: the error passes
+    at r = 14, fails at 15, passes from 16 on. The answer is 16 from every
+    start; before 2026-10-21 starts 11 and 14 returned the dip 14."""
+    from plsimcount.pfcompare import formula_registry
+    spec = formula_registry()["mo-q14"]
+    H = simcount.run(6, "pf2emp", "cz", 1).hamiltonian
+    fe = F.FastEvolution(H)
+    errs = {r: fe.error(lambda d: spec.schedule(H, d), 6.0, r) for r in (14, 15, 16)}
+    assert errs[14] <= 1e-3 < errs[15] and errs[16] <= 1e-3  # the dip is real
+    res = F.steps(fe, spec.schedule, spec.order, 6.0, 1e-3, start=start)
+    assert res.r == 16
+    assert res.err_r_minus_1 > 1e-3
+    assert all(e <= 1e-3 for r, e in res.trace if 16 <= r <= 26)
+
+
+def test_window_zero_is_plain_boundary():
+    """window = 0 skips the check above: a dip may then be returned."""
+    from plsimcount.pfcompare import formula_registry
+    spec = formula_registry()["mo-q14"]
+    H = simcount.run(6, "pf2emp", "cz", 1).hamiltonian
+    res = F.steps(F.FastEvolution(H), spec.schedule, spec.order, 6.0, 1e-3, start=14, window=0)
+    assert res.r == 14
+
+
 @pytest.mark.skipif(not os.environ.get("PLSIMCOUNT_SLOW"), reason="~45 s; set PLSIMCOUNT_SLOW=1")
 @pytest.mark.parametrize("order,want", [(2, 3174), (4, 152)])
 def test_n10_regression(order, want):
