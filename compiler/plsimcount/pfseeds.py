@@ -1,14 +1,17 @@
-"""Aggregate ``pfcompare`` runs that differ only in the simcount seed.
+"""Aggregate ``pfcompare`` runs that differ only in the seed (simcount or NumPy instances).
 
     python -m plsimcount.pfseeds results/pf-seeds/aggregate.json --render
 
 Each seed is a different random-field instance of the same model (periodic
-Heisenberg chain, J = 1, fields from simcount's Haskell RNG), so the spread
-across seeds is instance-to-instance variation at fixed n, t = n and eps. It
-is *not* a statistical error bar: with five seeds the min-max range is shown,
-and the median is used as the central value because it is one of the five
-actual instances (for odd counts) rather than a mean of costs that differ by
-factors.
+Heisenberg chain, J = 1, fields from simcount's Haskell RNG or from
+``pfcompare.numpy_fields``), so the spread across seeds is
+instance-to-instance variation at fixed n, t = n and eps. The min-max range
+is shown, and the median is the central value (robust to costs that differ by
+factors; for an even number of seeds it is the mean of the middle two).
+
+Comparisons between formulas are *paired*: a gain or a win is computed on
+each seed (both formulas on the same instance) and only then summarised.
+A ratio of two medians would compare different instances.
 
 What it writes (into the config's ``out`` directory):
 
@@ -18,6 +21,11 @@ What it writes (into the config's ``out`` directory):
   between the reference seed and another seed (strict reversals only);
 * ``reproduction.md``: the reference seed's rows compared field by field
   with a reference results file (the seed-1 rows must reproduce pf-thesis);
+* ``gains.md``: per-seed gain of every non-Suzuki formula over the Suzuki
+  formula of the same order (exponentials, CNOT, T), median and range;
+* ``wins.md``: per (metric, n), how many seeds each formula is cheapest on;
+* ``bounds.md``: per-seed bound r / measured r for the bound rows, median and
+  range (only if the runs have bound rows);
 * ``figures/merged/<metric>/``: pgfplots figures in ``pffigure``'s A and B
   families (measured r only), median with min-max error bars, styles from
   ``pffigure``.
@@ -94,6 +102,10 @@ def load_runs(paths: list[Path]) -> dict[int, dict]:
 
 # ------------------------------------------------------------------ spread
 
+def _instance(run: dict) -> str:
+    """The instance label of a run's own rows (not the paper instance)."""
+    return run["meta"]["config"].get("instances", "simcount")
+
 def aggregate(runs: dict[int, dict], metric: str, column: str, gatebase: str, merged: bool = True) -> list[Agg]:
     """Median/min/max of ``column`` across seeds for every (scheme, n).
 
@@ -104,7 +116,7 @@ def aggregate(runs: dict[int, dict], metric: str, column: str, gatebase: str, me
     orders: dict[str, int] = {}
     for seed, d in runs.items():
         for row in d["rows"]:
-            if (row["instance"] != "simcount" or row["gatebase"] != gatebase or bool(row["merged"]) != merged
+            if (row["instance"] != _instance(d) or row["gatebase"] != gatebase or bool(row["merged"]) != merged
                     or row["r_source"] not in ("measured", "fit")):
                 continue
             key = (row["scheme"], int(row["n"]), row["r_source"])
@@ -179,6 +191,111 @@ def best_formula(aggs: list[Agg], seed: int) -> dict[tuple[int, str], str]:
     return {k: v[1] for k, v in best.items()}
 
 
+# ------------------------------------------------------------------ paired comparisons
+
+GAIN_METRICS: list[tuple[str, str, str]] = [
+    ("exponentials", "rz_total", "cz"), ("cnot", "cnot_total", "cz"), ("t", "t_total", "ct")]
+
+
+def same_order_pairs(rows: list[dict]) -> list[tuple[str, str]]:
+    """(suzuki, other) for every non-Suzuki formula whose order has a Suzuki formula."""
+    fam, order = {}, {}
+    for r in rows:
+        fam[r["scheme"]], order[r["scheme"]] = r["family"], int(r["order"])
+    suz = {order[k]: k for k in fam if fam[k] == "suzuki"}
+    return [(suz[order[k]], k) for k in fam if fam[k] != "suzuki" and order[k] in suz]
+
+
+def _values(run: dict, column: str, gatebase: str, sources=("measured", "fit")) -> dict[tuple[str, int, str], float]:
+    out = {}
+    for row in run["rows"]:
+        if (row["instance"] == _instance(run) and row["gatebase"] == gatebase and row["merged"]
+                and row["r_source"] in sources):
+            out[(row["scheme"], int(row["n"]), row["r_source"])] = float(row[column])
+    return out
+
+
+def paired_gains(runs: dict[int, dict]) -> list[dict]:
+    """Per (metric, pair, n, r_source): gain = Suzuki cost / other cost on each
+    seed, then median, min and max over seeds."""
+    seeds = sorted(runs)
+    pairs = same_order_pairs(runs[seeds[0]]["rows"])
+    out = []
+    for metric, column, gb in GAIN_METRICS:
+        vals = {s: _values(runs[s], column, gb) for s in seeds}
+        keys = sorted({(n, src) for (_, n, src) in vals[seeds[0]]})
+        for base, alt in pairs:
+            for n, src in keys:
+                g = {s: vals[s][(base, n, src)] / vals[s][(alt, n, src)] for s in seeds}
+                gs = list(g.values())
+                out.append({"metric": metric, "base": base, "alt": alt, "n": n, "r_source": src, "per_seed": g,
+                            "median": statistics.median(gs), "min": min(gs), "max": max(gs)})
+    return out
+
+
+def win_counts(runs: dict[int, dict]) -> list[dict]:
+    """Per (metric, n, r_source): {scheme: number of seeds on which it is cheapest}."""
+    seeds = sorted(runs)
+    out = []
+    for metric, column, gb in [("cnot", "cnot_total", "cz"), ("t", "t_total", "ct"), ("total", "gates_total", "cz")]:
+        vals = {s: _values(runs[s], column, gb) for s in seeds}
+        for n, src in sorted({(n, src) for (_, n, src) in vals[seeds[0]]}):
+            wins: dict[str, int] = {}
+            for s in seeds:
+                cand = {k: v for (k, nn, ss), v in vals[s].items() if nn == n and ss == src}
+                best = min(cand, key=lambda k: (cand[k], k))
+                wins[best] = wins.get(best, 0) + 1
+            out.append({"metric": metric, "n": n, "r_source": src, "wins": wins})
+    return out
+
+
+def bound_ratios(runs: dict[int, dict]) -> list[dict]:
+    """Per (scheme, bound, n): bound r / measured (or fitted) r on each seed, summarised."""
+    seeds = sorted(runs)
+    meas = {s: _values(runs[s], "r", "cz") for s in seeds}
+    bnd = {s: {} for s in seeds}
+    for s in seeds:
+        for row in runs[s]["rows"]:
+            if (row["instance"] == _instance(runs[s]) and row["gatebase"] == "cz" and row["merged"]
+                    and row["r_source"] in ("ana", "min", "com", "emp", "tte")):
+                bnd[s][(row["scheme"], int(row["n"]), row["r_source"])] = float(row["r"])
+    out = []
+    for (scheme, n, b) in sorted(bnd[seeds[0]]):
+        ref = (scheme, n, "measured") if (scheme, n, "measured") in meas[seeds[0]] else (scheme, n, "fit")
+        if ref not in meas[seeds[0]]:
+            continue
+        rat = {s: bnd[s][(scheme, n, b)] / meas[s][ref] for s in seeds}
+        v = list(rat.values())
+        out.append({"scheme": scheme, "bound": b, "n": n, "denominator": ref[2], "per_seed": rat,
+                    "median": statistics.median(v), "min": min(v), "max": max(v)})
+    return out
+
+
+def gains_markdown(gains: list[dict]) -> str:
+    lines = ["| metric | pair | n | r from | median gain | min | max |", "|---|---|---:|---|---:|---:|---:|"]
+    for g in gains:
+        lines.append(f"| {g['metric']} | {g['alt']} vs {g['base']} | {g['n']} | {g['r_source']} | "
+                     f"{g['median']:.2f}× | {g['min']:.2f}× | {g['max']:.2f}× |")
+    return "\n".join(lines)
+
+
+def wins_markdown(wins: list[dict], n_seeds: int) -> str:
+    lines = [f"| metric | n | r from | cheapest formula: seeds won (of {n_seeds}) |", "|---|---:|---|---|"]
+    for w in wins:
+        cells = ", ".join(f"{k} {v}" for k, v in sorted(w["wins"].items(), key=lambda kv: -kv[1]))
+        lines.append(f"| {w['metric']} | {w['n']} | {w['r_source']} | {cells} |")
+    return "\n".join(lines)
+
+
+def bounds_markdown(rat: list[dict]) -> str:
+    lines = ["| formula | bound | n | denominator | median bound/measured | min | max |",
+             "|---|---|---:|---|---:|---:|---:|"]
+    for x in rat:
+        lines.append(f"| {x['scheme']} | {x['bound']} | {x['n']} | {x['denominator']} | {x['median']:,.2f} | "
+                     f"{x['min']:,.2f} | {x['max']:,.2f} |")
+    return "\n".join(lines)
+
+
 # ------------------------------------------------------------------ reproduction
 
 def compare_rows(rows_a: list[dict], rows_b: list[dict], sources: tuple[str, ...],
@@ -217,10 +334,12 @@ def compare_rows(rows_a: list[dict], rows_b: list[dict], sources: tuple[str, ...
 
 # ------------------------------------------------------------------ figures
 
-def _errbar_tex(series: list[pffigure.Series], errs: list[dict[int, tuple[float, float]]], ylabel: str,
+def _errbar_tex(series: list[pffigure.Series], errs: list[dict[tuple[int, str], tuple[float, float]]], ylabel: str,
                 header: list[str]) -> str:
-    """pffigure.figure_tex with asymmetric y error bars (median -> min, max)."""
-    sizes = sorted({n for s in series for n, _ in s.measured})
+    """pffigure.figure_tex with asymmetric y error bars (median -> min, max).
+    Fitted (extrapolated) points are drawn open, as in pffigure, with a
+    legend key distinguishing computed from fitted r."""
+    sizes = sorted({n for s in series for n, _ in s.measured + s.fit})
     ticks = ",".join(str(n) for n in sizes)
     out = [f"% {line}" for line in header]
     out += [
@@ -242,28 +361,41 @@ def _errbar_tex(series: list[pffigure.Series], errs: list[dict[int, tuple[float,
                    f"mark options={{solid, fill={s.colour}}}, error bars/.cd, y dir=both, y explicit, "
                    f"error bar style={{{s.colour}}}] coordinates {{")
         for n, y in s.measured:
-            lo, hi = e[n]
+            lo, hi = e[(n, "measured")]
             out.append(f"      ({n},{y:.0f}) += (0,{hi - y:.0f}) -= (0,{y - lo:.0f})")
         out += ["    };", f"    \\addlegendentry{{{s.label}}}"]
+        if s.fit:
+            out.append(f"    \\addplot[only marks, {s.colour}, mark={s.mark}, mark size=2.4pt, "
+                       f"mark options={{solid, fill=white}}, forget plot, error bars/.cd, y dir=both, y explicit, "
+                       f"error bar style={{{s.colour}, dashed}}] coordinates {{")
+            for n, y in s.fit:
+                lo, hi = e[(n, "fit")]
+                out.append(f"      ({n},{y:.0f}) += (0,{hi - y:.0f}) -= (0,{y - lo:.0f})")
+            out.append("    };")
+    if any(s.fit for s in series):
+        out += ["    \\addlegendimage{only marks, black, mark=*}",
+                "    \\addlegendentry{measured $r$}",
+                "    \\addlegendimage{only marks, black, mark=*, mark options={fill=white}}",
+                "    \\addlegendentry{fitted $r$ (extrapolated)}"]
     out += ["  \\end{loglogaxis}", "\\end{tikzpicture}", ""]
     return "\n".join(out)
 
 
 def write_figures(runs: dict[int, dict], root: Path, merged: bool = True) -> Path:
     """A-measured-by-order and B-* figures for every pffigure metric: median
-    across seeds, min-max error bars, measured r only (no fit rows)."""
+    across seeds, min-max error bars; fitted r (extrapolated) drawn open."""
     from .pfcompare import formula_registry
     registry = formula_registry()
     seeds = sorted(runs)
     pages, index = [], ["# Figures (median over seeds, error bars min-max)", "",
-                        f"seeds {seeds}; measured r only (n with r_source == 'measured').", ""]
+                        f"seeds {seeds}; filled = measured r, open = fitted r (power law, extrapolated).", ""]
     for metric, (column, gatebase, ylabel) in pffigure.METRICS.items():
-        aggs = [x for x in aggregate(runs, metric, column, gatebase, merged) if x.r_source == "measured"]
+        aggs = aggregate(runs, metric, column, gatebase, merged)
         data: dict[tuple[str, str], dict[str, list]] = {}
-        errs: dict[str, dict[int, tuple[float, float]]] = {}
+        errs: dict[str, dict[tuple[int, str], tuple[float, float]]] = {}
         for x in aggs:
-            data.setdefault((x.scheme, "measured"), {"measured": [], "fit": []})["measured"].append((x.n, x.median))
-            errs.setdefault(x.scheme, {})[x.n] = (x.lo, x.hi)
+            data.setdefault((x.scheme, "measured"), {"measured": [], "fit": []})[x.r_source].append((x.n, x.median))
+            errs.setdefault(x.scheme, {})[(x.n, x.r_source)] = (x.lo, x.hi)
         specs = [sp for sp in pffigure.standard_figures(set(data), registry)
                  if sp.name == "A-measured-by-order" or sp.name.startswith("B-")]
         (root / metric).mkdir(parents=True, exist_ok=True)
@@ -385,6 +517,21 @@ def main(argv: list[str] | None = None) -> None:
         "## Cheapest formula per seed", "", "\n".join(best_lines), "",
         "## Equal-order reversals", "", flips_markdown(equal, ref), "",
         "## All reversals", "", flips_markdown(flips, ref), ""]))
+
+    gains = paired_gains(runs)
+    (out / "gains.md").write_text("\n".join([
+        f"# Gain over the same-order Suzuki formula, per seed (seeds {seeds}, merged)", "",
+        "gain = Suzuki cost / other cost on the same instance; > 1 favours the non-Suzuki formula.", "",
+        gains_markdown(gains), ""]))
+    wins = win_counts(runs)
+    (out / "wins.md").write_text("\n".join([
+        f"# Cheapest formula: number of seeds won (seeds {seeds}, merged)", "", wins_markdown(wins, len(seeds)), ""]))
+    rat = bound_ratios(runs)
+    if rat:
+        (out / "bounds.md").write_text("\n".join([
+            f"# Bound r / measured r, per seed (seeds {seeds}, cz)", "",
+            "Denominator 'fit' marks extrapolated measured r.", "", bounds_markdown(rat), ""]))
+    (out / "paired.json").write_text(json.dumps({"gains": gains, "wins": wins, "bound_ratios": rat}, indent=1))
 
     rep = []
     if "reproduce" in cfg:

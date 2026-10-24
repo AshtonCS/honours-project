@@ -1,0 +1,71 @@
+{
+  "name": "np-main/seed6",
+  "description": "Headline comparison on NumPy instance seed 6 (fields Uniform[-1,1] from default_rng([6, n]), J = 1, periodic, t = n): every formula at measured r, n = 4-10, extrapolated to 13/20 from n = 6,7,8,10; Suzuki bound rows n = 4-20; cz and ct; merged and unmerged. Identical across np-main/seed* except the seed.",
+  "instances": "numpy",
+  "seed": 6,
+  "schemes": [
+    "lie-trotter",
+    "suzuki2",
+    "suzuki4",
+    "suzuki6",
+    "suzuki8",
+    "mo-q6",
+    "mo-q14",
+    "bm-q10",
+    "mo-o8-q21",
+    "morales-y8m10",
+    "morales-m8"
+  ],
+  "sizes": [
+    4,
+    5,
+    6,
+    7,
+    8,
+    10
+  ],
+  "gatebases": [
+    "cz",
+    "ct"
+  ],
+  "template": "simcount",
+  "synth_backend": "pygridsynth",
+  "extrapolate": {
+    "sizes": [
+      13,
+      20
+    ],
+    "fit_sizes": [
+      6,
+      7,
+      8,
+      10
+    ]
+  },
+  "bound_rows": {
+    "schemes": [
+      "lie-trotter",
+      "suzuki2",
+      "suzuki4",
+      "suzuki6",
+      "suzuki8"
+    ],
+    "bounds": [
+      "ana",
+      "min",
+      "com",
+      "emp",
+      "tte"
+    ],
+    "sizes": [
+      4,
+      5,
+      6,
+      7,
+      8,
+      10,
+      13,
+      20
+    ]
+  }
+}

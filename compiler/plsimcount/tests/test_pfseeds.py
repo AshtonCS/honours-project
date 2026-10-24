@@ -112,3 +112,65 @@ def test_compare_rows_instance_filter():
     b = a + [dict(a[0], instance="paper")]
     assert S.compare_rows(a, b, ("measured",))[1] != []
     assert S.compare_rows(a, b, ("measured",), ("simcount",)) == (1, [])
+
+
+# ------------------------------------------------------------------ paired comparisons
+
+FAMILY = {"suzuki2": "suzuki", "suzuki4": "suzuki", "mo-q6": "paper"}
+
+
+def _runs_full():
+    """As _runs, with family, rz_total (= CNOT/2 here) and a ct row (t_total = 7 * r)."""
+    out = {}
+    for s in R:
+        rows = []
+        for (sc, n), r in R[s].items():
+            for gb in ("cz", "ct"):
+                x = _row(sc, ORDER[sc], n, r, CNOT[sc], gb=gb)
+                x.update(family=FAMILY[sc], rz_total=CNOT[sc] * r / 2, t_total=7 * r)
+                rows.append(x)
+        out[s] = _run(s, rows)
+    return out
+
+
+def test_same_order_pairs():
+    assert S.same_order_pairs(_runs_full()[1]["rows"]) == [("suzuki4", "mo-q6")]
+
+
+def test_paired_gain_by_hand():
+    """CNOT gain mo-q6 over suzuki4 per seed = 50 r4 / 60 r6:
+    seed 1: 500/480, seed 2: 600/660, seed 3: 700/540 -> median 500/480."""
+    g = {(x["metric"], x["n"]): x for x in S.paired_gains(_runs_full())}[("cnot", 4)]
+    assert g["per_seed"] == pytest.approx({1: 500 / 480, 2: 600 / 660, 3: 700 / 540})
+    assert g["median"] == pytest.approx(500 / 480)
+    assert (g["min"], g["max"]) == pytest.approx((600 / 660, 700 / 540))
+    # T: 7 r each -> r4 / r6 = 10/8, 12/11, 14/9: a paired ratio, not median(r4) / median(r6)
+    t = {(x["metric"], x["n"]): x for x in S.paired_gains(_runs_full())}[("t", 4)]
+    assert t["median"] == pytest.approx(10 / 8)
+
+
+def test_win_counts_by_hand():
+    """CNOT at n=4: seed 1 mo-q6 480 cheapest; seed 2 suzuki4 600; seed 3 mo-q6 540."""
+    w = {(x["metric"], x["n"]): x["wins"] for x in S.win_counts(_runs_full())}[("cnot", 4)]
+    assert w == {"mo-q6": 2, "suzuki4": 1}
+
+
+def test_bound_ratio_by_hand():
+    runs = _runs_full()
+    for s, rb in ((1, 300), (2, 240), (3, 270)):
+        x = _row("suzuki2", 2, 4, rb, 10, src="tte")
+        x.update(family="suzuki", rz_total=0, t_total=0)
+        runs[s]["rows"].append(x)
+    (b,) = S.bound_ratios(runs)
+    assert b["per_seed"] == pytest.approx({1: 3.0, 2: 2.0, 3: 3.0})
+    assert (b["median"], b["denominator"]) == (pytest.approx(3.0), "measured")
+
+
+def test_numpy_instance_runs_are_aggregated():
+    runs = _runs_full()
+    for s in runs:
+        runs[s]["meta"]["config"]["instances"] = "numpy"
+        for r in runs[s]["rows"]:
+            r["instance"] = "numpy"
+    aggs = S.aggregate(runs, "cnot", "cnot_total", "cz")
+    assert {(x.scheme, x.n) for x in aggs} == {("suzuki2", 4), ("suzuki4", 4), ("mo-q6", 4)}

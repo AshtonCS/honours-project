@@ -44,7 +44,7 @@ import numpy as np
 
 from . import resources
 from .nam import Circuit, bridge, optimise, verify
-from .pfcompare import fixture_hamiltonian, formula_registry, provenance, write_environment
+from .pfcompare import formula_registry, instance_fields, instance_hamiltonian, provenance, write_environment
 from .weighted import build_step_from_schedule, merge
 
 METRICS = ("CNOT", "Rz", "total")
@@ -112,9 +112,10 @@ def measured_r_from(source: dict, seed: int) -> dict[tuple[str, int], int]:
     """{(scheme, n): r} from the cz measured rows of a pfcompare results file."""
     if int(source["meta"]["config"]["seed"]) != seed:
         raise ValueError(f"source is seed {source['meta']['config']['seed']}, config asks for {seed}")
+    inst = source["meta"]["config"].get("instances", "simcount")
     out: dict[tuple[str, int], int] = {}
     for row in source["rows"]:
-        if row["instance"] == "simcount" and row["r_source"] == "measured" and row["gatebase"] == "cz":
+        if row["instance"] == inst and row["r_source"] == "measured" and row["gatebase"] == "cz":
             out[(row["scheme"], int(row["n"]))] = int(row["r"])
     return out
 
@@ -131,7 +132,10 @@ def run(cfg: dict, source: dict, log=print) -> list[dict]:
             if (key, n) not in rs:
                 raise ValueError(f"no measured cz r for {key} at n={n} in the source")
             r = rs[(key, n)]
-            H = fixture_hamiltonian(n, cfg["seed"])
+            H = instance_hamiltonian(cfg, n)
+            src_fields = source["meta"].get("fields", {}).get(str(n))
+            if src_fields is not None and src_fields != instance_fields(H):
+                raise ValueError(f"n={n}: this instance's fields differ from the source run's")
             c = optimise_case(H, spec, n, r)
             for m in METRICS:
                 rows.append({

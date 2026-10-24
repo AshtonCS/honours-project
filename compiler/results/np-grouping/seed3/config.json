@@ -1,0 +1,31 @@
+{
+  "name": "np-grouping/seed3",
+  "description": "X-Y-Z vs two groups (E' = even bonds + fields, O = odd bonds; both outer choices) for every formula, measured r, cz, NumPy instance seed 3, even n, t = n; merged and unmerged.",
+  "instances": "numpy",
+  "seed": 3,
+  "schemes": [
+    "lie-trotter",
+    "suzuki2",
+    "suzuki4",
+    "suzuki6",
+    "suzuki8",
+    "mo-q6",
+    "mo-q14",
+    "bm-q10",
+    "mo-o8-q21",
+    "morales-y8m10",
+    "morales-m8"
+  ],
+  "variants": [
+    "xyz",
+    "twogroup-even-out",
+    "twogroup-odd-out"
+  ],
+  "sizes": [
+    4,
+    6,
+    8,
+    10
+  ],
+  "gatebase": "cz"
+}

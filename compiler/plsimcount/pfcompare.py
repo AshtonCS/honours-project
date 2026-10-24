@@ -7,7 +7,10 @@ to it (``results.csv``, ``results.json``) together with the git commit, a
 dirty flag, a hash of every source file used, the versions of python and the
 numerical packages, and the full ``pip freeze`` (``environment.txt``), so each number can be
 traced back to the code and settings that produced it. Nothing is random:
-Hamiltonians come from the committed simcount fixtures (seed in the config).
+Hamiltonians come from the committed simcount fixtures (``instances`` =
+"simcount", the default) or from NumPy fields fixed by the seed
+(``instances`` = "numpy", ``numpy_fields``); either way the fields used are
+recorded verbatim in ``meta["fields"]``.
 
 How each row is made
 --------------------
@@ -123,6 +126,49 @@ def fixture_hamiltonian(n: int, seed: int) -> Hamiltonian:
     if len(Hs) != 1:
         raise ValueError(f"fixtures for n={n}, seed={seed} disagree on the Hamiltonian")
     return parse_simcount(files[0].read_text())
+
+
+INSTANCE_SOURCES = ("simcount", "numpy")
+
+
+def numpy_fields(n: int, seed: int) -> list[float]:
+    """Random fields h_1..h_n for the NumPy instance (seed, n).
+
+    Same distribution as simcount (Main.hs: ``random_h gg size (-1) 1``):
+    uniform on [-1, 1] (NumPy's ``uniform`` excludes the endpoint 1, which has
+    probability zero). The generator is ``np.random.default_rng([seed, n])``:
+    SeedSequence hashes the pair, so every (seed, n) is an independent stream,
+    with no shared prefix across sizes and no structure across seeds (unlike
+    simcount's consecutive StdGen seeds). The values are recorded verbatim in
+    every results file (``meta["fields"]``), so a result never depends on a
+    NumPy version reproducing the same stream.
+    """
+    if not (isinstance(seed, int) and seed >= 0):
+        raise ValueError(f"NumPy instance seeds are non-negative integers, got {seed!r}")
+    return [float(h) for h in np.random.default_rng([seed, n]).uniform(-1.0, 1.0, n)]
+
+
+def instance_hamiltonian(cfg: dict, n: int) -> Hamiltonian:
+    """The Heisenberg instance for size n named by the config: ``instances``
+    = "simcount" (default; the committed fixture for ``seed``) or "numpy"
+    (``numpy_fields``). J = 1, periodic, as simcount."""
+    src = cfg.get("instances", "simcount")
+    if src == "simcount":
+        return fixture_hamiltonian(n, cfg["seed"])
+    if src == "numpy":
+        return heisenberg(n, numpy_fields(n, cfg["seed"]))
+    raise ValueError(f"instances must be one of {INSTANCE_SOURCES}, got {src!r}")
+
+
+def instance_fields(H: Hamiltonian) -> list[float]:
+    """The single-site Z coefficients of a Heisenberg instance, site by site."""
+    out = []
+    for t in H.terms:
+        if len(t.support) == 1:
+            if t.word[t.support[0]] != "Z":
+                raise ValueError(f"unexpected single-site term {t.word!r}")
+            out.append(t.coeff)
+    return out
 
 
 def paper_hamiltonian(n: int) -> Hamiltonian:
@@ -335,11 +381,17 @@ def main(argv=None):
     if unknown:
         raise ValueError(f"unknown scheme ids {unknown}; known: {sorted(registry)}")
 
-    meta = {"config": cfg, "only": args.only, "provenance": provenance()}
+    meta = {"config": cfg, "only": args.only, "provenance": provenance(), "fields": {}}
     write_environment(out_dir)
     rows: list[dict] = []
     hints: dict = {}
     t_start = time.perf_counter()
+    inst = cfg.get("instances", "simcount")
+
+    def H_of(n: int) -> Hamiltonian:
+        H = instance_hamiltonian(cfg, n)
+        meta["fields"][str(n)] = instance_fields(H)
+        return H
 
     # 0. eps sweep: measured r for several eps_trotter (cz-type gate sets only)
     sweep = cfg.get("eps_trotter")
@@ -354,11 +406,11 @@ def main(argv=None):
             for gb in cfg["gatebases"]:
                 gatebase_eps(gb, eps)  # raises for synthesis gate sets / bad values
         for eps in sweep:
-            print(f"== eps sweep: eps_trotter = {eps:g}, simcount instances (seed {cfg['seed']}), t = n ==")
+            print(f"== eps sweep: eps_trotter = {eps:g}, {inst} instances (seed {cfg['seed']}), t = n ==")
             hints_eps: dict = {}
             for n in cfg["sizes"]:
-                H = fixture_hamiltonian(n, cfg["seed"])
-                run_instance(rows, "simcount", H, n, float(n), keys, registry, cfg["gatebases"], cfg,
+                H = H_of(n)
+                run_instance(rows, inst, H, n, float(n), keys, registry, cfg["gatebases"], cfg,
                              hints=hints_eps, eps_trotter=eps)
                 _write(out_dir, rows, meta)
         meta["seconds"] = round(time.perf_counter() - t_start, 1)
@@ -366,11 +418,11 @@ def main(argv=None):
         print(f"done in {meta['seconds']:.0f}s -> {out_dir / 'results.csv'}")
         return
 
-    # 1. simcount instances, measured r
-    print(f"== simcount instances (seed {cfg['seed']}), t = n ==")
+    # 1. the configured instances (simcount fixtures or NumPy fields), measured r
+    print(f"== {inst} instances (seed {cfg['seed']}), t = n ==")
     for n in cfg["sizes"]:
-        H = fixture_hamiltonian(n, cfg["seed"])
-        run_instance(rows, "simcount", H, n, float(n), keys, registry, cfg["gatebases"], cfg, hints=hints)
+        H = H_of(n)
+        run_instance(rows, inst, H, n, float(n), keys, registry, cfg["gatebases"], cfg, hints=hints)
         _write(out_dir, rows, meta)
 
     # 2. the paper's instance, measured r
@@ -388,7 +440,7 @@ def main(argv=None):
         fits, r_given = {}, {}
         for key in keys:
             for gb in cfg["gatebases"]:
-                pts = sorted({(rw["n"], rw["r"]) for rw in rows if rw["instance"] == "simcount"
+                pts = sorted({(rw["n"], rw["r"]) for rw in rows if rw["instance"] == inst
                               and rw["scheme"] == key and rw["gatebase"] == gb and rw["n"] in x["fit_sizes"]})
                 if len(pts) < 2:
                     raise ValueError(f"need at least two measured sizes to fit {key}/{gb}")
@@ -396,12 +448,12 @@ def main(argv=None):
                 fits[f"{key}/{gb}"] = {"a": a, "b": b, "points": pts}
         meta["fits"] = fits
         for n in x["sizes"]:
-            H = fixture_hamiltonian(n, cfg["seed"])
+            H = H_of(n)
             for key in keys:
                 for gb in cfg["gatebases"]:
                     f = fits[f"{key}/{gb}"]
                     r_given[(key, gb)] = math.ceil(f["a"] * n ** f["b"])
-            run_instance(rows, "simcount", H, n, float(n), keys, registry, cfg["gatebases"], cfg,
+            run_instance(rows, inst, H, n, float(n), keys, registry, cfg["gatebases"], cfg,
                          r_source="fit", r_given=r_given)
             _write(out_dir, rows, meta)
 
@@ -414,7 +466,7 @@ def main(argv=None):
             if registry[key].family != "suzuki":
                 raise ValueError(f"bound rows need a Suzuki formula (the bounds are Suzuki-specific), got {key!r}")
         for n in b["sizes"]:
-            H = fixture_hamiltonian(n, cfg["seed"])
+            H = H_of(n)
             for bound in b["bounds"]:
                 keys_b = []
                 for key in b["schemes"]:
@@ -429,7 +481,7 @@ def main(argv=None):
                     for gb in cfg["gatebases"]:
                         algo = f"pf{registry[key].order}{bound}"
                         r_given[(key, gb)] = bounds.steps(algo, H, float(n), GATEBASES[gb][0])
-                run_instance(rows, "simcount", H, n, float(n), keys_b, registry, cfg["gatebases"], cfg,
+                run_instance(rows, inst, H, n, float(n), keys_b, registry, cfg["gatebases"], cfg,
                              r_source=bound, r_given=r_given)
                 _write(out_dir, rows, meta)
 

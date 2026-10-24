@@ -80,3 +80,50 @@ def test_run_rows_small():
     assert by[("xyz", False)]["cnot_total"] == 48 * 699
     assert by[("xyz", True)]["cnot_total"] == 40 * 699
     assert set(v for v, _ in by) == set(G.VARIANTS)
+
+
+# ------------------------------------------------------------------ any formula ("schemes" mode)
+
+def test_schemes_mode_suzuki_matches_orders_mode():
+    """For Suzuki S2/S4 the any-formula runner gives the same r and unmerged
+    CNOT counts as the original Suzuki-only runner."""
+    cfg_old = {"orders": [2, 4], "sizes": [4], "seed": 1, "gatebase": "cz"}
+    old = {(r["order"], r["variant"]): r for r in G.run(cfg_old, log=lambda *_: None) if not r["merged"]}
+    meta = {"fields": {}}
+    cfg_new = {"schemes": ["suzuki2", "suzuki4"], "variants": list(G.SCHEME_VARIANTS), "sizes": [4], "seed": 1}
+    new = G.run_schemes(cfg_new, meta, log=lambda *_: None)
+    for r in new:
+        if r["merged"]:
+            continue
+        o = old[(r["order"], r["variant"])]
+        assert (r["r"], r["cnot_per_step"], r["rz_per_step"]) == (o["r"], o["cnot_per_step"], o["rz_per_step"])
+    assert meta["fields"]["4"] == pytest.approx([-0.8444192498333132, 0.7998200058907112, 0.2371705373647761,
+                                                 -0.5823152775681468])
+
+
+def test_schemes_mode_merging_two_groups_by_hand():
+    """S4 two-group: 5 S2 cycles, A/2 B A/2 each, so 10 outer applications
+    of which the 4 at the joins pair up: 6 outer + 5 inner = 11 merged group
+    applications against 15 unmerged. n = 4: 2 bonds per group, 3 CNOT each."""
+    meta = {"fields": {}}
+    rows = G.run_schemes({"schemes": ["suzuki4"], "variants": ["twogroup-odd-out"], "sizes": [4], "seed": 1},
+                         meta, log=lambda *_: None)
+    by = {r["merged"]: r for r in rows}
+    assert by[False]["cnot_per_step"] == 15 * 2 * 3
+    assert by[True]["cnot_per_step"] == 11 * 2 * 3
+    assert by[False]["r"] == by[True]["r"]
+
+
+def test_schemes_mode_numpy_instances_record_fields():
+    from plsimcount.pfcompare import numpy_fields
+    meta = {"fields": {}}
+    rows = G.run_schemes({"schemes": ["mo-q6"], "variants": ["xyz", "twogroup-even-out"], "sizes": [4],
+                          "seed": 3, "instances": "numpy"}, meta, log=lambda *_: None)
+    assert {r["instance"] for r in rows} == {"numpy"}
+    assert meta["fields"]["4"] == numpy_fields(4, 3)
+    assert len(rows) == 4
+
+
+def test_schemes_mode_rejects_unknown_variant():
+    with pytest.raises(ValueError, match="unknown variants"):
+        G.run_schemes({"schemes": ["suzuki2"], "variants": ["blocked"], "sizes": [4], "seed": 1}, {"fields": {}})

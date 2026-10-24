@@ -175,6 +175,34 @@ def group_schedule(order: int, d: float) -> list[tuple[int, float]]:
     return a + a + b + a + a
 
 
+# Any formula as a two-group formula. Every registry formula builds its
+# schedule from a Hamiltonian's term order (Suzuki via ``formula.schedule``,
+# the ramp-form schemes via ``weighted.ramp_schedule``, which splits terms into
+# stages of mutually commuting runs). On this stand-in with two
+# non-commuting terms, term 0 = A and term 1 = B, that schedule *is* the
+# formula as a two-operator splitting H = A + B: group 0 (outer) and group 1.
+# split=1 makes simcount's second order A/2 B A/2, as ``group_schedule``.
+GROUP_PROXY = Hamiltonian([Term(1.0, "X"), Term(1.0, "Z")], split=1)
+
+
+def formula_group_schedule(spec, d: float, merged: bool = False) -> list[tuple[int, float]]:
+    """[(group, time)] for one step of size d of a registry formula
+    (``pfcompare.formula_registry``) applied to the two groups.
+
+    merged: combine consecutive applications of the same group into one
+    (exact: a group's exponentials compose additively in time), the analogue
+    of ``weighted.merge`` for the term-by-term formulas.
+    """
+    from .weighted import merge
+    sched = spec.schedule(GROUP_PROXY, d)
+    if merged:
+        sched = merge(GROUP_PROXY, sched)
+    bad = [g for g, _ in sched if g not in (0, 1)]
+    if bad:
+        raise ValueError(f"two-group schedule refers to groups {sorted(set(bad))}")
+    return sched
+
+
 OUTER = ("even", "odd")  # which group is applied twice per S2
 
 
@@ -186,10 +214,15 @@ def ordered(H: Hamiltonian, outer: str) -> list[list[Bond]]:
 
 
 def build_step(H: Hamiltonian, order: int, d: float, outer: str) -> qml.tape.QuantumScript:
-    """One step as a tape; each group application emits a block per bond."""
+    """One step of Suzuki's recursion as a tape; each group application emits a block per bond."""
+    return build_step_schedule(H, group_schedule(order, d), outer)
+
+
+def build_step_schedule(H: Hamiltonian, sched: list[tuple[int, float]], outer: str) -> qml.tape.QuantumScript:
+    """One step from any two-group schedule [(group, time)]."""
     groups = ordered(H, outer)
     ops: list = []
-    for g, time in group_schedule(order, d):
+    for g, time in sched:
         for bond in groups[g]:
             ops += bond_ops(bond, time)
     return qml.tape.QuantumScript(ops)

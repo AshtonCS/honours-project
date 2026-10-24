@@ -1,5 +1,6 @@
 """The comparison runner's helpers (pfcompare.py)."""
 
+import json
 import math
 import warnings
 
@@ -116,3 +117,46 @@ def test_environment_file_is_written_next_to_results(tmp_path):
     names = {ln.split("==")[0].split(" @ ")[0].lower() for ln in lines}
     for name in ("numpy", "scipy", "pennylane", "mpmath", "pygridsynth"):
         assert name in names
+
+
+# ------------------------------------------------------------------ NumPy instances
+
+def test_numpy_fields_are_fixed_by_seed_and_n():
+    from plsimcount.pfcompare import numpy_fields
+    a = numpy_fields(6, 1)
+    assert a == numpy_fields(6, 1)                   # deterministic
+    assert all(-1.0 <= h < 1.0 for h in a)           # simcount's range [-1, 1]
+    assert a[:4] != numpy_fields(4, 1)               # no shared prefix across sizes
+    assert numpy_fields(6, 2) != a                   # different seed, different fields
+    with pytest.raises(ValueError):
+        numpy_fields(4, -1)
+
+
+# numpy_fields(4, 1) under NumPy 2.x's PCG64 + SeedSequence, recorded 2026-10-24.
+SNAPSHOT_N4_SEED1 = [-0.2103496912850671, 0.7005550756058001, 0.8447195951061301, 0.04097678077809941]
+
+
+def test_numpy_fields_regression_snapshot():
+    """Pins NumPy's stream for one instance; if a NumPy upgrade changes it,
+    this fails (results stay reproducible from the fields stored in them)."""
+    from plsimcount.pfcompare import numpy_fields
+    import numpy as np
+    want = [float(h) for h in np.random.Generator(np.random.PCG64(np.random.SeedSequence([1, 4]))).uniform(-1, 1, 4)]
+    assert numpy_fields(4, 1) == want
+    assert numpy_fields(4, 1) == pytest.approx(SNAPSHOT_N4_SEED1, abs=0, rel=0)
+
+
+def test_numpy_instance_run_records_fields(tmp_path):
+    from plsimcount.pfcompare import numpy_fields
+    cfg = {"name": "t", "schemes": ["suzuki2"], "sizes": [4], "seed": 7, "instances": "numpy", "gatebases": ["cz"]}
+    (tmp_path / "config.json").write_text(json.dumps(cfg))
+    P.main([str(tmp_path / "config.json")])
+    out = json.loads((tmp_path / "results.json").read_text())
+    assert out["meta"]["fields"]["4"] == numpy_fields(4, 7)
+    assert {r["instance"] for r in out["rows"]} == {"numpy"}
+
+
+def test_unknown_instance_source_raises():
+    from plsimcount.pfcompare import instance_hamiltonian
+    with pytest.raises(ValueError, match="instances must be one of"):
+        instance_hamiltonian({"instances": "haskell", "seed": 1}, 4)

@@ -45,7 +45,8 @@ import numpy as np
 from . import blocks, evenodd, fastempirical, formula, resources, twogroup
 from .compare import GATEBASES
 from .hamiltonian import Hamiltonian
-from .pfcompare import fixture_hamiltonian, provenance, write_environment
+from .pfcompare import fixture_hamiltonian, formula_registry, instance_fields, instance_hamiltonian, provenance, \
+    write_environment
 from .weighted import build_step_from_schedule, merge
 
 VARIANTS = ("xyz", "evenodd", "blocked", "twogroup-even-out", "twogroup-odd-out")
@@ -161,6 +162,90 @@ def run(cfg: dict, log=print) -> list[dict]:
     return rows
 
 
+# ------------------------------------------------------------------ any formula (config key "schemes")
+
+SCHEME_VARIANTS = ("xyz", "twogroup-even-out", "twogroup-odd-out")
+
+FIELDS_SCHEMES = ["instance", "seed", "n", "t", "scheme", "family", "order", "variant", "eps_trotter", "r",
+                  "err_at_r", "err_at_r_minus_1", "search_dips", "search_seconds", "merged",
+                  "cnot_per_step", "rz_per_step", "gates_per_step", "cnot_total", "rz_total", "gates_total"]
+
+
+def run_schemes(cfg: dict, meta: dict, log=print) -> list[dict]:
+    """X-Y-Z vs two groups for any registry formula (``twogroup.formula_group_schedule``).
+
+    r is measured per (formula, variant, n) with the same search as pfcompare.
+    Counts are reported unmerged and merged for every variant: merged means
+    ``weighted.merge`` for X-Y-Z (the pf-thesis convention) and, for two
+    groups, consecutive applications of one group combined into one (exact).
+    Instances as pfcompare (``instances``: simcount fixtures or NumPy fields),
+    fields recorded in ``meta["fields"]``.
+    """
+    if cfg.get("gatebase", "cz") != "cz":
+        raise ValueError("only the cz gate set: block rotations are not routed through synthesis")
+    variants = cfg["variants"]
+    bad = [v for v in variants if v not in SCHEME_VARIANTS]
+    if bad:
+        raise ValueError(f"unknown variants {bad}; known: {SCHEME_VARIANTS}")
+    registry = formula_registry()
+    unknown = [k for k in cfg["schemes"] if k not in registry]
+    if unknown:
+        raise ValueError(f"unknown scheme ids {unknown}")
+    eps = GATEBASES["cz"][0]
+    inst = cfg.get("instances", "simcount")
+    rows: list[dict] = []
+    hints: dict[tuple[str, str], int] = {}
+    for n in cfg["sizes"]:
+        H = instance_hamiltonian(cfg, n)
+        meta["fields"][str(n)] = instance_fields(H)
+        t = float(n)
+        evols = {}
+        for v in variants:
+            evols[v] = fastempirical.FastEvolution(H) if v == "xyz" else GroupEvolution(H, v.split("-")[1])
+        for key in cfg["schemes"]:
+            spec = registry[key]
+            for v in variants:
+                if v == "xyz":
+                    fn = spec.schedule
+                else:
+                    fn = lambda H_, d, spec=spec: twogroup.formula_group_schedule(spec, d)  # noqa: E731
+                s = fastempirical.steps(evols[v], fn, spec.order, t, eps, start=hints.get((key, v), 1))
+                hints[(key, v)] = r = s.r
+                for merged in (False, True):
+                    if v == "xyz":
+                        sched = spec.schedule(H, t / r)
+                        tape = build_step_from_schedule(H, merge(H, sched) if merged else sched, "simcount")
+                    else:
+                        tape = twogroup.build_step_schedule(
+                            H, twogroup.formula_group_schedule(spec, t / r, merged), v.split("-")[1])
+                    c = resources.summary(resources.count(tape))
+                    rows.append({
+                        "instance": inst, "seed": cfg["seed"], "n": n, "t": t, "scheme": key, "family": spec.family,
+                        "order": spec.order, "variant": v, "eps_trotter": eps, "r": r,
+                        "err_at_r": s.err_r, "err_at_r_minus_1": s.err_r_minus_1, "search_dips": s.dips,
+                        "search_seconds": round(s.seconds, 2), "merged": merged,
+                        "cnot_per_step": c["CNOT"], "rz_per_step": c["Rz"], "gates_per_step": c["Total excl. omega"],
+                        "cnot_total": c["CNOT"] * r, "rz_total": c["Rz"] * r, "gates_total": c["Total excl. omega"] * r,
+                    })
+                log(f"  n={n:2d} {spec.name:30s} {v:18s} r={r:>8,}  merged CNOT total={rows[-1]['cnot_total']:>12,}")
+    return rows
+
+
+def table_md_schemes(rows: list[dict]) -> str:
+    lines = ["| scheme | n | variant | r | CNOT/step | CNOT total | merged CNOT/step | merged CNOT total | merged gates total |",
+             "|---|---:|---|---:|---:|---:|---:|---:|---:|"]
+    by = {(r["scheme"], r["n"], r["variant"], r["merged"]): r for r in rows}
+    for key in dict.fromkeys(r["scheme"] for r in rows):
+        for n in sorted({r["n"] for r in rows}):
+            for v in SCHEME_VARIANTS:
+                x, m = by.get((key, n, v, False)), by.get((key, n, v, True))
+                if x is None:
+                    continue
+                lines.append(f"| {key} | {n} | {v} | {x['r']:,} | {x['cnot_per_step']:,} | {x['cnot_total']:,} | "
+                             f"{m['cnot_per_step']:,} | {m['cnot_total']:,} | {m['gates_total']:,} |")
+    return "\n".join(lines)
+
+
 # ------------------------------------------------------------------ figure
 
 STYLE = {  # variant -> (label, colour, mark)
@@ -240,9 +325,21 @@ def main(argv: list[str] | None = None) -> None:
     args = ap.parse_args(argv)
     cfg = json.loads(args.config.read_text())
     out = args.config.parent
-    meta = {"config": cfg, "provenance": provenance()}
+    meta = {"config": cfg, "provenance": provenance(), "fields": {}}
     write_environment(out)
     t0 = time.perf_counter()
+    if "schemes" in cfg:
+        rows = run_schemes(cfg, meta)
+        meta["seconds"] = round(time.perf_counter() - t0, 1)
+        (out / "results.json").write_text(json.dumps({"meta": meta, "rows": rows}, indent=1))
+        with open(out / "results.csv", "w", newline="") as fh:
+            w = csv.DictWriter(fh, fieldnames=FIELDS_SCHEMES)
+            w.writeheader()
+            for r in rows:
+                w.writerow(r)
+        (out / "table.md").write_text(table_md_schemes(rows) + "\n")
+        print(table_md_schemes(rows))
+        return
     rows = run(cfg)
     meta["seconds"] = round(time.perf_counter() - t0, 1)
     (out / "results.json").write_text(json.dumps({"meta": meta, "rows": rows}, indent=1))

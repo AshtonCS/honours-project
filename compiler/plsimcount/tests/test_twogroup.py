@@ -129,3 +129,72 @@ def test_tte_bound_holds(outer, order):
     mats = twogroup._group_matrices(H, outer)
     U = np.linalg.matrix_power(twogroup.step_unitary(mats, order, 4.0 / r), r)
     assert np.linalg.norm(U - expm(-4j * H.matrix()), 2) <= 1e-3
+
+
+# ------------------------------------------------------------------ any formula as two groups
+
+def _registry():
+    from plsimcount.pfcompare import formula_registry
+    return formula_registry()
+
+
+def _sched_unitary(mats, sched):
+    U = np.eye(mats[0].shape[0], dtype=complex)
+    for g, time in sched:
+        U = expm(-1j * time * mats[g]) @ U
+    return U
+
+
+@pytest.mark.parametrize("order", [1, 2, 4, 6])
+def test_formula_group_schedule_reproduces_suzuki_recursion(order):
+    """The stand-in Hamiltonian gives exactly group_schedule for Suzuki."""
+    key = "lie-trotter" if order == 1 else f"suzuki{order}"
+    got = twogroup.formula_group_schedule(_registry()[key], 0.37)
+    want = twogroup.group_schedule(order, 0.37)
+    assert [g for g, _ in got] == [g for g, _ in want]
+    assert np.allclose([x for _, x in got], [x for _, x in want], rtol=1e-14, atol=0)
+
+
+@pytest.mark.parametrize("key", ["lie-trotter", "suzuki2", "suzuki4", "suzuki6", "suzuki8", "mo-q6", "mo-q14",
+                                 "bm-q10", "mo-o8-q21", "morales-y8m10", "morales-m8"])
+def test_every_formula_two_group_total_time_and_merge(key):
+    """Each group gets total time d per step, and merging consecutive
+    applications of one group leaves the unitary unchanged."""
+    spec = _registry()[key]
+    d = 0.37
+    raw = twogroup.formula_group_schedule(spec, d)
+    mer = twogroup.formula_group_schedule(spec, d, merged=True)
+    for g in (0, 1):
+        assert sum(x for gg, x in raw if gg == g) == pytest.approx(d, rel=1e-12)
+    assert all(a[0] != b[0] for a, b in zip(mer, mer[1:]))  # no two consecutive applications of one group
+    mats = twogroup._group_matrices(heisenberg(4, FIELDS_N4), "even")
+    assert _dist_up_to_phase(_sched_unitary(mats, raw), _sched_unitary(mats, mer)) < 1e-12
+
+
+@pytest.mark.parametrize("key", ["lie-trotter", "suzuki2", "suzuki4", "mo-q6", "mo-q14", "bm-q10",
+                                 "mo-o8-q21", "morales-y8m10", "morales-m8"])
+def test_every_formula_two_group_has_its_order(key):
+    """Local error of one two-group step falls as d^(p+1): halving d divides
+    it by about 2^(p+1). Checked through the local slope between d and d/2."""
+    spec = _registry()[key]
+    H = heisenberg(4, FIELDS_N4)
+    mats = twogroup._group_matrices(H, "even")
+    Hm = H.matrix()
+
+    def err(d):
+        return np.linalg.norm(_sched_unitary(mats, twogroup.formula_group_schedule(spec, d)) - expm(-1j * d * Hm), 2)
+
+    d = {1: 0.02, 2: 0.04, 4: 0.12, 6: 0.25, 8: 0.35}[spec.order]
+    slope = np.log2(err(d) / err(d / 2))
+    assert slope == pytest.approx(spec.order + 1, abs=0.35), (key, slope)
+
+
+@pytest.mark.parametrize("key", ["mo-q6", "morales-m8"])
+@pytest.mark.parametrize("merged", [False, True])
+@pytest.mark.parametrize("outer", twogroup.OUTER)
+def test_any_formula_circuit_matches_group_product(key, merged, outer):
+    H = heisenberg(4, FIELDS_N4)
+    sched = twogroup.formula_group_schedule(_registry()[key], 0.37, merged)
+    U_c = qml.matrix(twogroup.build_step_schedule(H, sched, outer), wire_order=range(4))
+    U_x = _sched_unitary(twogroup._group_matrices(H, outer), sched)
+    assert _dist_up_to_phase(U_c, U_x) < 1e-10

@@ -1,0 +1,18 @@
+{
+  "name": "np-main aggregate",
+  "description": "Headline numbers: median and min-max over NumPy seeds 1-10; per-seed paired gains, win counts, bound/measured ratios; median figures with fitted points open.",
+  "runs": [
+    "seed1/results.json",
+    "seed2/results.json",
+    "seed3/results.json",
+    "seed4/results.json",
+    "seed5/results.json",
+    "seed6/results.json",
+    "seed7/results.json",
+    "seed8/results.json",
+    "seed9/results.json",
+    "seed10/results.json"
+  ],
+  "reference_seed": 1,
+  "out": "aggregate"
+}
