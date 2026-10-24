@@ -44,7 +44,7 @@ Hold-out, all 11 formulas (full table in `table.md`):
 |---|---|---|---|
 | {5,6,7,8} → 10 | cz | +0.0% to +18.9% | Suzuki S6 |
 | {6,7,8} → 10 | cz | +0.0% to +65.3% (+22.2% without Lie-Trotter) | Lie-Trotter |
-| {4,5,6,7} → 8 | cz | −17.9% to +3.7% | Lie-Trotter |
+| {4,5,6,7} → 8 | cz | −17.9% to +4.5% | Lie-Trotter |
 | {5,6,7,8} → 10 | ct | −1.0% to +13.7% | Lie-Trotter |
 | {6,7,8} → 10 | ct | +0.0% to +65.3% | Lie-Trotter |
 | {4,5,6,7} → 8 | ct | −17.9% to +7.1% | Lie-Trotter |
@@ -55,7 +55,7 @@ What the data show:
   of 44 cases, 38 over-predict, 5 are exact and one is −1.0%; the
   over-prediction reaches ~19% (fit on {5,6,7,8}) to ~22%
   ({6,7,8}) for orders ≥ 2. **Predicting n = 8 from n ≤ 7 errs both ways**
-  (of 22 cases: 11 under, 5 over, 6 exact). So the sign depends on the
+  (of 22 cases: 11 under, 6 over, 5 exact). So the sign depends on the
   window; it is not a systematic bias that could be corrected.
 - **The fitted exponent b is not stable.** For the same formula it moves by
   0.2–0.5 between windows (e.g. Suzuki S8, cz: 1.26 to 1.56; Lie-Trotter:
@@ -72,7 +72,7 @@ Fit-window sensitivity at n = 13 and 20 (max/min over six windows, cz):
 
 | | cz, n = 13 | cz, n = 20 | ct, n = 13 | ct, n = 20 |
 |---|---|---|---|---|
-| orders 2–8 (10 formulas) | 1.08 – 1.36 | 1.14 – 1.78 | 1.07 – 1.20 | 1.14 – 1.38 |
+| orders 2–8 (10 formulas) | 1.08 – 1.36 | 1.14 – 1.69 | 1.07 – 1.20 | 1.14 – 1.38 |
 | Lie-Trotter | 2.48 | 5.05 | 2.48 | 5.05 |
 
 ## How far to trust the n = 13 / 20 points

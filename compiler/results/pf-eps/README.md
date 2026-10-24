@@ -53,7 +53,7 @@ fit slope / (−1/p), range over n = 4–10:
 | M&O q=21 (order 8) | 8 | 0.95–1.09 | |
 | Morales Y8m10 | 8 | 0.97–1.10 | |
 | Morales m=8 | 8 | 0.73–0.95 | |
-| **Suzuki S8** | 8 | **1.02–1.50** | steeper than −1/8 at most n |
+| **Suzuki S8** | 8 | **1.02–1.70** | steeper than −1/8 at most n |
 
 Reading:
 
@@ -83,6 +83,13 @@ Reading:
   eps and n, and the three non-Suzuki schemes are within a factor 1.36 of
   each other and swap places as eps changes (e.g. n = 10: M&O q=21 is
   cheapest at 1e-2, Morales m=8 at 1e-3 and 1e-4).
+
+- **Non-monotone error (regenerated 2026-10-22 with the "keeps working"
+  definition of r, `fastempirical.WINDOW` = 10).** Three rows had a dip that
+  fails again just above it: M&O q=14 n = 6 at 1e-3 (14 → 16), and Suzuki
+  S8 at 1e-4 for n = 6 (13 → 16) and n = 8 (19 → 21). Each row's
+  `search_dips` lists them. The S8 changes are why its ratio range widened
+  from 1.02–1.50 to 1.02–1.70.
 
 ## Assumptions
 

@@ -70,15 +70,15 @@ exactly with r, so CNOT and total have the same ratios):
 | Lie-Trotter | 1.74 | 2.08 |
 | Suzuki S2 | 1.31 | 1.49 |
 | Suzuki S4 / S6 / S8 | 1.22 / 1.15 / 1.25 | 1.22 / 1.27 / 1.19 |
-| M&O q=6 / q=14 | 1.14 / 1.14 | 1.22 / 1.18 |
+| M&O q=6 / q=14 | 1.14 / 1.12 | 1.22 / 1.11 |
 | Blanes–Moan q=10 | 1.09 | 1.23 |
 | order-8 non-Suzuki | 1.10–1.15 | 1.12–1.25 |
 
 T counts (ct) behave the same (max/min up to 1.37 for S2 and 1.81 for
 Lie-Trotter at measured n). Excluding Lie-Trotter, no formula's r varies by
 more than 1.31× across seeds at a measured size. **Seed 1 is not a typical
-instance**: its r is the largest of the five in 37 of 66 (formula, n) cases
-and the smallest in 17. seed-1 r / median ranges 0.76–1.15, with a median
+instance**: its r is the largest of the five in 38 of 66 (formula, n) cases
+and the smallest in 16. seed-1 r / median ranges 0.76–1.15, with a median
 of 1.03.
 
 ## Rankings (`rankings.md`)

@@ -23,9 +23,9 @@
   "out": "aggregate"
  },
  "provenance": {
-  "git_commit": "654dedaa024dc7376a7848eeaf994b311a46b332",
+  "git_commit": "04cd66abb614bdc66fb48e891cef085a299e0ab1",
   "git_dirty": false,
-  "source_sha256": "cee9979f6febc9eac58d8d9eb092f7a292dc955df1144d64c8e5be4d771b8e09",
+  "source_sha256": "018e0b7603e6fc9f6ee358974f241415a3b93437700847b033937cc1d4250db8",
   "python": "3.12.13",
   "numpy": "2.5.2",
   "scipy": "1.18.1",
@@ -33,13 +33,13 @@
   "mpmath": "1.4.1",
   "pygridsynth": "2.0.0",
   "platform": "macOS-26.6.2-arm64-arm-64bit",
-  "started": "2026-10-21 14:13:53 AEDT"
+  "started": "2026-10-22 22:01:28 AEDT"
  },
  "runs": {
   "1": {
-   "git_commit": "8dd1b68c1faeffb1fb64439f6d7c9c5df3cf51a5",
+   "git_commit": "04cd66abb614bdc66fb48e891cef085a299e0ab1",
    "git_dirty": false,
-   "source_sha256": "b873d22b3313ea16fccf9fa794f47ff4a68dd18ed7d730f90d20f479b4536986",
+   "source_sha256": "018e0b7603e6fc9f6ee358974f241415a3b93437700847b033937cc1d4250db8",
    "python": "3.12.13",
    "numpy": "2.5.2",
    "scipy": "1.18.1",
@@ -47,12 +47,12 @@
    "mpmath": "1.4.1",
    "pygridsynth": "2.0.0",
    "platform": "macOS-26.6.2-arm64-arm-64bit",
-   "started": "2026-10-21 12:52:01 AEDT"
+   "started": "2026-10-22 17:26:36 AEDT"
   },
   "2": {
-   "git_commit": "8dd1b68c1faeffb1fb64439f6d7c9c5df3cf51a5",
+   "git_commit": "04cd66abb614bdc66fb48e891cef085a299e0ab1",
    "git_dirty": false,
-   "source_sha256": "b873d22b3313ea16fccf9fa794f47ff4a68dd18ed7d730f90d20f479b4536986",
+   "source_sha256": "018e0b7603e6fc9f6ee358974f241415a3b93437700847b033937cc1d4250db8",
    "python": "3.12.13",
    "numpy": "2.5.2",
    "scipy": "1.18.1",
@@ -60,12 +60,12 @@
    "mpmath": "1.4.1",
    "pygridsynth": "2.0.0",
    "platform": "macOS-26.6.2-arm64-arm-64bit",
-   "started": "2026-10-21 12:52:01 AEDT"
+   "started": "2026-10-22 18:03:41 AEDT"
   },
   "3": {
-   "git_commit": "8dd1b68c1faeffb1fb64439f6d7c9c5df3cf51a5",
+   "git_commit": "04cd66abb614bdc66fb48e891cef085a299e0ab1",
    "git_dirty": false,
-   "source_sha256": "b873d22b3313ea16fccf9fa794f47ff4a68dd18ed7d730f90d20f479b4536986",
+   "source_sha256": "018e0b7603e6fc9f6ee358974f241415a3b93437700847b033937cc1d4250db8",
    "python": "3.12.13",
    "numpy": "2.5.2",
    "scipy": "1.18.1",
@@ -73,12 +73,12 @@
    "mpmath": "1.4.1",
    "pygridsynth": "2.0.0",
    "platform": "macOS-26.6.2-arm64-arm-64bit",
-   "started": "2026-10-21 12:52:01 AEDT"
+   "started": "2026-10-22 18:41:15 AEDT"
   },
   "4": {
-   "git_commit": "8dd1b68c1faeffb1fb64439f6d7c9c5df3cf51a5",
+   "git_commit": "04cd66abb614bdc66fb48e891cef085a299e0ab1",
    "git_dirty": false,
-   "source_sha256": "b873d22b3313ea16fccf9fa794f47ff4a68dd18ed7d730f90d20f479b4536986",
+   "source_sha256": "018e0b7603e6fc9f6ee358974f241415a3b93437700847b033937cc1d4250db8",
    "python": "3.12.13",
    "numpy": "2.5.2",
    "scipy": "1.18.1",
@@ -86,12 +86,12 @@
    "mpmath": "1.4.1",
    "pygridsynth": "2.0.0",
    "platform": "macOS-26.6.2-arm64-arm-64bit",
-   "started": "2026-10-21 12:52:01 AEDT"
+   "started": "2026-10-22 20:30:38 AEDT"
   },
   "5": {
-   "git_commit": "8dd1b68c1faeffb1fb64439f6d7c9c5df3cf51a5",
+   "git_commit": "04cd66abb614bdc66fb48e891cef085a299e0ab1",
    "git_dirty": false,
-   "source_sha256": "b873d22b3313ea16fccf9fa794f47ff4a68dd18ed7d730f90d20f479b4536986",
+   "source_sha256": "018e0b7603e6fc9f6ee358974f241415a3b93437700847b033937cc1d4250db8",
    "python": "3.12.13",
    "numpy": "2.5.2",
    "scipy": "1.18.1",
@@ -99,7 +99,7 @@
    "mpmath": "1.4.1",
    "pygridsynth": "2.0.0",
    "platform": "macOS-26.6.2-arm64-arm-64bit",
-   "started": "2026-10-21 12:52:01 AEDT"
+   "started": "2026-10-22 21:14:24 AEDT"
   }
  }
 }
