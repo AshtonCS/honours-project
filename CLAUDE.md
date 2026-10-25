@@ -120,14 +120,14 @@ compiled reference implementation at `/tmp/simcount-main` and Ross's
 ### Run tests
 
 ```
-cd compiler && python -m pytest plsimcount/tests -q
+cd compiler && python -m pytest pysimcount/tests -q
 ```
 
 149 tests, ~30 s. No Docker needed: the 86 parity tests replay the 82 cached
-simcount outputs in `compiler/plsimcount/fixtures/simcount/`. One test is
+simcount outputs in `compiler/pysimcount/fixtures/simcount/`. One test is
 skipped by design (Clifford+T parity needs `--synth quipper`).
 
-Run from `compiler/`, not the repo root — `plsimcount` is only importable with
+Run from `compiler/`, not the repo root — `pysimcount` is only importable with
 `compiler/` on `sys.path`, and pytest from the root fails at collection.
 
 Bare `pytest` from `compiler/` collects the same 149 tests. It does *not* pick
@@ -136,7 +136,7 @@ up the legacy `compiler/test.py` (the filename matches neither `test_*.py` nor
 `python -m pytest test.py`; as of 2026-09-23 it reports 11 failed, 8 passed, in
 committed code — `pauli_simulator.py` emits `RZ` angles as `-angle * 2` while
 `test.py` asserts positive angles. A sign-convention disagreement, pre-existing
-and unrelated to `plsimcount`. Deliberately left as-is and not maintained; do
+and unrelated to `pysimcount`. Deliberately left as-is and not maintained; do
 not modify `pauli_simulator.py` or `test.py` to make it pass.
 
 ### Run an experiment
@@ -148,15 +148,15 @@ simcount fixtures.
 cd compiler
 
 # PennyLane vs simcount, side by side (the validation workhorse)
-python -m plsimcount compare -n 4 -a pf2com -g cz
-python -m plsimcount compare -n 4 -a pf2com -g ct --synth quipper   # exact Clifford+T
-python -m plsimcount compare -n 4 -a pf2com -g cz --optimise 2      # + optimisation stage
+python -m pysimcount compare -n 4 -a pf2com -g cz
+python -m pysimcount compare -n 4 -a pf2com -g ct --synth quipper   # exact Clifford+T
+python -m pysimcount compare -n 4 -a pf2com -g cz --optimise 2      # + optimisation stage
 
 # PennyLane only; needs the Hamiltonian supplied, or falls back to a fixture
-python -m plsimcount run -n 6 -a pf4tte -g ct --fields 0.1 -0.3 0.5 0.2 -0.7 0.4
+python -m pysimcount run -n 6 -a pf4tte -g ct --fields 0.1 -0.3 0.5 0.2 -0.7 0.4
 
 # Trotter step count r across all five bounds for one instance
-python -m plsimcount bounds -n 10 --empirical
+python -m pysimcount bounds -n 10 --empirical
 ```
 
 Key flags: `-n` size, `-a pf<order><bound>` with bound in
@@ -169,7 +169,7 @@ set, including the defaults — several of them change the numbers silently:
 - `compare`: `(n, algo, gatebase, seed, template, synth)`, plus `optimise K` and
   `up_to_phase` if used. `t = n` and epsilon are derived, not free: `cz` is
   eps=1e-3 all to Trotter, `cz2ct` 5e-4, `ct` 5e-4 Trotter + 5e-4 synthesis.
-  The committed fixtures under `plsimcount/fixtures/simcount/` are part of the
+  The committed fixtures under `pysimcount/fixtures/simcount/` are part of the
   input — they supply the Hamiltonian.
 - `run`: the Hamiltonian source (`--fields` or `--hamiltonian`, recorded
   verbatim), `(algo, gatebase, template, synth)`, plus `-t` / `-r` / `-z` where

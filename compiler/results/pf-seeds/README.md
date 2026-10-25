@@ -16,13 +16,13 @@ synthesis). Synthesis is pygridsynth. No bound rows, no paper instance.
 ## Reproduce
 
 Fixtures for seeds 2–5 were recorded with Docker (`simcount-new`), one per
-(n, seed), via `python -m plsimcount compare -n N -a pf2emp -g cz -m SEED`.
+(n, seed), via `python -m pysimcount compare -n N -a pf2emp -g cz -m SEED`.
 They are committed, and every one matched simcount's own gate count. Then,
 from `compiler/` (no Docker):
 
 ```
-python -m plsimcount.pfcompare results/pf-seeds/seed<k>/config.json > results/pf-seeds/seed<k>/run.log   # k = 1..5
-python -m plsimcount.pfseeds   results/pf-seeds/aggregate.json --render
+python -m pysimcount.pfcompare results/pf-seeds/seed<k>/config.json > results/pf-seeds/seed<k>/run.log   # k = 1..5
+python -m pysimcount.pfseeds   results/pf-seeds/aggregate.json --render
 ```
 
 The five runs took ~68 min each, run in parallel on 8 cores alongside other

@@ -9,8 +9,8 @@ simcount seed 1, n = 4–10, t = n. Everything else is as in `../pf-thesis`.
 From `compiler/`, `pennylane` environment, no Docker:
 
 ```
-python -m plsimcount.pfcompare results/pf-eps/config.json | tee results/pf-eps/run.log   # ~36 min (shared machine)
-python -m plsimcount.pfeps     results/pf-eps/results.json --render
+python -m pysimcount.pfcompare results/pf-eps/config.json | tee results/pf-eps/run.log   # ~36 min (shared machine)
+python -m pysimcount.pfeps     results/pf-eps/results.json --render
 ```
 
 The sweep is the config key `eps_trotter` (a list), added to `pfcompare`

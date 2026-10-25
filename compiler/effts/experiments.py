@@ -217,7 +217,7 @@ def random_matrix_constant(scheme: S.Scheme, n_samples: int, seed: int, t: float
 def morales_reproduction(n_samples: int = 2000, seed: int = 2026) -> list[tuple[str, int, float, float | None]]:
     """(label, M, chi ours, chi paper) for the order-8 formulas, incl. two with no published chi."""
     from . import morales as Mo
-    from plsimcount.weighted import suzuki_scheme
+    from pysimcount.weighted import suzuki_scheme
     rows = [("S8m2", suzuki_scheme(8)), ("KL8s15", Mo.m7()), ("Y8m10", Mo.y8m10()), ("Y8m10b", Mo.y8m10b()),
             ("Morales m=8 (unpublished chi)", Mo.m8()), ("Malezic q=21 (unpublished chi)", S.recommended(8, 21)[0])]
     out = []

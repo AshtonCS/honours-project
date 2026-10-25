@@ -21,7 +21,7 @@ From `compiler/`, `pennylane` environment, no Docker (~7 min while other
 jobs were running):
 
 ```
-python -m plsimcount.pfgrouping results/pf-grouping/config.json --render
+python -m pysimcount.pfgrouping results/pf-grouping/config.json --render
 ```
 
 Outputs: `results.json`/`.csv`, `table.md` (every number), figures

@@ -1,6 +1,6 @@
 # pf-optimised
 
-Nam et al. "Light" optimiser (the reconstruction in `plsimcount/nam`, see its
+Nam et al. "Light" optimiser (the reconstruction in `pysimcount/nam`, see its
 README) applied to the **merged** cz step of five formulas — Suzuki S2, S4, S6,
 Maležič–Ostmeyer q=6 (order 4) and q=14 (order 6) — on simcount seed 1,
 n = 4–10, t = n, with r = the measured cz r of `../pf-thesis` (not
@@ -11,7 +11,7 @@ recomputed; the source file's sha256 is in `results.json`).
 From `compiler/`, `pennylane` environment, no Docker (~3 min):
 
 ```
-python -m plsimcount.pfoptimised results/pf-optimised/config.json --render
+python -m pysimcount.pfoptimised results/pf-optimised/config.json --render
 ```
 
 Outputs: `results.json` / `results.csv` (one row per formula, n, metric),

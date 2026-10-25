@@ -11,9 +11,9 @@ clean commit.
 From `compiler/`, in the `pennylane` conda environment (no Docker):
 
 ```
-python -m plsimcount.pfcompare results/pf-thesis/config.json | tee results/pf-thesis/run.log
-python -m plsimcount.pfreport  results/pf-thesis/results.json
-python -m plsimcount.pffigure  results/pf-thesis/results.json --render
+python -m pysimcount.pfcompare results/pf-thesis/config.json | tee results/pf-thesis/run.log
+python -m pysimcount.pfreport  results/pf-thesis/results.json
+python -m pysimcount.pffigure  results/pf-thesis/results.json --render
 ```
 
 `--render` needs `tectonic` (`brew install tectonic`); it only compiles the
@@ -22,7 +22,7 @@ written.
 
 ## Adding a formula
 
-1. Add it to `formula_registry()` in `plsimcount/pfcompare.py`.
+1. Add it to `formula_registry()` in `pysimcount/pfcompare.py`.
 2. Add its id to `"schemes"` in `config.json`.
 3. Rerun the three commands above.
 

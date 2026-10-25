@@ -9,7 +9,7 @@ Ostmeyer, arXiv:2601.18756, on simcount's Heisenberg instances.
 |---|---|
 | `config.json` | Every setting of the run. The only input besides the code and the committed simcount fixtures. |
 | `results.csv`, `results.json` | One row per (instance, n, scheme, gate set, merged). `results.json` also records the git commit, a dirty flag, a sha256 of every source file used, and the fitted power laws. |
-| `report.md` | Tables made from `results.json` by `python -m plsimcount.pfreport`. |
+| `report.md` | Tables made from `results.json` by `python -m pysimcount.pfreport`. |
 | `run.log` | Console output of the run. |
 
 ## Reproduce
@@ -17,24 +17,24 @@ Ostmeyer, arXiv:2601.18756, on simcount's Heisenberg instances.
 From `compiler/`, in the `pennylane` conda environment:
 
 ```
-python -m plsimcount.pfcompare results/pf-comparison/config.json
-python -m plsimcount.pfreport  results/pf-comparison/results.json
+python -m pysimcount.pfcompare results/pf-comparison/config.json
+python -m pysimcount.pfreport  results/pf-comparison/results.json
 ```
 
-No Docker needed: the Hamiltonians come from `plsimcount/fixtures/simcount/`
+No Docker needed: the Hamiltonians come from `pysimcount/fixtures/simcount/`
 (seed in the config). The scheme weights come from `compiler/effts`.
 
 ## How each number is made
 
 - **r**: the smallest Trotter number whose *measured* spectral-norm error at
-  time t = n is at most eps_trotter (`plsimcount/fastempirical.py`). The same
+  time t = n is at most eps_trotter (`pysimcount/fastempirical.py`). The same
   search is used for every formula, Suzuki included. It is exact for each
   instance and **not a bound**. It reproduces `empirical.py` (tests, and
   r = 3,174 / 152 at n = 10, orders 2 / 4, from `bounds_n10_empirical.txt`).
 - **Gates**: one step compiled with simcount's gate template; totals are
   per-step × r, as in simcount.
 - **Merged / unmerged**: merging combines repeated exponentials inside each
-  block of mutually commuting terms (`plsimcount/weighted.py::merge`). It
+  block of mutually commuting terms (`pysimcount/weighted.py::merge`). It
   never changes the unitary, so r is the same for both. It is applied
   identically to every formula. Unmerged is simcount's own convention.
   **Use the merged numbers for comparisons between families.** Unmerged is

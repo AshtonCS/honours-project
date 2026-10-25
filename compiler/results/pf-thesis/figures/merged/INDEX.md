@@ -1,6 +1,6 @@
 # Figures
 
-Generated from `results/pf-thesis/results.json` by `plsimcount.pffigure`.
+Generated from `results/pf-thesis/results.json` by `pysimcount.pffigure`.
 
 ## cnot (cz)
 

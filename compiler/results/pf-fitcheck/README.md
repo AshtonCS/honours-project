@@ -11,7 +11,7 @@ cz: eps_trotter = 1e-3, ct: 5e-4).
 From `compiler/`, `pennylane` environment, no Docker:
 
 ```
-python -m plsimcount.pffit results/pf-fitcheck/config.json
+python -m pysimcount.pffit results/pf-fitcheck/config.json
 ```
 
 Writes `results.json`, `results.csv`, `table.md` (all tables) and
