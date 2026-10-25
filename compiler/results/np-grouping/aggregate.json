@@ -1,0 +1,17 @@
+{
+  "name": "np-grouping aggregate",
+  "description": "Two-group (both outer choices) vs X-Y-Z grouping, every formula, n = 4,6,8,10: per-seed paired gain (= step ratio x r ratio), median and min-max over NumPy seeds 1-10, merged counts, cz.",
+  "runs": [
+    "seed1/results.json",
+    "seed2/results.json",
+    "seed3/results.json",
+    "seed4/results.json",
+    "seed5/results.json",
+    "seed6/results.json",
+    "seed7/results.json",
+    "seed8/results.json",
+    "seed9/results.json",
+    "seed10/results.json"
+  ],
+  "out": "aggregate"
+}
