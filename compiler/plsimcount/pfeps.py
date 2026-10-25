@@ -62,13 +62,14 @@ def loglog_slope(xs: list[float], ys: list[float]) -> float:
     return float(b)
 
 
-def slopes(rows: list[dict], gatebase: str = "cz") -> list[Slope]:
-    """One Slope per (scheme, n) from the measured rows (merged and unmerged
-    rows carry the same r; they must agree or this raises)."""
+def slopes(rows: list[dict], gatebase: str = "cz", instance: str = "simcount") -> list[Slope]:
+    """One Slope per (scheme, n) from the measured rows of ``instance`` (the
+    run's ``instances`` label; merged and unmerged rows carry the same r; they
+    must agree or this raises)."""
     table: dict[tuple[str, int], dict[float, int]] = {}
     meta: dict[str, tuple[str, int]] = {}
     for row in rows:
-        if row["instance"] != "simcount" or row["r_source"] != "measured" or row["gatebase"] != gatebase:
+        if row["instance"] != instance or row["r_source"] != "measured" or row["gatebase"] != gatebase:
             continue
         per = table.setdefault((row["scheme"], int(row["n"])), {})
         e, r = float(row["eps_trotter"]), int(row["r"])
@@ -106,7 +107,7 @@ def slope_table(sl: list[Slope], scheme_order: list[str]) -> str:
 # ------------------------------------------------------------------ figures
 
 def figure_tex(rows: list[dict], order: int, sizes: list[int], column: str, ylabel: str,
-               header: list[str]) -> str:
+               header: list[str], instance: str = "simcount") -> str:
     """CNOT (or other) total vs eps, every formula of one order, one series per
     (formula, n): solid line n = sizes[-1], dashed for the others. A dotted
     black line of slope -1/p through the first formula's middle point at the
@@ -114,7 +115,7 @@ def figure_tex(rows: list[dict], order: int, sizes: list[int], column: str, ylab
     from .pfcompare import formula_registry
     from .pffigure import COLOUR_OVERRIDE, FAMILY_COLOUR, ORDER_MARK, latex_escape
     reg = formula_registry()
-    pts = [r for r in rows if r["instance"] == "simcount" and r["r_source"] == "measured" and r["merged"]
+    pts = [r for r in rows if r["instance"] == instance and r["r_source"] == "measured" and r["merged"]
            and r["gatebase"] == "cz" and int(r["order"]) == order and int(r["n"]) in sizes]
     schemes = [s for s in reg if any(r["scheme"] == s for r in pts)]
     out = [f"% {h}" for h in header] + [
@@ -160,7 +161,8 @@ def write_figures(results: Path, sizes: list[int]) -> Path:
                       f"{meta['config']['seed']}, t = n",
                       f"git_commit={prov['git_commit']} git_dirty={prov['git_dirty']}"]
             rel = f"{tag}-order{order}-vs-eps.tex"
-            (root / rel).write_text(figure_tex(rows, order, sizes, column, ylabel, header))
+            (root / rel).write_text(figure_tex(rows, order, sizes, column, ylabel, header,
+                                               meta["config"].get("instances", "simcount")))
             pages.append(f"\\section*{{\\texttt{{{rel}}}}}\nOrder {order}: CNOT count vs $\\varepsilon$ "
                          f"(merged, measured $r$; solid $n={sizes[-1]}$, dashed $n={sizes[0]}$)\\par\\medskip\n"
                          f"\\input{{{rel}}}\n\\clearpage\n")
@@ -175,7 +177,7 @@ def main(argv: list[str] | None = None) -> None:
     ap.add_argument("--render", action="store_true")
     args = ap.parse_args(argv)
     data = json.loads(args.results.read_text())
-    sl = slopes(data["rows"])
+    sl = slopes(data["rows"], instance=data["meta"]["config"].get("instances", "simcount"))
     order = data["meta"]["config"]["schemes"]
     md = ["# r against eps_trotter: log-log slopes vs -1/p", "",
           f"Source: `{args.results.name}` (cz, seed {data['meta']['config']['seed']}, t = n, measured r). "

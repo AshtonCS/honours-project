@@ -110,3 +110,15 @@ def test_inconsistent_r_raises():
     rows[1]["r"] = 11
     with pytest.raises(ValueError, match="two r"):
         pfeps.slopes(rows)
+
+
+def test_slopes_follow_instance_label():
+    """A NumPy-instance run is read through its own label; rows of another
+    instance are ignored (pfeps used to read "simcount" rows only)."""
+    table = {1e-4: 10, 1e-8: 100, 1e-12: 1000}
+    rows = _rows(lambda e: table[e], sorted(table))
+    for row in rows:
+        row["instance"] = "numpy"
+    assert pfeps.slopes(rows) == []
+    [s] = pfeps.slopes(rows, instance="numpy")
+    assert s.fit_slope == pytest.approx(-0.25)
