@@ -8,8 +8,11 @@ of the window, ``pfcompare.fit_power_law`` (least squares in log-log), then
 
     count(n) = c(n) ceil(a n^b),     c(n) = the exact affine per-step count of the record
 
-and reports, at each configured n, every formula's count divided by the
-cheapest formula's count under the same window (1.00 = predicted cheapest).
+(or, for a record whose ``point`` is ``seed-mean``, the mean over seeds of
+c(n) ceil(a_s n^b_s) from each seed's own fit on the window -- the record's
+rule), and reports, at each configured n, every formula's count divided by
+the cheapest formula's count under the same window (1.00 = predicted
+cheapest).
 The fitted exponents b are reported too, since they decide the ranking far
 from the data.
 
@@ -55,8 +58,10 @@ def measured_r(run_dirs: list[Path], schemes: list[str], seeds: list[int]) -> di
 
 
 def window_counts(rs: dict[str, dict[int, dict[int, int]]], alpha: dict[str, tuple[Fraction, Fraction]],
-                  window: list[int], sizes: list[int], seeds: list[int]) -> dict:
-    """{"b": {scheme: b}, "count": {n: {scheme: count}}} for one fit window."""
+                  window: list[int], sizes: list[int], seeds: list[int], point: str = "mean-r-fit") -> dict:
+    """{"b": {scheme: b}, "count": {n: {scheme: count}}} for one fit window; b is
+    always the mean-r fit's exponent, the count follows ``point`` (pfchilds)."""
+    pfchilds.r_label(point)  # raises on an unknown rule
     b_out, counts = {}, {n: {} for n in sizes}
     for k, per_n in rs.items():
         means = []
@@ -67,8 +72,14 @@ def window_counts(rs: dict[str, dict[int, dict[int, int]]], alpha: dict[str, tup
             means.append(math.fsum(per.values()) / len(seeds))
         a, b = fit_power_law(window, means)
         b_out[k] = float(b)
+        per_seed = {s: fit_power_law(window, [per_n[n][s] for n in window]) for s in seeds}
         for n in sizes:
-            counts[n][k] = pfchilds.affine_eval(*alpha[k], n) * pfchilds.r_fit_ceil(a, b, n)
+            c = pfchilds.affine_eval(*alpha[k], n)
+            if point == "mean-r-fit":
+                counts[n][k] = c * pfchilds.r_fit_ceil(a, b, n)
+            else:
+                band = [c * pfchilds.r_fit_ceil(*per_seed[s], n) for s in seeds]
+                counts[n][k] = math.fsum(band) / len(band)
     return {"b": b_out, "count": counts}
 
 
@@ -127,7 +138,8 @@ def run(cfg: dict, here: Path) -> dict:
     sizes = cfg["sizes"]
 
     # the record's own window must reproduce the record's extrapolated values
-    own = window_counts(rs, alpha, rec["fit_sizes"], rec["extrapolate_sizes"], seeds)
+    point = rec.get("point", "mean-r-fit")
+    own = window_counts(rs, alpha, rec["fit_sizes"], rec["extrapolate_sizes"], seeds, point)
     for k in schemes:
         for p in rec["series"][k]["extrapolated"]:
             if own["count"][p["n"]][k] != p["value"]:
@@ -136,7 +148,7 @@ def run(cfg: dict, here: Path) -> dict:
 
     windows = []
     for w in cfg["windows"]:
-        r = window_counts(rs, alpha, w, sizes, seeds)
+        r = window_counts(rs, alpha, w, sizes, seeds, point)
         windows.append({"sizes": w, "label": label(w), "b": r["b"],
                         "count": {str(n): r["count"][n] for n in sizes},
                         "ratio": {str(n): ratios(r["count"][n]) for n in sizes},
@@ -148,8 +160,10 @@ def run(cfg: dict, here: Path) -> dict:
     md, tex = tables(result, schemes, names, cfg["order_by"])
     head = (f"# Extrapolated ranking vs fit window\n\nWritten by `python -m pysimcount.pffitwindow`. Record "
             f"`{cfg['record']}` (its figures fit n = {rec['fit_sizes']}); seeds {seeds}; mean measured r over seeds, "
-            "power law fitted per window, count = exact per-step count x ceil(a n^b) (pfchilds's rule; the record's "
-            "own window reproduces its values exactly). Rows ordered by the fit-window column "
+            "power law fitted per window, count = exact per-step count x ceil(a n^b)"
+            + (" averaged over the per-seed fits" if point == "seed-mean" else " from the mean-r fit")
+            + f" (pfchilds's rule, point={point}; the record's own window reproduces its values exactly). "
+            "Rows ordered by the fit-window column "
             f"`{cfg['order_by']}`; bold = predicted cheapest.\n\n")
     out = here / cfg["out"]
     out.with_suffix(".md").write_text(head + md)

@@ -131,3 +131,30 @@ def test_load_run_set_refuses_other_settings_and_repeated_rows(tmp_path):
     _write_run(tmp_path / "n9" / "seed1", 1, [5], dirty=True, commit="e42ff29abc")  # n = 5 is already in the main run
     with pytest.raises(ValueError, match="already in seed 1"):
         pfchilds.load_run_set(tmp_path, spec)
+
+
+def test_r_label_knows_both_point_rules():
+    import pytest
+    from pysimcount import pfchilds
+    assert "mean measured r" in pfchilds.r_label("mean-r-fit")
+    assert "per-seed" in pfchilds.r_label("seed-mean")
+    with pytest.raises(ValueError, match="point"):
+        pfchilds.r_label("median")
+
+
+def test_real_records_use_seed_mean_and_point_is_mean_of_band():
+    import json
+    import math
+    from pathlib import Path
+    from pysimcount import pfchilds
+    here = Path(__file__).resolve().parents[2] / "results" / "np-childs-format"
+    for name in ("main-cnot-all-formulas", "main-total-all-formulas"):
+        rec = json.loads((here / f"{name}.json").read_text())
+        assert rec["point"] == "seed-mean"
+        for k in rec["shown"]:
+            s = rec["series"][k]
+            for p in s["extrapolated"]:
+                band = [p["per_step"] * pfchilds.r_fit_ceil(*s["per_seed_fit"][str(seed)], p["n"])
+                        for seed in rec["seeds"]]
+                assert p["value"] == math.fsum(band) / len(band)
+                assert p["min"] == min(band) and p["max"] == max(band)

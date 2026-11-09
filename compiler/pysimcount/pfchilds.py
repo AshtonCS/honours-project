@@ -28,8 +28,12 @@ counts  Clifford+Rz per-step counts do not depend on the field values (paper,
         and statevector-verified at ``optimised_sizes`` only; beyond them the
         affine form is not checked (labelled so in every figure).
 
-values  Measured n: mean over seeds of the run's own totals. Extrapolated n:
-        c(n) x r_fit(n) from the mean-r fit; bars from the per-seed fits.
+values  Measured n: mean over seeds of the run's own totals. Extrapolated n,
+        by the figure's ``point`` (default ``mean-r-fit``): ``mean-r-fit`` =
+        c(n) x r_fit(n) from the mean-r fit; ``seed-mean`` = the mean over
+        seeds of c(n) x ceil(a_s n^b_s) from each seed's own fit (the rule
+        ``pftchilds`` uses for T, where only per-seed steps are synthesised).
+        Bars: min-max of the per-seed fits in both cases.
 
 pruning Each figure drops up to ``remove`` formulas, worst first by the
         geometric mean of the plotted values over every plotted n, but never
@@ -67,6 +71,14 @@ SUMMARY_TO_METRIC = {"total": "Total excl. omega", "cnot": "CNOT"}
 OPT_TO_METRIC = {"total": "total", "cnot": "CNOT"}
 
 R_LABEL = "r from power-law fit to mean measured r (n = {lo}--{hi})"
+R_LABEL_SEED_MEAN = "r from per-seed power-law fits (n = {lo}--{hi}), mean count over seeds"
+POINTS = ("mean-r-fit", "seed-mean")
+
+
+def r_label(point: str) -> str:
+    if point not in POINTS:
+        raise ValueError(f"point must be one of {POINTS}, got {point!r}")
+    return R_LABEL if point == "mean-r-fit" else R_LABEL_SEED_MEAN
 OPT_HEADER = ("n > {hi}: optimised per-step count from linear fit (n = {lo}--{hi}); "
               "circuit not built or verified")
 OPT_LEGEND = "Optimised count linear in n, fitted on n = {lo}--{hi}"
@@ -391,12 +403,19 @@ def figure_data(fig: dict, cfg: dict, runs: dict[int, dict], models: dict) -> di
         mean_r = [math.fsum(r_by_n[n].values()) / len(seeds) for n in fit_sizes]
         a, b = fit_power_law(fit_sizes, mean_r)
         per_seed_fit = {s: fit_power_law(fit_sizes, [r_by_n[n][s] for n in fit_sizes]) for s in seeds}
+        point = fig.get("point", "mean-r-fit")
+        r_label(point)  # raises on an unknown point rule
         extrap = []
         for n in fig["extrapolate_sizes"]:
             c = affine_eval(model["alpha"], model["beta"], n)
-            r = r_fit_ceil(a, b, n)
             band = [c * r_fit_ceil(*per_seed_fit[s], n) for s in seeds]
-            extrap.append({"n": n, "r": r, "per_step": c, "value": c * r, "min": min(band), "max": max(band)})
+            if point == "mean-r-fit":
+                r = r_fit_ceil(a, b, n)
+                value = c * r
+            else:  # seed-mean: mean over seeds of each seed's own extrapolated count
+                r = math.fsum(r_fit_ceil(*per_seed_fit[s], n) for s in seeds) / len(seeds)
+                value = math.fsum(band) / len(band)
+            extrap.append({"n": n, "r": r, "per_step": c, "value": value, "min": min(band), "max": max(band)})
         series[scheme] = {"measured": measured, "fit": {"a": a, "b": b, "sizes": fit_sizes},
                           "per_seed_fit": {str(s): list(v) for s, v in per_seed_fit.items()},
                           "per_step_model": {"alpha": str(model["alpha"]), "beta": str(model["beta"]),
@@ -462,7 +481,7 @@ def figure_tex(fig: dict, series: dict, kept: list[str], header: list[str], regi
     out += ["    \\addlegendimage{black, solid, mark=*, mark options={solid, fill=black}}",
             "    \\addlegendentry{measured $r$ (mean over seeds)}",
             "    \\addlegendimage{black, dashed, mark=*, mark options={solid, fill=white}}",
-            f"    \\addlegendentry{{{R_LABEL.format(lo=lo, hi=hi).replace(' r ', ' $r$ ').replace('r from', '$r$ from')}}}"]
+            f"    \\addlegendentry{{{r_label(fig.get('point', 'mean-r-fit')).format(lo=lo, hi=hi).replace(' r ', ' $r$ ').replace('r from', '$r$ from')}}}"]
     if fig["kind"] == "optimised":
         olo, ohi = fig["optimised_sizes"][0], fig["optimised_sizes"][-1]
         out += ["    \\addlegendimage{empty legend}",
@@ -526,7 +545,8 @@ def run_figures(cfg: dict, here: Path, out: Path, render: bool, only: str | None
                                | {e["git_commit"] for s in seeds for e in runs[s].get("extra_provenance", [])})),
             f"metric={fig['metric']} kind={fig['kind']} merged (cz, simcount template)",
             "measured n: mean over seeds of the run's totals; bars min..max over seeds",
-            R_LABEL.format(lo=lo, hi=hi) + "; r = ceil(a n^b); bars = min..max of per-seed fits",
+            r_label(fig.get("point", "mean-r-fit")).format(lo=lo, hi=hi)
+            + f"; r = ceil(a n^b); point={fig.get('point', 'mean-r-fit')}; bars = min..max of per-seed fits",
             "per-step counts exactly affine in n (checked on "
             + (f"n = {fig['optimised_sizes']}" if fig["kind"] == "optimised"
                else f"n = {cfg['count_sizes']}, direct build at n = {cfg['check_sizes']}") + ")",
@@ -543,6 +563,7 @@ def run_figures(cfg: dict, here: Path, out: Path, render: bool, only: str | None
         rec = {"id": fig["id"], "title": fig["title"], "experiment": fig["experiment"], "kind": fig["kind"],
                "metric": fig["metric"], "gate_set": "Clifford+Rz (cz)", "r_method": "measured + power-law fit",
                "seeds": seeds, "fit_sizes": fig["fit_sizes"], "extrapolate_sizes": fig["extrapolate_sizes"],
+               "point": fig.get("point", "mean-r-fit"),
                "shown": kept, "removed": [k for k in fig["schemes"] if k not in kept], "ranking": ranking,
                "header": header, "series": series}
         (out / f"{fig['id']}.json").write_text(json.dumps(rec, indent=1))

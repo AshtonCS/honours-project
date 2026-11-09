@@ -139,7 +139,7 @@ def figure_tex(cases: list[dict], schemes: list[str], header: list[str], metric:
         yopts = [f"    ymin={ymin:g}, ymax={ymax:g},"]
     out = [f"% {h}" for h in header] + [
         "\\begin{tikzpicture}", "  \\begin{loglogaxis}[", "    width=10cm, height=8.3cm,",
-        "    xlabel={System size}, " f"ylabel={{{ylabel}}},", "    xmin=10, xmax=110,", *yopts,
+        "    xlabel={System size $n$}, " f"ylabel={{{ylabel}}},", "    xmin=10, xmax=110,", *yopts,
         "    xtick={10,20,30,50,70,100}, xticklabels={10,20,30,50,70,100},",
         "    ymajorgrids=true, yminorgrids=true,", "    legend pos=outer north east, legend cell align=left,",
         "    legend style={font=\\footnotesize},", "  ]"]
@@ -153,6 +153,20 @@ def figure_tex(cases: list[dict], schemes: list[str], header: list[str], metric:
             continue
         draw, fill = STYLE[scheme]
         name = pffigure.latex_escape(next(c["name"] for c in cases if c["scheme"] == scheme))
+        if lines and show == "both":
+            # same colour and marker per formula as the np-childs-format figures (pfchilds._style);
+            # after = solid line, filled marker; before = dashed line, open marker
+            from .pfchilds import _style
+            name, colour, mark = _style(scheme, formula_registry())
+            out.append(f"    \\addplot[{colour}, solid, mark={mark}, mark size=2pt, mark options={{solid, fill={colour}}}] "
+                       "coordinates {")
+            out += [f"      ({n},{a})" for n, _, a in ser]
+            out += ["    };", f"    \\addlegendentry{{{name}}}"]
+            out.append(f"    \\addplot[{colour}, dashed, mark={mark}, mark size=2pt, mark options={{solid, fill=white}}, "
+                       "forget plot] coordinates {")
+            out += [f"      ({n},{b})" for n, b, _ in ser]
+            out += ["    };"]
+            continue
         if show != "both":
             mark, k = ("diamond*", 1) if show == "before" else ("*", 2)
             out.append(f"    \\addplot[solid, mark={mark}, mark size=2pt, draw={draw}, fill={fill}] coordinates {{")
@@ -168,9 +182,9 @@ def figure_tex(cases: list[dict], schemes: list[str], header: list[str], metric:
         out += [f"      ({n},{b})" for n, b, _ in ser]
         out += ["    };"]
     if lines and show == "both":
-        out += ["    \\addlegendimage{solid, black, mark=*, mark options={solid, fill=white}}",
+        out += ["    \\addlegendimage{solid, black, mark=*, mark options={solid, fill=black}}",
                 "    \\addlegendentry{after optimisation}",
-                "    \\addlegendimage{dashed, black, mark=diamond*, mark options={solid, fill=white}}",
+                "    \\addlegendimage{dashed, black, mark=*, mark options={solid, fill=white}}",
                 "    \\addlegendentry{before optimisation}"]
     out += ["  \\end{loglogaxis}", "\\end{tikzpicture}", ""]
     return "\n".join(out)

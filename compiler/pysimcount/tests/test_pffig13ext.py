@@ -76,7 +76,13 @@ def test_line_variant_fits_series_model_and_autoscales():
     series, guides = figdrop.parse_series(tex)
     assert [s.legend for s in series] == ["Suzuki S6", "M\\&O q=14 (rec., Tab. 3)"] and guides == 0
     assert not figdrop.has_fixed_y(tex)
-    assert tex.count("\\addplot[solid,") == 2 and tex.count("\\addplot[dashed,") == 2
+    # colour and marker per formula as in np-childs-format: after solid + filled, before dashed + open
+    assert tex.count(", solid, mark=") == 2 and tex.count(", dashed, mark=") == 2
+    from pysimcount.pfchilds import _style
+    from pysimcount.pfcompare import formula_registry
+    for k in ("suzuki6", "mo-q14"):
+        _, colour, mark = _style(k, formula_registry())
+        assert f"\\addplot[{colour}, solid, mark={mark}," in tex and f"\\addplot[{colour}, dashed, mark={mark}," in tex
 
 
 @pytest.mark.parametrize("show,mark,key", [("before", "diamond*", "before_total"), ("after", "*", "after_total")])

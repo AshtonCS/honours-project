@@ -22,7 +22,7 @@ columns of the dot plot are
     rank          min-max of its rank over seeds
 
 The dot plot's position is the record's plotted value (mean over seeds when
-measured; power-law fit to the mean r when extrapolated), so it matches the
+measured; the record's extrapolation rule, its ``point``, when extrapolated), so it matches the
 source figure, while the rank columns come from the per-seed values. The two can
 disagree in order when formulas are close; ``<id>-leader.json`` records both and
 the header says if the order differs.

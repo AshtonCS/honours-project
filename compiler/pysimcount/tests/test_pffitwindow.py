@@ -53,3 +53,15 @@ def test_real_record_window_reproduces_and_tables_written(tmp_path):
     assert by["6-11"]["cheapest"]["500"] == "mo-q14"
     assert all(w["ratio"]["500"]["suzuki4"] > 4 for w in res["windows"])
     assert (tmp_path / "t.tex").exists() and (tmp_path / "t.md").exists()
+
+
+def test_window_counts_seed_mean_averages_per_seed_fits():
+    # seed 1: r = n (b = 1); seed 2: r = 3n (b = 1); per step 2n. At n = 100, per-seed counts 2*100*100
+    # and 2*100*300 (up to the fit's ceil), so the seed mean is ~ 2*100*200; the mean-r fit gives the same
+    # here (r_mean = 2n), but the two rules are computed separately.
+    rs = {"a": {n: {1: n, 2: 3 * n} for n in (4, 6, 8)}}
+    alpha = {"a": (Fraction(2), Fraction(0))}
+    got = pffitwindow.window_counts(rs, alpha, [4, 6, 8], [100], [1, 2], point="seed-mean")
+    assert got["count"][100]["a"] == pytest.approx(2 * 100 * 200, rel=1e-3)
+    with pytest.raises(ValueError, match="point"):
+        pffitwindow.window_counts(rs, alpha, [4, 6, 8], [100], [1, 2], point="median")
