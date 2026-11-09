@@ -76,17 +76,18 @@ class Agg:
 
 # ------------------------------------------------------------------ loading
 
-def load_runs(paths: list[Path]) -> dict[int, dict]:
+def load_runs(paths: list[Path], per_seed_keys: tuple[str, ...] = ()) -> dict[int, dict]:
     """{seed: results.json content}. Raises if two runs share a seed, if the
-    configs differ in anything but seed/name/description, or if a run was made
-    from uncommitted code."""
+    configs differ in anything but seed/name/description (and any
+    ``per_seed_keys`` the caller declares, e.g. a per-seed ``source``), or if a
+    run was made from uncommitted code."""
     runs: dict[int, dict] = {}
     base = None
     for p in paths:
         d = json.loads(Path(p).read_text())
         cfg = dict(d["meta"]["config"])
         seed = int(cfg.pop("seed"))
-        for k in ("name", "description"):
+        for k in ("name", "description", *per_seed_keys):
             cfg.pop(k, None)
         if seed in runs:
             raise ValueError(f"two runs for seed {seed}")
