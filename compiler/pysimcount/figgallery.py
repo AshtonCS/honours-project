@@ -267,8 +267,9 @@ def load_main(path: Path, recs: list[dict], root: Path) -> dict:
             tag = f"{item['section']} {item['label']}"
             rec["main_body"] = f"{rec['main_body']};{tag}" if rec["main_body"] else tag
         elif item["kind"] == "table":
-            if not (root / item["path"]).is_file():
-                raise ValueError(f"{where}: table {item['path']} does not exist")
+            for key in ("path", "image", "tex"):
+                if key in item and not (root / item[key]).is_file():
+                    raise ValueError(f"{where}: {key} {item[key]} does not exist")
         elif not item.get("make"):
             raise ValueError(f"{where}: a missing item needs a 'make' note")
     return cfg
@@ -473,8 +474,13 @@ function docCard(it) {
   if (it.make) body.push(el("div", {className: "todo", textContent: "To make: " + it.make}));
   if (it.todo) body.push(el("div", {className: "todo", textContent: "To do: " + it.todo}));
   if (it.path) body.push(el("div", {className: "links"}, [el("a", {href: "../" + it.path, textContent: "open table"})]));
-  return el("article", {className: "card main"}, [el("div", {className: "doc"},
-    [el("b", {textContent: it.kind === "table" ? "Table" : "Not generated yet"})]), el("div", {className: "body"}, body)]);
+  if (it.tex) body[body.length - 1].append(el("a", {href: "../" + it.tex, textContent: "LaTeX"}));
+  let top = el("div", {className: "doc"}, [el("b", {textContent: it.kind === "table" ? "Table" : "Not generated yet"})]);
+  if (it.image) {
+    top = el("img", {src: "../" + it.image, loading: "lazy", alt: it.role});
+    top.onclick = () => { zoom.querySelector("img").src = top.src; zoom.showModal(); };
+  }
+  return el("article", {className: "card main"}, [top, el("div", {className: "body"}, body)]);
 }
 function card(d, item) {
   const chips = el("div", {className: "chips"});

@@ -111,6 +111,8 @@ def tables(result: dict, schemes: list[str], names: dict[str, str], order_by: st
                "|---|" + "---:|" * len(labels)]
         tex += [f"% n = {n}: count / cheapest count under the same fit window",
                 "\\begin{tabular}{l" + "r" * len(labels) + "}", "\\hline",
+                f"\\multicolumn{{{len(labels) + 1}}}{{l}}{{$n = {n}$: count / cheapest count under the same fit window}} \\\\",
+                "\\hline",
                 "Formula & " + " & ".join(_tex_label(w["sizes"]) for w in windows) + " \\\\", "\\hline"]
         for k in rows:
             cells = [w["ratio"][str(n)][k] for w in windows]
@@ -118,7 +120,7 @@ def tables(result: dict, schemes: list[str], names: dict[str, str], order_by: st
             tex.append(f"{pffigure.latex_escape(names[k])} & "
                        + " & ".join(f"\\textbf{{{c:.2f}}}" if c == 1 else f"{c:.2f}" for c in cells) + " \\\\")
         md.append("")
-        tex += ["\\hline", "\\end{tabular}", ""]
+        tex += ["\\hline", "\\end{tabular}", "", "\\medskip", ""]
     md += ["## Fitted exponent b of r = a n^b", "",
            "| formula | " + " | ".join(f"fit n = {l}" for l in labels) + " |", "|---|" + "---:|" * len(labels)]
     for k in schemes:
