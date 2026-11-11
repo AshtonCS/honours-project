@@ -1,0 +1,5267 @@
+{
+ "meta": {
+  "config": {
+   "name": "np-exact-local",
+   "description": "Local (single-step) order check, Part C of pfexact: ||G(d) - exp(-idH)|| ~ d^(p+1) for all eleven formulas on the full Heisenberg chain (J = 1, periodic), NumPy fields seed 1, n = 4 and 6, against exact diagonalisation. Added after np-exact's Part B (ii) failed for S8 (n = 4, 6) and M&O q=14 (n = 6), diagnosed as r-fold rounding accumulation and pre-asymptotic points in a fixed error window. np-exact is kept unchanged as the original result. Criteria fixed 2026-11-11 before this run.",
+   "seed": 1,
+   "schemes": [
+    "lie-trotter",
+    "suzuki2",
+    "suzuki4",
+    "suzuki6",
+    "suzuki8",
+    "mo-q6",
+    "mo-q14",
+    "bm-q10",
+    "mo-o8-q21",
+    "morales-y8m10",
+    "morales-m8"
+   ],
+   "criteria": {
+    "tol_per_exponential": 1e-15
+   },
+   "local": {
+    "sizes": [
+     4,
+     6
+    ],
+    "d_grid": [
+     1.0,
+     0.7071067811865476,
+     0.5,
+     0.3535533905932738,
+     0.25,
+     0.1767766952966369,
+     0.125,
+     0.08838834764831845,
+     0.0625,
+     0.04419417382415922,
+     0.03125,
+     0.02209708691207961,
+     0.015625,
+     0.011048543456039806,
+     0.0078125,
+     0.005524271728019903,
+     0.00390625,
+     0.0027621358640099515,
+     0.001953125,
+     0.0013810679320049757,
+     0.0009765625
+    ],
+    "floor_margin": 100,
+    "n_fit": 4,
+    "slope_tol": 0.3,
+    "perturb": 1e-06,
+    "_note": "d_k = 2^(-k/2), k = 0..20. Floor = tol_per_exponential (Part A's rounding tolerance) x exponentials per step; a point is usable at >= 100x floor. Fit the 4 smallest usable d. Chosen before any single-step data were computed; informed by the np-exact Part B data."
+   }
+  },
+  "provenance": {
+   "git_commit": "e5d9ee696f892e28aced765585653760f8a427c4",
+   "git_dirty": true,
+   "source_sha256": "6980294d8d8e77949103cef004e532c9f0f9cf5bf5dafbfacc9466db7eacd2f0",
+   "python": "3.12.13",
+   "numpy": "2.5.2",
+   "scipy": "1.18.1",
+   "pennylane": "0.45.1",
+   "mpmath": "1.4.1",
+   "pygridsynth": "2.0.0",
+   "platform": "macOS-26.6.2-arm64-arm-64bit",
+   "started": "2026-11-11 18:35:29 AEDT"
+  },
+  "fields": {
+   "4": [
+    -0.2103496912850671,
+    0.7005550756058001,
+    0.8447195951061301,
+    0.04097678077809941
+   ],
+   "6": [
+    -0.711748649960309,
+    0.829237432490944,
+    0.6136199108691602,
+    0.7818165024080685,
+    0.9603139202940028,
+    -0.9503175088201599
+   ]
+  },
+  "seconds": 338.8
+ },
+ "points": [
+  {
+   "n": 4,
+   "d": 1.0,
+   "scheme": "lie-trotter",
+   "name": "Lie-Trotter S1",
+   "order": 1,
+   "exps_per_step": 16,
+   "error": 1.9093046059765886,
+   "floor": 1.6e-14
+  },
+  {
+   "n": 4,
+   "d": 0.7071067811865476,
+   "scheme": "lie-trotter",
+   "name": "Lie-Trotter S1",
+   "order": 1,
+   "exps_per_step": 16,
+   "error": 1.9927825910846833,
+   "floor": 1.6e-14
+  },
+  {
+   "n": 4,
+   "d": 0.5,
+   "scheme": "lie-trotter",
+   "name": "Lie-Trotter S1",
+   "order": 1,
+   "exps_per_step": 16,
+   "error": 1.7745101645582761,
+   "floor": 1.6e-14
+  },
+  {
+   "n": 4,
+   "d": 0.3535533905932738,
+   "scheme": "lie-trotter",
+   "name": "Lie-Trotter S1",
+   "order": 1,
+   "exps_per_step": 16,
+   "error": 1.266692098594605,
+   "floor": 1.6e-14
+  },
+  {
+   "n": 4,
+   "d": 0.25,
+   "scheme": "lie-trotter",
+   "name": "Lie-Trotter S1",
+   "order": 1,
+   "exps_per_step": 16,
+   "error": 0.7614181557309703,
+   "floor": 1.6e-14
+  },
+  {
+   "n": 4,
+   "d": 0.1767766952966369,
+   "scheme": "lie-trotter",
+   "name": "Lie-Trotter S1",
+   "order": 1,
+   "exps_per_step": 16,
+   "error": 0.4166585223214207,
+   "floor": 1.6e-14
+  },
+  {
+   "n": 4,
+   "d": 0.125,
+   "scheme": "lie-trotter",
+   "name": "Lie-Trotter S1",
+   "order": 1,
+   "exps_per_step": 16,
+   "error": 0.21742817906688375,
+   "floor": 1.6e-14
+  },
+  {
+   "n": 4,
+   "d": 0.08838834764831845,
+   "scheme": "lie-trotter",
+   "name": "Lie-Trotter S1",
+   "order": 1,
+   "exps_per_step": 16,
+   "error": 0.11083693015677717,
+   "floor": 1.6e-14
+  },
+  {
+   "n": 4,
+   "d": 0.0625,
+   "scheme": "lie-trotter",
+   "name": "Lie-Trotter S1",
+   "order": 1,
+   "exps_per_step": 16,
+   "error": 0.05586794277587613,
+   "floor": 1.6e-14
+  },
+  {
+   "n": 4,
+   "d": 0.04419417382415922,
+   "scheme": "lie-trotter",
+   "name": "Lie-Trotter S1",
+   "order": 1,
+   "exps_per_step": 16,
+   "error": 0.02801377406374654,
+   "floor": 1.6e-14
+  },
+  {
+   "n": 4,
+   "d": 0.03125,
+   "scheme": "lie-trotter",
+   "name": "Lie-Trotter S1",
+   "order": 1,
+   "exps_per_step": 16,
+   "error": 0.014014797806233499,
+   "floor": 1.6e-14
+  },
+  {
+   "n": 4,
+   "d": 0.02209708691207961,
+   "scheme": "lie-trotter",
+   "name": "Lie-Trotter S1",
+   "order": 1,
+   "exps_per_step": 16,
+   "error": 0.007005048885932005,
+   "floor": 1.6e-14
+  },
+  {
+   "n": 4,
+   "d": 0.015625,
+   "scheme": "lie-trotter",
+   "name": "Lie-Trotter S1",
+   "order": 1,
+   "exps_per_step": 16,
+   "error": 0.003500397318169658,
+   "floor": 1.6e-14
+  },
+  {
+   "n": 4,
+   "d": 0.011048543456039806,
+   "scheme": "lie-trotter",
+   "name": "Lie-Trotter S1",
+   "order": 1,
+   "exps_per_step": 16,
+   "error": 0.001749121250460713,
+   "floor": 1.6e-14
+  },
+  {
+   "n": 4,
+   "d": 0.0078125,
+   "scheme": "lie-trotter",
+   "name": "Lie-Trotter S1",
+   "order": 1,
+   "exps_per_step": 16,
+   "error": 0.0008740981884004654,
+   "floor": 1.6e-14
+  },
+  {
+   "n": 4,
+   "d": 0.005524271728019903,
+   "scheme": "lie-trotter",
+   "name": "Lie-Trotter S1",
+   "order": 1,
+   "exps_per_step": 16,
+   "error": 0.00043686519472623317,
+   "floor": 1.6e-14
+  },
+  {
+   "n": 4,
+   "d": 0.00390625,
+   "scheme": "lie-trotter",
+   "name": "Lie-Trotter S1",
+   "order": 1,
+   "exps_per_step": 16,
+   "error": 0.00021836247474747204,
+   "floor": 1.6e-14
+  },
+  {
+   "n": 4,
+   "d": 0.0027621358640099515,
+   "scheme": "lie-trotter",
+   "name": "Lie-Trotter S1",
+   "order": 1,
+   "exps_per_step": 16,
+   "error": 0.00010915516869142218,
+   "floor": 1.6e-14
+  },
+  {
+   "n": 4,
+   "d": 0.001953125,
+   "scheme": "lie-trotter",
+   "name": "Lie-Trotter S1",
+   "order": 1,
+   "exps_per_step": 16,
+   "error": 5.456804844943572e-05,
+   "floor": 1.6e-14
+  },
+  {
+   "n": 4,
+   "d": 0.0013810679320049757,
+   "scheme": "lie-trotter",
+   "name": "Lie-Trotter S1",
+   "order": 1,
+   "exps_per_step": 16,
+   "error": 2.728057295805843e-05,
+   "floor": 1.6e-14
+  },
+  {
+   "n": 4,
+   "d": 0.0009765625,
+   "scheme": "lie-trotter",
+   "name": "Lie-Trotter S1",
+   "order": 1,
+   "exps_per_step": 16,
+   "error": 1.3639046315556112e-05,
+   "floor": 1.6e-14
+  },
+  {
+   "n": 4,
+   "d": 1.0,
+   "scheme": "suzuki2",
+   "name": "Suzuki S2",
+   "order": 2,
+   "exps_per_step": 28,
+   "error": 1.8927890410605115,
+   "floor": 2.8e-14
+  },
+  {
+   "n": 4,
+   "d": 0.7071067811865476,
+   "scheme": "suzuki2",
+   "name": "Suzuki S2",
+   "order": 2,
+   "exps_per_step": 28,
+   "error": 1.5987143573393097,
+   "floor": 2.8e-14
+  },
+  {
+   "n": 4,
+   "d": 0.5,
+   "scheme": "suzuki2",
+   "name": "Suzuki S2",
+   "order": 2,
+   "exps_per_step": 28,
+   "error": 1.2021217639494068,
+   "floor": 2.8e-14
+  },
+  {
+   "n": 4,
+   "d": 0.3535533905932738,
+   "scheme": "suzuki2",
+   "name": "Suzuki S2",
+   "order": 2,
+   "exps_per_step": 28,
+   "error": 0.662523827265818,
+   "floor": 2.8e-14
+  },
+  {
+   "n": 4,
+   "d": 0.25,
+   "scheme": "suzuki2",
+   "name": "Suzuki S2",
+   "order": 2,
+   "exps_per_step": 28,
+   "error": 0.2947955849889846,
+   "floor": 2.8e-14
+  },
+  {
+   "n": 4,
+   "d": 0.1767766952966369,
+   "scheme": "suzuki2",
+   "name": "Suzuki S2",
+   "order": 2,
+   "exps_per_step": 28,
+   "error": 0.11702888856128038,
+   "floor": 2.8e-14
+  },
+  {
+   "n": 4,
+   "d": 0.125,
+   "scheme": "suzuki2",
+   "name": "Suzuki S2",
+   "order": 2,
+   "exps_per_step": 28,
+   "error": 0.04384979002748812,
+   "floor": 2.8e-14
+  },
+  {
+   "n": 4,
+   "d": 0.08838834764831845,
+   "scheme": "suzuki2",
+   "name": "Suzuki S2",
+   "order": 2,
+   "exps_per_step": 28,
+   "error": 0.015960464031993415,
+   "floor": 2.8e-14
+  },
+  {
+   "n": 4,
+   "d": 0.0625,
+   "scheme": "suzuki2",
+   "name": "Suzuki S2",
+   "order": 2,
+   "exps_per_step": 28,
+   "error": 0.005725524550520495,
+   "floor": 2.8e-14
+  },
+  {
+   "n": 4,
+   "d": 0.04419417382415922,
+   "scheme": "suzuki2",
+   "name": "Suzuki S2",
+   "order": 2,
+   "exps_per_step": 28,
+   "error": 0.002039052892700457,
+   "floor": 2.8e-14
+  },
+  {
+   "n": 4,
+   "d": 0.03125,
+   "scheme": "suzuki2",
+   "name": "Suzuki S2",
+   "order": 2,
+   "exps_per_step": 28,
+   "error": 0.0007235404361463795,
+   "floor": 2.8e-14
+  },
+  {
+   "n": 4,
+   "d": 0.02209708691207961,
+   "scheme": "suzuki2",
+   "name": "Suzuki S2",
+   "order": 2,
+   "exps_per_step": 28,
+   "error": 0.00025627575442719474,
+   "floor": 2.8e-14
+  },
+  {
+   "n": 4,
+   "d": 0.015625,
+   "scheme": "suzuki2",
+   "name": "Suzuki S2",
+   "order": 2,
+   "exps_per_step": 28,
+   "error": 9.06895806395101e-05,
+   "floor": 2.8e-14
+  },
+  {
+   "n": 4,
+   "d": 0.011048543456039806,
+   "scheme": "suzuki2",
+   "name": "Suzuki S2",
+   "order": 2,
+   "exps_per_step": 28,
+   "error": 3.207818861817498e-05,
+   "floor": 2.8e-14
+  },
+  {
+   "n": 4,
+   "d": 0.0078125,
+   "scheme": "suzuki2",
+   "name": "Suzuki S2",
+   "order": 2,
+   "exps_per_step": 28,
+   "error": 1.134393063541718e-05,
+   "floor": 2.8e-14
+  },
+  {
+   "n": 4,
+   "d": 0.005524271728019903,
+   "scheme": "suzuki2",
+   "name": "Suzuki S2",
+   "order": 2,
+   "exps_per_step": 28,
+   "error": 4.011140999175376e-06,
+   "floor": 2.8e-14
+  },
+  {
+   "n": 4,
+   "d": 0.00390625,
+   "scheme": "suzuki2",
+   "name": "Suzuki S2",
+   "order": 2,
+   "exps_per_step": 28,
+   "error": 1.4182330929351341e-06,
+   "floor": 2.8e-14
+  },
+  {
+   "n": 4,
+   "d": 0.0027621358640099515,
+   "scheme": "suzuki2",
+   "name": "Suzuki S2",
+   "order": 2,
+   "exps_per_step": 28,
+   "error": 5.014353661616666e-07,
+   "floor": 2.8e-14
+  },
+  {
+   "n": 4,
+   "d": 0.001953125,
+   "scheme": "suzuki2",
+   "name": "Suzuki S2",
+   "order": 2,
+   "exps_per_step": 28,
+   "error": 1.7728669255232193e-07,
+   "floor": 2.8e-14
+  },
+  {
+   "n": 4,
+   "d": 0.0013810679320049757,
+   "scheme": "suzuki2",
+   "name": "Suzuki S2",
+   "order": 2,
+   "exps_per_step": 28,
+   "error": 6.268075650673068e-08,
+   "floor": 2.8e-14
+  },
+  {
+   "n": 4,
+   "d": 0.0009765625,
+   "scheme": "suzuki2",
+   "name": "Suzuki S2",
+   "order": 2,
+   "exps_per_step": 28,
+   "error": 2.216107269685053e-08,
+   "floor": 2.8e-14
+  },
+  {
+   "n": 4,
+   "d": 1.0,
+   "scheme": "suzuki4",
+   "name": "Suzuki S4",
+   "order": 4,
+   "exps_per_step": 140,
+   "error": 1.173236676280001,
+   "floor": 1.4e-13
+  },
+  {
+   "n": 4,
+   "d": 0.7071067811865476,
+   "scheme": "suzuki4",
+   "name": "Suzuki S4",
+   "order": 4,
+   "exps_per_step": 140,
+   "error": 0.9205563432499166,
+   "floor": 1.4e-13
+  },
+  {
+   "n": 4,
+   "d": 0.5,
+   "scheme": "suzuki4",
+   "name": "Suzuki S4",
+   "order": 4,
+   "exps_per_step": 140,
+   "error": 0.3032793026241646,
+   "floor": 1.4e-13
+  },
+  {
+   "n": 4,
+   "d": 0.3535533905932738,
+   "scheme": "suzuki4",
+   "name": "Suzuki S4",
+   "order": 4,
+   "exps_per_step": 140,
+   "error": 0.07020771023533781,
+   "floor": 1.4e-13
+  },
+  {
+   "n": 4,
+   "d": 0.25,
+   "scheme": "suzuki4",
+   "name": "Suzuki S4",
+   "order": 4,
+   "exps_per_step": 140,
+   "error": 0.014179139356397596,
+   "floor": 1.4e-13
+  },
+  {
+   "n": 4,
+   "d": 0.1767766952966369,
+   "scheme": "suzuki4",
+   "name": "Suzuki S4",
+   "order": 4,
+   "exps_per_step": 140,
+   "error": 0.0026882338882522777,
+   "floor": 1.4e-13
+  },
+  {
+   "n": 4,
+   "d": 0.125,
+   "scheme": "suzuki4",
+   "name": "Suzuki S4",
+   "order": 4,
+   "exps_per_step": 140,
+   "error": 0.0004929538427399097,
+   "floor": 1.4e-13
+  },
+  {
+   "n": 4,
+   "d": 0.08838834764831845,
+   "scheme": "suzuki4",
+   "name": "Suzuki S4",
+   "order": 4,
+   "exps_per_step": 140,
+   "error": 8.880180151732302e-05,
+   "floor": 1.4e-13
+  },
+  {
+   "n": 4,
+   "d": 0.0625,
+   "scheme": "suzuki4",
+   "name": "Suzuki S4",
+   "order": 4,
+   "exps_per_step": 140,
+   "error": 1.5849212577713113e-05,
+   "floor": 1.4e-13
+  },
+  {
+   "n": 4,
+   "d": 0.04419417382415922,
+   "scheme": "suzuki4",
+   "name": "Suzuki S4",
+   "order": 4,
+   "exps_per_step": 140,
+   "error": 2.815337768166533e-06,
+   "floor": 1.4e-13
+  },
+  {
+   "n": 4,
+   "d": 0.03125,
+   "scheme": "suzuki4",
+   "name": "Suzuki S4",
+   "order": 4,
+   "exps_per_step": 140,
+   "error": 4.988946854918822e-07,
+   "floor": 1.4e-13
+  },
+  {
+   "n": 4,
+   "d": 0.02209708691207961,
+   "scheme": "suzuki4",
+   "name": "Suzuki S4",
+   "order": 4,
+   "exps_per_step": 140,
+   "error": 8.830020217329746e-08,
+   "floor": 1.4e-13
+  },
+  {
+   "n": 4,
+   "d": 0.015625,
+   "scheme": "suzuki4",
+   "name": "Suzuki S4",
+   "order": 4,
+   "exps_per_step": 140,
+   "error": 1.5618916262994183e-08,
+   "floor": 1.4e-13
+  },
+  {
+   "n": 4,
+   "d": 0.011048543456039806,
+   "scheme": "suzuki4",
+   "name": "Suzuki S4",
+   "order": 4,
+   "exps_per_step": 140,
+   "error": 2.7619007604453435e-09,
+   "floor": 1.4e-13
+  },
+  {
+   "n": 4,
+   "d": 0.0078125,
+   "scheme": "suzuki4",
+   "name": "Suzuki S4",
+   "order": 4,
+   "exps_per_step": 140,
+   "error": 4.883139716335479e-10,
+   "floor": 1.4e-13
+  },
+  {
+   "n": 4,
+   "d": 0.005524271728019903,
+   "scheme": "suzuki4",
+   "name": "Suzuki S4",
+   "order": 4,
+   "exps_per_step": 140,
+   "error": 8.632908725677186e-11,
+   "floor": 1.4e-13
+  },
+  {
+   "n": 4,
+   "d": 0.00390625,
+   "scheme": "suzuki4",
+   "name": "Suzuki S4",
+   "order": 4,
+   "exps_per_step": 140,
+   "error": 1.5261562487010254e-11,
+   "floor": 1.4e-13
+  },
+  {
+   "n": 4,
+   "d": 0.0027621358640099515,
+   "scheme": "suzuki4",
+   "name": "Suzuki S4",
+   "order": 4,
+   "exps_per_step": 140,
+   "error": 2.6981936664244166e-12,
+   "floor": 1.4e-13
+  },
+  {
+   "n": 4,
+   "d": 0.001953125,
+   "scheme": "suzuki4",
+   "name": "Suzuki S4",
+   "order": 4,
+   "exps_per_step": 140,
+   "error": 4.778181956542015e-13,
+   "floor": 1.4e-13
+  },
+  {
+   "n": 4,
+   "d": 0.0013810679320049757,
+   "scheme": "suzuki4",
+   "name": "Suzuki S4",
+   "order": 4,
+   "exps_per_step": 140,
+   "error": 8.77373923204643e-14,
+   "floor": 1.4e-13
+  },
+  {
+   "n": 4,
+   "d": 0.0009765625,
+   "scheme": "suzuki4",
+   "name": "Suzuki S4",
+   "order": 4,
+   "exps_per_step": 140,
+   "error": 2.84967256823719e-14,
+   "floor": 1.4e-13
+  },
+  {
+   "n": 4,
+   "d": 1.0,
+   "scheme": "suzuki6",
+   "name": "Suzuki S6",
+   "order": 6,
+   "exps_per_step": 700,
+   "error": 0.2736199187705735,
+   "floor": 7e-13
+  },
+  {
+   "n": 4,
+   "d": 0.7071067811865476,
+   "scheme": "suzuki6",
+   "name": "Suzuki S6",
+   "order": 6,
+   "exps_per_step": 700,
+   "error": 0.06756641634119594,
+   "floor": 7e-13
+  },
+  {
+   "n": 4,
+   "d": 0.5,
+   "scheme": "suzuki6",
+   "name": "Suzuki S6",
+   "order": 6,
+   "exps_per_step": 700,
+   "error": 0.009395134494698497,
+   "floor": 7e-13
+  },
+  {
+   "n": 4,
+   "d": 0.3535533905932738,
+   "scheme": "suzuki6",
+   "name": "Suzuki S6",
+   "order": 6,
+   "exps_per_step": 700,
+   "error": 0.0010311124992571502,
+   "floor": 7e-13
+  },
+  {
+   "n": 4,
+   "d": 0.25,
+   "scheme": "suzuki6",
+   "name": "Suzuki S6",
+   "order": 6,
+   "exps_per_step": 700,
+   "error": 0.00010135169223994962,
+   "floor": 7e-13
+  },
+  {
+   "n": 4,
+   "d": 0.1767766952966369,
+   "scheme": "suzuki6",
+   "name": "Suzuki S6",
+   "order": 6,
+   "exps_per_step": 700,
+   "error": 9.442637114517638e-06,
+   "floor": 7e-13
+  },
+  {
+   "n": 4,
+   "d": 0.125,
+   "scheme": "suzuki6",
+   "name": "Suzuki S6",
+   "order": 6,
+   "exps_per_step": 700,
+   "error": 8.567906407746535e-07,
+   "floor": 7e-13
+  },
+  {
+   "n": 4,
+   "d": 0.08838834764831845,
+   "scheme": "suzuki6",
+   "name": "Suzuki S6",
+   "order": 6,
+   "exps_per_step": 700,
+   "error": 7.672755602720966e-08,
+   "floor": 7e-13
+  },
+  {
+   "n": 4,
+   "d": 0.0625,
+   "scheme": "suzuki6",
+   "name": "Suzuki S6",
+   "order": 6,
+   "exps_per_step": 700,
+   "error": 6.8262838777559765e-09,
+   "floor": 7e-13
+  },
+  {
+   "n": 4,
+   "d": 0.04419417382415922,
+   "scheme": "suzuki6",
+   "name": "Suzuki S6",
+   "order": 6,
+   "exps_per_step": 700,
+   "error": 6.05337693119308e-10,
+   "floor": 7e-13
+  },
+  {
+   "n": 4,
+   "d": 0.03125,
+   "scheme": "suzuki6",
+   "name": "Suzuki S6",
+   "order": 6,
+   "exps_per_step": 700,
+   "error": 5.359214638222607e-11,
+   "floor": 7e-13
+  },
+  {
+   "n": 4,
+   "d": 0.02209708691207961,
+   "scheme": "suzuki6",
+   "name": "Suzuki S6",
+   "order": 6,
+   "exps_per_step": 700,
+   "error": 4.742226218472186e-12,
+   "floor": 7e-13
+  },
+  {
+   "n": 4,
+   "d": 0.015625,
+   "scheme": "suzuki6",
+   "name": "Suzuki S6",
+   "order": 6,
+   "exps_per_step": 700,
+   "error": 4.4624186461769454e-13,
+   "floor": 7e-13
+  },
+  {
+   "n": 4,
+   "d": 0.011048543456039806,
+   "scheme": "suzuki6",
+   "name": "Suzuki S6",
+   "order": 6,
+   "exps_per_step": 700,
+   "error": 1.5755085292646472e-13,
+   "floor": 7e-13
+  },
+  {
+   "n": 4,
+   "d": 0.0078125,
+   "scheme": "suzuki6",
+   "name": "Suzuki S6",
+   "order": 6,
+   "exps_per_step": 700,
+   "error": 1.4732253701696752e-13,
+   "floor": 7e-13
+  },
+  {
+   "n": 4,
+   "d": 0.005524271728019903,
+   "scheme": "suzuki6",
+   "name": "Suzuki S6",
+   "order": 6,
+   "exps_per_step": 700,
+   "error": 1.278839022448911e-13,
+   "floor": 7e-13
+  },
+  {
+   "n": 4,
+   "d": 0.00390625,
+   "scheme": "suzuki6",
+   "name": "Suzuki S6",
+   "order": 6,
+   "exps_per_step": 700,
+   "error": 1.5760001270792845e-13,
+   "floor": 7e-13
+  },
+  {
+   "n": 4,
+   "d": 0.0027621358640099515,
+   "scheme": "suzuki6",
+   "name": "Suzuki S6",
+   "order": 6,
+   "exps_per_step": 700,
+   "error": 1.3518235303604012e-13,
+   "floor": 7e-13
+  },
+  {
+   "n": 4,
+   "d": 0.001953125,
+   "scheme": "suzuki6",
+   "name": "Suzuki S6",
+   "order": 6,
+   "exps_per_step": 700,
+   "error": 1.3027813326977604e-13,
+   "floor": 7e-13
+  },
+  {
+   "n": 4,
+   "d": 0.0013810679320049757,
+   "scheme": "suzuki6",
+   "name": "Suzuki S6",
+   "order": 6,
+   "exps_per_step": 700,
+   "error": 1.4140977803863116e-13,
+   "floor": 7e-13
+  },
+  {
+   "n": 4,
+   "d": 0.0009765625,
+   "scheme": "suzuki6",
+   "name": "Suzuki S6",
+   "order": 6,
+   "exps_per_step": 700,
+   "error": 1.395915764719321e-13,
+   "floor": 7e-13
+  },
+  {
+   "n": 4,
+   "d": 1.0,
+   "scheme": "suzuki8",
+   "name": "Suzuki S8",
+   "order": 8,
+   "exps_per_step": 3500,
+   "error": 0.0034063404188415477,
+   "floor": 3.5000000000000004e-12
+  },
+  {
+   "n": 4,
+   "d": 0.7071067811865476,
+   "scheme": "suzuki8",
+   "name": "Suzuki S8",
+   "order": 8,
+   "exps_per_step": 3500,
+   "error": 0.00043538542386960304,
+   "floor": 3.5000000000000004e-12
+  },
+  {
+   "n": 4,
+   "d": 0.5,
+   "scheme": "suzuki8",
+   "name": "Suzuki S8",
+   "order": 8,
+   "exps_per_step": 3500,
+   "error": 3.0704028939811474e-05,
+   "floor": 3.5000000000000004e-12
+  },
+  {
+   "n": 4,
+   "d": 0.3535533905932738,
+   "scheme": "suzuki8",
+   "name": "Suzuki S8",
+   "order": 8,
+   "exps_per_step": 3500,
+   "error": 1.6935879251500204e-06,
+   "floor": 3.5000000000000004e-12
+  },
+  {
+   "n": 4,
+   "d": 0.25,
+   "scheme": "suzuki8",
+   "name": "Suzuki S8",
+   "order": 8,
+   "exps_per_step": 3500,
+   "error": 8.339546294751777e-08,
+   "floor": 3.5000000000000004e-12
+  },
+  {
+   "n": 4,
+   "d": 0.1767766952966369,
+   "scheme": "suzuki8",
+   "name": "Suzuki S8",
+   "order": 8,
+   "exps_per_step": 3500,
+   "error": 3.887948009868972e-09,
+   "floor": 3.5000000000000004e-12
+  },
+  {
+   "n": 4,
+   "d": 0.125,
+   "scheme": "suzuki8",
+   "name": "Suzuki S8",
+   "order": 8,
+   "exps_per_step": 3500,
+   "error": 1.764520151262226e-10,
+   "floor": 3.5000000000000004e-12
+  },
+  {
+   "n": 4,
+   "d": 0.08838834764831845,
+   "scheme": "suzuki8",
+   "name": "Suzuki S8",
+   "order": 8,
+   "exps_per_step": 3500,
+   "error": 7.940986745367142e-12,
+   "floor": 3.5000000000000004e-12
+  },
+  {
+   "n": 4,
+   "d": 0.0625,
+   "scheme": "suzuki8",
+   "name": "Suzuki S8",
+   "order": 8,
+   "exps_per_step": 3500,
+   "error": 8.46282706350003e-13,
+   "floor": 3.5000000000000004e-12
+  },
+  {
+   "n": 4,
+   "d": 0.04419417382415922,
+   "scheme": "suzuki8",
+   "name": "Suzuki S8",
+   "order": 8,
+   "exps_per_step": 3500,
+   "error": 7.653974791184773e-13,
+   "floor": 3.5000000000000004e-12
+  },
+  {
+   "n": 4,
+   "d": 0.03125,
+   "scheme": "suzuki8",
+   "name": "Suzuki S8",
+   "order": 8,
+   "exps_per_step": 3500,
+   "error": 7.447742404486018e-13,
+   "floor": 3.5000000000000004e-12
+  },
+  {
+   "n": 4,
+   "d": 0.02209708691207961,
+   "scheme": "suzuki8",
+   "name": "Suzuki S8",
+   "order": 8,
+   "exps_per_step": 3500,
+   "error": 7.748846432990628e-13,
+   "floor": 3.5000000000000004e-12
+  },
+  {
+   "n": 4,
+   "d": 0.015625,
+   "scheme": "suzuki8",
+   "name": "Suzuki S8",
+   "order": 8,
+   "exps_per_step": 3500,
+   "error": 6.685870780542268e-13,
+   "floor": 3.5000000000000004e-12
+  },
+  {
+   "n": 4,
+   "d": 0.011048543456039806,
+   "scheme": "suzuki8",
+   "name": "Suzuki S8",
+   "order": 8,
+   "exps_per_step": 3500,
+   "error": 7.052930408801414e-13,
+   "floor": 3.5000000000000004e-12
+  },
+  {
+   "n": 4,
+   "d": 0.0078125,
+   "scheme": "suzuki8",
+   "name": "Suzuki S8",
+   "order": 8,
+   "exps_per_step": 3500,
+   "error": 6.916589946014426e-13,
+   "floor": 3.5000000000000004e-12
+  },
+  {
+   "n": 4,
+   "d": 0.005524271728019903,
+   "scheme": "suzuki8",
+   "name": "Suzuki S8",
+   "order": 8,
+   "exps_per_step": 3500,
+   "error": 7.352827804476705e-13,
+   "floor": 3.5000000000000004e-12
+  },
+  {
+   "n": 4,
+   "d": 0.00390625,
+   "scheme": "suzuki8",
+   "name": "Suzuki S8",
+   "order": 8,
+   "exps_per_step": 3500,
+   "error": 7.27214127273666e-13,
+   "floor": 3.5000000000000004e-12
+  },
+  {
+   "n": 4,
+   "d": 0.0027621358640099515,
+   "scheme": "suzuki8",
+   "name": "Suzuki S8",
+   "order": 8,
+   "exps_per_step": 3500,
+   "error": 7.277844687571424e-13,
+   "floor": 3.5000000000000004e-12
+  },
+  {
+   "n": 4,
+   "d": 0.001953125,
+   "scheme": "suzuki8",
+   "name": "Suzuki S8",
+   "order": 8,
+   "exps_per_step": 3500,
+   "error": 7.039455177768787e-13,
+   "floor": 3.5000000000000004e-12
+  },
+  {
+   "n": 4,
+   "d": 0.0013810679320049757,
+   "scheme": "suzuki8",
+   "name": "Suzuki S8",
+   "order": 8,
+   "exps_per_step": 3500,
+   "error": 6.984031053666561e-13,
+   "floor": 3.5000000000000004e-12
+  },
+  {
+   "n": 4,
+   "d": 0.0009765625,
+   "scheme": "suzuki8",
+   "name": "Suzuki S8",
+   "order": 8,
+   "exps_per_step": 3500,
+   "error": 8.612022174761128e-13,
+   "floor": 3.5000000000000004e-12
+  },
+  {
+   "n": 4,
+   "d": 1.0,
+   "scheme": "mo-q6",
+   "name": "M&O q=6 (rec., Tab. 2)",
+   "order": 4,
+   "exps_per_step": 192,
+   "error": 0.6898504734255037,
+   "floor": 1.9200000000000001e-13
+  },
+  {
+   "n": 4,
+   "d": 0.7071067811865476,
+   "scheme": "mo-q6",
+   "name": "M&O q=6 (rec., Tab. 2)",
+   "order": 4,
+   "exps_per_step": 192,
+   "error": 0.24365491476916393,
+   "floor": 1.9200000000000001e-13
+  },
+  {
+   "n": 4,
+   "d": 0.5,
+   "scheme": "mo-q6",
+   "name": "M&O q=6 (rec., Tab. 2)",
+   "order": 4,
+   "exps_per_step": 192,
+   "error": 0.056815356627655335,
+   "floor": 1.9200000000000001e-13
+  },
+  {
+   "n": 4,
+   "d": 0.3535533905932738,
+   "scheme": "mo-q6",
+   "name": "M&O q=6 (rec., Tab. 2)",
+   "order": 4,
+   "exps_per_step": 192,
+   "error": 0.011214791383375044,
+   "floor": 1.9200000000000001e-13
+  },
+  {
+   "n": 4,
+   "d": 0.25,
+   "scheme": "mo-q6",
+   "name": "M&O q=6 (rec., Tab. 2)",
+   "order": 4,
+   "exps_per_step": 192,
+   "error": 0.0020771415173175055,
+   "floor": 1.9200000000000001e-13
+  },
+  {
+   "n": 4,
+   "d": 0.1767766952966369,
+   "scheme": "mo-q6",
+   "name": "M&O q=6 (rec., Tab. 2)",
+   "order": 4,
+   "exps_per_step": 192,
+   "error": 0.00037496199461063565,
+   "floor": 1.9200000000000001e-13
+  },
+  {
+   "n": 4,
+   "d": 0.125,
+   "scheme": "mo-q6",
+   "name": "M&O q=6 (rec., Tab. 2)",
+   "order": 4,
+   "exps_per_step": 192,
+   "error": 6.694036307967007e-05,
+   "floor": 1.9200000000000001e-13
+  },
+  {
+   "n": 4,
+   "d": 0.08838834764831845,
+   "scheme": "mo-q6",
+   "name": "M&O q=6 (rec., Tab. 2)",
+   "order": 4,
+   "exps_per_step": 192,
+   "error": 1.1889973023497566e-05,
+   "floor": 1.9200000000000001e-13
+  },
+  {
+   "n": 4,
+   "d": 0.0625,
+   "scheme": "mo-q6",
+   "name": "M&O q=6 (rec., Tab. 2)",
+   "order": 4,
+   "exps_per_step": 192,
+   "error": 2.1067935793784484e-06,
+   "floor": 1.9200000000000001e-13
+  },
+  {
+   "n": 4,
+   "d": 0.04419417382415922,
+   "scheme": "mo-q6",
+   "name": "M&O q=6 (rec., Tab. 2)",
+   "order": 4,
+   "exps_per_step": 192,
+   "error": 3.7286409808027316e-07,
+   "floor": 1.9200000000000001e-13
+  },
+  {
+   "n": 4,
+   "d": 0.03125,
+   "scheme": "mo-q6",
+   "name": "M&O q=6 (rec., Tab. 2)",
+   "order": 4,
+   "exps_per_step": 192,
+   "error": 6.595173736318066e-08,
+   "floor": 1.9200000000000001e-13
+  },
+  {
+   "n": 4,
+   "d": 0.02209708691207961,
+   "scheme": "mo-q6",
+   "name": "M&O q=6 (rec., Tab. 2)",
+   "order": 4,
+   "exps_per_step": 192,
+   "error": 1.1662087625110002e-08,
+   "floor": 1.9200000000000001e-13
+  },
+  {
+   "n": 4,
+   "d": 0.015625,
+   "scheme": "mo-q6",
+   "name": "M&O q=6 (rec., Tab. 2)",
+   "order": 4,
+   "exps_per_step": 192,
+   "error": 2.0618818492383392e-09,
+   "floor": 1.9200000000000001e-13
+  },
+  {
+   "n": 4,
+   "d": 0.011048543456039806,
+   "scheme": "mo-q6",
+   "name": "M&O q=6 (rec., Tab. 2)",
+   "order": 4,
+   "exps_per_step": 192,
+   "error": 3.645188555629005e-10,
+   "floor": 1.9200000000000001e-13
+  },
+  {
+   "n": 4,
+   "d": 0.0078125,
+   "scheme": "mo-q6",
+   "name": "M&O q=6 (rec., Tab. 2)",
+   "order": 4,
+   "exps_per_step": 192,
+   "error": 6.444077314122526e-11,
+   "floor": 1.9200000000000001e-13
+  },
+  {
+   "n": 4,
+   "d": 0.005524271728019903,
+   "scheme": "mo-q6",
+   "name": "M&O q=6 (rec., Tab. 2)",
+   "order": 4,
+   "exps_per_step": 192,
+   "error": 1.1391880037149736e-11,
+   "floor": 1.9200000000000001e-13
+  },
+  {
+   "n": 4,
+   "d": 0.00390625,
+   "scheme": "mo-q6",
+   "name": "M&O q=6 (rec., Tab. 2)",
+   "order": 4,
+   "exps_per_step": 192,
+   "error": 2.0140678198850553e-12,
+   "floor": 1.9200000000000001e-13
+  },
+  {
+   "n": 4,
+   "d": 0.0027621358640099515,
+   "scheme": "mo-q6",
+   "name": "M&O q=6 (rec., Tab. 2)",
+   "order": 4,
+   "exps_per_step": 192,
+   "error": 3.574431060965524e-13,
+   "floor": 1.9200000000000001e-13
+  },
+  {
+   "n": 4,
+   "d": 0.001953125,
+   "scheme": "mo-q6",
+   "name": "M&O q=6 (rec., Tab. 2)",
+   "order": 4,
+   "exps_per_step": 192,
+   "error": 7.00034076795408e-14,
+   "floor": 1.9200000000000001e-13
+  },
+  {
+   "n": 4,
+   "d": 0.0013810679320049757,
+   "scheme": "mo-q6",
+   "name": "M&O q=6 (rec., Tab. 2)",
+   "order": 4,
+   "exps_per_step": 192,
+   "error": 3.832344223436334e-14,
+   "floor": 1.9200000000000001e-13
+  },
+  {
+   "n": 4,
+   "d": 0.0009765625,
+   "scheme": "mo-q6",
+   "name": "M&O q=6 (rec., Tab. 2)",
+   "order": 4,
+   "exps_per_step": 192,
+   "error": 3.6792802720595004e-14,
+   "floor": 1.9200000000000001e-13
+  },
+  {
+   "n": 4,
+   "d": 1.0,
+   "scheme": "mo-q14",
+   "name": "M&O q=14 (rec., Tab. 3)",
+   "order": 6,
+   "exps_per_step": 448,
+   "error": 0.09564184093779719,
+   "floor": 4.48e-13
+  },
+  {
+   "n": 4,
+   "d": 0.7071067811865476,
+   "scheme": "mo-q14",
+   "name": "M&O q=14 (rec., Tab. 3)",
+   "order": 6,
+   "exps_per_step": 448,
+   "error": 0.008982231282527925,
+   "floor": 4.48e-13
+  },
+  {
+   "n": 4,
+   "d": 0.5,
+   "scheme": "mo-q14",
+   "name": "M&O q=14 (rec., Tab. 3)",
+   "order": 6,
+   "exps_per_step": 448,
+   "error": 0.0006229226785610308,
+   "floor": 4.48e-13
+  },
+  {
+   "n": 4,
+   "d": 0.3535533905932738,
+   "scheme": "mo-q14",
+   "name": "M&O q=14 (rec., Tab. 3)",
+   "order": 6,
+   "exps_per_step": 448,
+   "error": 7.485930722551805e-05,
+   "floor": 4.48e-13
+  },
+  {
+   "n": 4,
+   "d": 0.25,
+   "scheme": "mo-q14",
+   "name": "M&O q=14 (rec., Tab. 3)",
+   "order": 6,
+   "exps_per_step": 448,
+   "error": 8.505122274013382e-06,
+   "floor": 4.48e-13
+  },
+  {
+   "n": 4,
+   "d": 0.1767766952966369,
+   "scheme": "mo-q14",
+   "name": "M&O q=14 (rec., Tab. 3)",
+   "order": 6,
+   "exps_per_step": 448,
+   "error": 8.526594050227276e-07,
+   "floor": 4.48e-13
+  },
+  {
+   "n": 4,
+   "d": 0.125,
+   "scheme": "mo-q14",
+   "name": "M&O q=14 (rec., Tab. 3)",
+   "order": 6,
+   "exps_per_step": 448,
+   "error": 8.022245109574005e-08,
+   "floor": 4.48e-13
+  },
+  {
+   "n": 4,
+   "d": 0.08838834764831845,
+   "scheme": "mo-q14",
+   "name": "M&O q=14 (rec., Tab. 3)",
+   "order": 6,
+   "exps_per_step": 448,
+   "error": 7.314347316276167e-09,
+   "floor": 4.48e-13
+  },
+  {
+   "n": 4,
+   "d": 0.0625,
+   "scheme": "mo-q14",
+   "name": "M&O q=14 (rec., Tab. 3)",
+   "order": 6,
+   "exps_per_step": 448,
+   "error": 6.5658539874047e-10,
+   "floor": 4.48e-13
+  },
+  {
+   "n": 4,
+   "d": 0.04419417382415922,
+   "scheme": "mo-q14",
+   "name": "M&O q=14 (rec., Tab. 3)",
+   "order": 6,
+   "exps_per_step": 448,
+   "error": 5.848467973213939e-11,
+   "floor": 4.48e-13
+  },
+  {
+   "n": 4,
+   "d": 0.03125,
+   "scheme": "mo-q14",
+   "name": "M&O q=14 (rec., Tab. 3)",
+   "order": 6,
+   "exps_per_step": 448,
+   "error": 5.190160448155844e-12,
+   "floor": 4.48e-13
+  },
+  {
+   "n": 4,
+   "d": 0.02209708691207961,
+   "scheme": "mo-q14",
+   "name": "M&O q=14 (rec., Tab. 3)",
+   "order": 6,
+   "exps_per_step": 448,
+   "error": 4.666552531031334e-13,
+   "floor": 4.48e-13
+  },
+  {
+   "n": 4,
+   "d": 0.015625,
+   "scheme": "mo-q14",
+   "name": "M&O q=14 (rec., Tab. 3)",
+   "order": 6,
+   "exps_per_step": 448,
+   "error": 9.401582083880235e-14,
+   "floor": 4.48e-13
+  },
+  {
+   "n": 4,
+   "d": 0.011048543456039806,
+   "scheme": "mo-q14",
+   "name": "M&O q=14 (rec., Tab. 3)",
+   "order": 6,
+   "exps_per_step": 448,
+   "error": 8.18535103364327e-14,
+   "floor": 4.48e-13
+  },
+  {
+   "n": 4,
+   "d": 0.0078125,
+   "scheme": "mo-q14",
+   "name": "M&O q=14 (rec., Tab. 3)",
+   "order": 6,
+   "exps_per_step": 448,
+   "error": 7.776278434330929e-14,
+   "floor": 4.48e-13
+  },
+  {
+   "n": 4,
+   "d": 0.005524271728019903,
+   "scheme": "mo-q14",
+   "name": "M&O q=14 (rec., Tab. 3)",
+   "order": 6,
+   "exps_per_step": 448,
+   "error": 8.659495265219054e-14,
+   "floor": 4.48e-13
+  },
+  {
+   "n": 4,
+   "d": 0.00390625,
+   "scheme": "mo-q14",
+   "name": "M&O q=14 (rec., Tab. 3)",
+   "order": 6,
+   "exps_per_step": 448,
+   "error": 8.330949775780882e-14,
+   "floor": 4.48e-13
+  },
+  {
+   "n": 4,
+   "d": 0.0027621358640099515,
+   "scheme": "mo-q14",
+   "name": "M&O q=14 (rec., Tab. 3)",
+   "order": 6,
+   "exps_per_step": 448,
+   "error": 8.059677469520594e-14,
+   "floor": 4.48e-13
+  },
+  {
+   "n": 4,
+   "d": 0.001953125,
+   "scheme": "mo-q14",
+   "name": "M&O q=14 (rec., Tab. 3)",
+   "order": 6,
+   "exps_per_step": 448,
+   "error": 8.888177136868746e-14,
+   "floor": 4.48e-13
+  },
+  {
+   "n": 4,
+   "d": 0.0013810679320049757,
+   "scheme": "mo-q14",
+   "name": "M&O q=14 (rec., Tab. 3)",
+   "order": 6,
+   "exps_per_step": 448,
+   "error": 8.5752025186032e-14,
+   "floor": 4.48e-13
+  },
+  {
+   "n": 4,
+   "d": 0.0009765625,
+   "scheme": "mo-q14",
+   "name": "M&O q=14 (rec., Tab. 3)",
+   "order": 6,
+   "exps_per_step": 448,
+   "error": 7.98889837484379e-14,
+   "floor": 4.48e-13
+  },
+  {
+   "n": 4,
+   "d": 1.0,
+   "scheme": "bm-q10",
+   "name": "Blanes & Moan q=10",
+   "order": 6,
+   "exps_per_step": 320,
+   "error": 0.8137596513867364,
+   "floor": 3.2000000000000005e-13
+  },
+  {
+   "n": 4,
+   "d": 0.7071067811865476,
+   "scheme": "bm-q10",
+   "name": "Blanes & Moan q=10",
+   "order": 6,
+   "exps_per_step": 320,
+   "error": 0.11116709642089322,
+   "floor": 3.2000000000000005e-13
+  },
+  {
+   "n": 4,
+   "d": 0.5,
+   "scheme": "bm-q10",
+   "name": "Blanes & Moan q=10",
+   "order": 6,
+   "exps_per_step": 320,
+   "error": 0.015003384696197056,
+   "floor": 3.2000000000000005e-13
+  },
+  {
+   "n": 4,
+   "d": 0.3535533905932738,
+   "scheme": "bm-q10",
+   "name": "Blanes & Moan q=10",
+   "order": 6,
+   "exps_per_step": 320,
+   "error": 0.0016776886300501695,
+   "floor": 3.2000000000000005e-13
+  },
+  {
+   "n": 4,
+   "d": 0.25,
+   "scheme": "bm-q10",
+   "name": "Blanes & Moan q=10",
+   "order": 6,
+   "exps_per_step": 320,
+   "error": 0.00016711975543584,
+   "floor": 3.2000000000000005e-13
+  },
+  {
+   "n": 4,
+   "d": 0.1767766952966369,
+   "scheme": "bm-q10",
+   "name": "Blanes & Moan q=10",
+   "order": 6,
+   "exps_per_step": 320,
+   "error": 1.5684537225385574e-05,
+   "floor": 3.2000000000000005e-13
+  },
+  {
+   "n": 4,
+   "d": 0.125,
+   "scheme": "bm-q10",
+   "name": "Blanes & Moan q=10",
+   "order": 6,
+   "exps_per_step": 320,
+   "error": 1.4285533202373387e-06,
+   "floor": 3.2000000000000005e-13
+  },
+  {
+   "n": 4,
+   "d": 0.08838834764831845,
+   "scheme": "bm-q10",
+   "name": "Blanes & Moan q=10",
+   "order": 6,
+   "exps_per_step": 320,
+   "error": 1.2817565287091356e-07,
+   "floor": 3.2000000000000005e-13
+  },
+  {
+   "n": 4,
+   "d": 0.0625,
+   "scheme": "bm-q10",
+   "name": "Blanes & Moan q=10",
+   "order": 6,
+   "exps_per_step": 320,
+   "error": 1.1414505883012567e-08,
+   "floor": 3.2000000000000005e-13
+  },
+  {
+   "n": 4,
+   "d": 0.04419417382415922,
+   "scheme": "bm-q10",
+   "name": "Blanes & Moan q=10",
+   "order": 6,
+   "exps_per_step": 320,
+   "error": 1.0126990265344547e-09,
+   "floor": 3.2000000000000005e-13
+  },
+  {
+   "n": 4,
+   "d": 0.03125,
+   "scheme": "bm-q10",
+   "name": "Blanes & Moan q=10",
+   "order": 6,
+   "exps_per_step": 320,
+   "error": 8.967869659037094e-11,
+   "floor": 3.2000000000000005e-13
+  },
+  {
+   "n": 4,
+   "d": 0.02209708691207961,
+   "scheme": "bm-q10",
+   "name": "Blanes & Moan q=10",
+   "order": 6,
+   "exps_per_step": 320,
+   "error": 7.934178932739543e-12,
+   "floor": 3.2000000000000005e-13
+  },
+  {
+   "n": 4,
+   "d": 0.015625,
+   "scheme": "bm-q10",
+   "name": "Blanes & Moan q=10",
+   "order": 6,
+   "exps_per_step": 320,
+   "error": 7.036187311163613e-13,
+   "floor": 3.2000000000000005e-13
+  },
+  {
+   "n": 4,
+   "d": 0.011048543456039806,
+   "scheme": "bm-q10",
+   "name": "Blanes & Moan q=10",
+   "order": 6,
+   "exps_per_step": 320,
+   "error": 8.554542370986442e-14,
+   "floor": 3.2000000000000005e-13
+  },
+  {
+   "n": 4,
+   "d": 0.0078125,
+   "scheme": "bm-q10",
+   "name": "Blanes & Moan q=10",
+   "order": 6,
+   "exps_per_step": 320,
+   "error": 6.319204730297619e-14,
+   "floor": 3.2000000000000005e-13
+  },
+  {
+   "n": 4,
+   "d": 0.005524271728019903,
+   "scheme": "bm-q10",
+   "name": "Blanes & Moan q=10",
+   "order": 6,
+   "exps_per_step": 320,
+   "error": 5.844034015481051e-14,
+   "floor": 3.2000000000000005e-13
+  },
+  {
+   "n": 4,
+   "d": 0.00390625,
+   "scheme": "bm-q10",
+   "name": "Blanes & Moan q=10",
+   "order": 6,
+   "exps_per_step": 320,
+   "error": 5.920088175851323e-14,
+   "floor": 3.2000000000000005e-13
+  },
+  {
+   "n": 4,
+   "d": 0.0027621358640099515,
+   "scheme": "bm-q10",
+   "name": "Blanes & Moan q=10",
+   "order": 6,
+   "exps_per_step": 320,
+   "error": 6.386463471353273e-14,
+   "floor": 3.2000000000000005e-13
+  },
+  {
+   "n": 4,
+   "d": 0.001953125,
+   "scheme": "bm-q10",
+   "name": "Blanes & Moan q=10",
+   "order": 6,
+   "exps_per_step": 320,
+   "error": 5.5424374981830855e-14,
+   "floor": 3.2000000000000005e-13
+  },
+  {
+   "n": 4,
+   "d": 0.0013810679320049757,
+   "scheme": "bm-q10",
+   "name": "Blanes & Moan q=10",
+   "order": 6,
+   "exps_per_step": 320,
+   "error": 6.148262586666761e-14,
+   "floor": 3.2000000000000005e-13
+  },
+  {
+   "n": 4,
+   "d": 0.0009765625,
+   "scheme": "bm-q10",
+   "name": "Blanes & Moan q=10",
+   "order": 6,
+   "exps_per_step": 320,
+   "error": 5.74899626050291e-14,
+   "floor": 3.2000000000000005e-13
+  },
+  {
+   "n": 4,
+   "d": 1.0,
+   "scheme": "mo-o8-q21",
+   "name": "M&O q=21 order 8 (exploratory)",
+   "order": 8,
+   "exps_per_step": 672,
+   "error": 0.10434136431953525,
+   "floor": 6.720000000000001e-13
+  },
+  {
+   "n": 4,
+   "d": 0.7071067811865476,
+   "scheme": "mo-o8-q21",
+   "name": "M&O q=21 order 8 (exploratory)",
+   "order": 8,
+   "exps_per_step": 672,
+   "error": 0.010792727091334258,
+   "floor": 6.720000000000001e-13
+  },
+  {
+   "n": 4,
+   "d": 0.5,
+   "scheme": "mo-o8-q21",
+   "name": "M&O q=21 order 8 (exploratory)",
+   "order": 8,
+   "exps_per_step": 672,
+   "error": 0.0007396515044357111,
+   "floor": 6.720000000000001e-13
+  },
+  {
+   "n": 4,
+   "d": 0.3535533905932738,
+   "scheme": "mo-o8-q21",
+   "name": "M&O q=21 order 8 (exploratory)",
+   "order": 8,
+   "exps_per_step": 672,
+   "error": 4.0776300926114984e-05,
+   "floor": 6.720000000000001e-13
+  },
+  {
+   "n": 4,
+   "d": 0.25,
+   "scheme": "mo-o8-q21",
+   "name": "M&O q=21 order 8 (exploratory)",
+   "order": 8,
+   "exps_per_step": 672,
+   "error": 2.012736561411364e-06,
+   "floor": 6.720000000000001e-13
+  },
+  {
+   "n": 4,
+   "d": 0.1767766952966369,
+   "scheme": "mo-o8-q21",
+   "name": "M&O q=21 order 8 (exploratory)",
+   "order": 8,
+   "exps_per_step": 672,
+   "error": 9.400102915572936e-08,
+   "floor": 6.720000000000001e-13
+  },
+  {
+   "n": 4,
+   "d": 0.125,
+   "scheme": "mo-o8-q21",
+   "name": "M&O q=21 order 8 (exploratory)",
+   "order": 8,
+   "exps_per_step": 672,
+   "error": 4.270489162638876e-09,
+   "floor": 6.720000000000001e-13
+  },
+  {
+   "n": 4,
+   "d": 0.08838834764831845,
+   "scheme": "mo-o8-q21",
+   "name": "M&O q=21 order 8 (exploratory)",
+   "order": 8,
+   "exps_per_step": 672,
+   "error": 1.9135053580812495e-10,
+   "floor": 6.720000000000001e-13
+  },
+  {
+   "n": 4,
+   "d": 0.0625,
+   "scheme": "mo-o8-q21",
+   "name": "M&O q=21 order 8 (exploratory)",
+   "order": 8,
+   "exps_per_step": 672,
+   "error": 8.515588318436718e-12,
+   "floor": 6.720000000000001e-13
+  },
+  {
+   "n": 4,
+   "d": 0.04419417382415922,
+   "scheme": "mo-o8-q21",
+   "name": "M&O q=21 order 8 (exploratory)",
+   "order": 8,
+   "exps_per_step": 672,
+   "error": 3.962644521150254e-13,
+   "floor": 6.720000000000001e-13
+  },
+  {
+   "n": 4,
+   "d": 0.03125,
+   "scheme": "mo-o8-q21",
+   "name": "M&O q=21 order 8 (exploratory)",
+   "order": 8,
+   "exps_per_step": 672,
+   "error": 1.1617817094693112e-13,
+   "floor": 6.720000000000001e-13
+  },
+  {
+   "n": 4,
+   "d": 0.02209708691207961,
+   "scheme": "mo-o8-q21",
+   "name": "M&O q=21 order 8 (exploratory)",
+   "order": 8,
+   "exps_per_step": 672,
+   "error": 1.262622475381492e-13,
+   "floor": 6.720000000000001e-13
+  },
+  {
+   "n": 4,
+   "d": 0.015625,
+   "scheme": "mo-o8-q21",
+   "name": "M&O q=21 order 8 (exploratory)",
+   "order": 8,
+   "exps_per_step": 672,
+   "error": 1.1912759629094505e-13,
+   "floor": 6.720000000000001e-13
+  },
+  {
+   "n": 4,
+   "d": 0.011048543456039806,
+   "scheme": "mo-o8-q21",
+   "name": "M&O q=21 order 8 (exploratory)",
+   "order": 8,
+   "exps_per_step": 672,
+   "error": 1.201516818110791e-13,
+   "floor": 6.720000000000001e-13
+  },
+  {
+   "n": 4,
+   "d": 0.0078125,
+   "scheme": "mo-o8-q21",
+   "name": "M&O q=21 order 8 (exploratory)",
+   "order": 8,
+   "exps_per_step": 672,
+   "error": 1.2046688241056235e-13,
+   "floor": 6.720000000000001e-13
+  },
+  {
+   "n": 4,
+   "d": 0.005524271728019903,
+   "scheme": "mo-o8-q21",
+   "name": "M&O q=21 order 8 (exploratory)",
+   "order": 8,
+   "exps_per_step": 672,
+   "error": 1.241604978640079e-13,
+   "floor": 6.720000000000001e-13
+  },
+  {
+   "n": 4,
+   "d": 0.00390625,
+   "scheme": "mo-o8-q21",
+   "name": "M&O q=21 order 8 (exploratory)",
+   "order": 8,
+   "exps_per_step": 672,
+   "error": 1.1727362683109577e-13,
+   "floor": 6.720000000000001e-13
+  },
+  {
+   "n": 4,
+   "d": 0.0027621358640099515,
+   "scheme": "mo-o8-q21",
+   "name": "M&O q=21 order 8 (exploratory)",
+   "order": 8,
+   "exps_per_step": 672,
+   "error": 1.1835218582247627e-13,
+   "floor": 6.720000000000001e-13
+  },
+  {
+   "n": 4,
+   "d": 0.001953125,
+   "scheme": "mo-o8-q21",
+   "name": "M&O q=21 order 8 (exploratory)",
+   "order": 8,
+   "exps_per_step": 672,
+   "error": 1.1527742325408496e-13,
+   "floor": 6.720000000000001e-13
+  },
+  {
+   "n": 4,
+   "d": 0.0013810679320049757,
+   "scheme": "mo-o8-q21",
+   "name": "M&O q=21 order 8 (exploratory)",
+   "order": 8,
+   "exps_per_step": 672,
+   "error": 1.192426796261122e-13,
+   "floor": 6.720000000000001e-13
+  },
+  {
+   "n": 4,
+   "d": 0.0009765625,
+   "scheme": "mo-o8-q21",
+   "name": "M&O q=21 order 8 (exploratory)",
+   "order": 8,
+   "exps_per_step": 672,
+   "error": 1.1866282692540708e-13,
+   "floor": 6.720000000000001e-13
+  },
+  {
+   "n": 4,
+   "d": 1.0,
+   "scheme": "morales-y8m10",
+   "name": "Morales Y8m10 (21 steps)",
+   "order": 8,
+   "exps_per_step": 672,
+   "error": 0.1701635794789673,
+   "floor": 6.720000000000001e-13
+  },
+  {
+   "n": 4,
+   "d": 0.7071067811865476,
+   "scheme": "morales-y8m10",
+   "name": "Morales Y8m10 (21 steps)",
+   "order": 8,
+   "exps_per_step": 672,
+   "error": 0.017482264772722567,
+   "floor": 6.720000000000001e-13
+  },
+  {
+   "n": 4,
+   "d": 0.5,
+   "scheme": "morales-y8m10",
+   "name": "Morales Y8m10 (21 steps)",
+   "order": 8,
+   "exps_per_step": 672,
+   "error": 0.0011479236460363784,
+   "floor": 6.720000000000001e-13
+  },
+  {
+   "n": 4,
+   "d": 0.3535533905932738,
+   "scheme": "morales-y8m10",
+   "name": "Morales Y8m10 (21 steps)",
+   "order": 8,
+   "exps_per_step": 672,
+   "error": 5.886220593065444e-05,
+   "floor": 6.720000000000001e-13
+  },
+  {
+   "n": 4,
+   "d": 0.25,
+   "scheme": "morales-y8m10",
+   "name": "Morales Y8m10 (21 steps)",
+   "order": 8,
+   "exps_per_step": 672,
+   "error": 2.726441324091554e-06,
+   "floor": 6.720000000000001e-13
+  },
+  {
+   "n": 4,
+   "d": 0.1767766952966369,
+   "scheme": "morales-y8m10",
+   "name": "Morales Y8m10 (21 steps)",
+   "order": 8,
+   "exps_per_step": 672,
+   "error": 1.2216284809572752e-07,
+   "floor": 6.720000000000001e-13
+  },
+  {
+   "n": 4,
+   "d": 0.125,
+   "scheme": "morales-y8m10",
+   "name": "Morales Y8m10 (21 steps)",
+   "order": 8,
+   "exps_per_step": 672,
+   "error": 5.421043865484165e-09,
+   "floor": 6.720000000000001e-13
+  },
+  {
+   "n": 4,
+   "d": 0.08838834764831845,
+   "scheme": "morales-y8m10",
+   "name": "Morales Y8m10 (21 steps)",
+   "order": 8,
+   "exps_per_step": 672,
+   "error": 2.398936993010925e-10,
+   "floor": 6.720000000000001e-13
+  },
+  {
+   "n": 4,
+   "d": 0.0625,
+   "scheme": "morales-y8m10",
+   "name": "Morales Y8m10 (21 steps)",
+   "order": 8,
+   "exps_per_step": 672,
+   "error": 1.0607312241994842e-11,
+   "floor": 6.720000000000001e-13
+  },
+  {
+   "n": 4,
+   "d": 0.04419417382415922,
+   "scheme": "morales-y8m10",
+   "name": "Morales Y8m10 (21 steps)",
+   "order": 8,
+   "exps_per_step": 672,
+   "error": 4.832460722808711e-13,
+   "floor": 6.720000000000001e-13
+  },
+  {
+   "n": 4,
+   "d": 0.03125,
+   "scheme": "morales-y8m10",
+   "name": "Morales Y8m10 (21 steps)",
+   "order": 8,
+   "exps_per_step": 672,
+   "error": 1.1695090895522083e-13,
+   "floor": 6.720000000000001e-13
+  },
+  {
+   "n": 4,
+   "d": 0.02209708691207961,
+   "scheme": "morales-y8m10",
+   "name": "Morales Y8m10 (21 steps)",
+   "order": 8,
+   "exps_per_step": 672,
+   "error": 1.2134882771565072e-13,
+   "floor": 6.720000000000001e-13
+  },
+  {
+   "n": 4,
+   "d": 0.015625,
+   "scheme": "morales-y8m10",
+   "name": "Morales Y8m10 (21 steps)",
+   "order": 8,
+   "exps_per_step": 672,
+   "error": 1.233106042010635e-13,
+   "floor": 6.720000000000001e-13
+  },
+  {
+   "n": 4,
+   "d": 0.011048543456039806,
+   "scheme": "morales-y8m10",
+   "name": "Morales Y8m10 (21 steps)",
+   "order": 8,
+   "exps_per_step": 672,
+   "error": 1.2000119335608192e-13,
+   "floor": 6.720000000000001e-13
+  },
+  {
+   "n": 4,
+   "d": 0.0078125,
+   "scheme": "morales-y8m10",
+   "name": "Morales Y8m10 (21 steps)",
+   "order": 8,
+   "exps_per_step": 672,
+   "error": 1.2828030336019976e-13,
+   "floor": 6.720000000000001e-13
+  },
+  {
+   "n": 4,
+   "d": 0.005524271728019903,
+   "scheme": "morales-y8m10",
+   "name": "Morales Y8m10 (21 steps)",
+   "order": 8,
+   "exps_per_step": 672,
+   "error": 1.2822019776258085e-13,
+   "floor": 6.720000000000001e-13
+  },
+  {
+   "n": 4,
+   "d": 0.00390625,
+   "scheme": "morales-y8m10",
+   "name": "Morales Y8m10 (21 steps)",
+   "order": 8,
+   "exps_per_step": 672,
+   "error": 1.191265403018264e-13,
+   "floor": 6.720000000000001e-13
+  },
+  {
+   "n": 4,
+   "d": 0.0027621358640099515,
+   "scheme": "morales-y8m10",
+   "name": "Morales Y8m10 (21 steps)",
+   "order": 8,
+   "exps_per_step": 672,
+   "error": 1.207374958353632e-13,
+   "floor": 6.720000000000001e-13
+  },
+  {
+   "n": 4,
+   "d": 0.001953125,
+   "scheme": "morales-y8m10",
+   "name": "Morales Y8m10 (21 steps)",
+   "order": 8,
+   "exps_per_step": 672,
+   "error": 1.1379988023108313e-13,
+   "floor": 6.720000000000001e-13
+  },
+  {
+   "n": 4,
+   "d": 0.0013810679320049757,
+   "scheme": "morales-y8m10",
+   "name": "Morales Y8m10 (21 steps)",
+   "order": 8,
+   "exps_per_step": 672,
+   "error": 1.2301906764945519e-13,
+   "floor": 6.720000000000001e-13
+  },
+  {
+   "n": 4,
+   "d": 0.0009765625,
+   "scheme": "morales-y8m10",
+   "name": "Morales Y8m10 (21 steps)",
+   "order": 8,
+   "exps_per_step": 672,
+   "error": 1.295694608843992e-13,
+   "floor": 6.720000000000001e-13
+  },
+  {
+   "n": 4,
+   "d": 1.0,
+   "scheme": "morales-m8",
+   "name": "Morales m=8 (17 steps)",
+   "order": 8,
+   "exps_per_step": 544,
+   "error": 1.0396654480603411,
+   "floor": 5.44e-13
+  },
+  {
+   "n": 4,
+   "d": 0.7071067811865476,
+   "scheme": "morales-m8",
+   "name": "Morales m=8 (17 steps)",
+   "order": 8,
+   "exps_per_step": 544,
+   "error": 0.12407607349079455,
+   "floor": 5.44e-13
+  },
+  {
+   "n": 4,
+   "d": 0.5,
+   "scheme": "morales-m8",
+   "name": "Morales m=8 (17 steps)",
+   "order": 8,
+   "exps_per_step": 544,
+   "error": 0.005162012830034555,
+   "floor": 5.44e-13
+  },
+  {
+   "n": 4,
+   "d": 0.3535533905932738,
+   "scheme": "morales-m8",
+   "name": "Morales m=8 (17 steps)",
+   "order": 8,
+   "exps_per_step": 544,
+   "error": 0.00014319554255358416,
+   "floor": 5.44e-13
+  },
+  {
+   "n": 4,
+   "d": 0.25,
+   "scheme": "morales-m8",
+   "name": "Morales m=8 (17 steps)",
+   "order": 8,
+   "exps_per_step": 544,
+   "error": 9.25798420549301e-06,
+   "floor": 5.44e-13
+  },
+  {
+   "n": 4,
+   "d": 0.1767766952966369,
+   "scheme": "morales-m8",
+   "name": "Morales m=8 (17 steps)",
+   "order": 8,
+   "exps_per_step": 544,
+   "error": 5.89882690319538e-07,
+   "floor": 5.44e-13
+  },
+  {
+   "n": 4,
+   "d": 0.125,
+   "scheme": "morales-m8",
+   "name": "Morales m=8 (17 steps)",
+   "order": 8,
+   "exps_per_step": 544,
+   "error": 3.120135245719484e-08,
+   "floor": 5.44e-13
+  },
+  {
+   "n": 4,
+   "d": 0.08838834764831845,
+   "scheme": "morales-m8",
+   "name": "Morales m=8 (17 steps)",
+   "order": 8,
+   "exps_per_step": 544,
+   "error": 1.505229523197689e-09,
+   "floor": 5.44e-13
+  },
+  {
+   "n": 4,
+   "d": 0.0625,
+   "scheme": "morales-m8",
+   "name": "Morales m=8 (17 steps)",
+   "order": 8,
+   "exps_per_step": 544,
+   "error": 6.946386134524589e-11,
+   "floor": 5.44e-13
+  },
+  {
+   "n": 4,
+   "d": 0.04419417382415922,
+   "scheme": "morales-m8",
+   "name": "Morales m=8 (17 steps)",
+   "order": 8,
+   "exps_per_step": 544,
+   "error": 3.1379142275216665e-12,
+   "floor": 5.44e-13
+  },
+  {
+   "n": 4,
+   "d": 0.03125,
+   "scheme": "morales-m8",
+   "name": "Morales m=8 (17 steps)",
+   "order": 8,
+   "exps_per_step": 544,
+   "error": 1.713369116479774e-13,
+   "floor": 5.44e-13
+  },
+  {
+   "n": 4,
+   "d": 0.02209708691207961,
+   "scheme": "morales-m8",
+   "name": "Morales m=8 (17 steps)",
+   "order": 8,
+   "exps_per_step": 544,
+   "error": 1.0212553235013175e-13,
+   "floor": 5.44e-13
+  },
+  {
+   "n": 4,
+   "d": 0.015625,
+   "scheme": "morales-m8",
+   "name": "Morales m=8 (17 steps)",
+   "order": 8,
+   "exps_per_step": 544,
+   "error": 9.21826604528863e-14,
+   "floor": 5.44e-13
+  },
+  {
+   "n": 4,
+   "d": 0.011048543456039806,
+   "scheme": "morales-m8",
+   "name": "Morales m=8 (17 steps)",
+   "order": 8,
+   "exps_per_step": 544,
+   "error": 9.647756902903342e-14,
+   "floor": 5.44e-13
+  },
+  {
+   "n": 4,
+   "d": 0.0078125,
+   "scheme": "morales-m8",
+   "name": "Morales m=8 (17 steps)",
+   "order": 8,
+   "exps_per_step": 544,
+   "error": 9.968914162774586e-14,
+   "floor": 5.44e-13
+  },
+  {
+   "n": 4,
+   "d": 0.005524271728019903,
+   "scheme": "morales-m8",
+   "name": "Morales m=8 (17 steps)",
+   "order": 8,
+   "exps_per_step": 544,
+   "error": 1.0082783632434076e-13,
+   "floor": 5.44e-13
+  },
+  {
+   "n": 4,
+   "d": 0.00390625,
+   "scheme": "morales-m8",
+   "name": "Morales m=8 (17 steps)",
+   "order": 8,
+   "exps_per_step": 544,
+   "error": 9.416231927597364e-14,
+   "floor": 5.44e-13
+  },
+  {
+   "n": 4,
+   "d": 0.0027621358640099515,
+   "scheme": "morales-m8",
+   "name": "Morales m=8 (17 steps)",
+   "order": 8,
+   "exps_per_step": 544,
+   "error": 9.827435024242325e-14,
+   "floor": 5.44e-13
+  },
+  {
+   "n": 4,
+   "d": 0.001953125,
+   "scheme": "morales-m8",
+   "name": "Morales m=8 (17 steps)",
+   "order": 8,
+   "exps_per_step": 544,
+   "error": 1.0161027104711514e-13,
+   "floor": 5.44e-13
+  },
+  {
+   "n": 4,
+   "d": 0.0013810679320049757,
+   "scheme": "morales-m8",
+   "name": "Morales m=8 (17 steps)",
+   "order": 8,
+   "exps_per_step": 544,
+   "error": 9.418551772775481e-14,
+   "floor": 5.44e-13
+  },
+  {
+   "n": 4,
+   "d": 0.0009765625,
+   "scheme": "morales-m8",
+   "name": "Morales m=8 (17 steps)",
+   "order": 8,
+   "exps_per_step": 544,
+   "error": 9.802245305276206e-14,
+   "floor": 5.44e-13
+  },
+  {
+   "n": 6,
+   "d": 1.0,
+   "scheme": "lie-trotter",
+   "name": "Lie-Trotter S1",
+   "order": 1,
+   "exps_per_step": 24,
+   "error": 1.9981353086845977,
+   "floor": 2.4000000000000002e-14
+  },
+  {
+   "n": 6,
+   "d": 0.7071067811865476,
+   "scheme": "lie-trotter",
+   "name": "Lie-Trotter S1",
+   "order": 1,
+   "exps_per_step": 24,
+   "error": 1.9949614863821228,
+   "floor": 2.4000000000000002e-14
+  },
+  {
+   "n": 6,
+   "d": 0.5,
+   "scheme": "lie-trotter",
+   "name": "Lie-Trotter S1",
+   "order": 1,
+   "exps_per_step": 24,
+   "error": 1.8673244552952908,
+   "floor": 2.4000000000000002e-14
+  },
+  {
+   "n": 6,
+   "d": 0.3535533905932738,
+   "scheme": "lie-trotter",
+   "name": "Lie-Trotter S1",
+   "order": 1,
+   "exps_per_step": 24,
+   "error": 1.3795448974597777,
+   "floor": 2.4000000000000002e-14
+  },
+  {
+   "n": 6,
+   "d": 0.25,
+   "scheme": "lie-trotter",
+   "name": "Lie-Trotter S1",
+   "order": 1,
+   "exps_per_step": 24,
+   "error": 0.8336725039196757,
+   "floor": 2.4000000000000002e-14
+  },
+  {
+   "n": 6,
+   "d": 0.1767766952966369,
+   "scheme": "lie-trotter",
+   "name": "Lie-Trotter S1",
+   "order": 1,
+   "exps_per_step": 24,
+   "error": 0.4548786061115592,
+   "floor": 2.4000000000000002e-14
+  },
+  {
+   "n": 6,
+   "d": 0.125,
+   "scheme": "lie-trotter",
+   "name": "Lie-Trotter S1",
+   "order": 1,
+   "exps_per_step": 24,
+   "error": 0.2367488271750579,
+   "floor": 2.4000000000000002e-14
+  },
+  {
+   "n": 6,
+   "d": 0.08838834764831845,
+   "scheme": "lie-trotter",
+   "name": "Lie-Trotter S1",
+   "order": 1,
+   "exps_per_step": 24,
+   "error": 0.12057741742413236,
+   "floor": 2.4000000000000002e-14
+  },
+  {
+   "n": 6,
+   "d": 0.0625,
+   "scheme": "lie-trotter",
+   "name": "Lie-Trotter S1",
+   "order": 1,
+   "exps_per_step": 24,
+   "error": 0.060795991691359394,
+   "floor": 2.4000000000000002e-14
+  },
+  {
+   "n": 6,
+   "d": 0.04419417382415922,
+   "scheme": "lie-trotter",
+   "name": "Lie-Trotter S1",
+   "order": 1,
+   "exps_per_step": 24,
+   "error": 0.03051024061177392,
+   "floor": 2.4000000000000002e-14
+  },
+  {
+   "n": 6,
+   "d": 0.03125,
+   "scheme": "lie-trotter",
+   "name": "Lie-Trotter S1",
+   "order": 1,
+   "exps_per_step": 24,
+   "error": 0.015278212439279388,
+   "floor": 2.4000000000000002e-14
+  },
+  {
+   "n": 6,
+   "d": 0.02209708691207961,
+   "scheme": "lie-trotter",
+   "name": "Lie-Trotter S1",
+   "order": 1,
+   "exps_per_step": 24,
+   "error": 0.007643157605525749,
+   "floor": 2.4000000000000002e-14
+  },
+  {
+   "n": 6,
+   "d": 0.015625,
+   "scheme": "lie-trotter",
+   "name": "Lie-Trotter S1",
+   "order": 1,
+   "exps_per_step": 24,
+   "error": 0.003821989315487837,
+   "floor": 2.4000000000000002e-14
+  },
+  {
+   "n": 6,
+   "d": 0.011048543456039806,
+   "scheme": "lie-trotter",
+   "name": "Lie-Trotter S1",
+   "order": 1,
+   "exps_per_step": 24,
+   "error": 0.001910885459961356,
+   "floor": 2.4000000000000002e-14
+  },
+  {
+   "n": 6,
+   "d": 0.0078125,
+   "scheme": "lie-trotter",
+   "name": "Lie-Trotter S1",
+   "order": 1,
+   "exps_per_step": 24,
+   "error": 0.000955340738925187,
+   "floor": 2.4000000000000002e-14
+  },
+  {
+   "n": 6,
+   "d": 0.005524271728019903,
+   "scheme": "lie-trotter",
+   "name": "Lie-Trotter S1",
+   "order": 1,
+   "exps_per_step": 24,
+   "error": 0.0004776184996043558,
+   "floor": 2.4000000000000002e-14
+  },
+  {
+   "n": 6,
+   "d": 0.00390625,
+   "scheme": "lie-trotter",
+   "name": "Lie-Trotter S1",
+   "order": 1,
+   "exps_per_step": 24,
+   "error": 0.00023878696464510284,
+   "floor": 2.4000000000000002e-14
+  },
+  {
+   "n": 6,
+   "d": 0.0027621358640099515,
+   "scheme": "lie-trotter",
+   "name": "Lie-Trotter S1",
+   "order": 1,
+   "exps_per_step": 24,
+   "error": 0.00011938461783599765,
+   "floor": 2.4000000000000002e-14
+  },
+  {
+   "n": 6,
+   "d": 0.001953125,
+   "scheme": "lie-trotter",
+   "name": "Lie-Trotter S1",
+   "order": 1,
+   "exps_per_step": 24,
+   "error": 5.968892867051666e-05,
+   "floor": 2.4000000000000002e-14
+  },
+  {
+   "n": 6,
+   "d": 0.0013810679320049757,
+   "scheme": "lie-trotter",
+   "name": "Lie-Trotter S1",
+   "order": 1,
+   "exps_per_step": 24,
+   "error": 2.9843207727237676e-05,
+   "floor": 2.4000000000000002e-14
+  },
+  {
+   "n": 6,
+   "d": 0.0009765625,
+   "scheme": "lie-trotter",
+   "name": "Lie-Trotter S1",
+   "order": 1,
+   "exps_per_step": 24,
+   "error": 1.4921144214178153e-05,
+   "floor": 2.4000000000000002e-14
+  },
+  {
+   "n": 6,
+   "d": 1.0,
+   "scheme": "suzuki2",
+   "name": "Suzuki S2",
+   "order": 2,
+   "exps_per_step": 42,
+   "error": 1.9999248350545435,
+   "floor": 4.2000000000000004e-14
+  },
+  {
+   "n": 6,
+   "d": 0.7071067811865476,
+   "scheme": "suzuki2",
+   "name": "Suzuki S2",
+   "order": 2,
+   "exps_per_step": 42,
+   "error": 1.8872565177465717,
+   "floor": 4.2000000000000004e-14
+  },
+  {
+   "n": 6,
+   "d": 0.5,
+   "scheme": "suzuki2",
+   "name": "Suzuki S2",
+   "order": 2,
+   "exps_per_step": 42,
+   "error": 1.3467411381827563,
+   "floor": 4.2000000000000004e-14
+  },
+  {
+   "n": 6,
+   "d": 0.3535533905932738,
+   "scheme": "suzuki2",
+   "name": "Suzuki S2",
+   "order": 2,
+   "exps_per_step": 42,
+   "error": 0.6942955857150975,
+   "floor": 4.2000000000000004e-14
+  },
+  {
+   "n": 6,
+   "d": 0.25,
+   "scheme": "suzuki2",
+   "name": "Suzuki S2",
+   "order": 2,
+   "exps_per_step": 42,
+   "error": 0.29730554067751913,
+   "floor": 4.2000000000000004e-14
+  },
+  {
+   "n": 6,
+   "d": 0.1767766952966369,
+   "scheme": "suzuki2",
+   "name": "Suzuki S2",
+   "order": 2,
+   "exps_per_step": 42,
+   "error": 0.11584202298877183,
+   "floor": 4.2000000000000004e-14
+  },
+  {
+   "n": 6,
+   "d": 0.125,
+   "scheme": "suzuki2",
+   "name": "Suzuki S2",
+   "order": 2,
+   "exps_per_step": 42,
+   "error": 0.04302227606147063,
+   "floor": 4.2000000000000004e-14
+  },
+  {
+   "n": 6,
+   "d": 0.08838834764831845,
+   "scheme": "suzuki2",
+   "name": "Suzuki S2",
+   "order": 2,
+   "exps_per_step": 42,
+   "error": 0.015592852329038679,
+   "floor": 4.2000000000000004e-14
+  },
+  {
+   "n": 6,
+   "d": 0.0625,
+   "scheme": "suzuki2",
+   "name": "Suzuki S2",
+   "order": 2,
+   "exps_per_step": 42,
+   "error": 0.005582075701113304,
+   "floor": 4.2000000000000004e-14
+  },
+  {
+   "n": 6,
+   "d": 0.04419417382415922,
+   "scheme": "suzuki2",
+   "name": "Suzuki S2",
+   "order": 2,
+   "exps_per_step": 42,
+   "error": 0.0019859370348127557,
+   "floor": 4.2000000000000004e-14
+  },
+  {
+   "n": 6,
+   "d": 0.03125,
+   "scheme": "suzuki2",
+   "name": "Suzuki S2",
+   "order": 2,
+   "exps_per_step": 42,
+   "error": 0.0007043357261243882,
+   "floor": 4.2000000000000004e-14
+  },
+  {
+   "n": 6,
+   "d": 0.02209708691207961,
+   "scheme": "suzuki2",
+   "name": "Suzuki S2",
+   "order": 2,
+   "exps_per_step": 42,
+   "error": 0.00024941054837209994,
+   "floor": 4.2000000000000004e-14
+  },
+  {
+   "n": 6,
+   "d": 0.015625,
+   "scheme": "suzuki2",
+   "name": "Suzuki S2",
+   "order": 2,
+   "exps_per_step": 42,
+   "error": 8.824904007885948e-05,
+   "floor": 4.2000000000000004e-14
+  },
+  {
+   "n": 6,
+   "d": 0.011048543456039806,
+   "scheme": "suzuki2",
+   "name": "Suzuki S2",
+   "order": 2,
+   "exps_per_step": 42,
+   "error": 3.1212971072300206e-05,
+   "floor": 4.2000000000000004e-14
+  },
+  {
+   "n": 6,
+   "d": 0.0078125,
+   "scheme": "suzuki2",
+   "name": "Suzuki S2",
+   "order": 2,
+   "exps_per_step": 42,
+   "error": 1.103761345134787e-05,
+   "floor": 4.2000000000000004e-14
+  },
+  {
+   "n": 6,
+   "d": 0.005524271728019903,
+   "scheme": "suzuki2",
+   "name": "Suzuki S2",
+   "order": 2,
+   "exps_per_step": 42,
+   "error": 3.902767870764489e-06,
+   "floor": 4.2000000000000004e-14
+  },
+  {
+   "n": 6,
+   "d": 0.00390625,
+   "scheme": "suzuki2",
+   "name": "Suzuki S2",
+   "order": 2,
+   "exps_per_step": 42,
+   "error": 1.3799043858839765e-06,
+   "floor": 4.2000000000000004e-14
+  },
+  {
+   "n": 6,
+   "d": 0.0027621358640099515,
+   "scheme": "suzuki2",
+   "name": "Suzuki S2",
+   "order": 2,
+   "exps_per_step": 42,
+   "error": 4.878818201334893e-07,
+   "floor": 4.2000000000000004e-14
+  },
+  {
+   "n": 6,
+   "d": 0.001953125,
+   "scheme": "suzuki2",
+   "name": "Suzuki S2",
+   "order": 2,
+   "exps_per_step": 42,
+   "error": 1.7249438350698066e-07,
+   "floor": 4.2000000000000004e-14
+  },
+  {
+   "n": 6,
+   "d": 0.0013810679320049757,
+   "scheme": "suzuki2",
+   "name": "Suzuki S2",
+   "order": 2,
+   "exps_per_step": 42,
+   "error": 6.098634746972411e-08,
+   "floor": 4.2000000000000004e-14
+  },
+  {
+   "n": 6,
+   "d": 0.0009765625,
+   "scheme": "suzuki2",
+   "name": "Suzuki S2",
+   "order": 2,
+   "exps_per_step": 42,
+   "error": 2.1561995923266773e-08,
+   "floor": 4.2000000000000004e-14
+  },
+  {
+   "n": 6,
+   "d": 1.0,
+   "scheme": "suzuki4",
+   "name": "Suzuki S4",
+   "order": 4,
+   "exps_per_step": 210,
+   "error": 1.6389335257325148,
+   "floor": 2.1000000000000001e-13
+  },
+  {
+   "n": 6,
+   "d": 0.7071067811865476,
+   "scheme": "suzuki4",
+   "name": "Suzuki S4",
+   "order": 4,
+   "exps_per_step": 210,
+   "error": 0.8359292937811116,
+   "floor": 2.1000000000000001e-13
+  },
+  {
+   "n": 6,
+   "d": 0.5,
+   "scheme": "suzuki4",
+   "name": "Suzuki S4",
+   "order": 4,
+   "exps_per_step": 210,
+   "error": 0.297540110062219,
+   "floor": 2.1000000000000001e-13
+  },
+  {
+   "n": 6,
+   "d": 0.3535533905932738,
+   "scheme": "suzuki4",
+   "name": "Suzuki S4",
+   "order": 4,
+   "exps_per_step": 210,
+   "error": 0.0751823976318378,
+   "floor": 2.1000000000000001e-13
+  },
+  {
+   "n": 6,
+   "d": 0.25,
+   "scheme": "suzuki4",
+   "name": "Suzuki S4",
+   "order": 4,
+   "exps_per_step": 210,
+   "error": 0.015911407493353222,
+   "floor": 2.1000000000000001e-13
+  },
+  {
+   "n": 6,
+   "d": 0.1767766952966369,
+   "scheme": "suzuki4",
+   "name": "Suzuki S4",
+   "order": 4,
+   "exps_per_step": 210,
+   "error": 0.0030814556572325807,
+   "floor": 2.1000000000000001e-13
+  },
+  {
+   "n": 6,
+   "d": 0.125,
+   "scheme": "suzuki4",
+   "name": "Suzuki S4",
+   "order": 4,
+   "exps_per_step": 210,
+   "error": 0.0005704774335621369,
+   "floor": 2.1000000000000001e-13
+  },
+  {
+   "n": 6,
+   "d": 0.08838834764831845,
+   "scheme": "suzuki4",
+   "name": "Suzuki S4",
+   "order": 4,
+   "exps_per_step": 210,
+   "error": 0.00010322233075529595,
+   "floor": 2.1000000000000001e-13
+  },
+  {
+   "n": 6,
+   "d": 0.0625,
+   "scheme": "suzuki4",
+   "name": "Suzuki S4",
+   "order": 4,
+   "exps_per_step": 210,
+   "error": 1.8461926698169503e-05,
+   "floor": 2.1000000000000001e-13
+  },
+  {
+   "n": 6,
+   "d": 0.04419417382415922,
+   "scheme": "suzuki4",
+   "name": "Suzuki S4",
+   "order": 4,
+   "exps_per_step": 210,
+   "error": 3.282822604510133e-06,
+   "floor": 2.1000000000000001e-13
+  },
+  {
+   "n": 6,
+   "d": 0.03125,
+   "scheme": "suzuki4",
+   "name": "Suzuki S4",
+   "order": 4,
+   "exps_per_step": 210,
+   "error": 5.820318081058529e-07,
+   "floor": 2.1000000000000001e-13
+  },
+  {
+   "n": 6,
+   "d": 0.02209708691207961,
+   "scheme": "suzuki4",
+   "name": "Suzuki S4",
+   "order": 4,
+   "exps_per_step": 210,
+   "error": 1.0304081462813662e-07,
+   "floor": 2.1000000000000001e-13
+  },
+  {
+   "n": 6,
+   "d": 0.015625,
+   "scheme": "suzuki4",
+   "name": "Suzuki S4",
+   "order": 4,
+   "exps_per_step": 210,
+   "error": 1.8228594067859013e-08,
+   "floor": 2.1000000000000001e-13
+  },
+  {
+   "n": 6,
+   "d": 0.011048543456039806,
+   "scheme": "suzuki4",
+   "name": "Suzuki S4",
+   "order": 4,
+   "exps_per_step": 210,
+   "error": 3.2235739554389444e-09,
+   "floor": 2.1000000000000001e-13
+  },
+  {
+   "n": 6,
+   "d": 0.0078125,
+   "scheme": "suzuki4",
+   "name": "Suzuki S4",
+   "order": 4,
+   "exps_per_step": 210,
+   "error": 5.699573554966269e-10,
+   "floor": 2.1000000000000001e-13
+  },
+  {
+   "n": 6,
+   "d": 0.005524271728019903,
+   "scheme": "suzuki4",
+   "name": "Suzuki S4",
+   "order": 4,
+   "exps_per_step": 210,
+   "error": 1.007644240560681e-10,
+   "floor": 2.1000000000000001e-13
+  },
+  {
+   "n": 6,
+   "d": 0.00390625,
+   "scheme": "suzuki4",
+   "name": "Suzuki S4",
+   "order": 4,
+   "exps_per_step": 210,
+   "error": 1.781366443310597e-11,
+   "floor": 2.1000000000000001e-13
+  },
+  {
+   "n": 6,
+   "d": 0.0027621358640099515,
+   "scheme": "suzuki4",
+   "name": "Suzuki S4",
+   "order": 4,
+   "exps_per_step": 210,
+   "error": 3.1494669681755594e-12,
+   "floor": 2.1000000000000001e-13
+  },
+  {
+   "n": 6,
+   "d": 0.001953125,
+   "scheme": "suzuki4",
+   "name": "Suzuki S4",
+   "order": 4,
+   "exps_per_step": 210,
+   "error": 5.583941135535734e-13,
+   "floor": 2.1000000000000001e-13
+  },
+  {
+   "n": 6,
+   "d": 0.0013810679320049757,
+   "scheme": "suzuki4",
+   "name": "Suzuki S4",
+   "order": 4,
+   "exps_per_step": 210,
+   "error": 1.0440062974026119e-13,
+   "floor": 2.1000000000000001e-13
+  },
+  {
+   "n": 6,
+   "d": 0.0009765625,
+   "scheme": "suzuki4",
+   "name": "Suzuki S4",
+   "order": 4,
+   "exps_per_step": 210,
+   "error": 4.111380560212203e-14,
+   "floor": 2.1000000000000001e-13
+  },
+  {
+   "n": 6,
+   "d": 1.0,
+   "scheme": "suzuki6",
+   "name": "Suzuki S6",
+   "order": 6,
+   "exps_per_step": 1050,
+   "error": 0.1972967262077317,
+   "floor": 1.0500000000000002e-12
+  },
+  {
+   "n": 6,
+   "d": 0.7071067811865476,
+   "scheme": "suzuki6",
+   "name": "Suzuki S6",
+   "order": 6,
+   "exps_per_step": 1050,
+   "error": 0.07137112311150734,
+   "floor": 1.0500000000000002e-12
+  },
+  {
+   "n": 6,
+   "d": 0.5,
+   "scheme": "suzuki6",
+   "name": "Suzuki S6",
+   "order": 6,
+   "exps_per_step": 1050,
+   "error": 0.013370538848902115,
+   "floor": 1.0500000000000002e-12
+  },
+  {
+   "n": 6,
+   "d": 0.3535533905932738,
+   "scheme": "suzuki6",
+   "name": "Suzuki S6",
+   "order": 6,
+   "exps_per_step": 1050,
+   "error": 0.0016839254517748042,
+   "floor": 1.0500000000000002e-12
+  },
+  {
+   "n": 6,
+   "d": 0.25,
+   "scheme": "suzuki6",
+   "name": "Suzuki S6",
+   "order": 6,
+   "exps_per_step": 1050,
+   "error": 0.0001766692511491833,
+   "floor": 1.0500000000000002e-12
+  },
+  {
+   "n": 6,
+   "d": 0.1767766952966369,
+   "scheme": "suzuki6",
+   "name": "Suzuki S6",
+   "order": 6,
+   "exps_per_step": 1050,
+   "error": 1.6990039127084468e-05,
+   "floor": 1.0500000000000002e-12
+  },
+  {
+   "n": 6,
+   "d": 0.125,
+   "scheme": "suzuki6",
+   "name": "Suzuki S6",
+   "order": 6,
+   "exps_per_step": 1050,
+   "error": 1.5659103630970741e-06,
+   "floor": 1.0500000000000002e-12
+  },
+  {
+   "n": 6,
+   "d": 0.08838834764831845,
+   "scheme": "suzuki6",
+   "name": "Suzuki S6",
+   "order": 6,
+   "exps_per_step": 1050,
+   "error": 1.4132394862358973e-07,
+   "floor": 1.0500000000000002e-12
+  },
+  {
+   "n": 6,
+   "d": 0.0625,
+   "scheme": "suzuki6",
+   "name": "Suzuki S6",
+   "order": 6,
+   "exps_per_step": 1050,
+   "error": 1.2622025684838417e-08,
+   "floor": 1.0500000000000002e-12
+  },
+  {
+   "n": 6,
+   "d": 0.04419417382415922,
+   "scheme": "suzuki6",
+   "name": "Suzuki S6",
+   "order": 6,
+   "exps_per_step": 1050,
+   "error": 1.1214529059925976e-09,
+   "floor": 1.0500000000000002e-12
+  },
+  {
+   "n": 6,
+   "d": 0.03125,
+   "scheme": "suzuki6",
+   "name": "Suzuki S6",
+   "order": 6,
+   "exps_per_step": 1050,
+   "error": 9.938149729993201e-11,
+   "floor": 1.0500000000000002e-12
+  },
+  {
+   "n": 6,
+   "d": 0.02209708691207961,
+   "scheme": "suzuki6",
+   "name": "Suzuki S6",
+   "order": 6,
+   "exps_per_step": 1050,
+   "error": 8.79755754391135e-12,
+   "floor": 1.0500000000000002e-12
+  },
+  {
+   "n": 6,
+   "d": 0.015625,
+   "scheme": "suzuki6",
+   "name": "Suzuki S6",
+   "order": 6,
+   "exps_per_step": 1050,
+   "error": 8.113847845348891e-13,
+   "floor": 1.0500000000000002e-12
+  },
+  {
+   "n": 6,
+   "d": 0.011048543456039806,
+   "scheme": "suzuki6",
+   "name": "Suzuki S6",
+   "order": 6,
+   "exps_per_step": 1050,
+   "error": 2.3875114034735834e-13,
+   "floor": 1.0500000000000002e-12
+  },
+  {
+   "n": 6,
+   "d": 0.0078125,
+   "scheme": "suzuki6",
+   "name": "Suzuki S6",
+   "order": 6,
+   "exps_per_step": 1050,
+   "error": 2.2243853998788708e-13,
+   "floor": 1.0500000000000002e-12
+  },
+  {
+   "n": 6,
+   "d": 0.005524271728019903,
+   "scheme": "suzuki6",
+   "name": "Suzuki S6",
+   "order": 6,
+   "exps_per_step": 1050,
+   "error": 1.93497226655305e-13,
+   "floor": 1.0500000000000002e-12
+  },
+  {
+   "n": 6,
+   "d": 0.00390625,
+   "scheme": "suzuki6",
+   "name": "Suzuki S6",
+   "order": 6,
+   "exps_per_step": 1050,
+   "error": 2.355660666204405e-13,
+   "floor": 1.0500000000000002e-12
+  },
+  {
+   "n": 6,
+   "d": 0.0027621358640099515,
+   "scheme": "suzuki6",
+   "name": "Suzuki S6",
+   "order": 6,
+   "exps_per_step": 1050,
+   "error": 2.0149220728941206e-13,
+   "floor": 1.0500000000000002e-12
+  },
+  {
+   "n": 6,
+   "d": 0.001953125,
+   "scheme": "suzuki6",
+   "name": "Suzuki S6",
+   "order": 6,
+   "exps_per_step": 1050,
+   "error": 1.9411971632872024e-13,
+   "floor": 1.0500000000000002e-12
+  },
+  {
+   "n": 6,
+   "d": 0.0013810679320049757,
+   "scheme": "suzuki6",
+   "name": "Suzuki S6",
+   "order": 6,
+   "exps_per_step": 1050,
+   "error": 2.1538636521646552e-13,
+   "floor": 1.0500000000000002e-12
+  },
+  {
+   "n": 6,
+   "d": 0.0009765625,
+   "scheme": "suzuki6",
+   "name": "Suzuki S6",
+   "order": 6,
+   "exps_per_step": 1050,
+   "error": 2.1235771340390132e-13,
+   "floor": 1.0500000000000002e-12
+  },
+  {
+   "n": 6,
+   "d": 1.0,
+   "scheme": "suzuki8",
+   "name": "Suzuki S8",
+   "order": 8,
+   "exps_per_step": 5250,
+   "error": 0.0024393941226397327,
+   "floor": 5.2500000000000004e-12
+  },
+  {
+   "n": 6,
+   "d": 0.7071067811865476,
+   "scheme": "suzuki8",
+   "name": "Suzuki S8",
+   "order": 8,
+   "exps_per_step": 5250,
+   "error": 0.0006952495355573955,
+   "floor": 5.2500000000000004e-12
+  },
+  {
+   "n": 6,
+   "d": 0.5,
+   "scheme": "suzuki8",
+   "name": "Suzuki S8",
+   "order": 8,
+   "exps_per_step": 5250,
+   "error": 6.933236606583828e-05,
+   "floor": 5.2500000000000004e-12
+  },
+  {
+   "n": 6,
+   "d": 0.3535533905932738,
+   "scheme": "suzuki8",
+   "name": "Suzuki S8",
+   "order": 8,
+   "exps_per_step": 5250,
+   "error": 4.423792295852249e-06,
+   "floor": 5.2500000000000004e-12
+  },
+  {
+   "n": 6,
+   "d": 0.25,
+   "scheme": "suzuki8",
+   "name": "Suzuki S8",
+   "order": 8,
+   "exps_per_step": 5250,
+   "error": 2.330629759083679e-07,
+   "floor": 5.2500000000000004e-12
+  },
+  {
+   "n": 6,
+   "d": 0.1767766952966369,
+   "scheme": "suzuki8",
+   "name": "Suzuki S8",
+   "order": 8,
+   "exps_per_step": 5250,
+   "error": 1.1225904329147163e-08,
+   "floor": 5.2500000000000004e-12
+  },
+  {
+   "n": 6,
+   "d": 0.125,
+   "scheme": "suzuki8",
+   "name": "Suzuki S8",
+   "order": 8,
+   "exps_per_step": 5250,
+   "error": 5.177172063824e-10,
+   "floor": 5.2500000000000004e-12
+  },
+  {
+   "n": 6,
+   "d": 0.08838834764831845,
+   "scheme": "suzuki8",
+   "name": "Suzuki S8",
+   "order": 8,
+   "exps_per_step": 5250,
+   "error": 2.3400310950566614e-11,
+   "floor": 5.2500000000000004e-12
+  },
+  {
+   "n": 6,
+   "d": 0.0625,
+   "scheme": "suzuki8",
+   "name": "Suzuki S8",
+   "order": 8,
+   "exps_per_step": 5250,
+   "error": 1.5564675022410638e-12,
+   "floor": 5.2500000000000004e-12
+  },
+  {
+   "n": 6,
+   "d": 0.04419417382415922,
+   "scheme": "suzuki8",
+   "name": "Suzuki S8",
+   "order": 8,
+   "exps_per_step": 5250,
+   "error": 1.140615843587296e-12,
+   "floor": 5.2500000000000004e-12
+  },
+  {
+   "n": 6,
+   "d": 0.03125,
+   "scheme": "suzuki8",
+   "name": "Suzuki S8",
+   "order": 8,
+   "exps_per_step": 5250,
+   "error": 1.1143642458116529e-12,
+   "floor": 5.2500000000000004e-12
+  },
+  {
+   "n": 6,
+   "d": 0.02209708691207961,
+   "scheme": "suzuki8",
+   "name": "Suzuki S8",
+   "order": 8,
+   "exps_per_step": 5250,
+   "error": 1.163047357789186e-12,
+   "floor": 5.2500000000000004e-12
+  },
+  {
+   "n": 6,
+   "d": 0.015625,
+   "scheme": "suzuki8",
+   "name": "Suzuki S8",
+   "order": 8,
+   "exps_per_step": 5250,
+   "error": 9.98865949178971e-13,
+   "floor": 5.2500000000000004e-12
+  },
+  {
+   "n": 6,
+   "d": 0.011048543456039806,
+   "scheme": "suzuki8",
+   "name": "Suzuki S8",
+   "order": 8,
+   "exps_per_step": 5250,
+   "error": 1.0540771021294091e-12,
+   "floor": 5.2500000000000004e-12
+  },
+  {
+   "n": 6,
+   "d": 0.0078125,
+   "scheme": "suzuki8",
+   "name": "Suzuki S8",
+   "order": 8,
+   "exps_per_step": 5250,
+   "error": 1.0425116664437158e-12,
+   "floor": 5.2500000000000004e-12
+  },
+  {
+   "n": 6,
+   "d": 0.005524271728019903,
+   "scheme": "suzuki8",
+   "name": "Suzuki S8",
+   "order": 8,
+   "exps_per_step": 5250,
+   "error": 1.0988694857383218e-12,
+   "floor": 5.2500000000000004e-12
+  },
+  {
+   "n": 6,
+   "d": 0.00390625,
+   "scheme": "suzuki8",
+   "name": "Suzuki S8",
+   "order": 8,
+   "exps_per_step": 5250,
+   "error": 1.0945296918827916e-12,
+   "floor": 5.2500000000000004e-12
+  },
+  {
+   "n": 6,
+   "d": 0.0027621358640099515,
+   "scheme": "suzuki8",
+   "name": "Suzuki S8",
+   "order": 8,
+   "exps_per_step": 5250,
+   "error": 1.0830171741023995e-12,
+   "floor": 5.2500000000000004e-12
+  },
+  {
+   "n": 6,
+   "d": 0.001953125,
+   "scheme": "suzuki8",
+   "name": "Suzuki S8",
+   "order": 8,
+   "exps_per_step": 5250,
+   "error": 1.061678562375676e-12,
+   "floor": 5.2500000000000004e-12
+  },
+  {
+   "n": 6,
+   "d": 0.0013810679320049757,
+   "scheme": "suzuki8",
+   "name": "Suzuki S8",
+   "order": 8,
+   "exps_per_step": 5250,
+   "error": 1.044539768735947e-12,
+   "floor": 5.2500000000000004e-12
+  },
+  {
+   "n": 6,
+   "d": 0.0009765625,
+   "scheme": "suzuki8",
+   "name": "Suzuki S8",
+   "order": 8,
+   "exps_per_step": 5250,
+   "error": 1.2606182075189883e-12,
+   "floor": 5.2500000000000004e-12
+  },
+  {
+   "n": 6,
+   "d": 1.0,
+   "scheme": "mo-q6",
+   "name": "M&O q=6 (rec., Tab. 2)",
+   "order": 4,
+   "exps_per_step": 288,
+   "error": 0.5864558309565913,
+   "floor": 2.8800000000000004e-13
+  },
+  {
+   "n": 6,
+   "d": 0.7071067811865476,
+   "scheme": "mo-q6",
+   "name": "M&O q=6 (rec., Tab. 2)",
+   "order": 4,
+   "exps_per_step": 288,
+   "error": 0.17707573296197077,
+   "floor": 2.8800000000000004e-13
+  },
+  {
+   "n": 6,
+   "d": 0.5,
+   "scheme": "mo-q6",
+   "name": "M&O q=6 (rec., Tab. 2)",
+   "order": 4,
+   "exps_per_step": 288,
+   "error": 0.043180824976801244,
+   "floor": 2.8800000000000004e-13
+  },
+  {
+   "n": 6,
+   "d": 0.3535533905932738,
+   "scheme": "mo-q6",
+   "name": "M&O q=6 (rec., Tab. 2)",
+   "order": 4,
+   "exps_per_step": 288,
+   "error": 0.008742223501239217,
+   "floor": 2.8800000000000004e-13
+  },
+  {
+   "n": 6,
+   "d": 0.25,
+   "scheme": "mo-q6",
+   "name": "M&O q=6 (rec., Tab. 2)",
+   "order": 4,
+   "exps_per_step": 288,
+   "error": 0.0016315176076083862,
+   "floor": 2.8800000000000004e-13
+  },
+  {
+   "n": 6,
+   "d": 0.1767766952966369,
+   "scheme": "mo-q6",
+   "name": "M&O q=6 (rec., Tab. 2)",
+   "order": 4,
+   "exps_per_step": 288,
+   "error": 0.000295319771634484,
+   "floor": 2.8800000000000004e-13
+  },
+  {
+   "n": 6,
+   "d": 0.125,
+   "scheme": "mo-q6",
+   "name": "M&O q=6 (rec., Tab. 2)",
+   "order": 4,
+   "exps_per_step": 288,
+   "error": 5.279096565570753e-05,
+   "floor": 2.8800000000000004e-13
+  },
+  {
+   "n": 6,
+   "d": 0.08838834764831845,
+   "scheme": "mo-q6",
+   "name": "M&O q=6 (rec., Tab. 2)",
+   "order": 4,
+   "exps_per_step": 288,
+   "error": 9.383282092258118e-06,
+   "floor": 2.8800000000000004e-13
+  },
+  {
+   "n": 6,
+   "d": 0.0625,
+   "scheme": "mo-q6",
+   "name": "M&O q=6 (rec., Tab. 2)",
+   "order": 4,
+   "exps_per_step": 288,
+   "error": 1.6632453734169153e-06,
+   "floor": 2.8800000000000004e-13
+  },
+  {
+   "n": 6,
+   "d": 0.04419417382415922,
+   "scheme": "mo-q6",
+   "name": "M&O q=6 (rec., Tab. 2)",
+   "order": 4,
+   "exps_per_step": 288,
+   "error": 2.9442052737105937e-07,
+   "floor": 2.8800000000000004e-13
+  },
+  {
+   "n": 6,
+   "d": 0.03125,
+   "scheme": "mo-q6",
+   "name": "M&O q=6 (rec., Tab. 2)",
+   "order": 4,
+   "exps_per_step": 288,
+   "error": 5.208182303649447e-08,
+   "floor": 2.8800000000000004e-13
+  },
+  {
+   "n": 6,
+   "d": 0.02209708691207961,
+   "scheme": "mo-q6",
+   "name": "M&O q=6 (rec., Tab. 2)",
+   "order": 4,
+   "exps_per_step": 288,
+   "error": 9.209958149100165e-09,
+   "floor": 2.8800000000000004e-13
+  },
+  {
+   "n": 6,
+   "d": 0.015625,
+   "scheme": "mo-q6",
+   "name": "M&O q=6 (rec., Tab. 2)",
+   "order": 4,
+   "exps_per_step": 288,
+   "error": 1.628380493875622e-09,
+   "floor": 2.8800000000000004e-13
+  },
+  {
+   "n": 6,
+   "d": 0.011048543456039806,
+   "scheme": "mo-q6",
+   "name": "M&O q=6 (rec., Tab. 2)",
+   "order": 4,
+   "exps_per_step": 288,
+   "error": 2.878838825210899e-10,
+   "floor": 2.8800000000000004e-13
+  },
+  {
+   "n": 6,
+   "d": 0.0078125,
+   "scheme": "mo-q6",
+   "name": "M&O q=6 (rec., Tab. 2)",
+   "order": 4,
+   "exps_per_step": 288,
+   "error": 5.089330165493468e-11,
+   "floor": 2.8800000000000004e-13
+  },
+  {
+   "n": 6,
+   "d": 0.005524271728019903,
+   "scheme": "mo-q6",
+   "name": "M&O q=6 (rec., Tab. 2)",
+   "order": 4,
+   "exps_per_step": 288,
+   "error": 8.997096713029565e-12,
+   "floor": 2.8800000000000004e-13
+  },
+  {
+   "n": 6,
+   "d": 0.00390625,
+   "scheme": "mo-q6",
+   "name": "M&O q=6 (rec., Tab. 2)",
+   "order": 4,
+   "exps_per_step": 288,
+   "error": 1.5910860146853972e-12,
+   "floor": 2.8800000000000004e-13
+  },
+  {
+   "n": 6,
+   "d": 0.0027621358640099515,
+   "scheme": "mo-q6",
+   "name": "M&O q=6 (rec., Tab. 2)",
+   "order": 4,
+   "exps_per_step": 288,
+   "error": 2.850861636766745e-13,
+   "floor": 2.8800000000000004e-13
+  },
+  {
+   "n": 6,
+   "d": 0.001953125,
+   "scheme": "mo-q6",
+   "name": "M&O q=6 (rec., Tab. 2)",
+   "order": 4,
+   "exps_per_step": 288,
+   "error": 6.78966022816846e-14,
+   "floor": 2.8800000000000004e-13
+  },
+  {
+   "n": 6,
+   "d": 0.0013810679320049757,
+   "scheme": "mo-q6",
+   "name": "M&O q=6 (rec., Tab. 2)",
+   "order": 4,
+   "exps_per_step": 288,
+   "error": 5.691109153945552e-14,
+   "floor": 2.8800000000000004e-13
+  },
+  {
+   "n": 6,
+   "d": 0.0009765625,
+   "scheme": "mo-q6",
+   "name": "M&O q=6 (rec., Tab. 2)",
+   "order": 4,
+   "exps_per_step": 288,
+   "error": 5.614049515279867e-14,
+   "floor": 2.8800000000000004e-13
+  },
+  {
+   "n": 6,
+   "d": 1.0,
+   "scheme": "mo-q14",
+   "name": "M&O q=14 (rec., Tab. 3)",
+   "order": 6,
+   "exps_per_step": 672,
+   "error": 0.08496913167018894,
+   "floor": 6.720000000000001e-13
+  },
+  {
+   "n": 6,
+   "d": 0.7071067811865476,
+   "scheme": "mo-q14",
+   "name": "M&O q=14 (rec., Tab. 3)",
+   "order": 6,
+   "exps_per_step": 672,
+   "error": 0.013480355717886486,
+   "floor": 6.720000000000001e-13
+  },
+  {
+   "n": 6,
+   "d": 0.5,
+   "scheme": "mo-q14",
+   "name": "M&O q=14 (rec., Tab. 3)",
+   "order": 6,
+   "exps_per_step": 672,
+   "error": 0.0009681297664593089,
+   "floor": 6.720000000000001e-13
+  },
+  {
+   "n": 6,
+   "d": 0.3535533905932738,
+   "scheme": "mo-q14",
+   "name": "M&O q=14 (rec., Tab. 3)",
+   "order": 6,
+   "exps_per_step": 672,
+   "error": 7.583461385135788e-05,
+   "floor": 6.720000000000001e-13
+  },
+  {
+   "n": 6,
+   "d": 0.25,
+   "scheme": "mo-q14",
+   "name": "M&O q=14 (rec., Tab. 3)",
+   "order": 6,
+   "exps_per_step": 672,
+   "error": 8.71796650270471e-06,
+   "floor": 6.720000000000001e-13
+  },
+  {
+   "n": 6,
+   "d": 0.1767766952966369,
+   "scheme": "mo-q14",
+   "name": "M&O q=14 (rec., Tab. 3)",
+   "order": 6,
+   "exps_per_step": 672,
+   "error": 8.798563656285027e-07,
+   "floor": 6.720000000000001e-13
+  },
+  {
+   "n": 6,
+   "d": 0.125,
+   "scheme": "mo-q14",
+   "name": "M&O q=14 (rec., Tab. 3)",
+   "order": 6,
+   "exps_per_step": 672,
+   "error": 8.310386190360994e-08,
+   "floor": 6.720000000000001e-13
+  },
+  {
+   "n": 6,
+   "d": 0.08838834764831845,
+   "scheme": "mo-q14",
+   "name": "M&O q=14 (rec., Tab. 3)",
+   "order": 6,
+   "exps_per_step": 672,
+   "error": 7.593032582628307e-09,
+   "floor": 6.720000000000001e-13
+  },
+  {
+   "n": 6,
+   "d": 0.0625,
+   "scheme": "mo-q14",
+   "name": "M&O q=14 (rec., Tab. 3)",
+   "order": 6,
+   "exps_per_step": 672,
+   "error": 6.823488113858533e-10,
+   "floor": 6.720000000000001e-13
+  },
+  {
+   "n": 6,
+   "d": 0.04419417382415922,
+   "scheme": "mo-q14",
+   "name": "M&O q=14 (rec., Tab. 3)",
+   "order": 6,
+   "exps_per_step": 672,
+   "error": 6.081352022856285e-11,
+   "floor": 6.720000000000001e-13
+  },
+  {
+   "n": 6,
+   "d": 0.03125,
+   "scheme": "mo-q14",
+   "name": "M&O q=14 (rec., Tab. 3)",
+   "order": 6,
+   "exps_per_step": 672,
+   "error": 5.3993253989091285e-12,
+   "floor": 6.720000000000001e-13
+  },
+  {
+   "n": 6,
+   "d": 0.02209708691207961,
+   "scheme": "mo-q14",
+   "name": "M&O q=14 (rec., Tab. 3)",
+   "order": 6,
+   "exps_per_step": 672,
+   "error": 4.931091421738595e-13,
+   "floor": 6.720000000000001e-13
+  },
+  {
+   "n": 6,
+   "d": 0.015625,
+   "scheme": "mo-q14",
+   "name": "M&O q=14 (rec., Tab. 3)",
+   "order": 6,
+   "exps_per_step": 672,
+   "error": 1.3430178172251724e-13,
+   "floor": 6.720000000000001e-13
+  },
+  {
+   "n": 6,
+   "d": 0.011048543456039806,
+   "scheme": "mo-q14",
+   "name": "M&O q=14 (rec., Tab. 3)",
+   "order": 6,
+   "exps_per_step": 672,
+   "error": 1.2194080835737993e-13,
+   "floor": 6.720000000000001e-13
+  },
+  {
+   "n": 6,
+   "d": 0.0078125,
+   "scheme": "mo-q14",
+   "name": "M&O q=14 (rec., Tab. 3)",
+   "order": 6,
+   "exps_per_step": 672,
+   "error": 1.1747718947549233e-13,
+   "floor": 6.720000000000001e-13
+  },
+  {
+   "n": 6,
+   "d": 0.005524271728019903,
+   "scheme": "mo-q14",
+   "name": "M&O q=14 (rec., Tab. 3)",
+   "order": 6,
+   "exps_per_step": 672,
+   "error": 1.2665312195907756e-13,
+   "floor": 6.720000000000001e-13
+  },
+  {
+   "n": 6,
+   "d": 0.00390625,
+   "scheme": "mo-q14",
+   "name": "M&O q=14 (rec., Tab. 3)",
+   "order": 6,
+   "exps_per_step": 672,
+   "error": 1.2568159566704985e-13,
+   "floor": 6.720000000000001e-13
+  },
+  {
+   "n": 6,
+   "d": 0.0027621358640099515,
+   "scheme": "mo-q14",
+   "name": "M&O q=14 (rec., Tab. 3)",
+   "order": 6,
+   "exps_per_step": 672,
+   "error": 1.2028100413012566e-13,
+   "floor": 6.720000000000001e-13
+  },
+  {
+   "n": 6,
+   "d": 0.001953125,
+   "scheme": "mo-q14",
+   "name": "M&O q=14 (rec., Tab. 3)",
+   "order": 6,
+   "exps_per_step": 672,
+   "error": 1.335881578477284e-13,
+   "floor": 6.720000000000001e-13
+  },
+  {
+   "n": 6,
+   "d": 0.0013810679320049757,
+   "scheme": "mo-q14",
+   "name": "M&O q=14 (rec., Tab. 3)",
+   "order": 6,
+   "exps_per_step": 672,
+   "error": 1.2753049174286232e-13,
+   "floor": 6.720000000000001e-13
+  },
+  {
+   "n": 6,
+   "d": 0.0009765625,
+   "scheme": "mo-q14",
+   "name": "M&O q=14 (rec., Tab. 3)",
+   "order": 6,
+   "exps_per_step": 672,
+   "error": 1.2292603683190054e-13,
+   "floor": 6.720000000000001e-13
+  },
+  {
+   "n": 6,
+   "d": 1.0,
+   "scheme": "bm-q10",
+   "name": "Blanes & Moan q=10",
+   "order": 6,
+   "exps_per_step": 480,
+   "error": 0.7089128781509049,
+   "floor": 4.800000000000001e-13
+  },
+  {
+   "n": 6,
+   "d": 0.7071067811865476,
+   "scheme": "bm-q10",
+   "name": "Blanes & Moan q=10",
+   "order": 6,
+   "exps_per_step": 480,
+   "error": 0.12072438710939853,
+   "floor": 4.800000000000001e-13
+  },
+  {
+   "n": 6,
+   "d": 0.5,
+   "scheme": "bm-q10",
+   "name": "Blanes & Moan q=10",
+   "order": 6,
+   "exps_per_step": 480,
+   "error": 0.013747781549341571,
+   "floor": 4.800000000000001e-13
+  },
+  {
+   "n": 6,
+   "d": 0.3535533905932738,
+   "scheme": "bm-q10",
+   "name": "Blanes & Moan q=10",
+   "order": 6,
+   "exps_per_step": 480,
+   "error": 0.0014851416158098787,
+   "floor": 4.800000000000001e-13
+  },
+  {
+   "n": 6,
+   "d": 0.25,
+   "scheme": "bm-q10",
+   "name": "Blanes & Moan q=10",
+   "order": 6,
+   "exps_per_step": 480,
+   "error": 0.00015017750173685097,
+   "floor": 4.800000000000001e-13
+  },
+  {
+   "n": 6,
+   "d": 0.1767766952966369,
+   "scheme": "bm-q10",
+   "name": "Blanes & Moan q=10",
+   "order": 6,
+   "exps_per_step": 480,
+   "error": 1.4245700370161157e-05,
+   "floor": 4.800000000000001e-13
+  },
+  {
+   "n": 6,
+   "d": 0.125,
+   "scheme": "bm-q10",
+   "name": "Blanes & Moan q=10",
+   "order": 6,
+   "exps_per_step": 480,
+   "error": 1.3063799558220075e-06,
+   "floor": 4.800000000000001e-13
+  },
+  {
+   "n": 6,
+   "d": 0.08838834764831845,
+   "scheme": "bm-q10",
+   "name": "Blanes & Moan q=10",
+   "order": 6,
+   "exps_per_step": 480,
+   "error": 1.1764118137458017e-07,
+   "floor": 4.800000000000001e-13
+  },
+  {
+   "n": 6,
+   "d": 0.0625,
+   "scheme": "bm-q10",
+   "name": "Blanes & Moan q=10",
+   "order": 6,
+   "exps_per_step": 480,
+   "error": 1.0496083940130575e-08,
+   "floor": 4.800000000000001e-13
+  },
+  {
+   "n": 6,
+   "d": 0.04419417382415922,
+   "scheme": "bm-q10",
+   "name": "Blanes & Moan q=10",
+   "order": 6,
+   "exps_per_step": 480,
+   "error": 9.321059861000623e-10,
+   "floor": 4.800000000000001e-13
+  },
+  {
+   "n": 6,
+   "d": 0.03125,
+   "scheme": "bm-q10",
+   "name": "Blanes & Moan q=10",
+   "order": 6,
+   "exps_per_step": 480,
+   "error": 8.258192227207706e-11,
+   "floor": 4.800000000000001e-13
+  },
+  {
+   "n": 6,
+   "d": 0.02209708691207961,
+   "scheme": "bm-q10",
+   "name": "Blanes & Moan q=10",
+   "order": 6,
+   "exps_per_step": 480,
+   "error": 7.308299245642534e-12,
+   "floor": 4.800000000000001e-13
+  },
+  {
+   "n": 6,
+   "d": 0.015625,
+   "scheme": "bm-q10",
+   "name": "Blanes & Moan q=10",
+   "order": 6,
+   "exps_per_step": 480,
+   "error": 6.514878088607746e-13,
+   "floor": 4.800000000000001e-13
+  },
+  {
+   "n": 6,
+   "d": 0.011048543456039806,
+   "scheme": "bm-q10",
+   "name": "Blanes & Moan q=10",
+   "order": 6,
+   "exps_per_step": 480,
+   "error": 1.074620208270434e-13,
+   "floor": 4.800000000000001e-13
+  },
+  {
+   "n": 6,
+   "d": 0.0078125,
+   "scheme": "bm-q10",
+   "name": "Blanes & Moan q=10",
+   "order": 6,
+   "exps_per_step": 480,
+   "error": 9.432951173337977e-14,
+   "floor": 4.800000000000001e-13
+  },
+  {
+   "n": 6,
+   "d": 0.005524271728019903,
+   "scheme": "bm-q10",
+   "name": "Blanes & Moan q=10",
+   "order": 6,
+   "exps_per_step": 480,
+   "error": 8.5616242105963e-14,
+   "floor": 4.800000000000001e-13
+  },
+  {
+   "n": 6,
+   "d": 0.00390625,
+   "scheme": "bm-q10",
+   "name": "Blanes & Moan q=10",
+   "order": 6,
+   "exps_per_step": 480,
+   "error": 8.803069424545076e-14,
+   "floor": 4.800000000000001e-13
+  },
+  {
+   "n": 6,
+   "d": 0.0027621358640099515,
+   "scheme": "bm-q10",
+   "name": "Blanes & Moan q=10",
+   "order": 6,
+   "exps_per_step": 480,
+   "error": 9.45996110598429e-14,
+   "floor": 4.800000000000001e-13
+  },
+  {
+   "n": 6,
+   "d": 0.001953125,
+   "scheme": "bm-q10",
+   "name": "Blanes & Moan q=10",
+   "order": 6,
+   "exps_per_step": 480,
+   "error": 8.41985622205897e-14,
+   "floor": 4.800000000000001e-13
+  },
+  {
+   "n": 6,
+   "d": 0.0013810679320049757,
+   "scheme": "bm-q10",
+   "name": "Blanes & Moan q=10",
+   "order": 6,
+   "exps_per_step": 480,
+   "error": 9.068320130028735e-14,
+   "floor": 4.800000000000001e-13
+  },
+  {
+   "n": 6,
+   "d": 0.0009765625,
+   "scheme": "bm-q10",
+   "name": "Blanes & Moan q=10",
+   "order": 6,
+   "exps_per_step": 480,
+   "error": 8.725006807074096e-14,
+   "floor": 4.800000000000001e-13
+  },
+  {
+   "n": 6,
+   "d": 1.0,
+   "scheme": "mo-o8-q21",
+   "name": "M&O q=21 order 8 (exploratory)",
+   "order": 8,
+   "exps_per_step": 1008,
+   "error": 0.09952715335045258,
+   "floor": 1.0080000000000001e-12
+  },
+  {
+   "n": 6,
+   "d": 0.7071067811865476,
+   "scheme": "mo-o8-q21",
+   "name": "M&O q=21 order 8 (exploratory)",
+   "order": 8,
+   "exps_per_step": 1008,
+   "error": 0.012875945659019594,
+   "floor": 1.0080000000000001e-12
+  },
+  {
+   "n": 6,
+   "d": 0.5,
+   "scheme": "mo-o8-q21",
+   "name": "M&O q=21 order 8 (exploratory)",
+   "order": 8,
+   "exps_per_step": 1008,
+   "error": 0.0009694826171106081,
+   "floor": 1.0080000000000001e-12
+  },
+  {
+   "n": 6,
+   "d": 0.3535533905932738,
+   "scheme": "mo-o8-q21",
+   "name": "M&O q=21 order 8 (exploratory)",
+   "order": 8,
+   "exps_per_step": 1008,
+   "error": 5.558628281314448e-05,
+   "floor": 1.0080000000000001e-12
+  },
+  {
+   "n": 6,
+   "d": 0.25,
+   "scheme": "mo-o8-q21",
+   "name": "M&O q=21 order 8 (exploratory)",
+   "order": 8,
+   "exps_per_step": 1008,
+   "error": 2.792662189867181e-06,
+   "floor": 1.0080000000000001e-12
+  },
+  {
+   "n": 6,
+   "d": 0.1767766952966369,
+   "scheme": "mo-o8-q21",
+   "name": "M&O q=21 order 8 (exploratory)",
+   "order": 8,
+   "exps_per_step": 1008,
+   "error": 1.3152238527274683e-07,
+   "floor": 1.0080000000000001e-12
+  },
+  {
+   "n": 6,
+   "d": 0.125,
+   "scheme": "mo-o8-q21",
+   "name": "M&O q=21 order 8 (exploratory)",
+   "order": 8,
+   "exps_per_step": 1008,
+   "error": 5.99949745096389e-09,
+   "floor": 1.0080000000000001e-12
+  },
+  {
+   "n": 6,
+   "d": 0.08838834764831845,
+   "scheme": "mo-o8-q21",
+   "name": "M&O q=21 order 8 (exploratory)",
+   "order": 8,
+   "exps_per_step": 1008,
+   "error": 2.69364689741128e-10,
+   "floor": 1.0080000000000001e-12
+  },
+  {
+   "n": 6,
+   "d": 0.0625,
+   "scheme": "mo-o8-q21",
+   "name": "M&O q=21 order 8 (exploratory)",
+   "order": 8,
+   "exps_per_step": 1008,
+   "error": 1.1999784933347726e-11,
+   "floor": 1.0080000000000001e-12
+  },
+  {
+   "n": 6,
+   "d": 0.04419417382415922,
+   "scheme": "mo-o8-q21",
+   "name": "M&O q=21 order 8 (exploratory)",
+   "order": 8,
+   "exps_per_step": 1008,
+   "error": 5.626809829114649e-13,
+   "floor": 1.0080000000000001e-12
+  },
+  {
+   "n": 6,
+   "d": 0.03125,
+   "scheme": "mo-o8-q21",
+   "name": "M&O q=21 order 8 (exploratory)",
+   "order": 8,
+   "exps_per_step": 1008,
+   "error": 1.7565336268332967e-13,
+   "floor": 1.0080000000000001e-12
+  },
+  {
+   "n": 6,
+   "d": 0.02209708691207961,
+   "scheme": "mo-o8-q21",
+   "name": "M&O q=21 order 8 (exploratory)",
+   "order": 8,
+   "exps_per_step": 1008,
+   "error": 1.871545583246178e-13,
+   "floor": 1.0080000000000001e-12
+  },
+  {
+   "n": 6,
+   "d": 0.015625,
+   "scheme": "mo-o8-q21",
+   "name": "M&O q=21 order 8 (exploratory)",
+   "order": 8,
+   "exps_per_step": 1008,
+   "error": 1.7876789795119109e-13,
+   "floor": 1.0080000000000001e-12
+  },
+  {
+   "n": 6,
+   "d": 0.011048543456039806,
+   "scheme": "mo-o8-q21",
+   "name": "M&O q=21 order 8 (exploratory)",
+   "order": 8,
+   "exps_per_step": 1008,
+   "error": 1.8224226263776617e-13,
+   "floor": 1.0080000000000001e-12
+  },
+  {
+   "n": 6,
+   "d": 0.0078125,
+   "scheme": "mo-o8-q21",
+   "name": "M&O q=21 order 8 (exploratory)",
+   "order": 8,
+   "exps_per_step": 1008,
+   "error": 1.7974627637554952e-13,
+   "floor": 1.0080000000000001e-12
+  },
+  {
+   "n": 6,
+   "d": 0.005524271728019903,
+   "scheme": "mo-o8-q21",
+   "name": "M&O q=21 order 8 (exploratory)",
+   "order": 8,
+   "exps_per_step": 1008,
+   "error": 1.865095567212182e-13,
+   "floor": 1.0080000000000001e-12
+  },
+  {
+   "n": 6,
+   "d": 0.00390625,
+   "scheme": "mo-o8-q21",
+   "name": "M&O q=21 order 8 (exploratory)",
+   "order": 8,
+   "exps_per_step": 1008,
+   "error": 1.773338554305562e-13,
+   "floor": 1.0080000000000001e-12
+  },
+  {
+   "n": 6,
+   "d": 0.0027621358640099515,
+   "scheme": "mo-o8-q21",
+   "name": "M&O q=21 order 8 (exploratory)",
+   "order": 8,
+   "exps_per_step": 1008,
+   "error": 1.730538573680504e-13,
+   "floor": 1.0080000000000001e-12
+  },
+  {
+   "n": 6,
+   "d": 0.001953125,
+   "scheme": "mo-o8-q21",
+   "name": "M&O q=21 order 8 (exploratory)",
+   "order": 8,
+   "exps_per_step": 1008,
+   "error": 1.74639393400135e-13,
+   "floor": 1.0080000000000001e-12
+  },
+  {
+   "n": 6,
+   "d": 0.0013810679320049757,
+   "scheme": "mo-o8-q21",
+   "name": "M&O q=21 order 8 (exploratory)",
+   "order": 8,
+   "exps_per_step": 1008,
+   "error": 1.7800547372193164e-13,
+   "floor": 1.0080000000000001e-12
+  },
+  {
+   "n": 6,
+   "d": 0.0009765625,
+   "scheme": "mo-o8-q21",
+   "name": "M&O q=21 order 8 (exploratory)",
+   "order": 8,
+   "exps_per_step": 1008,
+   "error": 1.761369235582072e-13,
+   "floor": 1.0080000000000001e-12
+  },
+  {
+   "n": 6,
+   "d": 1.0,
+   "scheme": "morales-y8m10",
+   "name": "Morales Y8m10 (21 steps)",
+   "order": 8,
+   "exps_per_step": 1008,
+   "error": 0.20575756125413783,
+   "floor": 1.0080000000000001e-12
+  },
+  {
+   "n": 6,
+   "d": 0.7071067811865476,
+   "scheme": "morales-y8m10",
+   "name": "Morales Y8m10 (21 steps)",
+   "order": 8,
+   "exps_per_step": 1008,
+   "error": 0.02524652664806516,
+   "floor": 1.0080000000000001e-12
+  },
+  {
+   "n": 6,
+   "d": 0.5,
+   "scheme": "morales-y8m10",
+   "name": "Morales Y8m10 (21 steps)",
+   "order": 8,
+   "exps_per_step": 1008,
+   "error": 0.001673453193467131,
+   "floor": 1.0080000000000001e-12
+  },
+  {
+   "n": 6,
+   "d": 0.3535533905932738,
+   "scheme": "morales-y8m10",
+   "name": "Morales Y8m10 (21 steps)",
+   "order": 8,
+   "exps_per_step": 1008,
+   "error": 8.671474304792191e-05,
+   "floor": 1.0080000000000001e-12
+  },
+  {
+   "n": 6,
+   "d": 0.25,
+   "scheme": "morales-y8m10",
+   "name": "Morales Y8m10 (21 steps)",
+   "order": 8,
+   "exps_per_step": 1008,
+   "error": 4.089034824881474e-06,
+   "floor": 1.0080000000000001e-12
+  },
+  {
+   "n": 6,
+   "d": 0.1767766952966369,
+   "scheme": "morales-y8m10",
+   "name": "Morales Y8m10 (21 steps)",
+   "order": 8,
+   "exps_per_step": 1008,
+   "error": 1.858557305483173e-07,
+   "floor": 1.0080000000000001e-12
+  },
+  {
+   "n": 6,
+   "d": 0.125,
+   "scheme": "morales-y8m10",
+   "name": "Morales Y8m10 (21 steps)",
+   "order": 8,
+   "exps_per_step": 1008,
+   "error": 8.319958278796386e-09,
+   "floor": 1.0080000000000001e-12
+  },
+  {
+   "n": 6,
+   "d": 0.08838834764831845,
+   "scheme": "morales-y8m10",
+   "name": "Morales Y8m10 (21 steps)",
+   "order": 8,
+   "exps_per_step": 1008,
+   "error": 3.6994838343248084e-10,
+   "floor": 1.0080000000000001e-12
+  },
+  {
+   "n": 6,
+   "d": 0.0625,
+   "scheme": "morales-y8m10",
+   "name": "Morales Y8m10 (21 steps)",
+   "order": 8,
+   "exps_per_step": 1008,
+   "error": 1.6399093993260914e-11,
+   "floor": 1.0080000000000001e-12
+  },
+  {
+   "n": 6,
+   "d": 0.04419417382415922,
+   "scheme": "morales-y8m10",
+   "name": "Morales Y8m10 (21 steps)",
+   "order": 8,
+   "exps_per_step": 1008,
+   "error": 7.46013313725765e-13,
+   "floor": 1.0080000000000001e-12
+  },
+  {
+   "n": 6,
+   "d": 0.03125,
+   "scheme": "morales-y8m10",
+   "name": "Morales Y8m10 (21 steps)",
+   "order": 8,
+   "exps_per_step": 1008,
+   "error": 1.76415777918141e-13,
+   "floor": 1.0080000000000001e-12
+  },
+  {
+   "n": 6,
+   "d": 0.02209708691207961,
+   "scheme": "morales-y8m10",
+   "name": "Morales Y8m10 (21 steps)",
+   "order": 8,
+   "exps_per_step": 1008,
+   "error": 1.8706483765610058e-13,
+   "floor": 1.0080000000000001e-12
+  },
+  {
+   "n": 6,
+   "d": 0.015625,
+   "scheme": "morales-y8m10",
+   "name": "Morales Y8m10 (21 steps)",
+   "order": 8,
+   "exps_per_step": 1008,
+   "error": 1.8282012371397706e-13,
+   "floor": 1.0080000000000001e-12
+  },
+  {
+   "n": 6,
+   "d": 0.011048543456039806,
+   "scheme": "morales-y8m10",
+   "name": "Morales Y8m10 (21 steps)",
+   "order": 8,
+   "exps_per_step": 1008,
+   "error": 1.7844424322575e-13,
+   "floor": 1.0080000000000001e-12
+  },
+  {
+   "n": 6,
+   "d": 0.0078125,
+   "scheme": "morales-y8m10",
+   "name": "Morales Y8m10 (21 steps)",
+   "order": 8,
+   "exps_per_step": 1008,
+   "error": 1.9292170097962794e-13,
+   "floor": 1.0080000000000001e-12
+  },
+  {
+   "n": 6,
+   "d": 0.005524271728019903,
+   "scheme": "morales-y8m10",
+   "name": "Morales Y8m10 (21 steps)",
+   "order": 8,
+   "exps_per_step": 1008,
+   "error": 1.894595172740562e-13,
+   "floor": 1.0080000000000001e-12
+  },
+  {
+   "n": 6,
+   "d": 0.00390625,
+   "scheme": "morales-y8m10",
+   "name": "Morales Y8m10 (21 steps)",
+   "order": 8,
+   "exps_per_step": 1008,
+   "error": 1.797857740647587e-13,
+   "floor": 1.0080000000000001e-12
+  },
+  {
+   "n": 6,
+   "d": 0.0027621358640099515,
+   "scheme": "morales-y8m10",
+   "name": "Morales Y8m10 (21 steps)",
+   "order": 8,
+   "exps_per_step": 1008,
+   "error": 1.7961343781081392e-13,
+   "floor": 1.0080000000000001e-12
+  },
+  {
+   "n": 6,
+   "d": 0.001953125,
+   "scheme": "morales-y8m10",
+   "name": "Morales Y8m10 (21 steps)",
+   "order": 8,
+   "exps_per_step": 1008,
+   "error": 1.730141739665839e-13,
+   "floor": 1.0080000000000001e-12
+  },
+  {
+   "n": 6,
+   "d": 0.0013810679320049757,
+   "scheme": "morales-y8m10",
+   "name": "Morales Y8m10 (21 steps)",
+   "order": 8,
+   "exps_per_step": 1008,
+   "error": 1.8412621469808067e-13,
+   "floor": 1.0080000000000001e-12
+  },
+  {
+   "n": 6,
+   "d": 0.0009765625,
+   "scheme": "morales-y8m10",
+   "name": "Morales Y8m10 (21 steps)",
+   "order": 8,
+   "exps_per_step": 1008,
+   "error": 1.9760238530496167e-13,
+   "floor": 1.0080000000000001e-12
+  },
+  {
+   "n": 6,
+   "d": 1.0,
+   "scheme": "morales-m8",
+   "name": "Morales m=8 (17 steps)",
+   "order": 8,
+   "exps_per_step": 816,
+   "error": 1.3103751148315121,
+   "floor": 8.160000000000001e-13
+  },
+  {
+   "n": 6,
+   "d": 0.7071067811865476,
+   "scheme": "morales-m8",
+   "name": "Morales m=8 (17 steps)",
+   "order": 8,
+   "exps_per_step": 816,
+   "error": 0.18910095785956874,
+   "floor": 8.160000000000001e-13
+  },
+  {
+   "n": 6,
+   "d": 0.5,
+   "scheme": "morales-m8",
+   "name": "Morales m=8 (17 steps)",
+   "order": 8,
+   "exps_per_step": 816,
+   "error": 0.01158708855119197,
+   "floor": 8.160000000000001e-13
+  },
+  {
+   "n": 6,
+   "d": 0.3535533905932738,
+   "scheme": "morales-m8",
+   "name": "Morales m=8 (17 steps)",
+   "order": 8,
+   "exps_per_step": 816,
+   "error": 0.000521659094602363,
+   "floor": 8.160000000000001e-13
+  },
+  {
+   "n": 6,
+   "d": 0.25,
+   "scheme": "morales-m8",
+   "name": "Morales m=8 (17 steps)",
+   "order": 8,
+   "exps_per_step": 816,
+   "error": 2.1678898019088173e-05,
+   "floor": 8.160000000000001e-13
+  },
+  {
+   "n": 6,
+   "d": 0.1767766952966369,
+   "scheme": "morales-m8",
+   "name": "Morales m=8 (17 steps)",
+   "order": 8,
+   "exps_per_step": 816,
+   "error": 9.06456663214562e-07,
+   "floor": 8.160000000000001e-13
+  },
+  {
+   "n": 6,
+   "d": 0.125,
+   "scheme": "morales-m8",
+   "name": "Morales m=8 (17 steps)",
+   "order": 8,
+   "exps_per_step": 816,
+   "error": 3.869264507088645e-08,
+   "floor": 8.160000000000001e-13
+  },
+  {
+   "n": 6,
+   "d": 0.08838834764831845,
+   "scheme": "morales-m8",
+   "name": "Morales m=8 (17 steps)",
+   "order": 8,
+   "exps_per_step": 816,
+   "error": 1.6774913728096822e-09,
+   "floor": 8.160000000000001e-13
+  },
+  {
+   "n": 6,
+   "d": 0.0625,
+   "scheme": "morales-m8",
+   "name": "Morales m=8 (17 steps)",
+   "order": 8,
+   "exps_per_step": 816,
+   "error": 7.519249797848467e-11,
+   "floor": 8.160000000000001e-13
+  },
+  {
+   "n": 6,
+   "d": 0.04419417382415922,
+   "scheme": "morales-m8",
+   "name": "Morales m=8 (17 steps)",
+   "order": 8,
+   "exps_per_step": 816,
+   "error": 3.3544922327122684e-12,
+   "floor": 8.160000000000001e-13
+  },
+  {
+   "n": 6,
+   "d": 0.03125,
+   "scheme": "morales-m8",
+   "name": "Morales m=8 (17 steps)",
+   "order": 8,
+   "exps_per_step": 816,
+   "error": 2.109890062925829e-13,
+   "floor": 8.160000000000001e-13
+  },
+  {
+   "n": 6,
+   "d": 0.02209708691207961,
+   "scheme": "morales-m8",
+   "name": "Morales m=8 (17 steps)",
+   "order": 8,
+   "exps_per_step": 816,
+   "error": 1.517304393110087e-13,
+   "floor": 8.160000000000001e-13
+  },
+  {
+   "n": 6,
+   "d": 0.015625,
+   "scheme": "morales-m8",
+   "name": "Morales m=8 (17 steps)",
+   "order": 8,
+   "exps_per_step": 816,
+   "error": 1.3881050772028724e-13,
+   "floor": 8.160000000000001e-13
+  },
+  {
+   "n": 6,
+   "d": 0.011048543456039806,
+   "scheme": "morales-m8",
+   "name": "Morales m=8 (17 steps)",
+   "order": 8,
+   "exps_per_step": 816,
+   "error": 1.4611522881436387e-13,
+   "floor": 8.160000000000001e-13
+  },
+  {
+   "n": 6,
+   "d": 0.0078125,
+   "scheme": "morales-m8",
+   "name": "Morales m=8 (17 steps)",
+   "order": 8,
+   "exps_per_step": 816,
+   "error": 1.4919344618979225e-13,
+   "floor": 8.160000000000001e-13
+  },
+  {
+   "n": 6,
+   "d": 0.005524271728019903,
+   "scheme": "morales-m8",
+   "name": "Morales m=8 (17 steps)",
+   "order": 8,
+   "exps_per_step": 816,
+   "error": 1.5379922860193197e-13,
+   "floor": 8.160000000000001e-13
+  },
+  {
+   "n": 6,
+   "d": 0.00390625,
+   "scheme": "morales-m8",
+   "name": "Morales m=8 (17 steps)",
+   "order": 8,
+   "exps_per_step": 816,
+   "error": 1.4295779918881763e-13,
+   "floor": 8.160000000000001e-13
+  },
+  {
+   "n": 6,
+   "d": 0.0027621358640099515,
+   "scheme": "morales-m8",
+   "name": "Morales m=8 (17 steps)",
+   "order": 8,
+   "exps_per_step": 816,
+   "error": 1.4427899608590766e-13,
+   "floor": 8.160000000000001e-13
+  },
+  {
+   "n": 6,
+   "d": 0.001953125,
+   "scheme": "morales-m8",
+   "name": "Morales m=8 (17 steps)",
+   "order": 8,
+   "exps_per_step": 816,
+   "error": 1.5286029293274562e-13,
+   "floor": 8.160000000000001e-13
+  },
+  {
+   "n": 6,
+   "d": 0.0013810679320049757,
+   "scheme": "morales-m8",
+   "name": "Morales m=8 (17 steps)",
+   "order": 8,
+   "exps_per_step": 816,
+   "error": 1.3974913228850223e-13,
+   "floor": 8.160000000000001e-13
+  },
+  {
+   "n": 6,
+   "d": 0.0009765625,
+   "scheme": "morales-m8",
+   "name": "Morales m=8 (17 steps)",
+   "order": 8,
+   "exps_per_step": 816,
+   "error": 1.5031748623086177e-13,
+   "floor": 8.160000000000001e-13
+  }
+ ],
+ "fits": [
+  {
+   "n": 4,
+   "scheme": "lie-trotter",
+   "name": "Lie-Trotter S1",
+   "order": 1,
+   "exps_per_step": 16,
+   "d_used": [
+    0.0009765625,
+    0.0013810679320049757,
+    0.001953125,
+    0.0027621358640099515
+   ],
+   "errors_used": [
+    1.3639046315556112e-05,
+    2.728057295805843e-05,
+    5.456804844943572e-05,
+    0.00010915516869142218
+   ],
+   "slope": 2.000375963277118,
+   "fitted_order": 1.000375963277118,
+   "pass": true,
+   "reason": ""
+  },
+  {
+   "n": 4,
+   "scheme": "suzuki2",
+   "name": "Suzuki S2",
+   "order": 2,
+   "exps_per_step": 28,
+   "d_used": [
+    0.0009765625,
+    0.0013810679320049757,
+    0.001953125,
+    0.0027621358640099515
+   ],
+   "errors_used": [
+    2.216107269685053e-08,
+    6.268075650673068e-08,
+    1.7728669255232193e-07,
+    5.014353661616666e-07
+   ],
+   "slope": 2.9999764293543287,
+   "fitted_order": 1.9999764293543287,
+   "pass": true,
+   "reason": ""
+  },
+  {
+   "n": 4,
+   "scheme": "suzuki4",
+   "name": "Suzuki S4",
+   "order": 4,
+   "exps_per_step": 140,
+   "d_used": [
+    0.00390625,
+    0.005524271728019903,
+    0.0078125,
+    0.011048543456039806
+   ],
+   "errors_used": [
+    1.5261562487010254e-11,
+    8.632908725677186e-11,
+    4.883139716335479e-10,
+    2.7619007604453435e-09
+   ],
+   "slope": 4.999747082311036,
+   "fitted_order": 3.9997470823110364,
+   "pass": true,
+   "reason": ""
+  },
+  {
+   "n": 4,
+   "scheme": "suzuki6",
+   "name": "Suzuki S6",
+   "order": 6,
+   "exps_per_step": 700,
+   "d_used": [
+    0.04419417382415922,
+    0.0625,
+    0.08838834764831845,
+    0.125
+   ],
+   "errors_used": [
+    6.05337693119308e-10,
+    6.8262838777559765e-09,
+    7.672755602720966e-08,
+    8.567906407746535e-07
+   ],
+   "slope": 6.978306587849122,
+   "fitted_order": 5.978306587849122,
+   "pass": true,
+   "reason": ""
+  },
+  {
+   "n": 4,
+   "scheme": "suzuki8",
+   "name": "Suzuki S8",
+   "order": 8,
+   "exps_per_step": 3500,
+   "d_used": [
+    0.1767766952966369,
+    0.25,
+    0.3535533905932738,
+    0.5
+   ],
+   "errors_used": [
+    3.887948009868972e-09,
+    8.339546294751777e-08,
+    1.6935879251500204e-06,
+    3.0704028939811474e-05
+   ],
+   "slope": 8.637072893473055,
+   "fitted_order": 7.637072893473055,
+   "pass": false,
+   "reason": "|slope - (p+1)| = 0.36 > 0.3"
+  },
+  {
+   "n": 4,
+   "scheme": "mo-q6",
+   "name": "M&O q=6 (rec., Tab. 2)",
+   "order": 4,
+   "exps_per_step": 192,
+   "d_used": [
+    0.0078125,
+    0.011048543456039806,
+    0.015625,
+    0.02209708691207961
+   ],
+   "errors_used": [
+    6.444077314122526e-11,
+    3.645188555629005e-10,
+    2.0618818492383392e-09,
+    1.1662087625110002e-08
+   ],
+   "slope": 4.999761192991694,
+   "fitted_order": 3.999761192991694,
+   "pass": true,
+   "reason": ""
+  },
+  {
+   "n": 4,
+   "scheme": "mo-q14",
+   "name": "M&O q=14 (rec., Tab. 3)",
+   "order": 6,
+   "exps_per_step": 448,
+   "d_used": [
+    0.04419417382415922,
+    0.0625,
+    0.08838834764831845,
+    0.125
+   ],
+   "errors_used": [
+    5.848467973213939e-11,
+    6.5658539874047e-10,
+    7.314347316276167e-09,
+    8.022245109574005e-08
+   ],
+   "slope": 6.948573857868406,
+   "fitted_order": 5.948573857868406,
+   "pass": true,
+   "reason": ""
+  },
+  {
+   "n": 4,
+   "scheme": "bm-q10",
+   "name": "Blanes & Moan q=10",
+   "order": 6,
+   "exps_per_step": 320,
+   "d_used": [
+    0.03125,
+    0.04419417382415922,
+    0.0625,
+    0.08838834764831845
+   ],
+   "errors_used": [
+    8.967869659037094e-11,
+    1.0126990265344547e-09,
+    1.1414505883012567e-08,
+    1.2817565287091356e-07
+   ],
+   "slope": 6.987559796311544,
+   "fitted_order": 5.987559796311544,
+   "pass": true,
+   "reason": ""
+  },
+  {
+   "n": 4,
+   "scheme": "mo-o8-q21",
+   "name": "M&O q=21 order 8 (exploratory)",
+   "order": 8,
+   "exps_per_step": 672,
+   "d_used": [
+    0.08838834764831845,
+    0.125,
+    0.1767766952966369,
+    0.25
+   ],
+   "errors_used": [
+    1.9135053580812495e-10,
+    4.270489162638876e-09,
+    9.400102915572936e-08,
+    2.012736561411364e-06
+   ],
+   "slope": 8.908432339938175,
+   "fitted_order": 7.908432339938175,
+   "pass": true,
+   "reason": ""
+  },
+  {
+   "n": 4,
+   "scheme": "morales-y8m10",
+   "name": "Morales Y8m10 (21 steps)",
+   "order": 8,
+   "exps_per_step": 672,
+   "d_used": [
+    0.08838834764831845,
+    0.125,
+    0.1767766952966369,
+    0.25
+   ],
+   "errors_used": [
+    2.398936993010925e-10,
+    5.421043865484165e-09,
+    1.2216284809572752e-07,
+    2.726441324091554e-06
+   ],
+   "slope": 8.982219954661941,
+   "fitted_order": 7.982219954661941,
+   "pass": true,
+   "reason": ""
+  },
+  {
+   "n": 4,
+   "scheme": "morales-m8",
+   "name": "Morales m=8 (17 steps)",
+   "order": 8,
+   "exps_per_step": 544,
+   "d_used": [
+    0.0625,
+    0.08838834764831845,
+    0.125,
+    0.1767766952966369
+   ],
+   "errors_used": [
+    6.946386134524589e-11,
+    1.505229523197689e-09,
+    3.120135245719484e-08,
+    5.89882690319538e-07
+   ],
+   "slope": 8.705837340974334,
+   "fitted_order": 7.705837340974334,
+   "pass": true,
+   "reason": ""
+  },
+  {
+   "n": 6,
+   "scheme": "lie-trotter",
+   "name": "Lie-Trotter S1",
+   "order": 1,
+   "exps_per_step": 24,
+   "d_used": [
+    0.0009765625,
+    0.0013810679320049757,
+    0.001953125,
+    0.0027621358640099515
+   ],
+   "errors_used": [
+    1.4921144214178153e-05,
+    2.9843207727237676e-05,
+    5.968892867051666e-05,
+    0.00011938461783599765
+   ],
+   "slope": 2.000124281582218,
+   "fitted_order": 1.000124281582218,
+   "pass": true,
+   "reason": ""
+  },
+  {
+   "n": 6,
+   "scheme": "suzuki2",
+   "name": "Suzuki S2",
+   "order": 2,
+   "exps_per_step": 42,
+   "d_used": [
+    0.0009765625,
+    0.0013810679320049757,
+    0.001953125,
+    0.0027621358640099515
+   ],
+   "errors_used": [
+    2.1561995923266773e-08,
+    6.098634746972411e-08,
+    1.7249438350698066e-07,
+    4.878818201334893e-07
+   ],
+   "slope": 2.9999796879710745,
+   "fitted_order": 1.9999796879710745,
+   "pass": true,
+   "reason": ""
+  },
+  {
+   "n": 6,
+   "scheme": "suzuki4",
+   "name": "Suzuki S4",
+   "order": 4,
+   "exps_per_step": 210,
+   "d_used": [
+    0.005524271728019903,
+    0.0078125,
+    0.011048543456039806,
+    0.015625
+   ],
+   "errors_used": [
+    1.007644240560681e-10,
+    5.699573554966269e-10,
+    3.2235739554389444e-09,
+    1.8228594067859013e-08
+   ],
+   "slope": 4.999390907487705,
+   "fitted_order": 3.9993909074877054,
+   "pass": true,
+   "reason": ""
+  },
+  {
+   "n": 6,
+   "scheme": "suzuki6",
+   "name": "Suzuki S6",
+   "order": 6,
+   "exps_per_step": 1050,
+   "d_used": [
+    0.04419417382415922,
+    0.0625,
+    0.08838834764831845,
+    0.125
+   ],
+   "errors_used": [
+    1.1214529059925976e-09,
+    1.2622025684838417e-08,
+    1.4132394862358973e-07,
+    1.5659103630970741e-06
+   ],
+   "slope": 6.96544824598775,
+   "fitted_order": 5.96544824598775,
+   "pass": true,
+   "reason": ""
+  },
+  {
+   "n": 6,
+   "scheme": "suzuki8",
+   "name": "Suzuki S8",
+   "order": 8,
+   "exps_per_step": 5250,
+   "d_used": [
+    0.1767766952966369,
+    0.25,
+    0.3535533905932738,
+    0.5
+   ],
+   "errors_used": [
+    1.1225904329147163e-08,
+    2.330629759083679e-07,
+    4.423792295852249e-06,
+    6.933236606583828e-05
+   ],
+   "slope": 8.404787347877958,
+   "fitted_order": 7.404787347877958,
+   "pass": false,
+   "reason": "|slope - (p+1)| = 0.60 > 0.3"
+  },
+  {
+   "n": 6,
+   "scheme": "mo-q6",
+   "name": "M&O q=6 (rec., Tab. 2)",
+   "order": 4,
+   "exps_per_step": 288,
+   "d_used": [
+    0.0078125,
+    0.011048543456039806,
+    0.015625,
+    0.02209708691207961
+   ],
+   "errors_used": [
+    5.089330165493468e-11,
+    2.878838825210899e-10,
+    1.628380493875622e-09,
+    9.209958149100165e-09
+   ],
+   "slope": 4.999720785396881,
+   "fitted_order": 3.999720785396881,
+   "pass": true,
+   "reason": ""
+  },
+  {
+   "n": 6,
+   "scheme": "mo-q14",
+   "name": "M&O q=14 (rec., Tab. 3)",
+   "order": 6,
+   "exps_per_step": 672,
+   "d_used": [
+    0.0625,
+    0.08838834764831845,
+    0.125,
+    0.1767766952966369
+   ],
+   "errors_used": [
+    6.823488113858533e-10,
+    7.593032582628307e-09,
+    8.310386190360994e-08,
+    8.798563656285027e-07
+   ],
+   "slope": 6.889959216927766,
+   "fitted_order": 5.889959216927766,
+   "pass": true,
+   "reason": ""
+  },
+  {
+   "n": 6,
+   "scheme": "bm-q10",
+   "name": "Blanes & Moan q=10",
+   "order": 6,
+   "exps_per_step": 480,
+   "d_used": [
+    0.03125,
+    0.04419417382415922,
+    0.0625,
+    0.08838834764831845
+   ],
+   "errors_used": [
+    8.258192227207706e-11,
+    9.321059861000623e-10,
+    1.0496083940130575e-08,
+    1.1764118137458017e-07
+   ],
+   "slope": 6.984410402649456,
+   "fitted_order": 5.984410402649456,
+   "pass": true,
+   "reason": ""
+  },
+  {
+   "n": 6,
+   "scheme": "mo-o8-q21",
+   "name": "M&O q=21 order 8 (exploratory)",
+   "order": 8,
+   "exps_per_step": 1008,
+   "d_used": [
+    0.08838834764831845,
+    0.125,
+    0.1767766952966369,
+    0.25
+   ],
+   "errors_used": [
+    2.69364689741128e-10,
+    5.99949745096389e-09,
+    1.3152238527274683e-07,
+    2.792662189867181e-06
+   ],
+   "slope": 8.894740203671029,
+   "fitted_order": 7.894740203671029,
+   "pass": true,
+   "reason": ""
+  },
+  {
+   "n": 6,
+   "scheme": "morales-y8m10",
+   "name": "Morales Y8m10 (21 steps)",
+   "order": 8,
+   "exps_per_step": 1008,
+   "d_used": [
+    0.08838834764831845,
+    0.125,
+    0.1767766952966369,
+    0.25
+   ],
+   "errors_used": [
+    3.6994838343248084e-10,
+    8.319958278796386e-09,
+    1.858557305483173e-07,
+    4.089034824881474e-06
+   ],
+   "slope": 8.955581854433506,
+   "fitted_order": 7.955581854433506,
+   "pass": true,
+   "reason": ""
+  },
+  {
+   "n": 6,
+   "scheme": "morales-m8",
+   "name": "Morales m=8 (17 steps)",
+   "order": 8,
+   "exps_per_step": 816,
+   "d_used": [
+    0.08838834764831845,
+    0.125,
+    0.1767766952966369,
+    0.25
+   ],
+   "errors_used": [
+    1.6774913728096822e-09,
+    3.869264507088645e-08,
+    9.06456663214562e-07,
+    2.1678898019088173e-05
+   ],
+   "slope": 9.104640431049253,
+   "fitted_order": 8.104640431049253,
+   "pass": true,
+   "reason": ""
+  }
+ ],
+ "controls": {
+  "C1: Lie-Trotter claimed order 2, n=4": {
+   "n": 4,
+   "scheme": "lie-trotter",
+   "name": "Lie-Trotter S1",
+   "order": 2,
+   "exps_per_step": 16,
+   "d_used": [
+    0.0009765625,
+    0.0013810679320049757,
+    0.001953125,
+    0.0027621358640099515
+   ],
+   "errors_used": [
+    1.3639046315556112e-05,
+    2.728057295805843e-05,
+    5.456804844943572e-05,
+    0.00010915516869142218
+   ],
+   "slope": 2.000375963277118,
+   "fitted_order": 1.000375963277118,
+   "pass": false,
+   "reason": "|slope - (p+1)| = 1.00 > 0.3"
+  },
+  "C2: S4, times x (1 + 1e-06), n=4": {
+   "n": 4,
+   "scheme": "suzuki4",
+   "name": "Suzuki S4",
+   "order": 4,
+   "exps_per_step": 140,
+   "d_used": [
+    0.0009765625,
+    0.0013810679320049757,
+    0.001953125,
+    0.0027621358640099515
+   ],
+   "errors_used": [
+    7.878715131127118e-09,
+    1.1142200000782803e-08,
+    1.5757530719925764e-08,
+    2.2284968390716328e-08
+   ],
+   "slope": 1.0000246536534647,
+   "fitted_order": 2.4653653464712377e-05,
+   "pass": false,
+   "reason": "|slope - (p+1)| = 4.00 > 0.3"
+  }
+ }
+}

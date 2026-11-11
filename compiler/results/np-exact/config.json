@@ -1,0 +1,24 @@
+{
+ "name": "np-exact",
+ "description": "Validation independent of simcount: compiled circuits of all eleven formulas against exactly computed unitaries. Part A: commuting ZZ + Z chain (Jx = Jy = 0, XX/YY kept at coefficient 0), closed-form diagonal reference, every formula must be exact. Part B: full Heisenberg chain (J = 1, periodic) against exact diagonalisation: gate-level step = product of exact exponentials, and error ~ r^-p. NumPy fields seed 1, t = n. Criteria fixed before the run (2026-11-11).",
+ "seed": 1,
+ "schemes": ["lie-trotter", "suzuki2", "suzuki4", "suzuki6", "suzuki8",
+             "mo-q6", "mo-q14", "bm-q10", "mo-o8-q21", "morales-y8m10", "morales-m8"],
+ "commuting": {"sizes": [4, 6, 8], "r": [1, 3], "Jz": 1.0},
+ "noncommuting": {
+  "sizes": [4, 6],
+  "r_grid": {
+   "1": [2000, 4000, 8000, 16000, 32000, 64000],
+   "2": [250, 500, 1000, 2000, 4000, 8000],
+   "default": [6, 8, 12, 16, 24, 32, 48, 64, 96, 128, 192]
+  }
+ },
+ "criteria": {
+  "tol_per_exponential": 1e-15,
+  "slope_window": [1e-10, 1e-2],
+  "slope_tol": 0.3,
+  "min_points": 3,
+  "_note": "tol_per_exponential is ~5x the 2e-16 per exponential seen in the prototype (rounding). slope_window, slope_tol, min_points as proposed 2026-11-11 and accepted by the user. r_grid chosen so that each formula has points on both sides of the window at n = 4 in the prototype."
+ },
+ "controls": {"r": 1, "perturb": 1e-3}
+}
