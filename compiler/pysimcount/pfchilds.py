@@ -435,10 +435,48 @@ def _style(scheme: str, registry: dict) -> tuple[str, str, str]:
     return pffigure.latex_escape(f.name), colour, pffigure.ORDER_MARK[f.order]
 
 
+# Line-style conventions for the gate-count-vs-n figures (config key "line_style"):
+#   "extrapolated-dashed"  solid line = measured, dashed = extrapolated (the original style; default)
+#   "suzuki-dashed"        dashed line = Suzuki formula (the simcount set), solid = extension formula;
+#                          extrapolation shown by open markers only (requested 2026-11-10)
+LINE_STYLES = ("extrapolated-dashed", "suzuki-dashed")
+
+
+def line_dashes(scheme: str, registry: dict, line_style: str, n_extrapolated: int) -> tuple[str, str, str]:
+    """(measured dash, extrapolated dash, extra options for the extrapolated plot).
+
+    The extrapolated plot starts at the last measured point so the line is
+    continuous; under "suzuki-dashed" that point is left unmarked
+    (``mark indices`` from 2) so it keeps its filled, measured marker."""
+    if line_style == "extrapolated-dashed":
+        return "solid", "dashed", ""
+    if line_style == "suzuki-dashed":
+        dash = "dashed" if registry[scheme].family == "suzuki" else "solid"
+        return dash, dash, f"mark indices={{2,...,{n_extrapolated + 1}}}, "
+    raise ValueError(f"line_style {line_style!r} is not one of {LINE_STYLES}")
+
+
+def legend_key(line_style: str, measured: str, extrapolated: str) -> list[str]:
+    """The two black key entries for measured and extrapolated points."""
+    if line_style not in LINE_STYLES:
+        raise ValueError(f"line_style {line_style!r} is not one of {LINE_STYLES}")
+    if line_style == "extrapolated-dashed":
+        return ["    \\addlegendimage{black, solid, mark=*, mark options={solid, fill=black}}",
+                f"    \\addlegendentry{{{measured}}}",
+                "    \\addlegendimage{black, dashed, mark=*, mark options={solid, fill=white}}",
+                f"    \\addlegendentry{{{extrapolated}}}"]
+    return ["    \\addlegendimage{only marks, black, mark=*, mark options={solid, fill=black}}",
+            f"    \\addlegendentry{{{measured}}}",
+            "    \\addlegendimage{only marks, black, mark=*, mark options={solid, fill=white}}",
+            f"    \\addlegendentry{{{extrapolated}}}"]
+
+
 def figure_tex(fig: dict, series: dict, kept: list[str], header: list[str], registry: dict) -> str:
-    """One loglog tikzpicture: filled markers + solid line = measured (mean
-    over seeds), open markers + dashed line = extrapolated; error bars
-    min-max over seeds (per-seed fits when extrapolated)."""
+    """One loglog tikzpicture: filled markers = measured (mean over seeds),
+    open markers = extrapolated; error bars min-max over seeds (per-seed fits
+    when extrapolated). Line dash per ``fig["line_style"]`` (``LINE_STYLES``):
+    by default solid = measured and dashed = extrapolated."""
+    line_style = fig.get("line_style", "extrapolated-dashed")
     looks: dict[tuple[str, str], str] = {}
     out = [f"% {line}" for line in header]
     out += [
@@ -461,8 +499,9 @@ def figure_tex(fig: dict, series: dict, kept: list[str], header: list[str], regi
             raise ValueError(f"{scheme} would look identical to {looks[(colour, mark)]} in {fig['id']}")
         looks[(colour, mark)] = scheme
         s = series[scheme]
+        dash_m, dash_x, extra = line_dashes(scheme, registry, line_style, len(s["extrapolated"]))
         out.append(f"    % {scheme}: measured n, mean over seeds, bars min..max over seeds")
-        out.append(f"    \\addplot[{colour}, solid, mark={mark}, mark size=2.2pt, mark options={{solid, fill={colour}}}, "
+        out.append(f"    \\addplot[{colour}, {dash_m}, mark={mark}, mark size=2.2pt, mark options={{solid, fill={colour}}}, "
                    f"error bars/.cd, y dir=both, y explicit, error bar style={{solid}}] coordinates {{")
         for p in s["measured"]:
             out.append(f"      ({p['n']},{p['mean']:.6g}) += (0,{p['max'] - p['mean']:.6g}) -= (0,{p['mean'] - p['min']:.6g})")
@@ -470,18 +509,17 @@ def figure_tex(fig: dict, series: dict, kept: list[str], header: list[str], regi
         out.append(f"    % {scheme}: extrapolated, r = ceil({s['fit']['a']:.6g} n^{s['fit']['b']:.6g}), "
                    f"per step = {s['per_step_model']['alpha']} n + {s['per_step_model']['beta']}; "
                    "bars min..max of per-seed fits")
-        out.append(f"    \\addplot[{colour}, dashed, mark={mark}, mark size=2.2pt, mark options={{solid, fill=white}}, "
-                   f"forget plot, error bars/.cd, y dir=both, y explicit, error bar style={{solid}}] coordinates {{")
+        out.append(f"    \\addplot[{colour}, {dash_x}, mark={mark}, mark size=2.2pt, mark options={{solid, fill=white}}, "
+                   f"{extra}forget plot, error bars/.cd, y dir=both, y explicit, error bar style={{solid}}] coordinates {{")
         last = s["measured"][-1]
-        out.append(f"      ({last['n']},{last['mean']:.6g})")  # joins the dashed line to the last measured point
+        out.append(f"      ({last['n']},{last['mean']:.6g})")  # joins the extrapolated line to the last measured point
         for p in s["extrapolated"]:
             out.append(f"      ({p['n']},{p['value']:.6g}) += (0,{p['max'] - p['value']:.6g}) -= (0,{p['value'] - p['min']:.6g})")
         out.append("    };")
     lo, hi = min(fig["fit_sizes"]), max(fig["fit_sizes"])
-    out += ["    \\addlegendimage{black, solid, mark=*, mark options={solid, fill=black}}",
-            "    \\addlegendentry{measured $r$ (mean over seeds)}",
-            "    \\addlegendimage{black, dashed, mark=*, mark options={solid, fill=white}}",
-            f"    \\addlegendentry{{{r_label(fig.get('point', 'mean-r-fit')).format(lo=lo, hi=hi).replace(' r ', ' $r$ ').replace('r from', '$r$ from')}}}"]
+    out += legend_key(line_style, "measured $r$ (mean over seeds)",
+                      r_label(fig.get('point', 'mean-r-fit')).format(lo=lo, hi=hi)
+                      .replace(' r ', ' $r$ ').replace('r from', '$r$ from'))
     if fig["kind"] == "optimised":
         olo, ohi = fig["optimised_sizes"][0], fig["optimised_sizes"][-1]
         out += ["    \\addlegendimage{empty legend}",
@@ -564,6 +602,7 @@ def run_figures(cfg: dict, here: Path, out: Path, render: bool, only: str | None
                "metric": fig["metric"], "gate_set": "Clifford+Rz (cz)", "r_method": "measured + power-law fit",
                "seeds": seeds, "fit_sizes": fig["fit_sizes"], "extrapolate_sizes": fig["extrapolate_sizes"],
                "point": fig.get("point", "mean-r-fit"),
+               "line_style": fig.get("line_style", "extrapolated-dashed"),
                "shown": kept, "removed": [k for k in fig["schemes"] if k not in kept], "ranking": ranking,
                "header": header, "series": series}
         (out / f"{fig['id']}.json").write_text(json.dumps(rec, indent=1))

@@ -281,10 +281,8 @@ def side_by_side_tex(source_text: str, rec: dict, rows: list[dict], n: int, cfg:
         out.append("    };")
         if p.legend:
             out.append(f"    \\addlegendentry{{{labels.get(scheme, pfchilds._style(scheme, registry)[0])}}}")
-    out += ["    \\addlegendimage{black, solid, mark=*, mark options={solid, fill=black}}",
-            "    \\addlegendentry{measured $r$}",
-            "    \\addlegendimage{black, dashed, mark=*, mark options={solid, fill=white}}",
-            f"    \\addlegendentry{{extrapolated (fit on {figratio._fit_note(rec)})}}"]
+    out += pfchilds.legend_key(rec.get("line_style", "extrapolated-dashed"), "measured $r$",
+                               f"extrapolated (fit on {figratio._fit_note(rec)})")
     out.append("  \\end{loglogaxis}")
     out += dots_axis(rows, n, len(rec["seeds"]), dots, registry, (main["width_cm"] + dots["gap_cm"], 0))
     out += ["\\end{tikzpicture}", ""]
@@ -318,11 +316,9 @@ def side_by_side_zoom_tex(source_text: str, rec: dict, cfg: dict, header: list[s
         out.append("    };")
         if p.legend:
             out.append(f"    \\addlegendentry{{{labels.get(scheme, pfchilds._style(scheme, registry)[0])}}}")
-    out += ["    \\addlegendimage{black, solid, mark=*, mark options={solid, fill=black}}",
-            "    \\addlegendentry{measured $r$}",
-            "    \\addlegendimage{black, dashed, mark=*, mark options={solid, fill=white}}",
-            f"    \\addlegendentry{{extrapolated (fit on {figratio._fit_note(rec)})}}",
-            "  \\end{loglogaxis}"]
+    out += pfchilds.legend_key(rec.get("line_style", "extrapolated-dashed"), "measured $r$",
+                               f"extrapolated (fit on {figratio._fit_note(rec)})")
+    out += ["  \\end{loglogaxis}"]
     yticks = ",".join(f"{v:g}" for v in z["ytick"])
     ylabels = ",".join("{" + figinset._tick_label(v) + "}" for v in z["ytick"])
     xticks = ",".join(f"{v:g}" for v in z["xtick"])

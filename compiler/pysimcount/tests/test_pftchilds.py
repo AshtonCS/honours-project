@@ -122,3 +122,28 @@ def test_synthesised_step_reproduces_a_run():
     assert got["t_total"] == int(rows[0]["t_total"])
     assert got["eps_rot"] == pytest.approx(float(rows[0]["eps_rot"]), rel=1e-12)
     assert math.isclose(got["eps_rot"] * got["rotations_per_step"] * got["r"], 5e-4)
+
+
+def test_suzuki_dashed_style_reaches_figleader(tmp_path, monkeypatch):
+    rec = pftchilds.build_record(_setup(tmp_path, monkeypatch), tmp_path)
+    rec["line_style"] = "suzuki-dashed"
+    tex = pftchilds.figure_tex(rec, formula_registry())
+    _, plots, trailing = figinset.parse_figure(tex)
+    by = {}
+    for p in plots:
+        by.setdefault(p.comment.lstrip("% ").split(":")[0], []).append(p.opts)
+    # suzuki4 dashed in both its plots, bm-q10 solid in both; open markers only on extrapolated points
+    assert all(o.split(", ")[1] == "dashed" for o in by["suzuki4"])
+    assert all(o.split(", ")[1] == "solid" for o in by["bm-q10"])
+    assert all("fill=white}, mark indices={2," in o for o in (by["suzuki4"][1], by["bm-q10"][1]))
+    assert len(trailing) == 4 and all("only marks" in t for t in trailing[::2])
+    rows = figleader.leaderboard(rec, {}, 10)
+    side = figleader.side_by_side_tex(tex, rec, rows, 10, {
+        "main": {"width_cm": 6, "height_cm": 5, "xmin": 3, "xmax": 20, "ymin": 1e4, "ymax": 1e7, "ylabel": "T",
+                 "mark_size": "1pt", "legend_columns": 2, "legend_y": -0.2, "band_factor": 1.1},
+        "dots": {"width_cm": 4, "height_cm": 5, "gap_cm": 3, "title": "t", "xlabel": "x", "xmin": 1e5, "xmax": 1e7,
+                 "x_unit": 1e5, "xtick": [1e6], "mark_size": "2pt", "columns_cm": [0.5, 1.4]}},
+        ["% derived: T.tex"], formula_registry())
+    left = side.split("\\end{loglogaxis}")[0]
+    assert "mark indices={2," in left and "\\addlegendimage{black, dashed" not in left
+    assert "\\addlegendimage{only marks, black, mark=*, mark options={solid, fill=white}}" in left

@@ -158,3 +158,31 @@ def test_real_records_use_seed_mean_and_point_is_mean_of_band():
                         for seed in rec["seeds"]]
                 assert p["value"] == math.fsum(band) / len(band)
                 assert p["min"] == min(band) and p["max"] == max(band)
+
+
+def test_line_dashes_default_marks_extrapolation_by_dash():
+    from pysimcount.pfcompare import formula_registry
+    reg = formula_registry()
+    assert pfchilds.line_dashes("suzuki4", reg, "extrapolated-dashed", 9) == ("solid", "dashed", "")
+    assert pfchilds.line_dashes("bm-q10", reg, "extrapolated-dashed", 9) == ("solid", "dashed", "")
+
+
+def test_line_dashes_suzuki_dashed_marks_family_by_dash():
+    from pysimcount.pfcompare import formula_registry
+    reg = formula_registry()
+    # Suzuki (the simcount set) dashed throughout, extensions solid throughout; the extrapolated
+    # plot's first point is the last measured one, so its marks start at index 2 (9 extrapolated -> 2..10)
+    assert pfchilds.line_dashes("suzuki4", reg, "suzuki-dashed", 9) == ("dashed", "dashed", "mark indices={2,...,10}, ")
+    assert pfchilds.line_dashes("lie-trotter", reg, "suzuki-dashed", 3)[:2] == ("dashed", "dashed")
+    assert pfchilds.line_dashes("mo-q14", reg, "suzuki-dashed", 9)[:2] == ("solid", "solid")
+    with pytest.raises(ValueError, match="line_style"):
+        pfchilds.line_dashes("suzuki4", reg, "dotted", 9)
+
+
+def test_legend_key_suzuki_dashed_has_no_line():
+    key = pfchilds.legend_key("suzuki-dashed", "m", "x")
+    assert len(key) == 4 and all("only marks" in k for k in key[::2])
+    assert "fill=white" in key[2] and "fill=black" in key[0]
+    assert "dashed" in pfchilds.legend_key("extrapolated-dashed", "m", "x")[2]
+    with pytest.raises(ValueError, match="line_style"):
+        pfchilds.legend_key("dotted", "m", "x")

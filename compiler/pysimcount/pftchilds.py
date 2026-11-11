@@ -235,12 +235,16 @@ def build_record(cfg: dict, here: Path) -> dict:
     return {"id": cfg["id"], "title": cfg["title"], "kind": "xyz", "metric": "t", "gate_set": "Clifford+T (ct)",
             "r_method": "measured + per-seed power-law fit; every extrapolated step synthesised",
             "per_seed_stored": True, "seeds": seeds, "fit_sizes": cfg["fit_sizes"],
-            "extrapolate_sizes": cfg["extrapolate_sizes"], "shown": schemes, "removed": like["removed"],
+            "extrapolate_sizes": cfg["extrapolate_sizes"],
+            "line_style": cfg.get("line_style", "extrapolated-dashed"),
+            "shown": schemes, "removed": like["removed"],
             "header": header, "series": series}
 
 
 def figure_tex(rec: dict, registry: dict) -> str:
-    """pfchilds.figure_tex's layout: filled + solid = measured, open + dashed = extrapolated."""
+    """pfchilds.figure_tex's layout: filled markers = measured, open = extrapolated;
+    line dash per ``rec["line_style"]`` (``pfchilds.LINE_STYLES``)."""
+    line_style = rec.get("line_style", "extrapolated-dashed")
     lo, hi = min(rec["fit_sizes"]), max(rec["fit_sizes"])
     out = [f"% {line}" for line in rec["header"]]
     out += ["\\begin{tikzpicture}", "  \\begin{loglogaxis}[",
@@ -257,25 +261,24 @@ def figure_tex(rec: dict, registry: dict) -> str:
     for k in rec["shown"]:
         label, colour, mark = pfchilds._style(k, registry)
         s = rec["series"][k]
+        dash_m, dash_x, extra = pfchilds.line_dashes(k, registry, line_style, len(s["extrapolated"]))
         out.append(f"    % {k}: measured n, mean over seeds, bars min..max over seeds")
-        out.append(f"    \\addplot[{colour}, solid, mark={mark}, mark size=2.2pt, mark options={{solid, fill={colour}}}, "
+        out.append(f"    \\addplot[{colour}, {dash_m}, mark={mark}, mark size=2.2pt, mark options={{solid, fill={colour}}}, "
                    f"error bars/.cd, y dir=both, y explicit, error bar style={{solid}}] coordinates {{")
         for p in s["measured"]:
             out.append(f"      ({p['n']},{p['mean']:.6g}) += (0,{p['max'] - p['mean']:.6g}) -= (0,{p['mean'] - p['min']:.6g})")
         out += ["    };", f"    \\addlegendentry{{{label}}}"]
         out.append(f"    % {k}: extrapolated, per-seed fitted r, every step synthesised; mean over seeds, bars min..max")
-        out.append(f"    \\addplot[{colour}, dashed, mark={mark}, mark size=2.2pt, mark options={{solid, fill=white}}, "
-                   f"forget plot, error bars/.cd, y dir=both, y explicit, error bar style={{solid}}] coordinates {{")
+        out.append(f"    \\addplot[{colour}, {dash_x}, mark={mark}, mark size=2.2pt, mark options={{solid, fill=white}}, "
+                   f"{extra}forget plot, error bars/.cd, y dir=both, y explicit, error bar style={{solid}}] coordinates {{")
         last = s["measured"][-1]
         out.append(f"      ({last['n']},{last['mean']:.6g})")
         for p in s["extrapolated"]:
             out.append(f"      ({p['n']},{p['value']:.6g}) += (0,{p['max'] - p['value']:.6g}) -= (0,{p['value'] - p['min']:.6g})")
         out.append("    };")
-    out += ["    \\addlegendimage{black, solid, mark=*, mark options={solid, fill=black}}",
-            "    \\addlegendentry{measured $r$ (mean over seeds)}",
-            "    \\addlegendimage{black, dashed, mark=*, mark options={solid, fill=white}}",
-            f"    \\addlegendentry{{extrapolated: per-seed power-law fits of $r$ (n = {lo}--{hi}), steps synthesised}}",
-            "  \\end{loglogaxis}", "\\end{tikzpicture}", ""]
+    out += pfchilds.legend_key(line_style, "measured $r$ (mean over seeds)",
+                               f"extrapolated: per-seed power-law fits of $r$ (n = {lo}--{hi}), steps synthesised")
+    out += ["  \\end{loglogaxis}", "\\end{tikzpicture}", ""]
     return "\n".join(out)
 
 
