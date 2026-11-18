@@ -1,0 +1,36 @@
+{
+ "scheme": "mo-q6",
+ "name": "M&O q=6 (rec., Tab. 2)",
+ "order": 4,
+ "n": 63,
+ "seed": 1,
+ "r": 974,
+ "before_per_step": {
+  "CNOT": 4536,
+  "Rz": 3024,
+  "total": 19656
+ },
+ "marginal_per_step": {
+  "CNOT": 3024,
+  "Rz": 1890,
+  "total": 8646
+ },
+ "edge": {
+  "CNOT": 126,
+  "Rz": 63,
+  "total": 319
+ },
+ "before_total": {
+  "CNOT": 4418064,
+  "Rz": 2945376,
+  "total": 19144944
+ },
+ "after_total": {
+  "CNOT": 2945502,
+  "Rz": 1840923,
+  "total": 8421523
+ },
+ "optimiser_seconds": 22.0,
+ "verified": false,
+ "verify_state_err": null
+}

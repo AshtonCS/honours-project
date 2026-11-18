@@ -1,0 +1,36 @@
+{
+ "scheme": "morales-m8",
+ "name": "Morales m=8 (17 steps)",
+ "order": 8,
+ "n": 79,
+ "seed": 1,
+ "r": 379,
+ "before_per_step": {
+  "CNOT": 16116,
+  "Rz": 10744,
+  "total": 69836
+ },
+ "marginal_per_step": {
+  "CNOT": 10744,
+  "Rz": 6715,
+  "total": 30753
+ },
+ "edge": {
+  "CNOT": 158,
+  "Rz": 79,
+  "total": 399
+ },
+ "before_total": {
+  "CNOT": 6107964,
+  "Rz": 4071976,
+  "total": 26467844
+ },
+ "after_total": {
+  "CNOT": 4072134,
+  "Rz": 2545064,
+  "total": 11655786
+ },
+ "optimiser_seconds": 94.4,
+ "verified": false,
+ "verify_state_err": null
+}

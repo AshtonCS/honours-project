@@ -1,0 +1,36 @@
+{
+ "scheme": "mo-q14",
+ "name": "M&O q=14 (rec., Tab. 3)",
+ "order": 6,
+ "n": 16,
+ "seed": 1,
+ "r": 53,
+ "before_per_step": {
+  "CNOT": 2688,
+  "Rz": 1792,
+  "total": 11648
+ },
+ "marginal_per_step": {
+  "CNOT": 1792,
+  "Rz": 1120,
+  "total": 5040
+ },
+ "edge": {
+  "CNOT": 32,
+  "Rz": 16,
+  "total": 84
+ },
+ "before_total": {
+  "CNOT": 142464,
+  "Rz": 94976,
+  "total": 617344
+ },
+ "after_total": {
+  "CNOT": 95008,
+  "Rz": 59376,
+  "total": 267204
+ },
+ "optimiser_seconds": 8.1,
+ "verified": true,
+ "verify_state_err": 7.475226387166006e-13
+}

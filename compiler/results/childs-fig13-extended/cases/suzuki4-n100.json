@@ -1,0 +1,37 @@
+{
+ "scheme": "suzuki4",
+ "name": "Suzuki S4",
+ "order": 4,
+ "n": 100,
+ "seed": 1,
+ "r": 5771,
+ "before_per_step": {
+  "CNOT": 6000,
+  "Rz": 3500,
+  "total": 25500
+ },
+ "marginal_per_step": {
+  "CNOT": 4000,
+  "Rz": 2500,
+  "total": 11460
+ },
+ "edge": {
+  "CNOT": 200,
+  "Rz": 100,
+  "total": 504
+ },
+ "before_total": {
+  "CNOT": 34626000,
+  "Rz": 20198500,
+  "total": 147160500
+ },
+ "after_total": {
+  "CNOT": 23084200,
+  "Rz": 14427600,
+  "total": 66136164
+ },
+ "optimiser_seconds": 15.3,
+ "verified": false,
+ "verify_state_err": null,
+ "r_eq147": 5187
+}

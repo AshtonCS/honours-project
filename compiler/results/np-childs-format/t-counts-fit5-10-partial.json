@@ -1,0 +1,282 @@
+{
+ "entries": {
+  "suzuki4|3|500": {
+   "scheme": "suzuki4",
+   "seed": 3,
+   "n": 500,
+   "r": 119192,
+   "rotations_per_step": 13000,
+   "eps_rot": 3.2268557001760575e-13,
+   "t_per_step": 1658202,
+   "t_total": 197644412784,
+   "seconds": 504.3
+  },
+  "suzuki4|5|500": {
+   "scheme": "suzuki4",
+   "seed": 5,
+   "n": 500,
+   "r": 117804,
+   "rotations_per_step": 13000,
+   "eps_rot": 3.264875425413268e-13,
+   "t_per_step": 1679506,
+   "t_total": 197852524824,
+   "seconds": 504.7
+  },
+  "suzuki4|4|500": {
+   "scheme": "suzuki4",
+   "seed": 4,
+   "n": 500,
+   "r": 132951,
+   "rotations_per_step": 13000,
+   "eps_rot": 2.892910806352601e-13,
+   "t_per_step": 1667864,
+   "t_total": 221744186664,
+   "seconds": 506.3
+  },
+  "suzuki4|2|500": {
+   "scheme": "suzuki4",
+   "seed": 2,
+   "n": 500,
+   "r": 139922,
+   "rotations_per_step": 13000,
+   "eps_rot": 2.748784212742704e-13,
+   "t_per_step": 1693760,
+   "t_total": 236994286720,
+   "seconds": 506.4
+  },
+  "suzuki4|1|500": {
+   "scheme": "suzuki4",
+   "seed": 1,
+   "n": 500,
+   "r": 95826,
+   "rotations_per_step": 13000,
+   "eps_rot": 4.0136850605825624e-13,
+   "t_per_step": 1657982,
+   "t_total": 158877783132,
+   "seconds": 506.5
+  },
+  "suzuki4|6|500": {
+   "scheme": "suzuki4",
+   "seed": 6,
+   "n": 500,
+   "r": 175892,
+   "rotations_per_step": 13000,
+   "eps_rot": 2.1866564972561835e-13,
+   "t_per_step": 1698390,
+   "t_total": 298733213880,
+   "seconds": 507.1
+  },
+  "suzuki4|8|500": {
+   "scheme": "suzuki4",
+   "seed": 8,
+   "n": 500,
+   "r": 97265,
+   "rotations_per_step": 13000,
+   "eps_rot": 3.9543040622565633e-13,
+   "t_per_step": 1649922,
+   "t_total": 160479663330,
+   "seconds": 425.1
+  },
+  "suzuki4|7|500": {
+   "scheme": "suzuki4",
+   "seed": 7,
+   "n": 500,
+   "r": 97472,
+   "rotations_per_step": 13000,
+   "eps_rot": 3.9459063589070154e-13,
+   "t_per_step": 1654290,
+   "t_total": 161246954880,
+   "seconds": 426.5
+  },
+  "suzuki4|9|500": {
+   "scheme": "suzuki4",
+   "seed": 9,
+   "n": 500,
+   "r": 80003,
+   "rotations_per_step": 13000,
+   "eps_rot": 4.807512025991333e-13,
+   "t_per_step": 1653952,
+   "t_total": 132321121856,
+   "seconds": 427.7
+  },
+  "suzuki4|10|500": {
+   "scheme": "suzuki4",
+   "seed": 10,
+   "n": 500,
+   "r": 117266,
+   "rotations_per_step": 13000,
+   "eps_rot": 3.279854217039761e-13,
+   "t_per_step": 1668230,
+   "t_total": 195626659180,
+   "seconds": 428.5
+  },
+  "suzuki6|2|500": {
+   "scheme": "suzuki6",
+   "seed": 2,
+   "n": 500,
+   "r": 8515,
+   "rotations_per_step": 63000,
+   "eps_rot": 9.320620007642908e-13,
+   "t_per_step": 7818964,
+   "t_total": 66578478460,
+   "seconds": 1688.2
+  },
+  "suzuki6|1|500": {
+   "scheme": "suzuki6",
+   "seed": 1,
+   "n": 500,
+   "r": 8686,
+   "rotations_per_step": 63000,
+   "eps_rot": 9.13712633721844e-13,
+   "t_per_step": 7833018,
+   "t_total": 68037594348,
+   "seconds": 1694.3
+  },
+  "suzuki6|4|500": {
+   "scheme": "suzuki6",
+   "seed": 4,
+   "n": 500,
+   "r": 11185,
+   "rotations_per_step": 63000,
+   "eps_rot": 7.095670931164896e-13,
+   "t_per_step": 7896824,
+   "t_total": 88325976440,
+   "seconds": 1757.9
+  },
+  "suzuki6|3|500": {
+   "scheme": "suzuki6",
+   "seed": 3,
+   "n": 500,
+   "r": 9892,
+   "rotations_per_step": 63000,
+   "eps_rot": 8.023158043376402e-13,
+   "t_per_step": 7795274,
+   "t_total": 77110850408,
+   "seconds": 1763.1
+  },
+  "suzuki6|5|500": {
+   "scheme": "suzuki6",
+   "seed": 5,
+   "n": 500,
+   "r": 10129,
+   "rotations_per_step": 63000,
+   "eps_rot": 7.835430878179422e-13,
+   "t_per_step": 7836996,
+   "t_total": 79380932484,
+   "seconds": 1768.4
+  },
+  "suzuki6|6|500": {
+   "scheme": "suzuki6",
+   "seed": 6,
+   "n": 500,
+   "r": 11719,
+   "rotations_per_step": 63000,
+   "eps_rot": 6.772342295851128e-13,
+   "t_per_step": 7865194,
+   "t_total": 92172208486,
+   "seconds": 1774.5
+  },
+  "mo-q6|2|500": {
+   "scheme": "mo-q6",
+   "seed": 2,
+   "n": 500,
+   "r": 31755,
+   "rotations_per_step": 15500,
+   "eps_rot": 1.0158420568769969e-12,
+   "t_per_step": 1920456,
+   "t_total": 60984080280,
+   "seconds": 644.2
+  },
+  "mo-q6|1|500": {
+   "scheme": "mo-q6",
+   "seed": 1,
+   "n": 500,
+   "r": 18671,
+   "rotations_per_step": 15500,
+   "eps_rot": 1.7277095236532072e-12,
+   "t_per_step": 1874472,
+   "t_total": 34998266712,
+   "seconds": 726.5
+  },
+  "suzuki6|7|500": {
+   "scheme": "suzuki6",
+   "seed": 7,
+   "n": 500,
+   "r": 10553,
+   "rotations_per_step": 63000,
+   "eps_rot": 7.520617773626397e-13,
+   "t_per_step": 7828980,
+   "t_total": 82619225940,
+   "seconds": 1650.4
+  },
+  "suzuki6|8|500": {
+   "scheme": "suzuki6",
+   "seed": 8,
+   "n": 500,
+   "r": 8396,
+   "rotations_per_step": 63000,
+   "eps_rot": 9.452725031572102e-13,
+   "t_per_step": 7765388,
+   "t_total": 65198197648,
+   "seconds": 1652.4
+  },
+  "mo-q6|3|500": {
+   "scheme": "mo-q6",
+   "seed": 3,
+   "n": 500,
+   "r": 15077,
+   "rotations_per_step": 15500,
+   "eps_rot": 2.139554587525969e-12,
+   "t_per_step": 1860832,
+   "t_total": 28055764064,
+   "seconds": 790.4
+  },
+  "mo-q6|4|500": {
+   "scheme": "mo-q6",
+   "seed": 4,
+   "n": 500,
+   "r": 31812,
+   "rotations_per_step": 15500,
+   "eps_rot": 1.0140218947607517e-12,
+   "t_per_step": 1913504,
+   "t_total": 60872389248,
+   "seconds": 797.5
+  },
+  "suzuki6|9|500": {
+   "scheme": "suzuki6",
+   "seed": 9,
+   "n": 500,
+   "r": 7481,
+   "rotations_per_step": 63000,
+   "eps_rot": 1.0608886427627238e-12,
+   "t_per_step": 7780060,
+   "t_total": 58202628860,
+   "seconds": 1616.0
+  },
+  "suzuki6|10|500": {
+   "scheme": "suzuki6",
+   "seed": 10,
+   "n": 500,
+   "r": 9671,
+   "rotations_per_step": 63000,
+   "eps_rot": 8.206501847283566e-13,
+   "t_per_step": 7761764,
+   "t_total": 75064019644,
+   "seconds": 1627.6
+  }
+ },
+ "checked": true,
+ "provenance": {
+  "git_commit": "e42ff29056ad9ea7fc7c9899fab334903e42e3e3",
+  "git_dirty": true,
+  "source_sha256": "53a8a86cbfae4414ab2c407734c21630d365c99e4c60ceeb6e3b4cfd9a04a6c1",
+  "python": "3.12.13",
+  "numpy": "2.5.2",
+  "scipy": "1.18.1",
+  "pennylane": "0.45.1",
+  "mpmath": "1.4.1",
+  "pygridsynth": "2.0.0",
+  "platform": "macOS-26.6.2-arm64-arm-64bit",
+  "started": "2026-11-08 17:39:46 AEDT"
+ }
+}

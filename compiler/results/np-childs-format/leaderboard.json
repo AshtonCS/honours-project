@@ -1,0 +1,189 @@
+{
+ "figures": [
+  {
+   "source": "main-cnot-all-formulas.json",
+   "runs": {"aggregate": "../np-main/aggregate.json", "extra": ["../np-main-n9/seed{seed}", "../np-main-n11/seed{seed}"], "dirty_exception": {"commit": "e42ff29", "reason": "np-main-n9/-n11 were run at e42ff29 with one uncommitted change: the signature of pfseeds.load_runs (per_seed_keys), which pfcompare does not import; e42ff29 differs from np-main's 01d3c27 only by the plsimcount->pysimcount rename. Spot-checked by recomputing from committed code on 2026-11-08 (see fit-change-checks.md)."}},
+   "n": 500,
+   "dots": {
+    "width_cm": 7.0, "height_cm": 6.5,
+    "title": "Predicted CNOT count at $n = 500$",
+    "xlabel": "CNOT count ($\\times 10^{8}$), log scale",
+    "xmin": 1.5e8, "xmax": 3.6e9, "x_unit": 1e8,
+    "xtick": [2e8, 3e8, 5e8, 1e9, 2e9, 3e9],
+    "mark_size": "2.4pt",
+    "columns_cm": [0.7, 1.9],
+    "labels": {"morales-m8": "Morales $m=8$", "bm-q10": "Blanes \\& Moan $q=10$", "mo-q14": "M\\&O $q=14$",
+               "morales-y8m10": "Morales Y8m10", "mo-q6": "M\\&O $q=6$", "mo-o8-q21": "M\\&O $q=21$, order 8",
+               "suzuki6": "Suzuki S6", "suzuki4": "Suzuki S4"},
+    "note_width_cm": 10.5, "note_shift_cm": -0.6,
+    "note": "Extrapolated: $r$ from power-law fits on {fit}, 45$\\times$ beyond the largest measured size ($n = 11$). Point: mean count over the {seeds} seeds' own fits; bar: min--max over seeds. Cheapest on: seeds on which the formula has the lowest count; rank range: its rank over the {seeds} seeds (1 = cheapest)."
+   },
+   "zoom": {
+    "main": {
+     "width_cm": 7.0, "height_cm": 6.5,
+     "xmin": 3.5, "xmax": 600, "ymin": 1e3, "ymax": 1e10,
+     "ylabel": "CNOT count (Clifford+$R_z$)",
+     "mark_size": "1.3pt", "legend_columns": 2, "legend_y": -0.2
+    },
+    "panel": {
+     "width_cm": 4.6, "height_cm": 6.5, "gap_cm": 1.8,
+     "title": "Enlarged: $n = 200$--$500$ (extrapolated)",
+     "xmin": 180, "xmax": 525, "ymin": 2e7, "ymax": 4e9,
+     "xtick": [200, 300, 500], "ytick": [3e7, 1e8, 3e8, 1e9, 3e9],
+     "label_gap_cm": 0.36,
+     "labels": {"morales-m8": "Morales $m=8$", "bm-q10": "Blanes \\& Moan $q=10$", "mo-q14": "M\\&O $q=14$",
+                "morales-y8m10": "Morales Y8m10", "mo-q6": "M\\&O $q=6$", "mo-o8-q21": "M\\&O $q=21$, ord.~8",
+                "suzuki6": "Suzuki S6", "suzuki4": "Suzuki S4"}
+    }
+   },
+   "side_by_side": {
+    "main": {
+     "width_cm": 7.2, "height_cm": 6.5,
+     "xmin": 3.5, "xmax": 600, "ymin": 1e3, "ymax": 1e10,
+     "ylabel": "CNOT count (Clifford+$R_z$)",
+     "mark_size": "1.3pt", "legend_columns": 2, "legend_y": -0.2, "band_factor": 1.13
+    },
+    "dots": {
+     "width_cm": 3.8, "height_cm": 6.5, "gap_cm": 3.8,
+     "title": "At $n = 500$", "title_yshift": "14pt",
+     "xlabel": "CNOT count ($\\times 10^{8}$)",
+     "xmin": 1.5e8, "xmax": 3.6e9, "x_unit": 1e8,
+     "xtick": [2e8, 5e8, 1e9, 3e9],
+     "mark_size": "2.2pt",
+     "columns_cm": [0.65, 1.8],
+     "labels": {"morales-m8": "Morales $m=8$", "bm-q10": "Blanes \\& Moan $q=10$", "mo-q14": "M\\&O $q=14$",
+                "morales-y8m10": "Morales Y8m10", "mo-q6": "M\\&O $q=6$", "mo-o8-q21": "M\\&O $q=21$, ord.~8",
+                "suzuki6": "Suzuki S6", "suzuki4": "Suzuki S4"}
+    }
+   },
+   "mean_rank": {
+    "width_cm": 9.0, "height_cm": 6.5,
+    "xmin": 3.5, "xmax": 560,
+    "ylabel": "Mean rank over seeds (1 = cheapest)",
+    "mark_size": "1.6pt",
+    "labels": {"morales-m8": "Morales $m=8$", "bm-q10": "Blanes \\& Moan $q=10$", "mo-q14": "M\\&O $q=14$",
+               "morales-y8m10": "Morales Y8m10", "mo-q6": "M\\&O $q=6$", "mo-o8-q21": "M\\&O $q=21$, ord.~8",
+               "suzuki6": "Suzuki S6", "suzuki4": "Suzuki S4"},
+    "note_width_cm": 11.5, "note_shift_cm": 1.2,
+    "note": "On each of the {seeds} seeds the formulas are ranked by CNOT count (1 = cheapest); the line is the mean rank over seeds, and the number in brackets is its value at $n = {n}$. Filled, solid: measured $r$. Open, dashed: per-seed power-law fits of $r$ ({fit}). Rank is order only: it does not show how large a gap is."
+   }
+  },
+  {
+   "source": "main-total-all-formulas.json",
+   "runs": {"aggregate": "../np-main/aggregate.json", "extra": ["../np-main-n9/seed{seed}", "../np-main-n11/seed{seed}"], "dirty_exception": {"commit": "e42ff29", "reason": "np-main-n9/-n11 were run at e42ff29 with one uncommitted change: the signature of pfseeds.load_runs (per_seed_keys), which pfcompare does not import; e42ff29 differs from np-main's 01d3c27 only by the plsimcount->pysimcount rename. Spot-checked by recomputing from committed code on 2026-11-08 (see fit-change-checks.md)."}},
+   "n": 500,
+   "dots": {
+    "width_cm": 7.0, "height_cm": 6.5,
+    "title": "Predicted total gate count at $n = 500$",
+    "xlabel": "Total gates ($\\times 10^{9}$), log scale",
+    "xmin": 8e8, "xmax": 1.7e10, "x_unit": 1e9,
+    "xtick": [1e9, 2e9, 3e9, 5e9, 1e10],
+    "mark_size": "2.4pt",
+    "columns_cm": [0.7, 1.9],
+    "labels": {"morales-m8": "Morales $m=8$", "bm-q10": "Blanes \\& Moan $q=10$", "mo-q14": "M\\&O $q=14$",
+               "morales-y8m10": "Morales Y8m10", "mo-q6": "M\\&O $q=6$", "mo-o8-q21": "M\\&O $q=21$, order 8",
+               "suzuki6": "Suzuki S6", "suzuki4": "Suzuki S4"},
+    "note_width_cm": 10.5, "note_shift_cm": -0.6,
+    "note": "Extrapolated: $r$ from power-law fits on {fit}, 45$\\times$ beyond the largest measured size ($n = 11$). Point: mean count over the {seeds} seeds' own fits; bar: min--max over seeds. Cheapest on: seeds on which the formula has the lowest count; rank range: its rank over the {seeds} seeds (1 = cheapest)."
+   },
+   "side_by_side": {
+    "main": {
+     "width_cm": 7.2, "height_cm": 6.5,
+     "xmin": 3.5, "xmax": 600, "ymin": 1e4, "ymax": 1e11,
+     "ylabel": "Total gate count (Clifford+$R_z$)",
+     "mark_size": "1.3pt", "legend_columns": 2, "legend_y": -0.2, "band_factor": 1.13
+    },
+    "dots": {
+     "width_cm": 3.8, "height_cm": 6.5, "gap_cm": 3.8,
+     "title": "At $n = 500$", "title_yshift": "14pt",
+     "xlabel": "Total gates ($\\times 10^{9}$)",
+     "xmin": 8e8, "xmax": 1.7e10, "x_unit": 1e9,
+     "xtick": [1e9, 2e9, 5e9, 1e10],
+     "mark_size": "2.2pt",
+     "columns_cm": [0.65, 1.8],
+     "labels": {"morales-m8": "Morales $m=8$", "bm-q10": "Blanes \\& Moan $q=10$", "mo-q14": "M\\&O $q=14$",
+                "morales-y8m10": "Morales Y8m10", "mo-q6": "M\\&O $q=6$", "mo-o8-q21": "M\\&O $q=21$, ord.~8",
+                "suzuki6": "Suzuki S6", "suzuki4": "Suzuki S4"}
+    }
+   },
+   "mean_rank": {
+    "width_cm": 9.0, "height_cm": 6.5,
+    "xmin": 3.5, "xmax": 560,
+    "ylabel": "Mean rank over seeds (1 = cheapest)",
+    "mark_size": "1.6pt",
+    "labels": {"morales-m8": "Morales $m=8$", "bm-q10": "Blanes \\& Moan $q=10$", "mo-q14": "M\\&O $q=14$",
+               "morales-y8m10": "Morales Y8m10", "mo-q6": "M\\&O $q=6$", "mo-o8-q21": "M\\&O $q=21$, ord.~8",
+               "suzuki6": "Suzuki S6", "suzuki4": "Suzuki S4"},
+    "note_width_cm": 11.5, "note_shift_cm": 1.2,
+    "note": "On each of the {seeds} seeds the formulas are ranked by total gate count (1 = cheapest); the line is the mean rank over seeds, and the number in brackets is its value at $n = {n}$. Filled, solid: measured $r$. Open, dashed: per-seed power-law fits of $r$ ({fit}). Rank is order only: it does not show how large a gap is."
+   }
+  },
+  {
+   "source": "main-t-all-formulas.json",
+   "n": 500,
+   "dots": {
+    "width_cm": 7.0, "height_cm": 6.5,
+    "title": "Predicted T count at $n = 500$",
+    "xlabel": "T count ($\\times 10^{10}$), log scale",
+    "xmin": 1.1e10, "xmax": 2.5e11, "x_unit": 1e10,
+    "xtick": [2e10, 3e10, 5e10, 1e11, 2e11],
+    "mark_size": "2.4pt",
+    "columns_cm": [0.7, 1.9],
+    "labels": {"morales-m8": "Morales $m=8$", "bm-q10": "Blanes \\& Moan $q=10$", "mo-q14": "M\\&O $q=14$",
+               "morales-y8m10": "Morales Y8m10", "mo-q6": "M\\&O $q=6$", "mo-o8-q21": "M\\&O $q=21$, order 8",
+               "suzuki6": "Suzuki S6", "suzuki4": "Suzuki S4"},
+    "note_width_cm": 10.5, "note_shift_cm": -0.6,
+    "note": "Extrapolated: Clifford+T $r$ from per-seed power-law fits on {fit}, 45$\\times$ beyond the largest measured size ($n = 11$); one merged step synthesised per formula, seed and $n$. Point: mean T count over the {seeds} seeds; bar: min--max over seeds. Cheapest on: seeds on which the formula has the lowest count; rank range: its rank over the {seeds} seeds (1 = cheapest)."
+   },
+   "zoom": {
+    "main": {
+     "width_cm": 7.0, "height_cm": 6.5,
+     "xmin": 3.5, "xmax": 600, "ymin": 1e5, "ymax": 1e12,
+     "ylabel": "T count (Clifford+T)",
+     "mark_size": "1.3pt", "legend_columns": 2, "legend_y": -0.2
+    },
+    "panel": {
+     "width_cm": 4.6, "height_cm": 6.5, "gap_cm": 1.8,
+     "title": "Enlarged: $n = 200$--$500$ (extrapolated)",
+     "xmin": 180, "xmax": 525, "ymin": 1.5e9, "ymax": 3e11,
+     "xtick": [200, 300, 500], "ytick": [3e9, 1e10, 3e10, 1e11],
+     "label_gap_cm": 0.36,
+     "labels": {"morales-m8": "Morales $m=8$", "bm-q10": "Blanes \\& Moan $q=10$", "mo-q14": "M\\&O $q=14$",
+                "morales-y8m10": "Morales Y8m10", "mo-q6": "M\\&O $q=6$", "mo-o8-q21": "M\\&O $q=21$, ord.~8",
+                "suzuki6": "Suzuki S6", "suzuki4": "Suzuki S4"}
+    }
+   },
+   "side_by_side": {
+    "main": {
+     "width_cm": 7.2, "height_cm": 6.5,
+     "xmin": 3.5, "xmax": 600, "ymin": 1e5, "ymax": 1e12,
+     "ylabel": "T count (Clifford+T)",
+     "mark_size": "1.3pt", "legend_columns": 2, "legend_y": -0.2, "band_factor": 1.13
+    },
+    "dots": {
+     "width_cm": 3.8, "height_cm": 6.5, "gap_cm": 3.8,
+     "title": "At $n = 500$", "title_yshift": "14pt",
+     "xlabel": "T count ($\\times 10^{10}$)",
+     "xmin": 1.1e10, "xmax": 2.5e11, "x_unit": 1e10,
+     "xtick": [2e10, 5e10, 1e11, 2e11],
+     "mark_size": "2.2pt",
+     "columns_cm": [0.65, 1.8],
+     "labels": {"morales-m8": "Morales $m=8$", "bm-q10": "Blanes \\& Moan $q=10$", "mo-q14": "M\\&O $q=14$",
+                "morales-y8m10": "Morales Y8m10", "mo-q6": "M\\&O $q=6$", "mo-o8-q21": "M\\&O $q=21$, ord.~8",
+                "suzuki6": "Suzuki S6", "suzuki4": "Suzuki S4"}
+    }
+   },
+   "mean_rank": {
+    "width_cm": 9.0, "height_cm": 6.5,
+    "xmin": 3.5, "xmax": 560,
+    "ylabel": "Mean rank over seeds (1 = cheapest)",
+    "mark_size": "1.6pt",
+    "labels": {"morales-m8": "Morales $m=8$", "bm-q10": "Blanes \\& Moan $q=10$", "mo-q14": "M\\&O $q=14$",
+               "morales-y8m10": "Morales Y8m10", "mo-q6": "M\\&O $q=6$", "mo-o8-q21": "M\\&O $q=21$, ord.~8",
+               "suzuki6": "Suzuki S6", "suzuki4": "Suzuki S4"},
+    "note_width_cm": 11.5, "note_shift_cm": 1.2,
+    "note": "On each of the {seeds} seeds the formulas are ranked by T count (1 = cheapest); the line is the mean rank over seeds, and the number in brackets is its value at $n = {n}$. Filled, solid: measured $r$. Open, dashed: per-seed power-law fits of the Clifford+T $r$ ({fit}), steps synthesised. Rank is order only: it does not show how large a gap is."
+   }
+  }
+ ]
+}

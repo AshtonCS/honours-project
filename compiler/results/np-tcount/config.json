@@ -1,0 +1,8 @@
+{
+ "name": "np-tcount",
+ "description": "T-count figures for the RQ1 T slide, from the existing np-main (n = 4-8, 10; fitted r at 13, 20) and np-main-n9 (n = 9) Clifford+T rows, NumPy seeds 1-10, merged. Nothing is re-simulated or re-synthesised.",
+ "runs": ["../np-main/seed{seed}", "../np-main-n9/seed{seed}"],
+ "seeds": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
+ "schemes": ["suzuki4", "mo-q6", "suzuki6", "mo-q14", "bm-q10", "suzuki8", "morales-m8"],
+ "pairs": [["suzuki4", "mo-q6"], ["suzuki6", "mo-q14"], ["suzuki6", "bm-q10"], ["suzuki8", "mo-o8-q21"], ["suzuki8", "morales-y8m10"], ["suzuki8", "morales-m8"]]
+}

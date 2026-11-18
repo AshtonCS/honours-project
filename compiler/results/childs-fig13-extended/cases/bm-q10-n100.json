@@ -1,0 +1,36 @@
+{
+ "scheme": "bm-q10",
+ "name": "Blanes & Moan q=10",
+ "order": 6,
+ "n": 100,
+ "seed": 1,
+ "r": 747,
+ "before_per_step": {
+  "CNOT": 12000,
+  "Rz": 8000,
+  "total": 52000
+ },
+ "marginal_per_step": {
+  "CNOT": 8000,
+  "Rz": 5000,
+  "total": 22920
+ },
+ "edge": {
+  "CNOT": 200,
+  "Rz": 100,
+  "total": 504
+ },
+ "before_total": {
+  "CNOT": 8964000,
+  "Rz": 5976000,
+  "total": 38844000
+ },
+ "after_total": {
+  "CNOT": 5976200,
+  "Rz": 3735100,
+  "total": 17121744
+ },
+ "optimiser_seconds": 25.5,
+ "verified": false,
+ "verify_state_err": null
+}

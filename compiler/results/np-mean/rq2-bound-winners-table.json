@@ -1,0 +1,679 @@
+{
+ "seeds": [
+  1,
+  2,
+  3,
+  4,
+  5,
+  6,
+  7,
+  8,
+  9,
+  10
+ ],
+ "sizes": [
+  4,
+  5,
+  6,
+  7,
+  8,
+  9,
+  10,
+  11
+ ],
+ "rows": [
+  {
+   "source": "measured",
+   "n": 4,
+   "candidates": [
+    "lie-trotter",
+    "suzuki2",
+    "suzuki4",
+    "suzuki6",
+    "suzuki8"
+   ],
+   "wins": {
+    "suzuki4": 10
+   }
+  },
+  {
+   "source": "measured",
+   "n": 5,
+   "candidates": [
+    "lie-trotter",
+    "suzuki2",
+    "suzuki4",
+    "suzuki6",
+    "suzuki8"
+   ],
+   "wins": {
+    "suzuki4": 10
+   }
+  },
+  {
+   "source": "measured",
+   "n": 6,
+   "candidates": [
+    "lie-trotter",
+    "suzuki2",
+    "suzuki4",
+    "suzuki6",
+    "suzuki8"
+   ],
+   "wins": {
+    "suzuki4": 10
+   }
+  },
+  {
+   "source": "measured",
+   "n": 7,
+   "candidates": [
+    "lie-trotter",
+    "suzuki2",
+    "suzuki4",
+    "suzuki6",
+    "suzuki8"
+   ],
+   "wins": {
+    "suzuki4": 10
+   }
+  },
+  {
+   "source": "measured",
+   "n": 8,
+   "candidates": [
+    "lie-trotter",
+    "suzuki2",
+    "suzuki4",
+    "suzuki6",
+    "suzuki8"
+   ],
+   "wins": {
+    "suzuki4": 10
+   }
+  },
+  {
+   "source": "measured",
+   "n": 9,
+   "candidates": [
+    "lie-trotter",
+    "suzuki2",
+    "suzuki4",
+    "suzuki6",
+    "suzuki8"
+   ],
+   "wins": {
+    "suzuki4": 10
+   }
+  },
+  {
+   "source": "measured",
+   "n": 10,
+   "candidates": [
+    "lie-trotter",
+    "suzuki2",
+    "suzuki4",
+    "suzuki6",
+    "suzuki8"
+   ],
+   "wins": {
+    "suzuki4": 10
+   }
+  },
+  {
+   "source": "measured",
+   "n": 11,
+   "candidates": [
+    "lie-trotter",
+    "suzuki2",
+    "suzuki4",
+    "suzuki6",
+    "suzuki8"
+   ],
+   "wins": {
+    "suzuki4": 10
+   }
+  },
+  {
+   "source": "tte",
+   "n": 4,
+   "candidates": [
+    "lie-trotter",
+    "suzuki2",
+    "suzuki4"
+   ],
+   "wins": {
+    "suzuki4": 10
+   }
+  },
+  {
+   "source": "tte",
+   "n": 5,
+   "candidates": [
+    "lie-trotter",
+    "suzuki2",
+    "suzuki4"
+   ],
+   "wins": {
+    "suzuki4": 10
+   }
+  },
+  {
+   "source": "tte",
+   "n": 6,
+   "candidates": [
+    "lie-trotter",
+    "suzuki2",
+    "suzuki4"
+   ],
+   "wins": {
+    "suzuki4": 10
+   }
+  },
+  {
+   "source": "tte",
+   "n": 7,
+   "candidates": [
+    "lie-trotter",
+    "suzuki2",
+    "suzuki4"
+   ],
+   "wins": {
+    "suzuki4": 10
+   }
+  },
+  {
+   "source": "tte",
+   "n": 8,
+   "candidates": [
+    "lie-trotter",
+    "suzuki2",
+    "suzuki4"
+   ],
+   "wins": {
+    "suzuki4": 10
+   }
+  },
+  {
+   "source": "tte",
+   "n": 9,
+   "candidates": [
+    "lie-trotter",
+    "suzuki2",
+    "suzuki4"
+   ],
+   "wins": {
+    "suzuki4": 10
+   }
+  },
+  {
+   "source": "tte",
+   "n": 10,
+   "candidates": [
+    "lie-trotter",
+    "suzuki2",
+    "suzuki4"
+   ],
+   "wins": {
+    "suzuki4": 10
+   }
+  },
+  {
+   "source": "tte",
+   "n": 11,
+   "candidates": [
+    "lie-trotter",
+    "suzuki2",
+    "suzuki4"
+   ],
+   "wins": {
+    "suzuki4": 10
+   }
+  },
+  {
+   "source": "emp",
+   "n": 4,
+   "candidates": [
+    "lie-trotter",
+    "suzuki2",
+    "suzuki4",
+    "suzuki6",
+    "suzuki8"
+   ],
+   "wins": {
+    "suzuki4": 10
+   }
+  },
+  {
+   "source": "emp",
+   "n": 5,
+   "candidates": [
+    "lie-trotter",
+    "suzuki2",
+    "suzuki4",
+    "suzuki6",
+    "suzuki8"
+   ],
+   "wins": {
+    "suzuki4": 10
+   }
+  },
+  {
+   "source": "emp",
+   "n": 6,
+   "candidates": [
+    "lie-trotter",
+    "suzuki2",
+    "suzuki4",
+    "suzuki6",
+    "suzuki8"
+   ],
+   "wins": {
+    "suzuki4": 10
+   }
+  },
+  {
+   "source": "emp",
+   "n": 7,
+   "candidates": [
+    "lie-trotter",
+    "suzuki2",
+    "suzuki4",
+    "suzuki6",
+    "suzuki8"
+   ],
+   "wins": {
+    "suzuki4": 10
+   }
+  },
+  {
+   "source": "emp",
+   "n": 8,
+   "candidates": [
+    "lie-trotter",
+    "suzuki2",
+    "suzuki4",
+    "suzuki6",
+    "suzuki8"
+   ],
+   "wins": {
+    "suzuki4": 10
+   }
+  },
+  {
+   "source": "emp",
+   "n": 9,
+   "candidates": [
+    "lie-trotter",
+    "suzuki2",
+    "suzuki4",
+    "suzuki6",
+    "suzuki8"
+   ],
+   "wins": {
+    "suzuki4": 10
+   }
+  },
+  {
+   "source": "emp",
+   "n": 10,
+   "candidates": [
+    "lie-trotter",
+    "suzuki2",
+    "suzuki4",
+    "suzuki6",
+    "suzuki8"
+   ],
+   "wins": {
+    "suzuki4": 10
+   }
+  },
+  {
+   "source": "emp",
+   "n": 11,
+   "candidates": [
+    "lie-trotter",
+    "suzuki2",
+    "suzuki4",
+    "suzuki6",
+    "suzuki8"
+   ],
+   "wins": {
+    "suzuki4": 10
+   }
+  },
+  {
+   "source": "com",
+   "n": 4,
+   "candidates": [
+    "lie-trotter",
+    "suzuki2",
+    "suzuki4"
+   ],
+   "wins": {
+    "suzuki2": 10
+   }
+  },
+  {
+   "source": "com",
+   "n": 5,
+   "candidates": [
+    "lie-trotter",
+    "suzuki2",
+    "suzuki4"
+   ],
+   "wins": {
+    "suzuki4": 10
+   }
+  },
+  {
+   "source": "com",
+   "n": 6,
+   "candidates": [
+    "lie-trotter",
+    "suzuki2",
+    "suzuki4"
+   ],
+   "wins": {
+    "suzuki4": 10
+   }
+  },
+  {
+   "source": "com",
+   "n": 7,
+   "candidates": [
+    "lie-trotter",
+    "suzuki2",
+    "suzuki4"
+   ],
+   "wins": {
+    "suzuki4": 10
+   }
+  },
+  {
+   "source": "com",
+   "n": 8,
+   "candidates": [
+    "lie-trotter",
+    "suzuki2",
+    "suzuki4"
+   ],
+   "wins": {
+    "suzuki4": 10
+   }
+  },
+  {
+   "source": "com",
+   "n": 9,
+   "candidates": [
+    "lie-trotter",
+    "suzuki2",
+    "suzuki4"
+   ],
+   "wins": {
+    "suzuki4": 10
+   }
+  },
+  {
+   "source": "com",
+   "n": 10,
+   "candidates": [
+    "lie-trotter",
+    "suzuki2",
+    "suzuki4"
+   ],
+   "wins": {
+    "suzuki4": 10
+   }
+  },
+  {
+   "source": "com",
+   "n": 11,
+   "candidates": [
+    "lie-trotter",
+    "suzuki2",
+    "suzuki4"
+   ],
+   "wins": {
+    "suzuki4": 10
+   }
+  },
+  {
+   "source": "min",
+   "n": 4,
+   "candidates": [
+    "lie-trotter",
+    "suzuki2",
+    "suzuki4",
+    "suzuki6",
+    "suzuki8"
+   ],
+   "wins": {
+    "suzuki2": 10
+   }
+  },
+  {
+   "source": "min",
+   "n": 5,
+   "candidates": [
+    "lie-trotter",
+    "suzuki2",
+    "suzuki4",
+    "suzuki6",
+    "suzuki8"
+   ],
+   "wins": {
+    "suzuki2": 10
+   }
+  },
+  {
+   "source": "min",
+   "n": 6,
+   "candidates": [
+    "lie-trotter",
+    "suzuki2",
+    "suzuki4",
+    "suzuki6",
+    "suzuki8"
+   ],
+   "wins": {
+    "suzuki2": 10
+   }
+  },
+  {
+   "source": "min",
+   "n": 7,
+   "candidates": [
+    "lie-trotter",
+    "suzuki2",
+    "suzuki4",
+    "suzuki6",
+    "suzuki8"
+   ],
+   "wins": {
+    "suzuki2": 10
+   }
+  },
+  {
+   "source": "min",
+   "n": 8,
+   "candidates": [
+    "lie-trotter",
+    "suzuki2",
+    "suzuki4",
+    "suzuki6",
+    "suzuki8"
+   ],
+   "wins": {
+    "suzuki2": 10
+   }
+  },
+  {
+   "source": "min",
+   "n": 9,
+   "candidates": [
+    "lie-trotter",
+    "suzuki2",
+    "suzuki4",
+    "suzuki6",
+    "suzuki8"
+   ],
+   "wins": {
+    "suzuki2": 10
+   }
+  },
+  {
+   "source": "min",
+   "n": 10,
+   "candidates": [
+    "lie-trotter",
+    "suzuki2",
+    "suzuki4",
+    "suzuki6",
+    "suzuki8"
+   ],
+   "wins": {
+    "suzuki2": 10
+   }
+  },
+  {
+   "source": "min",
+   "n": 11,
+   "candidates": [
+    "lie-trotter",
+    "suzuki2",
+    "suzuki4",
+    "suzuki6",
+    "suzuki8"
+   ],
+   "wins": {
+    "suzuki2": 10
+   }
+  },
+  {
+   "source": "ana",
+   "n": 4,
+   "candidates": [
+    "lie-trotter",
+    "suzuki2",
+    "suzuki4",
+    "suzuki6",
+    "suzuki8"
+   ],
+   "wins": {
+    "suzuki2": 10
+   }
+  },
+  {
+   "source": "ana",
+   "n": 5,
+   "candidates": [
+    "lie-trotter",
+    "suzuki2",
+    "suzuki4",
+    "suzuki6",
+    "suzuki8"
+   ],
+   "wins": {
+    "suzuki2": 10
+   }
+  },
+  {
+   "source": "ana",
+   "n": 6,
+   "candidates": [
+    "lie-trotter",
+    "suzuki2",
+    "suzuki4",
+    "suzuki6",
+    "suzuki8"
+   ],
+   "wins": {
+    "suzuki2": 10
+   }
+  },
+  {
+   "source": "ana",
+   "n": 7,
+   "candidates": [
+    "lie-trotter",
+    "suzuki2",
+    "suzuki4",
+    "suzuki6",
+    "suzuki8"
+   ],
+   "wins": {
+    "suzuki2": 10
+   }
+  },
+  {
+   "source": "ana",
+   "n": 8,
+   "candidates": [
+    "lie-trotter",
+    "suzuki2",
+    "suzuki4",
+    "suzuki6",
+    "suzuki8"
+   ],
+   "wins": {
+    "suzuki2": 10
+   }
+  },
+  {
+   "source": "ana",
+   "n": 9,
+   "candidates": [
+    "lie-trotter",
+    "suzuki2",
+    "suzuki4",
+    "suzuki6",
+    "suzuki8"
+   ],
+   "wins": {
+    "suzuki2": 10
+   }
+  },
+  {
+   "source": "ana",
+   "n": 10,
+   "candidates": [
+    "lie-trotter",
+    "suzuki2",
+    "suzuki4",
+    "suzuki6",
+    "suzuki8"
+   ],
+   "wins": {
+    "suzuki2": 10
+   }
+  },
+  {
+   "source": "ana",
+   "n": 11,
+   "candidates": [
+    "lie-trotter",
+    "suzuki2",
+    "suzuki4",
+    "suzuki6",
+    "suzuki8"
+   ],
+   "wins": {
+    "suzuki2": 10
+   }
+  }
+ ],
+ "provenance": {
+  "git_commit": "e5d9ee696f892e28aced765585653760f8a427c4",
+  "git_dirty": false,
+  "source_sha256": "4c3089b70f83e9c3809ed45cc5887da9d9551a5c13ff32370207df0af2c1b4f3",
+  "python": "3.12.13",
+  "numpy": "2.5.2",
+  "scipy": "1.18.1",
+  "pennylane": "0.45.1",
+  "mpmath": "1.4.1",
+  "pygridsynth": "2.0.0",
+  "platform": "macOS-26.6.2-arm64-arm-64bit",
+  "started": "2026-11-09 11:46:41 AEDT"
+ }
+}

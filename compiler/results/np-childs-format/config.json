@@ -1,0 +1,448 @@
+{
+ "name": "np-childs-format",
+ "description": "Gate counts vs n for n up to 500 in the format of Childs et al. 2018 (Figs. 3/10): mean measured r over NumPy seeds 1-10, power-law fit, exact affine per-step counts; up to 3 weakest formulas removed per figure, never one of the 2 cheapest at any plotted n. 2026-11-08: X-Y-Z figures fit n = 5-11 (np-main + np-main-n9/-n11), Childs et al.'s 'every size from 5' rule; two-group and optimised figures keep their fits (no n = 9, 11 runs).",
+ "out": ".",
+ "count_sizes": [
+  10,
+  20,
+  40
+ ],
+ "check_sizes": [
+  100
+ ],
+ "optimised_sizes": [
+  10,
+  13,
+  16
+ ],
+ "defaults": {
+  "remove": 3,
+  "protect_top": 2
+ },
+ "figures": [
+  {
+   "id": "main-total-all-formulas",
+   "experiment": "np-main",
+   "kind": "xyz",
+   "metric": "total",
+   "schemes": [
+    "lie-trotter",
+    "suzuki2",
+    "suzuki4",
+    "suzuki6",
+    "suzuki8",
+    "mo-q6",
+    "mo-q14",
+    "bm-q10",
+    "mo-o8-q21",
+    "morales-y8m10",
+    "morales-m8"
+   ],
+   "runs": {
+    "aggregate": "../np-main/aggregate.json",
+    "extra": [
+     "../np-main-n9/seed{seed}",
+     "../np-main-n11/seed{seed}"
+    ],
+    "dirty_exception": {
+     "commit": "e42ff29",
+     "reason": "np-main-n9/-n11 were run at e42ff29 with one uncommitted change: the signature of pfseeds.load_runs (per_seed_keys), which pfcompare does not import; e42ff29 differs from np-main's 01d3c27 only by the plsimcount->pysimcount rename. Spot-checked by recomputing from committed code on 2026-11-08 (see fit-change-checks.md)."
+    }
+   },
+   "fit_sizes": [
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11
+   ],
+   "extrapolate_sizes": [
+    13,
+    20,
+    30,
+    50,
+    70,
+    100,
+    200,
+    300,
+    500
+   ],
+   "title": "Every formula, X-Y-Z grouping, total gates vs n (cf. Childs et al. 2018 Fig. 3 right)",
+   "point": "seed-mean"
+  },
+  {
+   "id": "main-total-suzuki-orders",
+   "experiment": "np-main",
+   "kind": "xyz",
+   "metric": "total",
+   "schemes": [
+    "lie-trotter",
+    "suzuki2",
+    "suzuki4",
+    "suzuki6",
+    "suzuki8"
+   ],
+   "runs": {
+    "aggregate": "../np-main/aggregate.json",
+    "extra": [
+     "../np-main-n9/seed{seed}",
+     "../np-main-n11/seed{seed}"
+    ],
+    "dirty_exception": {
+     "commit": "e42ff29",
+     "reason": "np-main-n9/-n11 were run at e42ff29 with one uncommitted change: the signature of pfseeds.load_runs (per_seed_keys), which pfcompare does not import; e42ff29 differs from np-main's 01d3c27 only by the plsimcount->pysimcount rename. Spot-checked by recomputing from committed code on 2026-11-08 (see fit-change-checks.md)."
+    }
+   },
+   "fit_sizes": [
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11
+   ],
+   "extrapolate_sizes": [
+    13,
+    20,
+    30,
+    50,
+    70,
+    100,
+    200,
+    300,
+    500
+   ],
+   "title": "Suzuki formulas of each order, total gates vs n (layout of Childs et al. 2018 Fig. 3 right)",
+   "point": "seed-mean"
+  },
+  {
+   "id": "main-cnot-all-formulas",
+   "line_style": "suzuki-dashed",
+   "experiment": "np-main",
+   "kind": "xyz",
+   "metric": "cnot",
+   "schemes": [
+    "lie-trotter",
+    "suzuki2",
+    "suzuki4",
+    "suzuki6",
+    "suzuki8",
+    "mo-q6",
+    "mo-q14",
+    "bm-q10",
+    "mo-o8-q21",
+    "morales-y8m10",
+    "morales-m8"
+   ],
+   "runs": {
+    "aggregate": "../np-main/aggregate.json",
+    "extra": [
+     "../np-main-n9/seed{seed}",
+     "../np-main-n11/seed{seed}"
+    ],
+    "dirty_exception": {
+     "commit": "e42ff29",
+     "reason": "np-main-n9/-n11 were run at e42ff29 with one uncommitted change: the signature of pfseeds.load_runs (per_seed_keys), which pfcompare does not import; e42ff29 differs from np-main's 01d3c27 only by the plsimcount->pysimcount rename. Spot-checked by recomputing from committed code on 2026-11-08 (see fit-change-checks.md)."
+    }
+   },
+   "fit_sizes": [
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11
+   ],
+   "extrapolate_sizes": [
+    13,
+    20,
+    30,
+    50,
+    70,
+    100,
+    200,
+    300,
+    500
+   ],
+   "title": "Every formula, X-Y-Z grouping, cnot gates vs n (cf. Childs et al. 2018 Fig. 3 right)",
+   "point": "seed-mean"
+  },
+  {
+   "id": "main-cnot-suzuki-orders",
+   "line_style": "suzuki-dashed",
+   "experiment": "np-main",
+   "kind": "xyz",
+   "metric": "cnot",
+   "schemes": [
+    "lie-trotter",
+    "suzuki2",
+    "suzuki4",
+    "suzuki6",
+    "suzuki8"
+   ],
+   "runs": {
+    "aggregate": "../np-main/aggregate.json",
+    "extra": [
+     "../np-main-n9/seed{seed}",
+     "../np-main-n11/seed{seed}"
+    ],
+    "dirty_exception": {
+     "commit": "e42ff29",
+     "reason": "np-main-n9/-n11 were run at e42ff29 with one uncommitted change: the signature of pfseeds.load_runs (per_seed_keys), which pfcompare does not import; e42ff29 differs from np-main's 01d3c27 only by the plsimcount->pysimcount rename. Spot-checked by recomputing from committed code on 2026-11-08 (see fit-change-checks.md)."
+    }
+   },
+   "fit_sizes": [
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11
+   ],
+   "extrapolate_sizes": [
+    13,
+    20,
+    30,
+    50,
+    70,
+    100,
+    200,
+    300,
+    500
+   ],
+   "title": "Suzuki formulas of each order, cnot gates vs n (layout of Childs et al. 2018 Fig. 3 right)",
+   "point": "seed-mean"
+  },
+  {
+   "id": "grouping-total-twogroup-even-out",
+   "experiment": "np-grouping",
+   "kind": "twogroup-even-out",
+   "metric": "total",
+   "schemes": [
+    "lie-trotter",
+    "suzuki2",
+    "suzuki4",
+    "suzuki6",
+    "suzuki8",
+    "mo-q6",
+    "mo-q14",
+    "bm-q10",
+    "mo-o8-q21",
+    "morales-y8m10",
+    "morales-m8"
+   ],
+   "runs": "../np-grouping/aggregate.json",
+   "fit_sizes": [
+    6,
+    8,
+    10
+   ],
+   "extrapolate_sizes": [
+    14,
+    20,
+    30,
+    50,
+    70,
+    100,
+    200,
+    300,
+    500
+   ],
+   "title": "Every formula, two-group grouping (twogroup-even-out), total gates vs n (even n only)"
+  },
+  {
+   "id": "grouping-cnot-twogroup-even-out",
+   "experiment": "np-grouping",
+   "kind": "twogroup-even-out",
+   "metric": "cnot",
+   "schemes": [
+    "lie-trotter",
+    "suzuki2",
+    "suzuki4",
+    "suzuki6",
+    "suzuki8",
+    "mo-q6",
+    "mo-q14",
+    "bm-q10",
+    "mo-o8-q21",
+    "morales-y8m10",
+    "morales-m8"
+   ],
+   "runs": "../np-grouping/aggregate.json",
+   "fit_sizes": [
+    6,
+    8,
+    10
+   ],
+   "extrapolate_sizes": [
+    14,
+    20,
+    30,
+    50,
+    70,
+    100,
+    200,
+    300,
+    500
+   ],
+   "title": "Every formula, two-group grouping (twogroup-even-out), cnot gates vs n (even n only)"
+  },
+  {
+   "id": "grouping-total-twogroup-odd-out",
+   "experiment": "np-grouping",
+   "kind": "twogroup-odd-out",
+   "metric": "total",
+   "schemes": [
+    "lie-trotter",
+    "suzuki2",
+    "suzuki4",
+    "suzuki6",
+    "suzuki8",
+    "mo-q6",
+    "mo-q14",
+    "bm-q10",
+    "mo-o8-q21",
+    "morales-y8m10",
+    "morales-m8"
+   ],
+   "runs": "../np-grouping/aggregate.json",
+   "fit_sizes": [
+    6,
+    8,
+    10
+   ],
+   "extrapolate_sizes": [
+    14,
+    20,
+    30,
+    50,
+    70,
+    100,
+    200,
+    300,
+    500
+   ],
+   "title": "Every formula, two-group grouping (twogroup-odd-out), total gates vs n (even n only)"
+  },
+  {
+   "id": "grouping-cnot-twogroup-odd-out",
+   "experiment": "np-grouping",
+   "kind": "twogroup-odd-out",
+   "metric": "cnot",
+   "schemes": [
+    "lie-trotter",
+    "suzuki2",
+    "suzuki4",
+    "suzuki6",
+    "suzuki8",
+    "mo-q6",
+    "mo-q14",
+    "bm-q10",
+    "mo-o8-q21",
+    "morales-y8m10",
+    "morales-m8"
+   ],
+   "runs": "../np-grouping/aggregate.json",
+   "fit_sizes": [
+    6,
+    8,
+    10
+   ],
+   "extrapolate_sizes": [
+    14,
+    20,
+    30,
+    50,
+    70,
+    100,
+    200,
+    300,
+    500
+   ],
+   "title": "Every formula, two-group grouping (twogroup-odd-out), cnot gates vs n (even n only)"
+  },
+  {
+   "id": "optimised-total-all-formulas",
+   "experiment": "np-optimised-seeds",
+   "kind": "optimised",
+   "metric": "total",
+   "schemes": [
+    "lie-trotter",
+    "suzuki2",
+    "suzuki4",
+    "suzuki6",
+    "suzuki8",
+    "mo-q6",
+    "mo-q14",
+    "bm-q10",
+    "mo-o8-q21",
+    "morales-y8m10",
+    "morales-m8"
+   ],
+   "runs": "../np-optimised-seeds/aggregate.json",
+   "fit_sizes": [
+    5,
+    6,
+    7,
+    8,
+    10
+   ],
+   "extrapolate_sizes": [
+    13,
+    20,
+    30,
+    50,
+    70,
+    100,
+    200,
+    300,
+    500
+   ],
+   "title": "Every formula, Nam Light optimised step, total gates vs n"
+  },
+  {
+   "id": "optimised-cnot-all-formulas",
+   "experiment": "np-optimised-seeds",
+   "kind": "optimised",
+   "metric": "cnot",
+   "schemes": [
+    "lie-trotter",
+    "suzuki2",
+    "suzuki4",
+    "suzuki6",
+    "suzuki8",
+    "mo-q6",
+    "mo-q14",
+    "bm-q10",
+    "mo-o8-q21",
+    "morales-y8m10",
+    "morales-m8"
+   ],
+   "runs": "../np-optimised-seeds/aggregate.json",
+   "fit_sizes": [
+    5,
+    6,
+    7,
+    8,
+    10
+   ],
+   "extrapolate_sizes": [
+    13,
+    20,
+    30,
+    50,
+    70,
+    100,
+    200,
+    300,
+    500
+   ],
+   "title": "Every formula, Nam Light optimised step, cnot gates vs n"
+  }
+ ]
+}

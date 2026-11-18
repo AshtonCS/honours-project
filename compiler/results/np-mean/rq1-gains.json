@@ -1,0 +1,37 @@
+{
+ "description": "RQ1 main-body table: gain over the same-order Suzuki formula, measured n = 4-11, geometric mean over NumPy seeds 1-10, with per-step x r decomposition and M&O's Eff prediction.",
+ "runs": {
+  "aggregate": "../np-main/aggregate.json",
+  "extra": [
+   "../np-main-n9/seed{seed}",
+   "../np-main-n11/seed{seed}"
+  ],
+  "dirty_exception": {
+   "commit": "e42ff29",
+   "reason": "np-main-n9/-n11 were run at e42ff29 with one uncommitted change: the signature of pfseeds.load_runs (per_seed_keys), which pfcompare does not import; e42ff29 differs from np-main's 01d3c27 only by the plsimcount->pysimcount rename. Spot-checked by recomputing from committed code on 2026-11-08 (see fit-change-checks.md)."
+  }
+ },
+ "sizes": [
+  4,
+  5,
+  6,
+  7,
+  8,
+  9,
+  10,
+  11
+ ],
+ "table_n": 11,
+ "names": {
+  "suzuki4": "S4",
+  "suzuki6": "S6",
+  "suzuki8": "S8",
+  "mo-q6": "M&O q=6",
+  "mo-q14": "M&O q=14",
+  "bm-q10": "Blanes & Moan q=10",
+  "mo-o8-q21": "M&O q=21 (order 8)",
+  "morales-y8m10": "Morales Y8m10",
+  "morales-m8": "Morales m=8"
+ },
+ "out": "rq1-gains-table"
+}

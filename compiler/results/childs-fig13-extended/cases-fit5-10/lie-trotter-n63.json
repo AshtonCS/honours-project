@@ -1,0 +1,37 @@
+{
+ "scheme": "lie-trotter",
+ "name": "Lie-Trotter S1",
+ "order": 1,
+ "n": 63,
+ "seed": 1,
+ "r": 13372713,
+ "before_per_step": {
+  "CNOT": 378,
+  "Rz": 252,
+  "total": 1638
+ },
+ "marginal_per_step": {
+  "CNOT": 378,
+  "Rz": 252,
+  "total": 1007
+ },
+ "edge": {
+  "CNOT": 0,
+  "Rz": 0,
+  "total": 0
+ },
+ "before_total": {
+  "CNOT": 5054885514,
+  "Rz": 3369923676,
+  "total": 21904503894
+ },
+ "after_total": {
+  "CNOT": 5054885514,
+  "Rz": 3369923676,
+  "total": 13466321991
+ },
+ "optimiser_seconds": 2.9,
+ "verified": false,
+ "verify_state_err": null,
+ "r_eq147": 8265033
+}

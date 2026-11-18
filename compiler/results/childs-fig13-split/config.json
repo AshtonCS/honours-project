@@ -1,0 +1,9 @@
+{
+ "name": "childs-fig13-split",
+ "description": "RQ4 validation: Childs et al. 2018 optimiser saving per Suzuki order, split into exponential merging (weighted.merge) and optimiser-only (step boundary), per step at n = 13 (smallest published sample size), Eq. 147 r, cz. Published simcount S4/S6 circuits overlaid.",
+ "schemes": ["lie-trotter", "suzuki2", "suzuki4", "suzuki6", "suzuki8"],
+ "n": 13,
+ "seed": 1,
+ "verify_max_n": 13,
+ "out": "."
+}

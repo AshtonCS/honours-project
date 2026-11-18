@@ -1,0 +1,17 @@
+{
+ "name": "np-optimised-seeds aggregate",
+ "description": "Unoptimised vs Nam Light optimised cz totals (merged steps, measured r from np-main/seed<s>), every formula, n = 4-10: per-seed paired factor (= per-step unopt / marginal), median and min-max over NumPy seeds 1-10, with median totals side by side.",
+ "runs": [
+  "seed1/results.json",
+  "seed2/results.json",
+  "seed3/results.json",
+  "seed4/results.json",
+  "seed5/results.json",
+  "seed6/results.json",
+  "seed7/results.json",
+  "seed8/results.json",
+  "seed9/results.json",
+  "seed10/results.json"
+ ],
+ "out": "aggregate"
+}

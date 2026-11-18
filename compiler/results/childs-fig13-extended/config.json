@@ -1,0 +1,88 @@
+{
+ "name": "childs-fig13-extended",
+ "description": "Childs et al. 2018 (arXiv:1711.10980v1) Fig. 13 left/right extended to every product formula in the project: CNOT and Rz before/after the Light-optimiser reconstruction, unmerged simcount step, cz, at the published sample sizes. r for every formula (Suzuki included) = ceil(a n^b) fitted to the mean measured r over NumPy seeds 1-10 at n = 5-11 (np-main + np-main-n9 + np-main-n11), so every point is extrapolated. Fields from NumPy seed 1 (they do not affect the counts).",
+ "schemes": [
+  "lie-trotter",
+  "suzuki2",
+  "suzuki4",
+  "suzuki6",
+  "suzuki8",
+  "mo-q6",
+  "mo-q14",
+  "bm-q10",
+  "mo-o8-q21",
+  "morales-y8m10",
+  "morales-m8"
+ ],
+ "sizes": [
+  13,
+  16,
+  20,
+  25,
+  32,
+  40,
+  50,
+  63,
+  79,
+  100
+ ],
+ "fit_sizes": [
+  5,
+  6,
+  7,
+  8,
+  9,
+  10,
+  11
+ ],
+ "seeds": [
+  1,
+  2,
+  3,
+  4,
+  5,
+  6,
+  7,
+  8,
+  9,
+  10
+ ],
+ "runs": [
+  "../np-main/seed{seed}",
+  "../np-main-n9/seed{seed}",
+  "../np-main-n11/seed{seed}"
+ ],
+ "seed": 1,
+ "verify_max_n": 16,
+ "variants": [
+  {
+   "name": "fig13ext-cnot-lines",
+   "metric": "CNOT",
+   "drop": [
+    "lie-trotter",
+    "suzuki2",
+    "suzuki8"
+   ]
+  },
+  {
+   "name": "fig13ext-cnot-lines-before",
+   "metric": "CNOT",
+   "drop": [
+    "lie-trotter",
+    "suzuki2",
+    "suzuki8"
+   ],
+   "show": "before"
+  },
+  {
+   "name": "fig13ext-cnot-lines-after",
+   "metric": "CNOT",
+   "drop": [
+    "lie-trotter",
+    "suzuki2",
+    "suzuki8"
+   ],
+   "show": "after"
+  }
+ ]
+}

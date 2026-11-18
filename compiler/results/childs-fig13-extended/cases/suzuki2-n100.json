@@ -1,0 +1,37 @@
+{
+ "scheme": "suzuki2",
+ "name": "Suzuki S2",
+ "order": 2,
+ "n": 100,
+ "seed": 1,
+ "r": 236625,
+ "before_per_step": {
+  "CNOT": 1200,
+  "Rz": 700,
+  "total": 5100
+ },
+ "marginal_per_step": {
+  "CNOT": 800,
+  "Rz": 500,
+  "total": 2292
+ },
+ "edge": {
+  "CNOT": 200,
+  "Rz": 100,
+  "total": 504
+ },
+ "before_total": {
+  "CNOT": 283950000,
+  "Rz": 165637500,
+  "total": 1206787500
+ },
+ "after_total": {
+  "CNOT": 189300200,
+  "Rz": 118312600,
+  "total": 542345004
+ },
+ "optimiser_seconds": 3.1,
+ "verified": false,
+ "verify_state_err": null,
+ "r_eq147": 229906
+}

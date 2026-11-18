@@ -1,0 +1,8 @@
+{
+ "name": "np-mean",
+ "description": "Mean (counts, r) and geometric-mean (ratios) summaries over NumPy seeds 1-10 of np-main, np-grouping and np-optimised-seeds, beside the existing medians. Reads the same runs as those aggregates; writes nothing there.",
+ "main": "../np-main/aggregate.json",
+ "grouping": "../np-grouping/aggregate.json",
+ "optimised": "../np-optimised-seeds/aggregate.json",
+ "out": "."
+}

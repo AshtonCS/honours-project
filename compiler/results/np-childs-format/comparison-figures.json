@@ -1,0 +1,49 @@
+{
+ "figures": [
+  {
+   "source": "main-cnot-all-formulas.json",
+   "runs": {"aggregate": "../np-main/aggregate.json", "extra": ["../np-main-n9/seed{seed}", "../np-main-n11/seed{seed}"], "dirty_exception": {"commit": "e42ff29", "reason": "np-main-n9/-n11 were run at e42ff29 with one uncommitted change: the signature of pfseeds.load_runs (per_seed_keys), which pfcompare does not import; e42ff29 differs from np-main's 01d3c27 only by the plsimcount->pysimcount rename. Spot-checked by recomputing from committed code on 2026-11-08 (see fit-change-checks.md)."}},
+   "reference": "bm-q10",
+   "ratio": {
+    "width_cm": 14.5, "height_cm": 9.5,
+    "xmin": 3.5, "xmax": 600, "ymin": 0.65, "ymax": 16,
+    "ytick": [0.7, 1, 1.5, 2, 3, 5, 8, 15],
+    "ylabel": "CNOT count relative to Blanes \\& Moan $q=10$",
+    "mark_size": "1.8pt",
+    "legend_columns": 2,
+    "bar_sizes": [4, 5, 6, 7, 8, 10, 30, 100, 500],
+    "bar_note": "bars: min--max over seeds, drawn at $n \\le 10$ and $n = 30, 100, 500$"
+   },
+   "families": {
+    "columns": 2, "width_cm": 7.0, "height_cm": 5.2, "gap_x_cm": 0.4, "gap_y_cm": 0.9,
+    "xmin": 3.5, "xmax": 600, "ymin": 1e3, "ymax": 1e10,
+    "ylabel": "CNOT count (Clifford+$R_z$)",
+    "mark_size": "1.5pt",
+    "legend_pos": "south east",
+    "panels": [
+     {"title": "Suzuki", "schemes": ["suzuki4", "suzuki6"]},
+     {"title": "Male\\v{z}i\\v{c} \\& Ostmeyer", "schemes": ["mo-q6", "mo-q14", "mo-o8-q21"],
+      "labels": {"mo-q6": "M\\&O $q=6$", "mo-q14": "M\\&O $q=14$", "mo-o8-q21": "M\\&O $q=21$, order 8"}},
+     {"title": "Morales et al.", "schemes": ["morales-y8m10", "morales-m8"]},
+     {"title": "Blanes \\& Moan", "schemes": ["bm-q10"]}
+    ],
+    "note": "Filled, solid: measured $r$. Open, dashed: $r$ from power-law fit to mean measured $r$ ({fit}). Grey: the formulas of the other panels. Bars: min--max over seeds. Vertical line: start of extrapolation."
+   },
+   "families_ratio": {
+    "columns": 3, "width_cm": 4.7, "height_cm": 6.0, "gap_x_cm": 0.3, "gap_y_cm": 0.9,
+    "xmin": 3.5, "xmax": 600, "ymin": 0.65, "ymax": 16,
+    "ytick": [0.7, 1, 1.5, 2, 3, 5, 8, 15],
+    "ylabel": "CNOT count relative to Blanes \\& Moan $q=10$",
+    "mark_size": "1.5pt",
+    "legend_pos": "north west",
+    "panels": [
+     {"title": "Suzuki", "schemes": ["suzuki4", "suzuki6"]},
+     {"title": "Male\\v{z}i\\v{c} \\& Ostmeyer", "schemes": ["mo-q6", "mo-q14", "mo-o8-q21"],
+      "labels": {"mo-q6": "M\\&O $q=6$", "mo-q14": "M\\&O $q=14$", "mo-o8-q21": "M\\&O $q=21$, order 8"}},
+     {"title": "Morales et al.", "schemes": ["morales-y8m10", "morales-m8"]}
+    ],
+    "note": "Black line: Blanes \\& Moan $q{=}10$, the reference. Filled, solid: measured $r$. Open, dashed: per-seed power-law fits of $r$ ({fit}). Grey: the formulas of the other panels. Points: geometric mean of per-seed ratios; bars: min--max over seeds. Vertical line: start of extrapolation."
+   }
+  }
+ ]
+}

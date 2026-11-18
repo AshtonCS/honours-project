@@ -1,0 +1,103 @@
+{
+ "source": "bound-min-t-all-formulas.json",
+ "source_sha256": "a4b15e4708c194b9d2867c8e4268e5b0434b28c9977d4aa360fb0b7e04741962",
+ "n": 500,
+ "rows": [
+  {
+   "scheme": "bm-q10",
+   "value": 4244340897978982.5,
+   "min": 4243863223160832,
+   "max": 4244645015007232,
+   "measured": true,
+   "seed_mean": 4244340897978982.5,
+   "wins": 10,
+   "rank_min": 1.0,
+   "rank_max": 1.0,
+   "mean_rank": 1.0
+  },
+  {
+   "scheme": "morales-m8",
+   "value": 4957201210811278.0,
+   "min": 4956903315774696,
+   "max": 4957493714082492,
+   "measured": true,
+   "seed_mean": 4957201210811278.0,
+   "wins": 0,
+   "rank_min": 2.0,
+   "rank_max": 2.0,
+   "mean_rank": 2.0
+  },
+  {
+   "scheme": "suzuki4",
+   "value": 6361927621538722.0,
+   "min": 6361145714123712,
+   "max": 6362764439789020,
+   "measured": true,
+   "seed_mean": 6361927621538721.0,
+   "wins": 0,
+   "rank_min": 3.0,
+   "rank_max": 3.0,
+   "mean_rank": 3.0
+  },
+  {
+   "scheme": "mo-o8-q21",
+   "value": 7825485532544474.0,
+   "min": 7824867416337972,
+   "max": 7826229801892680,
+   "measured": true,
+   "seed_mean": 7825485532544474.0,
+   "wins": 0,
+   "rank_min": 4.0,
+   "rank_max": 4.0,
+   "mean_rank": 4.0
+  },
+  {
+   "scheme": "morales-y8m10",
+   "value": 7832208230047053.0,
+   "min": 7831734044660760,
+   "max": 7832662244605812,
+   "measured": true,
+   "seed_mean": 7832208230047054.0,
+   "wins": 0,
+   "rank_min": 5.0,
+   "rank_max": 5.0,
+   "mean_rank": 5.0
+  },
+  {
+   "scheme": "mo-q14",
+   "value": 8877642590136504.0,
+   "min": 8876747320952240,
+   "max": 8878223039387840,
+   "measured": true,
+   "seed_mean": 8877642590136504.0,
+   "wins": 0,
+   "rank_min": 6.0,
+   "rank_max": 6.0,
+   "mean_rank": 6.0
+  },
+  {
+   "scheme": "mo-q6",
+   "value": 9679562212483252.0,
+   "min": 9678891257551516,
+   "max": 9680112481731336,
+   "measured": true,
+   "seed_mean": 9679562212483252.0,
+   "wins": 0,
+   "rank_min": 7.0,
+   "rank_max": 7.0,
+   "mean_rank": 7.0
+  },
+  {
+   "scheme": "suzuki2",
+   "value": 3.943298563407793e+16,
+   "min": 39428822885641232,
+   "max": 39438316873303872,
+   "measured": true,
+   "seed_mean": 3.943298563407793e+16,
+   "wins": 0,
+   "rank_min": 8.0,
+   "rank_max": 8.0,
+   "mean_rank": 8.0
+  }
+ ]
+}

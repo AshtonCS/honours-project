@@ -1,0 +1,345 @@
+{
+ "_comment": "Read by pysimcount.figgallery. Each rule tags every figure whose manifest fields all match its globs (fnmatch) with tier 'key' (shown in the top section for that RQ) or 'related'. A figure keeps its highest tier per RQ. A rule that matches no figure is an error, so stale rules cannot hide. RQ wording from RQ-summary.pdf (25 Oct 2026). The tiers are a proposal, not a decision recorded elsewhere.",
+ "questions": {
+  "RQ1": "Does a low exponential count survive compilation? (cost in CNOT and T at equal precision)",
+  "RQ2": "How loose are the Trotter-number bounds, and does the choice of bound change the winner?",
+  "RQ3": "How do system size and term grouping affect r and cost per step, and does the preferred formula change?",
+  "RQ4": "How much do exact circuit optimisations reduce gate counts, and do they change the ranking?"
+ },
+ "rules": [
+  {
+   "rq": [
+    "RQ1"
+   ],
+   "tier": "key",
+   "match": {
+    "path": "np-main/aggregate/figures/merged/*/B-*-by-formula.tex",
+    "metric": [
+     "cnot",
+     "t"
+    ]
+   },
+   "reason": "every formula (or every formula of one order) at measured r, 10 seeds, in the RQ1 metrics CNOT and T"
+  },
+  {
+   "rq": [
+    "RQ1"
+   ],
+   "tier": "related",
+   "match": {
+    "path": "np-main/aggregate/figures/merged/total/B-*-by-formula.tex"
+   },
+   "reason": "same comparison in total gates"
+  },
+  {
+   "rq": [
+    "RQ1"
+   ],
+   "tier": "related",
+   "match": {
+    "path": "np-main/seed1/*/B-*-by-formula.tex"
+   },
+   "reason": "single-seed version of the RQ1 comparison"
+  },
+  {
+   "rq": [
+    "RQ1"
+   ],
+   "tier": "related",
+   "match": {
+    "path": "np-childs-format/main-*-all-formulas.tex"
+   },
+   "reason": "the same comparison extrapolated to n = 500"
+  },
+  {
+   "rq": [
+    "RQ1"
+   ],
+   "tier": "key",
+   "match": {
+    "path": [
+     "np-childs-format/main-*-all-formulas-n500-dots.tex",
+     "np-childs-format/main-*-all-formulas-with-n500.tex",
+     "np-childs-format/main-*-all-formulas-with-zoom.tex",
+     "np-childs-format/main-*-all-formulas-mean-rank.tex"
+    ],
+    "metric": [
+     "cnot",
+     "t"
+    ]
+   },
+   "reason": "who is predicted cheapest at n = 500 (ranked dot plot, cheapest-on count, rank range; mean rank against n), in CNOT and T, fit n = 5-11"
+  },
+  {
+   "rq": [
+    "RQ1"
+   ],
+   "tier": "related",
+   "match": {
+    "path": [
+     "np-childs-format/main-total-all-formulas-n500-dots.tex",
+     "np-childs-format/main-total-all-formulas-with-n500.tex",
+     "np-childs-format/main-total-all-formulas-mean-rank.tex"
+    ]
+   },
+   "reason": "same n = 500 ranking in total gates"
+  },
+  {
+   "rq": [
+    "RQ1"
+   ],
+   "tier": "related",
+   "match": {
+    "experiment": "np-eps"
+   },
+   "reason": "checks the same-order comparison at other precisions (seed 1)"
+  },
+  {
+   "rq": [
+    "RQ1"
+   ],
+   "tier": "related",
+   "match": {
+    "path": "pf-*/*B-*-by-formula.tex"
+   },
+   "reason": "legacy simcount-seed run, superseded by np-main"
+  },
+  {
+   "rq": [
+    "RQ1"
+   ],
+   "tier": "related",
+   "match": {
+    "experiment": "pf-eps"
+   },
+   "reason": "legacy precision sweep, superseded by np-eps"
+  },
+  {
+   "rq": [
+    "RQ2"
+   ],
+   "tier": "key",
+   "match": {
+    "path": "np-main/seed1/*/merged/cnot/[AC]-*-by-*.tex"
+   },
+   "reason": "r from each bound against measured r, as CNOT cost: shows looseness (C) and the winner under each bound (A)"
+  },
+  {
+   "rq": [
+    "RQ2"
+   ],
+   "tier": "related",
+   "match": {
+    "path": "np-main/seed1/*/[AC]-*-by-*.tex",
+    "metric": [
+     "total",
+     "t"
+    ]
+   },
+   "reason": "same bound comparison in total gates or T"
+  },
+  {
+   "rq": [
+    "RQ2"
+   ],
+   "tier": "related",
+   "match": {
+    "path": "pf-thesis/*[AC]-*-by-*.tex"
+   },
+   "reason": "legacy simcount seed 1, superseded by np-main"
+  },
+  {
+   "rq": [
+    "RQ3"
+   ],
+   "tier": "key",
+   "match": {
+    "experiment": "np-childs-format",
+    "path": "np-childs-format/main-*"
+   },
+   "reason": "cost against n to n = 500 (measured to 11, then fitted r on n = 5-11); the Suzuki panel shows the S4/S6 crossover"
+  },
+  {
+   "rq": [
+    "RQ3"
+   ],
+   "tier": "key",
+   "match": {
+    "experiment": "np-childs-format",
+    "path": "np-childs-format/grouping-*"
+   },
+   "reason": "two-group grouping against n to n = 500; compare with the X-Y-Z panel"
+  },
+  {
+   "rq": [
+    "RQ3"
+   ],
+   "tier": "key",
+   "match": {
+    "experiment": "np-grouping"
+   },
+   "reason": "r against n under each grouping, 10 seeds"
+  },
+  {
+   "rq": [
+    "RQ3"
+   ],
+   "tier": "related",
+   "match": {
+    "path": "np-main/aggregate/*A-measured-by-order.tex"
+   },
+   "reason": "Suzuki cost against n at measured r, 10 seeds (n = 4-20)"
+  },
+  {
+   "rq": [
+    "RQ3"
+   ],
+   "tier": "related",
+   "match": {
+    "path": "np-main/aggregate/*B-all-by-formula.tex"
+   },
+   "reason": "every formula against n at measured r, 10 seeds"
+  },
+  {
+   "rq": [
+    "RQ3"
+   ],
+   "tier": "related",
+   "match": {
+    "experiment": "pf-grouping"
+   },
+   "reason": "legacy simcount seed 1 grouping comparison (unmerged), superseded by np-grouping"
+  },
+  {
+   "rq": [
+    "RQ3"
+   ],
+   "tier": "related",
+   "match": {
+    "path": "pf-*/*A-measured-by-order.tex"
+   },
+   "reason": "legacy simcount-seed run, superseded by np-main"
+  },
+  {
+   "rq": [
+    "RQ4"
+   ],
+   "tier": "key",
+   "match": {
+    "experiment": "np-childs-format",
+    "path": "np-childs-format/optimised-*"
+   },
+   "reason": "Nam Light optimised cost against n, mean over 10 seeds, extrapolated to n = 500"
+  },
+  {
+   "rq": [
+    "RQ4"
+   ],
+   "tier": "related",
+   "match": {
+    "experiment": "np-optimised-seeds"
+   },
+   "reason": "optimised against unoptimised CNOT, one seed per figure"
+  },
+  {
+   "rq": [
+    "RQ4"
+   ],
+   "tier": "related",
+   "match": {
+    "experiment": "np-optimised"
+   },
+   "reason": "earlier seed-1-only optimiser run"
+  },
+  {
+   "rq": [
+    "RQ4"
+   ],
+   "tier": "related",
+   "match": {
+    "experiment": "pf-optimised"
+   },
+   "reason": "legacy simcount seed 1, superseded by np-optimised-seeds"
+  },
+  {
+   "rq": [
+    "RQ4"
+   ],
+   "tier": "key",
+   "match": {
+    "path": "childs-fig13/figures/fig13-*.tex"
+   },
+   "reason": "replica of Childs et al. 2018 Fig. 13 (Eq. 147 r, unmerged step): before/after equal simcount's published circuits for S4/S6, so the 33% CNOT saving is exponential merging"
+  },
+  {
+   "rq": [
+    "RQ4"
+   ],
+   "tier": "key",
+   "match": {
+    "path": "childs-fig13-extended/figures/fig13ext-*.tex"
+   },
+   "reason": "Fig. 13 format with every formula, r from the measured-r fit (n = 5-10), n = 13-100, all extrapolated"
+  },
+  {
+   "rq": [
+    "RQ1"
+   ],
+   "tier": "related",
+   "match": {
+    "path": "childs-fig13-extended/figures/fig13ext-cnot.tex"
+   },
+   "reason": "every formula's CNOT count to n = 100 before/after optimisation (extrapolated r)"
+  },
+  {
+   "rq": [
+    "RQ1"
+   ],
+   "tier": "key",
+   "match": {
+    "path": "np-tcount/figures/tcount-vs-n.tex"
+   },
+   "reason": "T-count vs n, Suzuki vs optimised at equal order, mean over 10 seeds, measured n = 4-10 plus fitted r at 13/20 (synthesised)"
+  },
+  {
+   "rq": [
+    "RQ1"
+   ],
+   "tier": "related",
+   "match": {
+    "path": "np-tcount/figures/t-per-rotation.tex"
+   },
+   "reason": "synthesis model behind the T-count: T per rotation linear in log2(1/eps_rot)"
+  },
+  {
+   "rq": [
+    "RQ2"
+   ],
+   "tier": "key",
+   "match": {
+    "path": "np-bounds-ratio/figures/bound-ratio-suzuki4.tex"
+   },
+   "reason": "how loose each bound is against n: bound r / measured r for S4, geometric mean over 10 seeds, measured n = 4-11"
+  },
+  {
+   "rq": [
+    "RQ2"
+   ],
+   "tier": "related",
+   "match": {
+    "path": "np-bounds-ratio/figures/bound-ratio-*.tex"
+   },
+   "reason": "the same ratio for Lie-Trotter, S2, S6, S8 (commutator bounds exist for orders 1, 2, 4 only)"
+  },
+  {
+   "rq": [
+    "RQ4"
+   ],
+   "tier": "key",
+   "match": {
+    "path": "childs-fig13-split/figures/merge-split-*.tex"
+   },
+   "reason": "validation: Childs et al.'s optimiser saving split into exponential merging and optimiser-only, with simcount's published S4/S6 circuits"
+  }
+ ]
+}

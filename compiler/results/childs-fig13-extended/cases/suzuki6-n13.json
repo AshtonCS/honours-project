@@ -1,0 +1,37 @@
+{
+ "scheme": "suzuki6",
+ "name": "Suzuki S6",
+ "order": 6,
+ "n": 13,
+ "seed": 1,
+ "r": 53,
+ "before_per_step": {
+  "CNOT": 3900,
+  "Rz": 2275,
+  "total": 16575
+ },
+ "marginal_per_step": {
+  "CNOT": 2600,
+  "Rz": 1625,
+  "total": 7275
+ },
+ "edge": {
+  "CNOT": 26,
+  "Rz": 13,
+  "total": 69
+ },
+ "before_total": {
+  "CNOT": 206700,
+  "Rz": 120575,
+  "total": 878475
+ },
+ "after_total": {
+  "CNOT": 137826,
+  "Rz": 86138,
+  "total": 385644
+ },
+ "optimiser_seconds": 4.1,
+ "verified": true,
+ "verify_state_err": 9.896393418744556e-13,
+ "r_eq147": 52
+}

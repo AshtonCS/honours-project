@@ -1,0 +1,47 @@
+{
+  "name": "np-main-n11/seed3",
+  "description": "np-main settings at n = 11 only (added 2026-10-29 to match the n = 5-12 range of Childs et al. 2018 Fig. 4): NumPy instance seed 3 (fields Uniform[-1,1] from default_rng([3, n]), J = 1, periodic, t = n); every formula at measured r; Suzuki bound rows at n = 11; cz and ct; merged and unmerged. Identical to np-main/seed3/config.json except name, description, sizes and bound_rows.sizes; no extrapolate section.",
+  "instances": "numpy",
+  "seed": 3,
+  "schemes": [
+    "lie-trotter",
+    "suzuki2",
+    "suzuki4",
+    "suzuki6",
+    "suzuki8",
+    "mo-q6",
+    "mo-q14",
+    "bm-q10",
+    "mo-o8-q21",
+    "morales-y8m10",
+    "morales-m8"
+  ],
+  "sizes": [
+    11
+  ],
+  "gatebases": [
+    "cz",
+    "ct"
+  ],
+  "template": "simcount",
+  "synth_backend": "pygridsynth",
+  "bound_rows": {
+    "schemes": [
+      "lie-trotter",
+      "suzuki2",
+      "suzuki4",
+      "suzuki6",
+      "suzuki8"
+    ],
+    "bounds": [
+      "ana",
+      "min",
+      "com",
+      "emp",
+      "tte"
+    ],
+    "sizes": [
+      11
+    ]
+  }
+}

@@ -1,0 +1,15 @@
+{
+ "name": "np-bounds-ratio",
+ "description": "RQ2: Trotter number from each bound / measured r against n, geometric mean and min-max over NumPy seeds 1-10, cz, eps = 1e-3, t = n. Measured denominators only (n = 4-11). Reads np-main, np-main-n9 and np-main-n11; writes nothing there.",
+ "seeds": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
+ "schemes": ["suzuki4", "lie-trotter", "suzuki2", "suzuki6", "suzuki8"],
+ "bounds": ["ana", "min", "com", "tte", "emp"],
+ "run_sets": [
+  {"label": "np-main", "runs": "../np-main/seed{seed}/results.json"},
+  {"label": "np-main-n9", "runs": "../np-main-n9/seed{seed}/results.json",
+   "accept_dirty": "run at e42ff29 with the only modified tracked file pysimcount/pfseeds.py (an aggregation module the run does not import); checked with git diff --stat e42ff29 -- pysimcount/ on 2026-11-08"},
+  {"label": "np-main-n11", "runs": "../np-main-n11/seed{seed}/results.json",
+   "accept_dirty": "run at e42ff29 with the only modified tracked file pysimcount/pfseeds.py (an aggregation module the run does not import); checked with git diff --stat e42ff29 -- pysimcount/ on 2026-11-08"}
+ ],
+ "out": "."
+}

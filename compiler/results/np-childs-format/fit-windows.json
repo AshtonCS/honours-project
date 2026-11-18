@@ -1,0 +1,11 @@
+{
+ "record": "main-cnot-all-formulas.json",
+ "runs": ["../np-main/seed*", "../np-main-n9/seed*", "../np-main-n11/seed*"],
+ "windows": [[4, 5, 6, 7, 8, 9, 10, 11], [5, 6, 7, 8, 9, 10, 11], [6, 7, 8, 9, 10, 11], [7, 8, 9, 10, 11]],
+ "sizes": [100, 500],
+ "order_by": "5-11",
+ "names": {"suzuki4": "Suzuki S4", "suzuki6": "Suzuki S6", "mo-q6": "M&O q=6", "mo-q14": "M&O q=14",
+           "bm-q10": "Blanes & Moan q=10", "mo-o8-q21": "M&O q=21, order 8", "morales-y8m10": "Morales Y8m10",
+           "morales-m8": "Morales m=8"},
+ "out": "fit-window-table"
+}

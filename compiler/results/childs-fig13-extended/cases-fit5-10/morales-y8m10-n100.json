@@ -1,0 +1,36 @@
+{
+ "scheme": "morales-y8m10",
+ "name": "Morales Y8m10 (21 steps)",
+ "order": 8,
+ "n": 100,
+ "seed": 1,
+ "r": 575,
+ "before_per_step": {
+  "CNOT": 25200,
+  "Rz": 16800,
+  "total": 109200
+ },
+ "marginal_per_step": {
+  "CNOT": 16800,
+  "Rz": 10500,
+  "total": 48132
+ },
+ "edge": {
+  "CNOT": 200,
+  "Rz": 100,
+  "total": 504
+ },
+ "before_total": {
+  "CNOT": 14490000,
+  "Rz": 9660000,
+  "total": 62790000
+ },
+ "after_total": {
+  "CNOT": 9660200,
+  "Rz": 6037600,
+  "total": 27676404
+ },
+ "optimiser_seconds": 126.6,
+ "verified": false,
+ "verify_state_err": null
+}

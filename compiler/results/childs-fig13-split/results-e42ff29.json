@@ -1,0 +1,325 @@
+{
+ "meta": {
+  "config": {
+   "name": "childs-fig13-split",
+   "description": "RQ4 validation: Childs et al. 2018 optimiser saving per Suzuki order, split into exponential merging (weighted.merge) and optimiser-only (step boundary), per step at n = 13 (smallest published sample size), Eq. 147 r, cz. Published simcount S4/S6 circuits overlaid.",
+   "schemes": [
+    "lie-trotter",
+    "suzuki2",
+    "suzuki4",
+    "suzuki6",
+    "suzuki8"
+   ],
+   "n": 13,
+   "seed": 1,
+   "verify_max_n": 13,
+   "out": "."
+  },
+  "provenance": {
+   "git_commit": "e42ff29056ad9ea7fc7c9899fab334903e42e3e3",
+   "git_dirty": true,
+   "source_sha256": "ab4b46b1f3c849a9a08a6772c4ac6793da9a4b428b697998b68b3d7245c649f0",
+   "python": "3.12.13",
+   "numpy": "2.5.2",
+   "scipy": "1.18.1",
+   "pennylane": "0.45.1",
+   "mpmath": "1.4.1",
+   "pygridsynth": "2.0.0",
+   "platform": "macOS-26.6.2-arm64-arm-64bit",
+   "started": "2026-11-08 18:16:04 AEDT"
+  }
+ },
+ "cases": [
+  {
+   "scheme": "lie-trotter",
+   "order": 1,
+   "n": 13,
+   "seed": 1,
+   "r": 372491,
+   "U": {
+    "CNOT": 78,
+    "Rz": 52,
+    "total": 338
+   },
+   "M": {
+    "CNOT": 78,
+    "Rz": 52,
+    "total": 338
+   },
+   "O": {
+    "CNOT": 78,
+    "Rz": 52,
+    "total": 207
+   },
+   "O_M": {
+    "CNOT": 78,
+    "Rz": 52,
+    "total": 207
+   },
+   "edge": {
+    "CNOT": 0,
+    "Rz": 0,
+    "total": 0
+   },
+   "edge_M": {
+    "CNOT": 0,
+    "Rz": 0,
+    "total": 0
+   },
+   "verified": true,
+   "verify_state_err": 1.717821075590449e-14,
+   "optimiser_seconds": 0.6,
+   "split": {
+    "CNOT": {
+     "merging": 0.0,
+     "optimiser_only": 0.0
+    },
+    "Rz": {
+     "merging": 0.0,
+     "optimiser_only": 0.0
+    }
+   },
+   "verify_max_n": 13
+  },
+  {
+   "scheme": "suzuki2",
+   "order": 2,
+   "n": 13,
+   "seed": 1,
+   "r": 4937,
+   "U": {
+    "CNOT": 156,
+    "Rz": 91,
+    "total": 663
+   },
+   "M": {
+    "CNOT": 130,
+    "Rz": 78,
+    "total": 624
+   },
+   "O": {
+    "CNOT": 104,
+    "Rz": 65,
+    "total": 291
+   },
+   "O_M": {
+    "CNOT": 104,
+    "Rz": 65,
+    "total": 291
+   },
+   "edge": {
+    "CNOT": 26,
+    "Rz": 13,
+    "total": 69
+   },
+   "edge_M": {
+    "CNOT": 26,
+    "Rz": 13,
+    "total": 69
+   },
+   "verified": true,
+   "verify_state_err": 3.843683880116987e-14,
+   "optimiser_seconds": 1.0,
+   "split": {
+    "CNOT": {
+     "merging": 0.16666666666666666,
+     "optimiser_only": 0.16666666666666666
+    },
+    "Rz": {
+     "merging": 0.14285714285714285,
+     "optimiser_only": 0.14285714285714285
+    }
+   },
+   "verify_max_n": 13
+  },
+  {
+   "scheme": "suzuki4",
+   "order": 4,
+   "n": 13,
+   "seed": 1,
+   "r": 218,
+   "U": {
+    "CNOT": 780,
+    "Rz": 455,
+    "total": 3315
+   },
+   "M": {
+    "CNOT": 546,
+    "Rz": 338,
+    "total": 2756
+   },
+   "O": {
+    "CNOT": 520,
+    "Rz": 325,
+    "total": 1455
+   },
+   "O_M": {
+    "CNOT": 520,
+    "Rz": 325,
+    "total": 1455
+   },
+   "edge": {
+    "CNOT": 26,
+    "Rz": 13,
+    "total": 69
+   },
+   "edge_M": {
+    "CNOT": 26,
+    "Rz": 13,
+    "total": 69
+   },
+   "verified": true,
+   "verify_state_err": 1.8748023120752183e-13,
+   "optimiser_seconds": 4.4,
+   "split": {
+    "CNOT": {
+     "merging": 0.3,
+     "optimiser_only": 0.03333333333333333
+    },
+    "Rz": {
+     "merging": 0.2571428571428571,
+     "optimiser_only": 0.02857142857142857
+    }
+   },
+   "published": {
+    "before": {
+     "CNOT": 170040,
+     "Rz": 99190
+    },
+    "after": {
+     "CNOT": 113386,
+     "Rz": 70863
+    }
+   },
+   "published_saving": {
+    "CNOT": 0.3331804281345566,
+    "Rz": 0.2855832241153342
+   },
+   "our_total_saving": {
+    "CNOT": 0.3331804281345566,
+    "Rz": 0.2855832241153342
+   },
+   "verify_max_n": 13
+  },
+  {
+   "scheme": "suzuki6",
+   "order": 6,
+   "n": 13,
+   "seed": 1,
+   "r": 52,
+   "U": {
+    "CNOT": 3900,
+    "Rz": 2275,
+    "total": 16575
+   },
+   "M": {
+    "CNOT": 2626,
+    "Rz": 1638,
+    "total": 13416
+   },
+   "O": {
+    "CNOT": 2600,
+    "Rz": 1625,
+    "total": 7275
+   },
+   "O_M": {
+    "CNOT": 2600,
+    "Rz": 1625,
+    "total": 7275
+   },
+   "edge": {
+    "CNOT": 26,
+    "Rz": 13,
+    "total": 69
+   },
+   "edge_M": {
+    "CNOT": 26,
+    "Rz": 13,
+    "total": 69
+   },
+   "verified": true,
+   "verify_state_err": 9.277560423766453e-13,
+   "optimiser_seconds": 24.1,
+   "split": {
+    "CNOT": {
+     "merging": 0.32666666666666666,
+     "optimiser_only": 0.006666666666666667
+    },
+    "Rz": {
+     "merging": 0.28,
+     "optimiser_only": 0.005714285714285714
+    }
+   },
+   "published": {
+    "before": {
+     "CNOT": 202800,
+     "Rz": 118300
+    },
+    "after": {
+     "CNOT": 135226,
+     "Rz": 84513
+    }
+   },
+   "published_saving": {
+    "CNOT": 0.33320512820512815,
+    "Rz": 0.28560439560439566
+   },
+   "our_total_saving": {
+    "CNOT": 0.33320512820512815,
+    "Rz": 0.28560439560439566
+   },
+   "verify_max_n": 13
+  },
+  {
+   "scheme": "suzuki8",
+   "order": 8,
+   "n": 13,
+   "seed": 1,
+   "r": 22,
+   "U": {
+    "CNOT": 19500,
+    "Rz": 11375,
+    "total": 82875
+   },
+   "M": {
+    "CNOT": 13026,
+    "Rz": 8138,
+    "total": 66716
+   },
+   "O": {
+    "CNOT": 13000,
+    "Rz": 8125,
+    "total": 36375
+   },
+   "O_M": {
+    "CNOT": 13000,
+    "Rz": 8125,
+    "total": 36375
+   },
+   "edge": {
+    "CNOT": 26,
+    "Rz": 13,
+    "total": 69
+   },
+   "edge_M": {
+    "CNOT": 26,
+    "Rz": 13,
+    "total": 69
+   },
+   "verified": true,
+   "verify_state_err": 5.28835573721439e-12,
+   "optimiser_seconds": 118.6,
+   "split": {
+    "CNOT": {
+     "merging": 0.332,
+     "optimiser_only": 0.0013333333333333333
+    },
+    "Rz": {
+     "merging": 0.2845714285714286,
+     "optimiser_only": 0.001142857142857143
+    }
+   },
+   "verify_max_n": 13
+  }
+ ]
+}

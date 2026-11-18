@@ -1,0 +1,36 @@
+{
+ "scheme": "mo-o8-q21",
+ "name": "M&O q=21 order 8 (exploratory)",
+ "order": 8,
+ "n": 63,
+ "seed": 1,
+ "r": 348,
+ "before_per_step": {
+  "CNOT": 15876,
+  "Rz": 10584,
+  "total": 68796
+ },
+ "marginal_per_step": {
+  "CNOT": 10584,
+  "Rz": 6615,
+  "total": 30261
+ },
+ "edge": {
+  "CNOT": 126,
+  "Rz": 63,
+  "total": 319
+ },
+ "before_total": {
+  "CNOT": 5524848,
+  "Rz": 3683232,
+  "total": 23941008
+ },
+ "after_total": {
+  "CNOT": 3683358,
+  "Rz": 2302083,
+  "total": 10531147
+ },
+ "optimiser_seconds": 84.3,
+ "verified": false,
+ "verify_state_err": null
+}

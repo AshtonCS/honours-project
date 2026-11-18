@@ -1,0 +1,24 @@
+{
+  "name": "np-optimised-seeds-n11/seed4",
+  "description": "Nam et al. Light optimiser (pysimcount.nam reconstruction) on the merged cz step of every formula; NumPy instance seed 4, n = 11, t = n, r = np-main-n11/seed4 measured cz r; per step unoptimised / isolated / marginal (3 steps - 2 steps), totals = marginal x r. Same settings as np-optimised-seeds (n = 4-10) except n and source.",
+  "source": "../../np-main-n11/seed4/results.json",
+  "instances": "numpy",
+  "schemes": [
+    "lie-trotter",
+    "suzuki2",
+    "suzuki4",
+    "suzuki6",
+    "suzuki8",
+    "mo-q6",
+    "mo-q14",
+    "bm-q10",
+    "mo-o8-q21",
+    "morales-y8m10",
+    "morales-m8"
+  ],
+  "sizes": [
+    11
+  ],
+  "seed": 4,
+  "gatebase": "cz"
+}

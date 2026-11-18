@@ -1,0 +1,69 @@
+{
+ "scheme": "suzuki6",
+ "order": 6,
+ "n": 13,
+ "seed": 1,
+ "r": 52,
+ "U": {
+  "CNOT": 3900,
+  "Rz": 2275,
+  "total": 16575
+ },
+ "M": {
+  "CNOT": 2626,
+  "Rz": 1638,
+  "total": 13416
+ },
+ "O": {
+  "CNOT": 2600,
+  "Rz": 1625,
+  "total": 7275
+ },
+ "O_M": {
+  "CNOT": 2600,
+  "Rz": 1625,
+  "total": 7275
+ },
+ "edge": {
+  "CNOT": 26,
+  "Rz": 13,
+  "total": 69
+ },
+ "edge_M": {
+  "CNOT": 26,
+  "Rz": 13,
+  "total": 69
+ },
+ "verified": true,
+ "verify_state_err": 9.277560423766453e-13,
+ "optimiser_seconds": 24.1,
+ "split": {
+  "CNOT": {
+   "merging": 0.32666666666666666,
+   "optimiser_only": 0.006666666666666667
+  },
+  "Rz": {
+   "merging": 0.28,
+   "optimiser_only": 0.005714285714285714
+  }
+ },
+ "published": {
+  "before": {
+   "CNOT": 202800,
+   "Rz": 118300
+  },
+  "after": {
+   "CNOT": 135226,
+   "Rz": 84513
+  }
+ },
+ "published_saving": {
+  "CNOT": 0.33320512820512815,
+  "Rz": 0.28560439560439566
+ },
+ "our_total_saving": {
+  "CNOT": 0.33320512820512815,
+  "Rz": 0.28560439560439566
+ },
+ "verify_max_n": 13
+}

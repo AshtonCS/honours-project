@@ -1,0 +1,18 @@
+{
+ "id": "grouping-cnot-xyz-vs-twogroup-measured",
+ "runs": "../np-grouping/aggregate.json",
+ "xyz_record": "main-cnot-all-formulas.json",
+ "twogroup_record": "grouping-cnot-twogroup-even-out.json",
+ "schemes": ["suzuki4", "mo-q14", "morales-m8", "bm-q10"],
+ "sizes": [4, 6, 8, 10],
+ "xmin": 3.6, "xmax": 11,
+ "width_cm": 6.2, "height_cm": 6.0, "gap_cm": 1.9,
+ "mark_size": "1.8pt",
+ "legend_columns": 4,
+ "labels": {"suzuki4": "Suzuki S4", "mo-q14": "M\\&O $q=14$", "morales-m8": "Morales $m=8$",
+            "bm-q10": "Blanes \\& Moan $q=10$"},
+ "r_panel": {"title": "(a) Trotter steps", "ylabel": "Measured $r$",
+             "ymin": 6, "ymax": 300, "ytick": [10, 20, 50, 100, 200]},
+ "cnot_panel": {"title": "(b) CNOT count", "ylabel": "CNOT count (Clifford+$R_z$)",
+                "ymin": 1000, "ymax": 200000, "ytick": [1000, 3000, 10000, 30000, 100000]}
+}

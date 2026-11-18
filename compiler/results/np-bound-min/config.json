@@ -1,0 +1,259 @@
+{
+ "name": "np-bound-min",
+ "description": "CNOT and T counts vs n (4-500) for every formula with r from the minimised norm bound: Childs et al. 2018 Def. 2 for Suzuki, extended to every symmetric formula by counting 2q sweeps (genbound budget 'count', constant 1/3). Same seeds, t = n, eps splits, pruning rule and figure layouts as np-childs-format.",
+ "bound": {
+  "kind": "min",
+  "budget": "count",
+  "constant": "childs"
+ },
+ "seeds": [
+  1,
+  2,
+  3,
+  4,
+  5,
+  6,
+  7,
+  8,
+  9,
+  10
+ ],
+ "sizes": [
+  4,
+  5,
+  6,
+  7,
+  8,
+  9,
+  10,
+  11,
+  13,
+  20,
+  30,
+  50,
+  70,
+  100,
+  200,
+  300,
+  500
+ ],
+ "schemes": [
+  "lie-trotter",
+  "suzuki2",
+  "suzuki4",
+  "suzuki6",
+  "suzuki8",
+  "mo-q6",
+  "mo-q14",
+  "bm-q10",
+  "mo-o8-q21",
+  "morales-y8m10",
+  "morales-m8"
+ ],
+ "remove": 3,
+ "protect_top": 2,
+ "line_style": "suzuki-dashed",
+ "step_counts": {
+  "config": "../np-childs-format/config.json",
+  "cache": "../np-childs-format/step-counts.json"
+ },
+ "runs": {
+  "aggregate": "../np-main/aggregate.json",
+  "extra": [
+   "../np-main-n9/seed{seed}",
+   "../np-main-n11/seed{seed}"
+  ],
+  "dirty_exception": {
+   "commit": "e42ff29",
+   "reason": "As in np-childs-format: np-main-n9/-n11 were run at e42ff29 with one uncommitted change (pfseeds.load_runs signature, not imported by pfcompare); spot-checked 2026-11-08 (np-childs-format/fit-change-checks.md). Used here only to check the affine per-step CNOT model."
+  }
+ },
+ "cnot": {
+  "id": "bound-min-cnot-all-formulas",
+  "title": "Every formula, X-Y-Z grouping, CNOT vs n, r from the minimised norm bound",
+  "ylabel": "CNOT count (Clifford+$R_z$)",
+  "n": 500,
+  "zoom": {
+   "main": {
+    "width_cm": 7.0,
+    "height_cm": 6.5,
+    "xmin": 3.5,
+    "xmax": 600,
+    "ymin": 300000.0,
+    "ymax": 1000000000000000.0,
+    "ylabel": "CNOT count (Clifford+$R_z$)",
+    "mark_size": "1.3pt",
+    "legend_columns": 2,
+    "legend_y": -0.2
+   },
+   "panel": {
+    "width_cm": 4.6,
+    "height_cm": 6.5,
+    "gap_cm": 1.8,
+    "title": "Enlarged: $n = 200$--$500$",
+    "xmin": 180,
+    "xmax": 525,
+    "ymin": 1000000000000.0,
+    "ymax": 500000000000000.0,
+    "xtick": [
+     200,
+     300,
+     500
+    ],
+    "ytick": [
+     1000000000000.0,
+     3000000000000.0,
+     10000000000000.0,
+     30000000000000.0,
+     100000000000000.0,
+     300000000000000.0
+    ],
+    "label_gap_cm": 0.36,
+    "labels": {
+     "morales-m8": "Morales $m=8$",
+     "bm-q10": "Blanes \\& Moan $q=10$",
+     "mo-q14": "M\\&O $q=14$",
+     "morales-y8m10": "Morales Y8m10",
+     "mo-q6": "M\\&O $q=6$",
+     "mo-o8-q21": "M\\&O $q=21$, ord.~8",
+     "suzuki4": "Suzuki S4",
+     "suzuki2": "Suzuki S2",
+     "suzuki6": "Suzuki S6",
+     "suzuki8": "Suzuki S8"
+    }
+   }
+  },
+  "dots": {
+   "width_cm": 7.0,
+   "height_cm": 6.5,
+   "title": "CNOT count at $n = 500$, $r$ from the minimised bound",
+   "xlabel": "CNOT count ($\\times 10^{13}$), log scale",
+   "xmin": 25000000000000.0,
+   "xmax": 400000000000000.0,
+   "x_unit": 10000000000000.0,
+   "xtick": [
+    30000000000000.0,
+    50000000000000.0,
+    100000000000000.0,
+    200000000000000.0,
+    300000000000000.0
+   ],
+   "mark_size": "2.4pt",
+   "columns_cm": [
+    0.7,
+    1.9
+   ],
+   "labels": {
+    "morales-m8": "Morales $m=8$",
+    "bm-q10": "Blanes \\& Moan $q=10$",
+    "mo-q14": "M\\&O $q=14$",
+    "morales-y8m10": "Morales Y8m10",
+    "mo-q6": "M\\&O $q=6$",
+    "mo-o8-q21": "M\\&O $q=21$, ord.~8",
+    "suzuki4": "Suzuki S4",
+    "suzuki2": "Suzuki S2",
+    "suzuki6": "Suzuki S6",
+    "suzuki8": "Suzuki S8"
+   },
+   "note_width_cm": 10.5,
+   "note_shift_cm": -0.6,
+   "note": "$r$ from the minimised norm bound (Childs et al.\\ 2018, Def.~2; extended to every formula by counting $2q$ sweeps), computed at $n = {n}$ with $t = n$, $\\epsilon = 10^{-3}$. The bound depends only on $m$, $\\Lambda$, $t$ and $\\epsilon$, so it is the same on all {seeds} seeds and there is no spread. M\\&O $q=21$ and Morales Y8m10 have equal counts (same order and $q$)."
+  }
+ },
+ "t": {
+  "id": "bound-min-t-all-formulas",
+  "title": "Every formula, X-Y-Z grouping, T gates vs n, r from the minimised norm bound (every step synthesised)",
+  "ylabel": "T count (Clifford+T)",
+  "n": 500,
+  "cache": "t-counts.json",
+  "workers": 6,
+  "template": "simcount",
+  "backend": "pygridsynth",
+  "zoom": {
+   "main": {
+    "width_cm": 7.0,
+    "height_cm": 6.5,
+    "xmin": 3.5,
+    "xmax": 600,
+    "ymin": 30000000.0,
+    "ymax": 1e+17,
+    "ylabel": "T count (Clifford+T)",
+    "mark_size": "1.3pt",
+    "legend_columns": 2,
+    "legend_y": -0.2
+   },
+   "panel": {
+    "width_cm": 4.6,
+    "height_cm": 6.5,
+    "gap_cm": 1.8,
+    "title": "Enlarged: $n = 200$--$500$",
+    "xmin": 180,
+    "xmax": 525,
+    "ymin": 100000000000000.0,
+    "ymax": 6e+16,
+    "xtick": [
+     200,
+     300,
+     500
+    ],
+    "ytick": [
+     100000000000000.0,
+     300000000000000.0,
+     1000000000000000.0,
+     3000000000000000.0,
+     1e+16,
+     3e+16
+    ],
+    "label_gap_cm": 0.36,
+    "labels": {
+     "morales-m8": "Morales $m=8$",
+     "bm-q10": "Blanes \\& Moan $q=10$",
+     "mo-q14": "M\\&O $q=14$",
+     "morales-y8m10": "Morales Y8m10",
+     "mo-q6": "M\\&O $q=6$",
+     "mo-o8-q21": "M\\&O $q=21$, ord.~8",
+     "suzuki4": "Suzuki S4",
+     "suzuki2": "Suzuki S2",
+     "suzuki6": "Suzuki S6",
+     "suzuki8": "Suzuki S8"
+    }
+   }
+  },
+  "dots": {
+   "width_cm": 7.0,
+   "height_cm": 6.5,
+   "title": "T count at $n = 500$, $r$ from the minimised bound",
+   "xlabel": "T count ($\\times 10^{15}$), log scale",
+   "xmin": 3500000000000000.0,
+   "xmax": 5e+16,
+   "x_unit": 1000000000000000.0,
+   "xtick": [
+    4000000000000000.0,
+    6000000000000000.0,
+    1e+16,
+    2e+16,
+    4e+16
+   ],
+   "mark_size": "2.4pt",
+   "columns_cm": [
+    0.7,
+    1.9
+   ],
+   "labels": {
+    "morales-m8": "Morales $m=8$",
+    "bm-q10": "Blanes \\& Moan $q=10$",
+    "mo-q14": "M\\&O $q=14$",
+    "morales-y8m10": "Morales Y8m10",
+    "mo-q6": "M\\&O $q=6$",
+    "mo-o8-q21": "M\\&O $q=21$, ord.~8",
+    "suzuki4": "Suzuki S4",
+    "suzuki2": "Suzuki S2",
+    "suzuki6": "Suzuki S6",
+    "suzuki8": "Suzuki S8"
+   },
+   "note_width_cm": 10.5,
+   "note_shift_cm": -0.6,
+   "note": "$r$ from the minimised norm bound (Childs et al.\\ 2018, Def.~2; extended to every formula by counting $2q$ sweeps), computed at $n = {n}$ with $t = n$, $\\epsilon = 5\\times10^{-4}$ for the formula and $5\\times10^{-4}$ for rotation synthesis. $r$ is the same on all {seeds} seeds; the small spread comes only from synthesising each seed's field angles."
+  }
+ }
+}

@@ -1,0 +1,51 @@
+{
+ "scheme": "suzuki8",
+ "order": 8,
+ "n": 13,
+ "seed": 1,
+ "r": 22,
+ "U": {
+  "CNOT": 19500,
+  "Rz": 11375,
+  "total": 82875
+ },
+ "M": {
+  "CNOT": 13026,
+  "Rz": 8138,
+  "total": 66716
+ },
+ "O": {
+  "CNOT": 13000,
+  "Rz": 8125,
+  "total": 36375
+ },
+ "O_M": {
+  "CNOT": 13000,
+  "Rz": 8125,
+  "total": 36375
+ },
+ "edge": {
+  "CNOT": 26,
+  "Rz": 13,
+  "total": 69
+ },
+ "edge_M": {
+  "CNOT": 26,
+  "Rz": 13,
+  "total": 69
+ },
+ "verified": true,
+ "verify_state_err": 5.28835573721439e-12,
+ "optimiser_seconds": 118.6,
+ "split": {
+  "CNOT": {
+   "merging": 0.332,
+   "optimiser_only": 0.0013333333333333333
+  },
+  "Rz": {
+   "merging": 0.2845714285714286,
+   "optimiser_only": 0.001142857142857143
+  }
+ },
+ "verify_max_n": 13
+}

@@ -1,0 +1,17 @@
+# X-Y-Z vs two-group at n = 10 (twogroup-even-out, cnot) (RQ3)
+
+From pfmean's summary.json (np-grouping, 10 seeds, merged, measured r). gain = X-Y-Z / two-group = step ratio x r ratio (exact per seed, so also for geometric means); min–max over seeds. Made at git_commit=e5d9ee696f892e28aced765585653760f8a427c4 git_dirty=False.
+
+| formula | step ratio | r ratio | gain (min–max) | seeds two-group cheaper |
+|---|---:|---:|---:|---:|
+| Lie-Trotter S1 | 2.00 | 4.61 | 9.23 (7.03–11.67) | 10/10 |
+| S2 | 2.22 | 0.92 | 2.04 (1.89–2.23) | 10/10 |
+| S4 | 2.55 | 1.10 | 2.80 (2.70–2.99) | 10/10 |
+| S6 | 2.64 | 1.08 | 2.86 (2.80–2.96) | 10/10 |
+| S8 | 2.66 | 1.10 | 2.92 (2.84–3.04) | 10/10 |
+| M&O q=6 | 2.56 | 1.00 | 2.57 (2.42–2.68) | 10/10 |
+| M&O q=14 | 2.62 | 1.11 | 2.92 (2.83–3.06) | 10/10 |
+| Blanes & Moan q=10 | 2.60 | 1.04 | 2.70 (2.66–2.78) | 10/10 |
+| M&O q=21 (order 8) | 2.64 | 1.14 | 3.01 (2.85–3.16) | 10/10 |
+| Morales Y8m10 | 2.64 | 1.12 | 2.96 (2.83–3.12) | 10/10 |
+| Morales m=8 | 2.63 | 1.00 | 2.64 (2.55–2.71) | 10/10 |

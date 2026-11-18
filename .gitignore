@@ -222,3 +222,12 @@ __marimo__/
 # slash commands, belong in version control.
 .claude/settings.local.json
 CLAUDE.local.md
+
+# Not for the public repository: thesis text and drafts, research summary,
+# internal planning notes, and third-party papers kept locally for reading.
+compiler/results/gallery/chapter4*.tex
+RQ-summary.pdf
+compiler/results/gallery/main-body-selection.md
+compiler/results/np-childs-format/fit-change-checklist.md
+compiler/pysimcount/PROPOSED-CHANGES.md
+mo_cmnrs_practical_reading_version.pdf

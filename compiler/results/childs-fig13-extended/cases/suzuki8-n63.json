@@ -1,0 +1,37 @@
+{
+ "scheme": "suzuki8",
+ "name": "Suzuki S8",
+ "order": 8,
+ "n": 63,
+ "seed": 1,
+ "r": 159,
+ "before_per_step": {
+  "CNOT": 94500,
+  "Rz": 55125,
+  "total": 401625
+ },
+ "marginal_per_step": {
+  "CNOT": 63000,
+  "Rz": 39375,
+  "total": 180125
+ },
+ "edge": {
+  "CNOT": 126,
+  "Rz": 63,
+  "total": 319
+ },
+ "before_total": {
+  "CNOT": 15025500,
+  "Rz": 8764875,
+  "total": 63858375
+ },
+ "after_total": {
+  "CNOT": 10017126,
+  "Rz": 6260688,
+  "total": 28640194
+ },
+ "optimiser_seconds": 182.3,
+ "verified": false,
+ "verify_state_err": null,
+ "r_eq147": 130
+}

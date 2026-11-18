@@ -1,0 +1,1088 @@
+{
+ "rows": [
+  {
+   "fixture": "n10_pf1ana_cz_m1.txt",
+   "n": 10,
+   "algo": "pf1ana",
+   "gatebase": "cz",
+   "seed": 1,
+   "zrots": null,
+   "status": "matched"
+  },
+  {
+   "fixture": "n10_pf1com_cz_m1.txt",
+   "n": 10,
+   "algo": "pf1com",
+   "gatebase": "cz",
+   "seed": 1,
+   "zrots": null,
+   "status": "matched"
+  },
+  {
+   "fixture": "n10_pf1emp_cz_m1.txt",
+   "n": 10,
+   "algo": "pf1emp",
+   "gatebase": "cz",
+   "seed": 1,
+   "zrots": null,
+   "status": "matched"
+  },
+  {
+   "fixture": "n10_pf1min_cz_m1.txt",
+   "n": 10,
+   "algo": "pf1min",
+   "gatebase": "cz",
+   "seed": 1,
+   "zrots": null,
+   "status": "matched"
+  },
+  {
+   "fixture": "n10_pf2ana_cz_m1.txt",
+   "n": 10,
+   "algo": "pf2ana",
+   "gatebase": "cz",
+   "seed": 1,
+   "zrots": null,
+   "status": "matched"
+  },
+  {
+   "fixture": "n10_pf2com_cz_m1.txt",
+   "n": 10,
+   "algo": "pf2com",
+   "gatebase": "cz",
+   "seed": 1,
+   "zrots": null,
+   "status": "matched"
+  },
+  {
+   "fixture": "n10_pf2emp_cz_m1.txt",
+   "n": 10,
+   "algo": "pf2emp",
+   "gatebase": "cz",
+   "seed": 1,
+   "zrots": null,
+   "status": "matched"
+  },
+  {
+   "fixture": "n10_pf2emp_cz_m2.txt",
+   "n": 10,
+   "algo": "pf2emp",
+   "gatebase": "cz",
+   "seed": 2,
+   "zrots": null,
+   "status": "matched"
+  },
+  {
+   "fixture": "n10_pf2emp_cz_m3.txt",
+   "n": 10,
+   "algo": "pf2emp",
+   "gatebase": "cz",
+   "seed": 3,
+   "zrots": null,
+   "status": "matched"
+  },
+  {
+   "fixture": "n10_pf2emp_cz_m4.txt",
+   "n": 10,
+   "algo": "pf2emp",
+   "gatebase": "cz",
+   "seed": 4,
+   "zrots": null,
+   "status": "matched"
+  },
+  {
+   "fixture": "n10_pf2emp_cz_m5.txt",
+   "n": 10,
+   "algo": "pf2emp",
+   "gatebase": "cz",
+   "seed": 5,
+   "zrots": null,
+   "status": "matched"
+  },
+  {
+   "fixture": "n10_pf2min_cz_m1.txt",
+   "n": 10,
+   "algo": "pf2min",
+   "gatebase": "cz",
+   "seed": 1,
+   "zrots": null,
+   "status": "matched"
+  },
+  {
+   "fixture": "n10_pf4ana_cz_m1.txt",
+   "n": 10,
+   "algo": "pf4ana",
+   "gatebase": "cz",
+   "seed": 1,
+   "zrots": null,
+   "status": "matched"
+  },
+  {
+   "fixture": "n10_pf4com_cz_m1.txt",
+   "n": 10,
+   "algo": "pf4com",
+   "gatebase": "cz",
+   "seed": 1,
+   "zrots": null,
+   "status": "matched"
+  },
+  {
+   "fixture": "n10_pf4emp_cz_m1.txt",
+   "n": 10,
+   "algo": "pf4emp",
+   "gatebase": "cz",
+   "seed": 1,
+   "zrots": null,
+   "status": "matched"
+  },
+  {
+   "fixture": "n10_pf4min_cz_m1.txt",
+   "n": 10,
+   "algo": "pf4min",
+   "gatebase": "cz",
+   "seed": 1,
+   "zrots": null,
+   "status": "matched"
+  },
+  {
+   "fixture": "n10_pf6ana_cz_m1.txt",
+   "n": 10,
+   "algo": "pf6ana",
+   "gatebase": "cz",
+   "seed": 1,
+   "zrots": null,
+   "status": "matched"
+  },
+  {
+   "fixture": "n10_pf6emp_cz_m1.txt",
+   "n": 10,
+   "algo": "pf6emp",
+   "gatebase": "cz",
+   "seed": 1,
+   "zrots": null,
+   "status": "matched"
+  },
+  {
+   "fixture": "n10_pf6min_cz_m1.txt",
+   "n": 10,
+   "algo": "pf6min",
+   "gatebase": "cz",
+   "seed": 1,
+   "zrots": null,
+   "status": "matched"
+  },
+  {
+   "fixture": "n10_pf8ana_cz_m1.txt",
+   "n": 10,
+   "algo": "pf8ana",
+   "gatebase": "cz",
+   "seed": 1,
+   "zrots": null,
+   "status": "matched"
+  },
+  {
+   "fixture": "n10_pf8emp_cz_m1.txt",
+   "n": 10,
+   "algo": "pf8emp",
+   "gatebase": "cz",
+   "seed": 1,
+   "zrots": null,
+   "status": "matched"
+  },
+  {
+   "fixture": "n10_pf8min_cz_m1.txt",
+   "n": 10,
+   "algo": "pf8min",
+   "gatebase": "cz",
+   "seed": 1,
+   "zrots": null,
+   "status": "matched"
+  },
+  {
+   "fixture": "n13_pf2com_cz_m1.txt",
+   "n": 13,
+   "algo": "pf2com",
+   "gatebase": "cz",
+   "seed": 1,
+   "zrots": null,
+   "status": "matched"
+  },
+  {
+   "fixture": "n13_pf2emp_cz_m2.txt",
+   "n": 13,
+   "algo": "pf2emp",
+   "gatebase": "cz",
+   "seed": 2,
+   "zrots": null,
+   "status": "matched"
+  },
+  {
+   "fixture": "n13_pf2emp_cz_m3.txt",
+   "n": 13,
+   "algo": "pf2emp",
+   "gatebase": "cz",
+   "seed": 3,
+   "zrots": null,
+   "status": "matched"
+  },
+  {
+   "fixture": "n13_pf2emp_cz_m4.txt",
+   "n": 13,
+   "algo": "pf2emp",
+   "gatebase": "cz",
+   "seed": 4,
+   "zrots": null,
+   "status": "matched"
+  },
+  {
+   "fixture": "n13_pf2emp_cz_m5.txt",
+   "n": 13,
+   "algo": "pf2emp",
+   "gatebase": "cz",
+   "seed": 5,
+   "zrots": null,
+   "status": "matched"
+  },
+  {
+   "fixture": "n13_pf4com_cz_m1.txt",
+   "n": 13,
+   "algo": "pf4com",
+   "gatebase": "cz",
+   "seed": 1,
+   "zrots": null,
+   "status": "matched"
+  },
+  {
+   "fixture": "n13_pf4emp_cz_m1.txt",
+   "n": 13,
+   "algo": "pf4emp",
+   "gatebase": "cz",
+   "seed": 1,
+   "zrots": null,
+   "status": "matched"
+  },
+  {
+   "fixture": "n20_pf1ana_cz_m1.txt",
+   "n": 20,
+   "algo": "pf1ana",
+   "gatebase": "cz",
+   "seed": 1,
+   "zrots": null,
+   "status": "matched"
+  },
+  {
+   "fixture": "n20_pf1com_cz_m1.txt",
+   "n": 20,
+   "algo": "pf1com",
+   "gatebase": "cz",
+   "seed": 1,
+   "zrots": null,
+   "status": "matched"
+  },
+  {
+   "fixture": "n20_pf1emp_cz_m1.txt",
+   "n": 20,
+   "algo": "pf1emp",
+   "gatebase": "cz",
+   "seed": 1,
+   "zrots": null,
+   "status": "matched"
+  },
+  {
+   "fixture": "n20_pf1min_cz_m1.txt",
+   "n": 20,
+   "algo": "pf1min",
+   "gatebase": "cz",
+   "seed": 1,
+   "zrots": null,
+   "status": "matched"
+  },
+  {
+   "fixture": "n20_pf2ana_cz_m1.txt",
+   "n": 20,
+   "algo": "pf2ana",
+   "gatebase": "cz",
+   "seed": 1,
+   "zrots": null,
+   "status": "matched"
+  },
+  {
+   "fixture": "n20_pf2com_cz_m1.txt",
+   "n": 20,
+   "algo": "pf2com",
+   "gatebase": "cz",
+   "seed": 1,
+   "zrots": null,
+   "status": "matched"
+  },
+  {
+   "fixture": "n20_pf2emp_cz_m1.txt",
+   "n": 20,
+   "algo": "pf2emp",
+   "gatebase": "cz",
+   "seed": 1,
+   "zrots": null,
+   "status": "matched"
+  },
+  {
+   "fixture": "n20_pf2emp_cz_m2.txt",
+   "n": 20,
+   "algo": "pf2emp",
+   "gatebase": "cz",
+   "seed": 2,
+   "zrots": null,
+   "status": "matched"
+  },
+  {
+   "fixture": "n20_pf2emp_cz_m3.txt",
+   "n": 20,
+   "algo": "pf2emp",
+   "gatebase": "cz",
+   "seed": 3,
+   "zrots": null,
+   "status": "matched"
+  },
+  {
+   "fixture": "n20_pf2emp_cz_m4.txt",
+   "n": 20,
+   "algo": "pf2emp",
+   "gatebase": "cz",
+   "seed": 4,
+   "zrots": null,
+   "status": "matched"
+  },
+  {
+   "fixture": "n20_pf2emp_cz_m5.txt",
+   "n": 20,
+   "algo": "pf2emp",
+   "gatebase": "cz",
+   "seed": 5,
+   "zrots": null,
+   "status": "matched"
+  },
+  {
+   "fixture": "n20_pf2min_cz_m1.txt",
+   "n": 20,
+   "algo": "pf2min",
+   "gatebase": "cz",
+   "seed": 1,
+   "zrots": null,
+   "status": "matched"
+  },
+  {
+   "fixture": "n20_pf4ana_cz_m1.txt",
+   "n": 20,
+   "algo": "pf4ana",
+   "gatebase": "cz",
+   "seed": 1,
+   "zrots": null,
+   "status": "matched"
+  },
+  {
+   "fixture": "n20_pf4com_cz_m1.txt",
+   "n": 20,
+   "algo": "pf4com",
+   "gatebase": "cz",
+   "seed": 1,
+   "zrots": null,
+   "status": "matched"
+  },
+  {
+   "fixture": "n20_pf4emp_cz_m1.txt",
+   "n": 20,
+   "algo": "pf4emp",
+   "gatebase": "cz",
+   "seed": 1,
+   "zrots": null,
+   "status": "matched"
+  },
+  {
+   "fixture": "n20_pf4min_cz_m1.txt",
+   "n": 20,
+   "algo": "pf4min",
+   "gatebase": "cz",
+   "seed": 1,
+   "zrots": null,
+   "status": "matched"
+  },
+  {
+   "fixture": "n20_pf6ana_cz_m1.txt",
+   "n": 20,
+   "algo": "pf6ana",
+   "gatebase": "cz",
+   "seed": 1,
+   "zrots": null,
+   "status": "matched"
+  },
+  {
+   "fixture": "n20_pf6emp_cz_m1.txt",
+   "n": 20,
+   "algo": "pf6emp",
+   "gatebase": "cz",
+   "seed": 1,
+   "zrots": null,
+   "status": "matched"
+  },
+  {
+   "fixture": "n20_pf6min_cz_m1.txt",
+   "n": 20,
+   "algo": "pf6min",
+   "gatebase": "cz",
+   "seed": 1,
+   "zrots": null,
+   "status": "matched"
+  },
+  {
+   "fixture": "n20_pf8ana_cz_m1.txt",
+   "n": 20,
+   "algo": "pf8ana",
+   "gatebase": "cz",
+   "seed": 1,
+   "zrots": null,
+   "status": "matched"
+  },
+  {
+   "fixture": "n20_pf8emp_cz_m1.txt",
+   "n": 20,
+   "algo": "pf8emp",
+   "gatebase": "cz",
+   "seed": 1,
+   "zrots": null,
+   "status": "matched"
+  },
+  {
+   "fixture": "n20_pf8min_cz_m1.txt",
+   "n": 20,
+   "algo": "pf8min",
+   "gatebase": "cz",
+   "seed": 1,
+   "zrots": null,
+   "status": "matched"
+  },
+  {
+   "fixture": "n2_pf1com_cz_m1.txt",
+   "n": 2,
+   "algo": "pf1com",
+   "gatebase": "cz",
+   "seed": 1,
+   "zrots": null,
+   "status": "matched"
+  },
+  {
+   "fixture": "n2_pf2com_cz_m1.txt",
+   "n": 2,
+   "algo": "pf2com",
+   "gatebase": "cz",
+   "seed": 1,
+   "zrots": null,
+   "status": "matched"
+  },
+  {
+   "fixture": "n4_pf1ana_cz_m1.txt",
+   "n": 4,
+   "algo": "pf1ana",
+   "gatebase": "cz",
+   "seed": 1,
+   "zrots": null,
+   "status": "matched"
+  },
+  {
+   "fixture": "n4_pf1com_cz_m1.txt",
+   "n": 4,
+   "algo": "pf1com",
+   "gatebase": "cz",
+   "seed": 1,
+   "zrots": null,
+   "status": "matched"
+  },
+  {
+   "fixture": "n4_pf1emp_cz_m1.txt",
+   "n": 4,
+   "algo": "pf1emp",
+   "gatebase": "cz",
+   "seed": 1,
+   "zrots": null,
+   "status": "matched"
+  },
+  {
+   "fixture": "n4_pf1min_cz_m1.txt",
+   "n": 4,
+   "algo": "pf1min",
+   "gatebase": "cz",
+   "seed": 1,
+   "zrots": null,
+   "status": "matched"
+  },
+  {
+   "fixture": "n4_pf2ana_cz_m1.txt",
+   "n": 4,
+   "algo": "pf2ana",
+   "gatebase": "cz",
+   "seed": 1,
+   "zrots": null,
+   "status": "matched"
+  },
+  {
+   "fixture": "n4_pf2com_ct_z213612_m1.txt",
+   "n": 4,
+   "algo": "pf2com",
+   "gatebase": "ct",
+   "seed": 1,
+   "zrots": 213612,
+   "status": "not checked (needs --synth quipper)"
+  },
+  {
+   "fixture": "n4_pf2com_cz2ct_m1.txt",
+   "n": 4,
+   "algo": "pf2com",
+   "gatebase": "cz2ct",
+   "seed": 1,
+   "zrots": null,
+   "status": "matched"
+  },
+  {
+   "fixture": "n4_pf2com_cz_m1.txt",
+   "n": 4,
+   "algo": "pf2com",
+   "gatebase": "cz",
+   "seed": 1,
+   "zrots": null,
+   "status": "matched"
+  },
+  {
+   "fixture": "n4_pf2com_cz_m2.txt",
+   "n": 4,
+   "algo": "pf2com",
+   "gatebase": "cz",
+   "seed": 2,
+   "zrots": null,
+   "status": "matched"
+  },
+  {
+   "fixture": "n4_pf2com_cz_m3.txt",
+   "n": 4,
+   "algo": "pf2com",
+   "gatebase": "cz",
+   "seed": 3,
+   "zrots": null,
+   "status": "matched"
+  },
+  {
+   "fixture": "n4_pf2emp_cz_m1.txt",
+   "n": 4,
+   "algo": "pf2emp",
+   "gatebase": "cz",
+   "seed": 1,
+   "zrots": null,
+   "status": "matched"
+  },
+  {
+   "fixture": "n4_pf2emp_cz_m2.txt",
+   "n": 4,
+   "algo": "pf2emp",
+   "gatebase": "cz",
+   "seed": 2,
+   "zrots": null,
+   "status": "matched"
+  },
+  {
+   "fixture": "n4_pf2emp_cz_m3.txt",
+   "n": 4,
+   "algo": "pf2emp",
+   "gatebase": "cz",
+   "seed": 3,
+   "zrots": null,
+   "status": "matched"
+  },
+  {
+   "fixture": "n4_pf2emp_cz_m4.txt",
+   "n": 4,
+   "algo": "pf2emp",
+   "gatebase": "cz",
+   "seed": 4,
+   "zrots": null,
+   "status": "matched"
+  },
+  {
+   "fixture": "n4_pf2emp_cz_m5.txt",
+   "n": 4,
+   "algo": "pf2emp",
+   "gatebase": "cz",
+   "seed": 5,
+   "zrots": null,
+   "status": "matched"
+  },
+  {
+   "fixture": "n4_pf2min_cz_m1.txt",
+   "n": 4,
+   "algo": "pf2min",
+   "gatebase": "cz",
+   "seed": 1,
+   "zrots": null,
+   "status": "matched"
+  },
+  {
+   "fixture": "n4_pf4ana_cz_m1.txt",
+   "n": 4,
+   "algo": "pf4ana",
+   "gatebase": "cz",
+   "seed": 1,
+   "zrots": null,
+   "status": "matched"
+  },
+  {
+   "fixture": "n4_pf4com_cz_m1.txt",
+   "n": 4,
+   "algo": "pf4com",
+   "gatebase": "cz",
+   "seed": 1,
+   "zrots": null,
+   "status": "matched"
+  },
+  {
+   "fixture": "n4_pf4emp_cz_m1.txt",
+   "n": 4,
+   "algo": "pf4emp",
+   "gatebase": "cz",
+   "seed": 1,
+   "zrots": null,
+   "status": "matched"
+  },
+  {
+   "fixture": "n4_pf4min_cz_m1.txt",
+   "n": 4,
+   "algo": "pf4min",
+   "gatebase": "cz",
+   "seed": 1,
+   "zrots": null,
+   "status": "matched"
+  },
+  {
+   "fixture": "n4_pf6ana_cz_m1.txt",
+   "n": 4,
+   "algo": "pf6ana",
+   "gatebase": "cz",
+   "seed": 1,
+   "zrots": null,
+   "status": "matched"
+  },
+  {
+   "fixture": "n4_pf6emp_cz_m1.txt",
+   "n": 4,
+   "algo": "pf6emp",
+   "gatebase": "cz",
+   "seed": 1,
+   "zrots": null,
+   "status": "matched"
+  },
+  {
+   "fixture": "n4_pf6min_cz_m1.txt",
+   "n": 4,
+   "algo": "pf6min",
+   "gatebase": "cz",
+   "seed": 1,
+   "zrots": null,
+   "status": "matched"
+  },
+  {
+   "fixture": "n4_pf8ana_cz_m1.txt",
+   "n": 4,
+   "algo": "pf8ana",
+   "gatebase": "cz",
+   "seed": 1,
+   "zrots": null,
+   "status": "matched"
+  },
+  {
+   "fixture": "n4_pf8emp_cz_m1.txt",
+   "n": 4,
+   "algo": "pf8emp",
+   "gatebase": "cz",
+   "seed": 1,
+   "zrots": null,
+   "status": "matched"
+  },
+  {
+   "fixture": "n4_pf8min_cz_m1.txt",
+   "n": 4,
+   "algo": "pf8min",
+   "gatebase": "cz",
+   "seed": 1,
+   "zrots": null,
+   "status": "matched"
+  },
+  {
+   "fixture": "n5_pf2com_cz_m1.txt",
+   "n": 5,
+   "algo": "pf2com",
+   "gatebase": "cz",
+   "seed": 1,
+   "zrots": null,
+   "status": "matched"
+  },
+  {
+   "fixture": "n5_pf2emp_cz_m2.txt",
+   "n": 5,
+   "algo": "pf2emp",
+   "gatebase": "cz",
+   "seed": 2,
+   "zrots": null,
+   "status": "matched"
+  },
+  {
+   "fixture": "n5_pf2emp_cz_m3.txt",
+   "n": 5,
+   "algo": "pf2emp",
+   "gatebase": "cz",
+   "seed": 3,
+   "zrots": null,
+   "status": "matched"
+  },
+  {
+   "fixture": "n5_pf2emp_cz_m4.txt",
+   "n": 5,
+   "algo": "pf2emp",
+   "gatebase": "cz",
+   "seed": 4,
+   "zrots": null,
+   "status": "matched"
+  },
+  {
+   "fixture": "n5_pf2emp_cz_m5.txt",
+   "n": 5,
+   "algo": "pf2emp",
+   "gatebase": "cz",
+   "seed": 5,
+   "zrots": null,
+   "status": "matched"
+  },
+  {
+   "fixture": "n6_pf1ana_cz_m1.txt",
+   "n": 6,
+   "algo": "pf1ana",
+   "gatebase": "cz",
+   "seed": 1,
+   "zrots": null,
+   "status": "matched"
+  },
+  {
+   "fixture": "n6_pf1com_cz_m1.txt",
+   "n": 6,
+   "algo": "pf1com",
+   "gatebase": "cz",
+   "seed": 1,
+   "zrots": null,
+   "status": "matched"
+  },
+  {
+   "fixture": "n6_pf1emp_cz_m1.txt",
+   "n": 6,
+   "algo": "pf1emp",
+   "gatebase": "cz",
+   "seed": 1,
+   "zrots": null,
+   "status": "matched"
+  },
+  {
+   "fixture": "n6_pf1min_cz_m1.txt",
+   "n": 6,
+   "algo": "pf1min",
+   "gatebase": "cz",
+   "seed": 1,
+   "zrots": null,
+   "status": "matched"
+  },
+  {
+   "fixture": "n6_pf2ana_cz_m1.txt",
+   "n": 6,
+   "algo": "pf2ana",
+   "gatebase": "cz",
+   "seed": 1,
+   "zrots": null,
+   "status": "matched"
+  },
+  {
+   "fixture": "n6_pf2com_ct_z960120_m1.txt",
+   "n": 6,
+   "algo": "pf2com",
+   "gatebase": "ct",
+   "seed": 1,
+   "zrots": 960120,
+   "status": "not checked (needs --synth quipper)"
+  },
+  {
+   "fixture": "n6_pf2com_cz2ct_m1.txt",
+   "n": 6,
+   "algo": "pf2com",
+   "gatebase": "cz2ct",
+   "seed": 1,
+   "zrots": null,
+   "status": "matched"
+  },
+  {
+   "fixture": "n6_pf2com_cz_m1.txt",
+   "n": 6,
+   "algo": "pf2com",
+   "gatebase": "cz",
+   "seed": 1,
+   "zrots": null,
+   "status": "matched"
+  },
+  {
+   "fixture": "n6_pf2emp_cz_m1.txt",
+   "n": 6,
+   "algo": "pf2emp",
+   "gatebase": "cz",
+   "seed": 1,
+   "zrots": null,
+   "status": "matched"
+  },
+  {
+   "fixture": "n6_pf2emp_cz_m2.txt",
+   "n": 6,
+   "algo": "pf2emp",
+   "gatebase": "cz",
+   "seed": 2,
+   "zrots": null,
+   "status": "matched"
+  },
+  {
+   "fixture": "n6_pf2emp_cz_m3.txt",
+   "n": 6,
+   "algo": "pf2emp",
+   "gatebase": "cz",
+   "seed": 3,
+   "zrots": null,
+   "status": "matched"
+  },
+  {
+   "fixture": "n6_pf2emp_cz_m4.txt",
+   "n": 6,
+   "algo": "pf2emp",
+   "gatebase": "cz",
+   "seed": 4,
+   "zrots": null,
+   "status": "matched"
+  },
+  {
+   "fixture": "n6_pf2emp_cz_m5.txt",
+   "n": 6,
+   "algo": "pf2emp",
+   "gatebase": "cz",
+   "seed": 5,
+   "zrots": null,
+   "status": "matched"
+  },
+  {
+   "fixture": "n6_pf2min_cz_m1.txt",
+   "n": 6,
+   "algo": "pf2min",
+   "gatebase": "cz",
+   "seed": 1,
+   "zrots": null,
+   "status": "matched"
+  },
+  {
+   "fixture": "n6_pf4ana_cz_m1.txt",
+   "n": 6,
+   "algo": "pf4ana",
+   "gatebase": "cz",
+   "seed": 1,
+   "zrots": null,
+   "status": "matched"
+  },
+  {
+   "fixture": "n6_pf4com_cz_m1.txt",
+   "n": 6,
+   "algo": "pf4com",
+   "gatebase": "cz",
+   "seed": 1,
+   "zrots": null,
+   "status": "matched"
+  },
+  {
+   "fixture": "n6_pf4emp_cz_m1.txt",
+   "n": 6,
+   "algo": "pf4emp",
+   "gatebase": "cz",
+   "seed": 1,
+   "zrots": null,
+   "status": "matched"
+  },
+  {
+   "fixture": "n6_pf4min_cz_m1.txt",
+   "n": 6,
+   "algo": "pf4min",
+   "gatebase": "cz",
+   "seed": 1,
+   "zrots": null,
+   "status": "matched"
+  },
+  {
+   "fixture": "n6_pf6ana_cz_m1.txt",
+   "n": 6,
+   "algo": "pf6ana",
+   "gatebase": "cz",
+   "seed": 1,
+   "zrots": null,
+   "status": "matched"
+  },
+  {
+   "fixture": "n6_pf6emp_cz_m1.txt",
+   "n": 6,
+   "algo": "pf6emp",
+   "gatebase": "cz",
+   "seed": 1,
+   "zrots": null,
+   "status": "matched"
+  },
+  {
+   "fixture": "n6_pf6min_cz_m1.txt",
+   "n": 6,
+   "algo": "pf6min",
+   "gatebase": "cz",
+   "seed": 1,
+   "zrots": null,
+   "status": "matched"
+  },
+  {
+   "fixture": "n6_pf8ana_cz_m1.txt",
+   "n": 6,
+   "algo": "pf8ana",
+   "gatebase": "cz",
+   "seed": 1,
+   "zrots": null,
+   "status": "matched"
+  },
+  {
+   "fixture": "n6_pf8emp_cz_m1.txt",
+   "n": 6,
+   "algo": "pf8emp",
+   "gatebase": "cz",
+   "seed": 1,
+   "zrots": null,
+   "status": "matched"
+  },
+  {
+   "fixture": "n6_pf8min_cz_m1.txt",
+   "n": 6,
+   "algo": "pf8min",
+   "gatebase": "cz",
+   "seed": 1,
+   "zrots": null,
+   "status": "matched"
+  },
+  {
+   "fixture": "n7_pf2com_cz_m1.txt",
+   "n": 7,
+   "algo": "pf2com",
+   "gatebase": "cz",
+   "seed": 1,
+   "zrots": null,
+   "status": "matched"
+  },
+  {
+   "fixture": "n7_pf2emp_cz_m2.txt",
+   "n": 7,
+   "algo": "pf2emp",
+   "gatebase": "cz",
+   "seed": 2,
+   "zrots": null,
+   "status": "matched"
+  },
+  {
+   "fixture": "n7_pf2emp_cz_m3.txt",
+   "n": 7,
+   "algo": "pf2emp",
+   "gatebase": "cz",
+   "seed": 3,
+   "zrots": null,
+   "status": "matched"
+  },
+  {
+   "fixture": "n7_pf2emp_cz_m4.txt",
+   "n": 7,
+   "algo": "pf2emp",
+   "gatebase": "cz",
+   "seed": 4,
+   "zrots": null,
+   "status": "matched"
+  },
+  {
+   "fixture": "n7_pf2emp_cz_m5.txt",
+   "n": 7,
+   "algo": "pf2emp",
+   "gatebase": "cz",
+   "seed": 5,
+   "zrots": null,
+   "status": "matched"
+  },
+  {
+   "fixture": "n7_pf4com_cz_m1.txt",
+   "n": 7,
+   "algo": "pf4com",
+   "gatebase": "cz",
+   "seed": 1,
+   "zrots": null,
+   "status": "matched"
+  },
+  {
+   "fixture": "n8_pf2com_cz_m1.txt",
+   "n": 8,
+   "algo": "pf2com",
+   "gatebase": "cz",
+   "seed": 1,
+   "zrots": null,
+   "status": "matched"
+  },
+  {
+   "fixture": "n8_pf2emp_cz_m2.txt",
+   "n": 8,
+   "algo": "pf2emp",
+   "gatebase": "cz",
+   "seed": 2,
+   "zrots": null,
+   "status": "matched"
+  },
+  {
+   "fixture": "n8_pf2emp_cz_m3.txt",
+   "n": 8,
+   "algo": "pf2emp",
+   "gatebase": "cz",
+   "seed": 3,
+   "zrots": null,
+   "status": "matched"
+  },
+  {
+   "fixture": "n8_pf2emp_cz_m4.txt",
+   "n": 8,
+   "algo": "pf2emp",
+   "gatebase": "cz",
+   "seed": 4,
+   "zrots": null,
+   "status": "matched"
+  },
+  {
+   "fixture": "n8_pf2emp_cz_m5.txt",
+   "n": 8,
+   "algo": "pf2emp",
+   "gatebase": "cz",
+   "seed": 5,
+   "zrots": null,
+   "status": "matched"
+  }
+ ],
+ "provenance": {
+  "git_commit": "e5d9ee696f892e28aced765585653760f8a427c4",
+  "git_dirty": false,
+  "source_sha256": "4c3089b70f83e9c3809ed45cc5887da9d9551a5c13ff32370207df0af2c1b4f3",
+  "python": "3.12.13",
+  "numpy": "2.5.2",
+  "scipy": "1.18.1",
+  "pennylane": "0.45.1",
+  "mpmath": "1.4.1",
+  "pygridsynth": "2.0.0",
+  "platform": "macOS-26.6.2-arm64-arm-64bit",
+  "started": "2026-11-09 11:47:30 AEDT"
+ }
+}

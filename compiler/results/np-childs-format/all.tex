@@ -1,0 +1,56 @@
+\documentclass{article}
+\usepackage[a4paper,landscape,margin=1.5cm]{geometry}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.18}
+\pagestyle{empty}
+\begin{document}
+\section*{\texttt{main-total-all-formulas}}
+Every formula, X-Y-Z grouping, total gates vs n (cf. Childs et al. 2018 Fig. 3 right)\par\medskip
+\input{main-total-all-formulas.tex}
+\clearpage
+
+\section*{\texttt{main-total-suzuki-orders}}
+Suzuki formulas of each order, total gates vs n (layout of Childs et al. 2018 Fig. 3 right)\par\medskip
+\input{main-total-suzuki-orders.tex}
+\clearpage
+
+\section*{\texttt{main-cnot-all-formulas}}
+Every formula, X-Y-Z grouping, cnot gates vs n (cf. Childs et al. 2018 Fig. 3 right)\par\medskip
+\input{main-cnot-all-formulas.tex}
+\clearpage
+
+\section*{\texttt{main-cnot-suzuki-orders}}
+Suzuki formulas of each order, cnot gates vs n (layout of Childs et al. 2018 Fig. 3 right)\par\medskip
+\input{main-cnot-suzuki-orders.tex}
+\clearpage
+
+\section*{\texttt{grouping-total-twogroup-even-out}}
+Every formula, two-group grouping (twogroup-even-out), total gates vs n (even n only)\par\medskip
+\input{grouping-total-twogroup-even-out.tex}
+\clearpage
+
+\section*{\texttt{grouping-cnot-twogroup-even-out}}
+Every formula, two-group grouping (twogroup-even-out), cnot gates vs n (even n only)\par\medskip
+\input{grouping-cnot-twogroup-even-out.tex}
+\clearpage
+
+\section*{\texttt{grouping-total-twogroup-odd-out}}
+Every formula, two-group grouping (twogroup-odd-out), total gates vs n (even n only)\par\medskip
+\input{grouping-total-twogroup-odd-out.tex}
+\clearpage
+
+\section*{\texttt{grouping-cnot-twogroup-odd-out}}
+Every formula, two-group grouping (twogroup-odd-out), cnot gates vs n (even n only)\par\medskip
+\input{grouping-cnot-twogroup-odd-out.tex}
+\clearpage
+
+\section*{\texttt{optimised-total-all-formulas}}
+Every formula, Nam Light optimised step, total gates vs n\par\medskip
+\input{optimised-total-all-formulas.tex}
+\clearpage
+
+\section*{\texttt{optimised-cnot-all-formulas}}
+Every formula, Nam Light optimised step, cnot gates vs n\par\medskip
+\input{optimised-cnot-all-formulas.tex}
+\clearpage
+\end{document}

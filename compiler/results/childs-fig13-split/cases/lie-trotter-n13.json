@@ -1,0 +1,51 @@
+{
+ "scheme": "lie-trotter",
+ "order": 1,
+ "n": 13,
+ "seed": 1,
+ "r": 372491,
+ "U": {
+  "CNOT": 78,
+  "Rz": 52,
+  "total": 338
+ },
+ "M": {
+  "CNOT": 78,
+  "Rz": 52,
+  "total": 338
+ },
+ "O": {
+  "CNOT": 78,
+  "Rz": 52,
+  "total": 207
+ },
+ "O_M": {
+  "CNOT": 78,
+  "Rz": 52,
+  "total": 207
+ },
+ "edge": {
+  "CNOT": 0,
+  "Rz": 0,
+  "total": 0
+ },
+ "edge_M": {
+  "CNOT": 0,
+  "Rz": 0,
+  "total": 0
+ },
+ "verified": true,
+ "verify_state_err": 1.717821075590449e-14,
+ "optimiser_seconds": 0.6,
+ "split": {
+  "CNOT": {
+   "merging": 0.0,
+   "optimiser_only": 0.0
+  },
+  "Rz": {
+   "merging": 0.0,
+   "optimiser_only": 0.0
+  }
+ },
+ "verify_max_n": 13
+}

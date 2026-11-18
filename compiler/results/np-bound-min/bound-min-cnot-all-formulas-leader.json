@@ -1,0 +1,103 @@
+{
+ "source": "bound-min-cnot-all-formulas.json",
+ "source_sha256": "815fa2b06582d0e4477ba19216fd0cc64636fe3a1ec060e78abe18c35d6a8375",
+ "n": 500,
+ "rows": [
+  {
+   "scheme": "bm-q10",
+   "value": 35710346132000.0,
+   "min": 35710346132000,
+   "max": 35710346132000,
+   "measured": true,
+   "seed_mean": 35710346132000.0,
+   "wins": 10,
+   "rank_min": 1.0,
+   "rank_max": 1.0,
+   "mean_rank": 1.0
+  },
+  {
+   "scheme": "morales-m8",
+   "value": 42668513526000.0,
+   "min": 42668513526000,
+   "max": 42668513526000,
+   "measured": true,
+   "seed_mean": 42668513526000.0,
+   "wins": 0,
+   "rank_min": 2.0,
+   "rank_max": 2.0,
+   "mean_rank": 2.0
+  },
+  {
+   "scheme": "suzuki4",
+   "value": 50511512436000.0,
+   "min": 50511512436000,
+   "max": 50511512436000,
+   "measured": true,
+   "seed_mean": 50511512436000.0,
+   "wins": 0,
+   "rank_min": 3.0,
+   "rank_max": 3.0,
+   "mean_rank": 3.0
+  },
+  {
+   "scheme": "mo-o8-q21",
+   "value": 66656380605000.0,
+   "min": 66656380605000,
+   "max": 66656380605000,
+   "measured": true,
+   "seed_mean": 66656380605000.0,
+   "wins": 0,
+   "rank_min": 4.5,
+   "rank_max": 4.5,
+   "mean_rank": 4.5
+  },
+  {
+   "scheme": "morales-y8m10",
+   "value": 66656380605000.0,
+   "min": 66656380605000,
+   "max": 66656380605000,
+   "measured": true,
+   "seed_mean": 66656380605000.0,
+   "wins": 0,
+   "rank_min": 4.5,
+   "rank_max": 4.5,
+   "mean_rank": 4.5
+  },
+  {
+   "scheme": "mo-q14",
+   "value": 73498326639000.0,
+   "min": 73498326639000,
+   "max": 73498326639000,
+   "measured": true,
+   "seed_mean": 73498326639000.0,
+   "wins": 0,
+   "rank_min": 6.0,
+   "rank_max": 6.0,
+   "mean_rank": 6.0
+  },
+  {
+   "scheme": "mo-q6",
+   "value": 75520968575000.0,
+   "min": 75520968575000,
+   "max": 75520968575000,
+   "measured": true,
+   "seed_mean": 75520968575000.0,
+   "wins": 0,
+   "rank_min": 7.0,
+   "rank_max": 7.0,
+   "mean_rank": 7.0
+  },
+  {
+   "scheme": "suzuki2",
+   "value": 258203889700000.0,
+   "min": 258203889700000,
+   "max": 258203889700000,
+   "measured": true,
+   "seed_mean": 258203889700000.0,
+   "wins": 0,
+   "rank_min": 8.0,
+   "rank_max": 8.0,
+   "mean_rank": 8.0
+  }
+ ]
+}

@@ -1,0 +1,51 @@
+{
+ "scheme": "suzuki2",
+ "order": 2,
+ "n": 13,
+ "seed": 1,
+ "r": 4937,
+ "U": {
+  "CNOT": 156,
+  "Rz": 91,
+  "total": 663
+ },
+ "M": {
+  "CNOT": 130,
+  "Rz": 78,
+  "total": 624
+ },
+ "O": {
+  "CNOT": 104,
+  "Rz": 65,
+  "total": 291
+ },
+ "O_M": {
+  "CNOT": 104,
+  "Rz": 65,
+  "total": 291
+ },
+ "edge": {
+  "CNOT": 26,
+  "Rz": 13,
+  "total": 69
+ },
+ "edge_M": {
+  "CNOT": 26,
+  "Rz": 13,
+  "total": 69
+ },
+ "verified": true,
+ "verify_state_err": 3.843683880116987e-14,
+ "optimiser_seconds": 1.0,
+ "split": {
+  "CNOT": {
+   "merging": 0.16666666666666666,
+   "optimiser_only": 0.16666666666666666
+  },
+  "Rz": {
+   "merging": 0.14285714285714285,
+   "optimiser_only": 0.14285714285714285
+  }
+ },
+ "verify_max_n": 13
+}

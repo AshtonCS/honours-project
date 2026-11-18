@@ -1,0 +1,8 @@
+{
+  "name": "childs-fig13",
+  "description": "Replica of Childs et al. 2018 (arXiv:1711.10980v1) Fig. 13 left/right: CNOT and Rz count vs n before/after the Nam et al. Light optimiser, Suzuki orders 1-8, r from the empirical bound Eq. 147 (simcount emp), unmerged simcount step, cz, at simcount's published sample sizes. Optimised counts from pysimcount.nam (reconstruction). Fields from NumPy seed 1 (they affect neither r nor the counts).",
+  "orders": [1, 2, 4, 6, 8],
+  "sizes": [13, 16, 20, 25, 32, 40, 50, 63, 79, 100],
+  "seed": 1,
+  "verify_max_n": 16
+}

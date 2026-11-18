@@ -1,0 +1,4249 @@
+{
+ "meta": {
+  "config": {
+   "name": "childs-fig13-extended",
+   "description": "Childs et al. 2018 (arXiv:1711.10980v1) Fig. 13 left/right extended to every product formula in the project: CNOT and Rz before/after the Light-optimiser reconstruction, unmerged simcount step, cz, at the published sample sizes. r for every formula (Suzuki included) = ceil(a n^b) fitted to the mean measured r over NumPy seeds 1-10 at n = 5-10 (np-main + np-main-n9), so every point is extrapolated. Fields from NumPy seed 1 (they do not affect the counts).",
+   "schemes": [
+    "lie-trotter",
+    "suzuki2",
+    "suzuki4",
+    "suzuki6",
+    "suzuki8",
+    "mo-q6",
+    "mo-q14",
+    "bm-q10",
+    "mo-o8-q21",
+    "morales-y8m10",
+    "morales-m8"
+   ],
+   "sizes": [
+    13,
+    16,
+    20,
+    25,
+    32,
+    40,
+    50,
+    63,
+    79,
+    100
+   ],
+   "fit_sizes": [
+    5,
+    6,
+    7,
+    8,
+    9,
+    10
+   ],
+   "seeds": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10
+   ],
+   "runs": [
+    "../np-main/seed{seed}",
+    "../np-main-n9/seed{seed}"
+   ],
+   "seed": 1,
+   "verify_max_n": 16,
+   "variants": [
+    {
+     "name": "fig13ext-cnot-lines",
+     "metric": "CNOT",
+     "drop": [
+      "lie-trotter",
+      "suzuki2",
+      "suzuki4"
+     ]
+    },
+    {
+     "name": "fig13ext-cnot-lines-before",
+     "metric": "CNOT",
+     "drop": [
+      "lie-trotter",
+      "suzuki2",
+      "suzuki4"
+     ],
+     "show": "before"
+    },
+    {
+     "name": "fig13ext-cnot-lines-after",
+     "metric": "CNOT",
+     "drop": [
+      "lie-trotter",
+      "suzuki2",
+      "suzuki4"
+     ],
+     "show": "after"
+    }
+   ]
+  },
+  "fits": {
+   "lie-trotter": {
+    "a": 1430.1865833242532,
+    "b": 2.206823396742788,
+    "mean_r": {
+     "5": 51288.0,
+     "6": 75030.4,
+     "7": 103977.5,
+     "8": 134313.3,
+     "9": 167251.9,
+     "10": 256466.0
+    }
+   },
+   "suzuki2": {
+    "a": 36.8814990017896,
+    "b": 1.911047092620817,
+    "mean_r": {
+     "5": 814.7,
+     "6": 1149.0,
+     "7": 1456.3,
+     "8": 1959.5,
+     "9": 2332.4,
+     "10": 3196.7
+    }
+   },
+   "suzuki4": {
+    "a": 3.4551956534102057,
+    "b": 1.6293252774208387,
+    "mean_r": {
+     "5": 46.4,
+     "6": 66.3,
+     "7": 82.6,
+     "8": 102.8,
+     "9": 120.5,
+     "10": 148.6
+    }
+   },
+   "suzuki6": {
+    "a": 1.4395907027734935,
+    "b": 1.4209031917524182,
+    "mean_r": {
+     "5": 13.1,
+     "6": 19.7,
+     "7": 23.6,
+     "8": 28.9,
+     "9": 31.8,
+     "10": 36.4
+    }
+   },
+   "suzuki8": {
+    "a": 0.8073430955878315,
+    "b": 1.3053830568911065,
+    "mean_r": {
+     "5": 6.0,
+     "6": 9.3,
+     "7": 10.5,
+     "8": 12.5,
+     "9": 13.9,
+     "10": 15.7
+    }
+   },
+   "mo-q6": {
+    "a": 3.8547006486584965,
+    "b": 1.3350953586165255,
+    "mean_r": {
+     "5": 33.4,
+     "6": 42.9,
+     "7": 50.5,
+     "8": 60.4,
+     "9": 71.3,
+     "10": 86.6
+    }
+   },
+   "mo-q14": {
+    "a": 1.2896047758761566,
+    "b": 1.3345615528019994,
+    "mean_r": {
+     "5": 10.0,
+     "6": 15.9,
+     "7": 17.6,
+     "8": 21.2,
+     "9": 23.3,
+     "10": 27.2
+    }
+   },
+   "bm-q10": {
+    "a": 2.7837052498109864,
+    "b": 1.2186956764854469,
+    "mean_r": {
+     "5": 19.6,
+     "6": 25.7,
+     "7": 29.1,
+     "8": 34.8,
+     "9": 39.5,
+     "10": 47.4
+    }
+   },
+   "mo-o8-q21": {
+    "a": 1.2495083055062557,
+    "b": 1.3587120277954425,
+    "mean_r": {
+     "5": 10.1,
+     "6": 16.0,
+     "7": 18.1,
+     "8": 21.3,
+     "9": 23.7,
+     "10": 28.1
+    }
+   },
+   "morales-y8m10": {
+    "a": 1.5889229760966954,
+    "b": 1.2790770755457745,
+    "mean_r": {
+     "5": 12.0,
+     "6": 16.5,
+     "7": 19.2,
+     "8": 22.8,
+     "9": 26.1,
+     "10": 30.0
+    }
+   },
+   "morales-m8": {
+    "a": 2.134883116495977,
+    "b": 1.1851659466006679,
+    "mean_r": {
+     "5": 14.0,
+     "6": 18.6,
+     "7": 21.2,
+     "8": 25.4,
+     "9": 28.5,
+     "10": 32.6
+    }
+   }
+  },
+  "provenance": {
+   "git_commit": "e42ff29056ad9ea7fc7c9899fab334903e42e3e3",
+   "git_dirty": true,
+   "source_sha256": "9dad469c6a55b9fdcd968d9eddf3ed2b2314f72f9ad250d27c83f5c2883c8de1",
+   "python": "3.12.13",
+   "numpy": "2.5.2",
+   "scipy": "1.18.1",
+   "pennylane": "0.45.1",
+   "mpmath": "1.4.1",
+   "pygridsynth": "2.0.0",
+   "platform": "macOS-26.6.2-arm64-arm-64bit",
+   "started": "2026-10-30 12:20:13 AEDT"
+  }
+ },
+ "cases": [
+  {
+   "scheme": "lie-trotter",
+   "name": "Lie-Trotter S1",
+   "order": 1,
+   "n": 13,
+   "seed": 1,
+   "r": 410837,
+   "before_per_step": {
+    "CNOT": 78,
+    "Rz": 52,
+    "total": 338
+   },
+   "marginal_per_step": {
+    "CNOT": 78,
+    "Rz": 52,
+    "total": 207
+   },
+   "edge": {
+    "CNOT": 0,
+    "Rz": 0,
+    "total": 0
+   },
+   "before_total": {
+    "CNOT": 32045286,
+    "Rz": 21363524,
+    "total": 138862906
+   },
+   "after_total": {
+    "CNOT": 32045286,
+    "Rz": 21363524,
+    "total": 85043259
+   },
+   "optimiser_seconds": 0.3,
+   "verified": true,
+   "verify_state_err": 1.746734997095501e-14,
+   "r_eq147": 372491
+  },
+  {
+   "scheme": "lie-trotter",
+   "name": "Lie-Trotter S1",
+   "order": 1,
+   "n": 16,
+   "seed": 1,
+   "r": 649641,
+   "before_per_step": {
+    "CNOT": 96,
+    "Rz": 64,
+    "total": 416
+   },
+   "marginal_per_step": {
+    "CNOT": 96,
+    "Rz": 64,
+    "total": 255
+   },
+   "edge": {
+    "CNOT": 0,
+    "Rz": 0,
+    "total": 0
+   },
+   "before_total": {
+    "CNOT": 62365536,
+    "Rz": 41577024,
+    "total": 270250656
+   },
+   "after_total": {
+    "CNOT": 62365536,
+    "Rz": 41577024,
+    "total": 165658455
+   },
+   "optimiser_seconds": 0.3,
+   "verified": true,
+   "verify_state_err": 2.1576131578541018e-14,
+   "r_eq147": 560047
+  },
+  {
+   "scheme": "lie-trotter",
+   "name": "Lie-Trotter S1",
+   "order": 1,
+   "n": 20,
+   "seed": 1,
+   "r": 1063008,
+   "before_per_step": {
+    "CNOT": 120,
+    "Rz": 80,
+    "total": 520
+   },
+   "marginal_per_step": {
+    "CNOT": 120,
+    "Rz": 80,
+    "total": 319
+   },
+   "edge": {
+    "CNOT": 0,
+    "Rz": 0,
+    "total": 0
+   },
+   "before_total": {
+    "CNOT": 127560960,
+    "Rz": 85040640,
+    "total": 552764160
+   },
+   "after_total": {
+    "CNOT": 127560960,
+    "Rz": 85040640,
+    "total": 339099552
+   },
+   "optimiser_seconds": 0.4,
+   "verified": false,
+   "verify_state_err": null,
+   "r_eq147": 868074
+  },
+  {
+   "scheme": "lie-trotter",
+   "name": "Lie-Trotter S1",
+   "order": 1,
+   "n": 25,
+   "seed": 1,
+   "r": 1739400,
+   "before_per_step": {
+    "CNOT": 150,
+    "Rz": 100,
+    "total": 650
+   },
+   "marginal_per_step": {
+    "CNOT": 150,
+    "Rz": 100,
+    "total": 399
+   },
+   "edge": {
+    "CNOT": 0,
+    "Rz": 0,
+    "total": 0
+   },
+   "before_total": {
+    "CNOT": 260910000,
+    "Rz": 173940000,
+    "total": 1130610000
+   },
+   "after_total": {
+    "CNOT": 260910000,
+    "Rz": 173940000,
+    "total": 694020600
+   },
+   "optimiser_seconds": 0.5,
+   "verified": false,
+   "verify_state_err": null,
+   "r_eq147": 1345516
+  },
+  {
+   "scheme": "lie-trotter",
+   "name": "Lie-Trotter S1",
+   "order": 1,
+   "n": 32,
+   "seed": 1,
+   "r": 2999114,
+   "before_per_step": {
+    "CNOT": 192,
+    "Rz": 128,
+    "total": 832
+   },
+   "marginal_per_step": {
+    "CNOT": 192,
+    "Rz": 128,
+    "total": 511
+   },
+   "edge": {
+    "CNOT": 0,
+    "Rz": 0,
+    "total": 0
+   },
+   "before_total": {
+    "CNOT": 575829888,
+    "Rz": 383886592,
+    "total": 2495262848
+   },
+   "after_total": {
+    "CNOT": 575829888,
+    "Rz": 383886592,
+    "total": 1532547254
+   },
+   "optimiser_seconds": 0.7,
+   "verified": false,
+   "verify_state_err": null,
+   "r_eq147": 2184996
+  },
+  {
+   "scheme": "lie-trotter",
+   "name": "Lie-Trotter S1",
+   "order": 1,
+   "n": 40,
+   "seed": 1,
+   "r": 4907454,
+   "before_per_step": {
+    "CNOT": 240,
+    "Rz": 160,
+    "total": 1040
+   },
+   "marginal_per_step": {
+    "CNOT": 240,
+    "Rz": 160,
+    "total": 639
+   },
+   "edge": {
+    "CNOT": 0,
+    "Rz": 0,
+    "total": 0
+   },
+   "before_total": {
+    "CNOT": 1177788960,
+    "Rz": 785192640,
+    "total": 5103752160
+   },
+   "after_total": {
+    "CNOT": 1177788960,
+    "Rz": 785192640,
+    "total": 3135863106
+   },
+   "optimiser_seconds": 1.6,
+   "verified": false,
+   "verify_state_err": null,
+   "r_eq147": 3386750
+  },
+  {
+   "scheme": "lie-trotter",
+   "name": "Lie-Trotter S1",
+   "order": 1,
+   "n": 50,
+   "seed": 1,
+   "r": 8030073,
+   "before_per_step": {
+    "CNOT": 300,
+    "Rz": 200,
+    "total": 1300
+   },
+   "marginal_per_step": {
+    "CNOT": 300,
+    "Rz": 200,
+    "total": 799
+   },
+   "edge": {
+    "CNOT": 0,
+    "Rz": 0,
+    "total": 0
+   },
+   "before_total": {
+    "CNOT": 2409021900,
+    "Rz": 1606014600,
+    "total": 10439094900
+   },
+   "after_total": {
+    "CNOT": 2409021900,
+    "Rz": 1606014600,
+    "total": 6416028327
+   },
+   "optimiser_seconds": 1.9,
+   "verified": false,
+   "verify_state_err": null,
+   "r_eq147": 5249471
+  },
+  {
+   "scheme": "lie-trotter",
+   "name": "Lie-Trotter S1",
+   "order": 1,
+   "n": 63,
+   "seed": 1,
+   "r": 13372713,
+   "before_per_step": {
+    "CNOT": 378,
+    "Rz": 252,
+    "total": 1638
+   },
+   "marginal_per_step": {
+    "CNOT": 378,
+    "Rz": 252,
+    "total": 1007
+   },
+   "edge": {
+    "CNOT": 0,
+    "Rz": 0,
+    "total": 0
+   },
+   "before_total": {
+    "CNOT": 5054885514,
+    "Rz": 3369923676,
+    "total": 21904503894
+   },
+   "after_total": {
+    "CNOT": 5054885514,
+    "Rz": 3369923676,
+    "total": 13466321991
+   },
+   "optimiser_seconds": 2.9,
+   "verified": false,
+   "verify_state_err": null,
+   "r_eq147": 8265033
+  },
+  {
+   "scheme": "lie-trotter",
+   "name": "Lie-Trotter S1",
+   "order": 1,
+   "n": 79,
+   "seed": 1,
+   "r": 22035381,
+   "before_per_step": {
+    "CNOT": 474,
+    "Rz": 316,
+    "total": 2054
+   },
+   "marginal_per_step": {
+    "CNOT": 474,
+    "Rz": 316,
+    "total": 1263
+   },
+   "edge": {
+    "CNOT": 0,
+    "Rz": 0,
+    "total": 0
+   },
+   "before_total": {
+    "CNOT": 10444770594,
+    "Rz": 6963180396,
+    "total": 45260672574
+   },
+   "after_total": {
+    "CNOT": 10444770594,
+    "Rz": 6963180396,
+    "total": 27830686203
+   },
+   "optimiser_seconds": 3.3,
+   "verified": false,
+   "verify_state_err": null,
+   "r_eq147": 12890821
+  },
+  {
+   "scheme": "lie-trotter",
+   "name": "Lie-Trotter S1",
+   "order": 1,
+   "n": 100,
+   "seed": 1,
+   "r": 37071444,
+   "before_per_step": {
+    "CNOT": 600,
+    "Rz": 400,
+    "total": 2600
+   },
+   "marginal_per_step": {
+    "CNOT": 600,
+    "Rz": 400,
+    "total": 1599
+   },
+   "edge": {
+    "CNOT": 0,
+    "Rz": 0,
+    "total": 0
+   },
+   "before_total": {
+    "CNOT": 22242866400,
+    "Rz": 14828577600,
+    "total": 96385754400
+   },
+   "after_total": {
+    "CNOT": 22242866400,
+    "Rz": 14828577600,
+    "total": 59277238956
+   },
+   "optimiser_seconds": 5.2,
+   "verified": false,
+   "verify_state_err": null,
+   "r_eq147": 20480581
+  },
+  {
+   "scheme": "suzuki2",
+   "name": "Suzuki S2",
+   "order": 2,
+   "n": 13,
+   "seed": 1,
+   "r": 4962,
+   "before_per_step": {
+    "CNOT": 156,
+    "Rz": 91,
+    "total": 663
+   },
+   "marginal_per_step": {
+    "CNOT": 104,
+    "Rz": 65,
+    "total": 291
+   },
+   "edge": {
+    "CNOT": 26,
+    "Rz": 13,
+    "total": 69
+   },
+   "before_total": {
+    "CNOT": 774072,
+    "Rz": 451542,
+    "total": 3289806
+   },
+   "after_total": {
+    "CNOT": 516074,
+    "Rz": 322543,
+    "total": 1444011
+   },
+   "optimiser_seconds": 0.5,
+   "verified": true,
+   "verify_state_err": 3.52271165004512e-14,
+   "r_eq147": 4937
+  },
+  {
+   "scheme": "suzuki2",
+   "name": "Suzuki S2",
+   "order": 2,
+   "n": 16,
+   "seed": 1,
+   "r": 7378,
+   "before_per_step": {
+    "CNOT": 192,
+    "Rz": 112,
+    "total": 816
+   },
+   "marginal_per_step": {
+    "CNOT": 128,
+    "Rz": 80,
+    "total": 360
+   },
+   "edge": {
+    "CNOT": 32,
+    "Rz": 16,
+    "total": 84
+   },
+   "before_total": {
+    "CNOT": 1416576,
+    "Rz": 826336,
+    "total": 6020448
+   },
+   "after_total": {
+    "CNOT": 944416,
+    "Rz": 590256,
+    "total": 2656164
+   },
+   "optimiser_seconds": 0.5,
+   "verified": true,
+   "verify_state_err": 4.9730193030083157e-14,
+   "r_eq147": 7298
+  },
+  {
+   "scheme": "suzuki2",
+   "name": "Suzuki S2",
+   "order": 2,
+   "n": 20,
+   "seed": 1,
+   "r": 11302,
+   "before_per_step": {
+    "CNOT": 240,
+    "Rz": 140,
+    "total": 1020
+   },
+   "marginal_per_step": {
+    "CNOT": 160,
+    "Rz": 100,
+    "total": 452
+   },
+   "edge": {
+    "CNOT": 40,
+    "Rz": 20,
+    "total": 104
+   },
+   "before_total": {
+    "CNOT": 2712480,
+    "Rz": 1582280,
+    "total": 11528040
+   },
+   "after_total": {
+    "CNOT": 1808360,
+    "Rz": 1130220,
+    "total": 5108608
+   },
+   "optimiser_seconds": 0.6,
+   "verified": false,
+   "verify_state_err": null,
+   "r_eq147": 11109
+  },
+  {
+   "scheme": "suzuki2",
+   "name": "Suzuki S2",
+   "order": 2,
+   "n": 25,
+   "seed": 1,
+   "r": 17312,
+   "before_per_step": {
+    "CNOT": 300,
+    "Rz": 175,
+    "total": 1275
+   },
+   "marginal_per_step": {
+    "CNOT": 200,
+    "Rz": 125,
+    "total": 567
+   },
+   "edge": {
+    "CNOT": 50,
+    "Rz": 25,
+    "total": 129
+   },
+   "before_total": {
+    "CNOT": 5193600,
+    "Rz": 3029600,
+    "total": 22072800
+   },
+   "after_total": {
+    "CNOT": 3462450,
+    "Rz": 2164025,
+    "total": 9816033
+   },
+   "optimiser_seconds": 1.1,
+   "verified": false,
+   "verify_state_err": null,
+   "r_eq147": 16908
+  },
+  {
+   "scheme": "suzuki2",
+   "name": "Suzuki S2",
+   "order": 2,
+   "n": 32,
+   "seed": 1,
+   "r": 27748,
+   "before_per_step": {
+    "CNOT": 384,
+    "Rz": 224,
+    "total": 1632
+   },
+   "marginal_per_step": {
+    "CNOT": 256,
+    "Rz": 160,
+    "total": 728
+   },
+   "edge": {
+    "CNOT": 64,
+    "Rz": 32,
+    "total": 164
+   },
+   "before_total": {
+    "CNOT": 10655232,
+    "Rz": 6215552,
+    "total": 45284736
+   },
+   "after_total": {
+    "CNOT": 7103552,
+    "Rz": 4439712,
+    "total": 20200708
+   },
+   "optimiser_seconds": 1.1,
+   "verified": false,
+   "verify_state_err": null,
+   "r_eq147": 26911
+  },
+  {
+   "scheme": "suzuki2",
+   "name": "Suzuki S2",
+   "order": 2,
+   "n": 40,
+   "seed": 1,
+   "r": 42504,
+   "before_per_step": {
+    "CNOT": 480,
+    "Rz": 280,
+    "total": 2040
+   },
+   "marginal_per_step": {
+    "CNOT": 320,
+    "Rz": 200,
+    "total": 912
+   },
+   "edge": {
+    "CNOT": 80,
+    "Rz": 40,
+    "total": 204
+   },
+   "before_total": {
+    "CNOT": 20401920,
+    "Rz": 11901120,
+    "total": 86708160
+   },
+   "after_total": {
+    "CNOT": 13601360,
+    "Rz": 8500840,
+    "total": 38763852
+   },
+   "optimiser_seconds": 2.4,
+   "verified": false,
+   "verify_state_err": null,
+   "r_eq147": 40961
+  },
+  {
+   "scheme": "suzuki2",
+   "name": "Suzuki S2",
+   "order": 2,
+   "n": 50,
+   "seed": 1,
+   "r": 65106,
+   "before_per_step": {
+    "CNOT": 600,
+    "Rz": 350,
+    "total": 2550
+   },
+   "marginal_per_step": {
+    "CNOT": 400,
+    "Rz": 250,
+    "total": 1142
+   },
+   "edge": {
+    "CNOT": 100,
+    "Rz": 50,
+    "total": 254
+   },
+   "before_total": {
+    "CNOT": 39063600,
+    "Rz": 22787100,
+    "total": 166020300
+   },
+   "after_total": {
+    "CNOT": 26042500,
+    "Rz": 16276550,
+    "total": 74351306
+   },
+   "optimiser_seconds": 2.7,
+   "verified": false,
+   "verify_state_err": null,
+   "r_eq147": 62348
+  },
+  {
+   "scheme": "suzuki2",
+   "name": "Suzuki S2",
+   "order": 2,
+   "n": 63,
+   "seed": 1,
+   "r": 101259,
+   "before_per_step": {
+    "CNOT": 756,
+    "Rz": 441,
+    "total": 3213
+   },
+   "marginal_per_step": {
+    "CNOT": 504,
+    "Rz": 315,
+    "total": 1441
+   },
+   "edge": {
+    "CNOT": 126,
+    "Rz": 63,
+    "total": 319
+   },
+   "before_total": {
+    "CNOT": 76551804,
+    "Rz": 44655219,
+    "total": 325345167
+   },
+   "after_total": {
+    "CNOT": 51034662,
+    "Rz": 31896648,
+    "total": 145914538
+   },
+   "optimiser_seconds": 4.1,
+   "verified": false,
+   "verify_state_err": null,
+   "r_eq147": 96334
+  },
+  {
+   "scheme": "suzuki2",
+   "name": "Suzuki S2",
+   "order": 2,
+   "n": 79,
+   "seed": 1,
+   "r": 156050,
+   "before_per_step": {
+    "CNOT": 948,
+    "Rz": 553,
+    "total": 4029
+   },
+   "marginal_per_step": {
+    "CNOT": 632,
+    "Rz": 395,
+    "total": 1809
+   },
+   "edge": {
+    "CNOT": 158,
+    "Rz": 79,
+    "total": 399
+   },
+   "before_total": {
+    "CNOT": 147935400,
+    "Rz": 86295650,
+    "total": 628725450
+   },
+   "after_total": {
+    "CNOT": 98623758,
+    "Rz": 61639829,
+    "total": 282294849
+   },
+   "optimiser_seconds": 5.5,
+   "verified": false,
+   "verify_state_err": null,
+   "r_eq147": 147509
+  },
+  {
+   "scheme": "suzuki2",
+   "name": "Suzuki S2",
+   "order": 2,
+   "n": 100,
+   "seed": 1,
+   "r": 244852,
+   "before_per_step": {
+    "CNOT": 1200,
+    "Rz": 700,
+    "total": 5100
+   },
+   "marginal_per_step": {
+    "CNOT": 800,
+    "Rz": 500,
+    "total": 2292
+   },
+   "edge": {
+    "CNOT": 200,
+    "Rz": 100,
+    "total": 504
+   },
+   "before_total": {
+    "CNOT": 293822400,
+    "Rz": 171396400,
+    "total": 1248745200
+   },
+   "after_total": {
+    "CNOT": 195881800,
+    "Rz": 122426100,
+    "total": 561201288
+   },
+   "optimiser_seconds": 9.0,
+   "verified": false,
+   "verify_state_err": null,
+   "r_eq147": 229906
+  },
+  {
+   "scheme": "suzuki4",
+   "name": "Suzuki S4",
+   "order": 4,
+   "n": 13,
+   "seed": 1,
+   "r": 226,
+   "before_per_step": {
+    "CNOT": 780,
+    "Rz": 455,
+    "total": 3315
+   },
+   "marginal_per_step": {
+    "CNOT": 520,
+    "Rz": 325,
+    "total": 1455
+   },
+   "edge": {
+    "CNOT": 26,
+    "Rz": 13,
+    "total": 69
+   },
+   "before_total": {
+    "CNOT": 176280,
+    "Rz": 102830,
+    "total": 749190
+   },
+   "after_total": {
+    "CNOT": 117546,
+    "Rz": 73463,
+    "total": 328899
+   },
+   "optimiser_seconds": 2.2,
+   "verified": true,
+   "verify_state_err": 1.9551367022122126e-13,
+   "r_eq147": 218
+  },
+  {
+   "scheme": "suzuki4",
+   "name": "Suzuki S4",
+   "order": 4,
+   "n": 16,
+   "seed": 1,
+   "r": 317,
+   "before_per_step": {
+    "CNOT": 960,
+    "Rz": 560,
+    "total": 4080
+   },
+   "marginal_per_step": {
+    "CNOT": 640,
+    "Rz": 400,
+    "total": 1800
+   },
+   "edge": {
+    "CNOT": 32,
+    "Rz": 16,
+    "total": 84
+   },
+   "before_total": {
+    "CNOT": 304320,
+    "Rz": 177520,
+    "total": 1293360
+   },
+   "after_total": {
+    "CNOT": 202912,
+    "Rz": 126816,
+    "total": 570684
+   },
+   "optimiser_seconds": 2.5,
+   "verified": true,
+   "verify_state_err": 2.1665860104578e-13,
+   "r_eq147": 301
+  },
+  {
+   "scheme": "suzuki4",
+   "name": "Suzuki S4",
+   "order": 4,
+   "n": 20,
+   "seed": 1,
+   "r": 456,
+   "before_per_step": {
+    "CNOT": 1200,
+    "Rz": 700,
+    "total": 5100
+   },
+   "marginal_per_step": {
+    "CNOT": 800,
+    "Rz": 500,
+    "total": 2260
+   },
+   "edge": {
+    "CNOT": 40,
+    "Rz": 20,
+    "total": 104
+   },
+   "before_total": {
+    "CNOT": 547200,
+    "Rz": 319200,
+    "total": 2325600
+   },
+   "after_total": {
+    "CNOT": 364840,
+    "Rz": 228020,
+    "total": 1030664
+   },
+   "optimiser_seconds": 3.8,
+   "verified": false,
+   "verify_state_err": null,
+   "r_eq147": 425
+  },
+  {
+   "scheme": "suzuki4",
+   "name": "Suzuki S4",
+   "order": 4,
+   "n": 25,
+   "seed": 1,
+   "r": 655,
+   "before_per_step": {
+    "CNOT": 1500,
+    "Rz": 875,
+    "total": 6375
+   },
+   "marginal_per_step": {
+    "CNOT": 1000,
+    "Rz": 625,
+    "total": 2835
+   },
+   "edge": {
+    "CNOT": 50,
+    "Rz": 25,
+    "total": 129
+   },
+   "before_total": {
+    "CNOT": 982500,
+    "Rz": 573125,
+    "total": 4175625
+   },
+   "after_total": {
+    "CNOT": 655050,
+    "Rz": 409400,
+    "total": 1857054
+   },
+   "optimiser_seconds": 5.1,
+   "verified": false,
+   "verify_state_err": null,
+   "r_eq147": 602
+  },
+  {
+   "scheme": "suzuki4",
+   "name": "Suzuki S4",
+   "order": 4,
+   "n": 32,
+   "seed": 1,
+   "r": 980,
+   "before_per_step": {
+    "CNOT": 1920,
+    "Rz": 1120,
+    "total": 8160
+   },
+   "marginal_per_step": {
+    "CNOT": 1280,
+    "Rz": 800,
+    "total": 3640
+   },
+   "edge": {
+    "CNOT": 64,
+    "Rz": 32,
+    "total": 164
+   },
+   "before_total": {
+    "CNOT": 1881600,
+    "Rz": 1097600,
+    "total": 7996800
+   },
+   "after_total": {
+    "CNOT": 1254464,
+    "Rz": 784032,
+    "total": 3567364
+   },
+   "optimiser_seconds": 5.2,
+   "verified": false,
+   "verify_state_err": null,
+   "r_eq147": 883
+  },
+  {
+   "scheme": "suzuki4",
+   "name": "Suzuki S4",
+   "order": 4,
+   "n": 40,
+   "seed": 1,
+   "r": 1409,
+   "before_per_step": {
+    "CNOT": 2400,
+    "Rz": 1400,
+    "total": 10200
+   },
+   "marginal_per_step": {
+    "CNOT": 1600,
+    "Rz": 1000,
+    "total": 4560
+   },
+   "edge": {
+    "CNOT": 80,
+    "Rz": 40,
+    "total": 204
+   },
+   "before_total": {
+    "CNOT": 3381600,
+    "Rz": 1972600,
+    "total": 14371800
+   },
+   "after_total": {
+    "CNOT": 2254480,
+    "Rz": 1409040,
+    "total": 6425244
+   },
+   "optimiser_seconds": 10.6,
+   "verified": false,
+   "verify_state_err": null,
+   "r_eq147": 1249
+  },
+  {
+   "scheme": "suzuki4",
+   "name": "Suzuki S4",
+   "order": 4,
+   "n": 50,
+   "seed": 1,
+   "r": 2027,
+   "before_per_step": {
+    "CNOT": 3000,
+    "Rz": 1750,
+    "total": 12750
+   },
+   "marginal_per_step": {
+    "CNOT": 2000,
+    "Rz": 1250,
+    "total": 5710
+   },
+   "edge": {
+    "CNOT": 100,
+    "Rz": 50,
+    "total": 254
+   },
+   "before_total": {
+    "CNOT": 6081000,
+    "Rz": 3547250,
+    "total": 25844250
+   },
+   "after_total": {
+    "CNOT": 4054100,
+    "Rz": 2533800,
+    "total": 11574424
+   },
+   "optimiser_seconds": 11.8,
+   "verified": false,
+   "verify_state_err": null,
+   "r_eq147": 1766
+  },
+  {
+   "scheme": "suzuki4",
+   "name": "Suzuki S4",
+   "order": 4,
+   "n": 63,
+   "seed": 1,
+   "r": 2953,
+   "before_per_step": {
+    "CNOT": 3780,
+    "Rz": 2205,
+    "total": 16065
+   },
+   "marginal_per_step": {
+    "CNOT": 2520,
+    "Rz": 1575,
+    "total": 7205
+   },
+   "edge": {
+    "CNOT": 126,
+    "Rz": 63,
+    "total": 319
+   },
+   "before_total": {
+    "CNOT": 11162340,
+    "Rz": 6511365,
+    "total": 47439945
+   },
+   "after_total": {
+    "CNOT": 7441686,
+    "Rz": 4651038,
+    "total": 21276684
+   },
+   "optimiser_seconds": 16.6,
+   "verified": false,
+   "verify_state_err": null,
+   "r_eq147": 2529
+  },
+  {
+   "scheme": "suzuki4",
+   "name": "Suzuki S4",
+   "order": 4,
+   "n": 79,
+   "seed": 1,
+   "r": 4269,
+   "before_per_step": {
+    "CNOT": 4740,
+    "Rz": 2765,
+    "total": 20145
+   },
+   "marginal_per_step": {
+    "CNOT": 3160,
+    "Rz": 1975,
+    "total": 9045
+   },
+   "edge": {
+    "CNOT": 158,
+    "Rz": 79,
+    "total": 399
+   },
+   "before_total": {
+    "CNOT": 20235060,
+    "Rz": 11803785,
+    "total": 85999005
+   },
+   "after_total": {
+    "CNOT": 13490198,
+    "Rz": 8431354,
+    "total": 38613504
+   },
+   "optimiser_seconds": 23.1,
+   "verified": false,
+   "verify_state_err": null,
+   "r_eq147": 3596
+  },
+  {
+   "scheme": "suzuki4",
+   "name": "Suzuki S4",
+   "order": 4,
+   "n": 100,
+   "seed": 1,
+   "r": 6268,
+   "before_per_step": {
+    "CNOT": 6000,
+    "Rz": 3500,
+    "total": 25500
+   },
+   "marginal_per_step": {
+    "CNOT": 4000,
+    "Rz": 2500,
+    "total": 11460
+   },
+   "edge": {
+    "CNOT": 200,
+    "Rz": 100,
+    "total": 504
+   },
+   "before_total": {
+    "CNOT": 37608000,
+    "Rz": 21938000,
+    "total": 159834000
+   },
+   "after_total": {
+    "CNOT": 25072200,
+    "Rz": 15670100,
+    "total": 71831784
+   },
+   "optimiser_seconds": 41.9,
+   "verified": false,
+   "verify_state_err": null,
+   "r_eq147": 5187
+  },
+  {
+   "scheme": "suzuki6",
+   "name": "Suzuki S6",
+   "order": 6,
+   "n": 13,
+   "seed": 1,
+   "r": 56,
+   "before_per_step": {
+    "CNOT": 3900,
+    "Rz": 2275,
+    "total": 16575
+   },
+   "marginal_per_step": {
+    "CNOT": 2600,
+    "Rz": 1625,
+    "total": 7275
+   },
+   "edge": {
+    "CNOT": 26,
+    "Rz": 13,
+    "total": 69
+   },
+   "before_total": {
+    "CNOT": 218400,
+    "Rz": 127400,
+    "total": 928200
+   },
+   "after_total": {
+    "CNOT": 145626,
+    "Rz": 91013,
+    "total": 407469
+   },
+   "optimiser_seconds": 10.2,
+   "verified": true,
+   "verify_state_err": 1.1101872634426529e-12,
+   "r_eq147": 52
+  },
+  {
+   "scheme": "suzuki6",
+   "name": "Suzuki S6",
+   "order": 6,
+   "n": 16,
+   "seed": 1,
+   "r": 74,
+   "before_per_step": {
+    "CNOT": 4800,
+    "Rz": 2800,
+    "total": 20400
+   },
+   "marginal_per_step": {
+    "CNOT": 3200,
+    "Rz": 2000,
+    "total": 9000
+   },
+   "edge": {
+    "CNOT": 32,
+    "Rz": 16,
+    "total": 84
+   },
+   "before_total": {
+    "CNOT": 355200,
+    "Rz": 207200,
+    "total": 1509600
+   },
+   "after_total": {
+    "CNOT": 236832,
+    "Rz": 148016,
+    "total": 666084
+   },
+   "optimiser_seconds": 15.8,
+   "verified": true,
+   "verify_state_err": 1.3687114567979623e-12,
+   "r_eq147": 68
+  },
+  {
+   "scheme": "suzuki6",
+   "name": "Suzuki S6",
+   "order": 6,
+   "n": 20,
+   "seed": 1,
+   "r": 102,
+   "before_per_step": {
+    "CNOT": 6000,
+    "Rz": 3500,
+    "total": 25500
+   },
+   "marginal_per_step": {
+    "CNOT": 4000,
+    "Rz": 2500,
+    "total": 11300
+   },
+   "edge": {
+    "CNOT": 40,
+    "Rz": 20,
+    "total": 104
+   },
+   "before_total": {
+    "CNOT": 612000,
+    "Rz": 357000,
+    "total": 2601000
+   },
+   "after_total": {
+    "CNOT": 408040,
+    "Rz": 255020,
+    "total": 1152704
+   },
+   "optimiser_seconds": 19.5,
+   "verified": false,
+   "verify_state_err": null,
+   "r_eq147": 91
+  },
+  {
+   "scheme": "suzuki6",
+   "name": "Suzuki S6",
+   "order": 6,
+   "n": 25,
+   "seed": 1,
+   "r": 140,
+   "before_per_step": {
+    "CNOT": 7500,
+    "Rz": 4375,
+    "total": 31875
+   },
+   "marginal_per_step": {
+    "CNOT": 5000,
+    "Rz": 3125,
+    "total": 14175
+   },
+   "edge": {
+    "CNOT": 50,
+    "Rz": 25,
+    "total": 129
+   },
+   "before_total": {
+    "CNOT": 1050000,
+    "Rz": 612500,
+    "total": 4462500
+   },
+   "after_total": {
+    "CNOT": 700050,
+    "Rz": 437525,
+    "total": 1984629
+   },
+   "optimiser_seconds": 20.6,
+   "verified": false,
+   "verify_state_err": null,
+   "r_eq147": 122
+  },
+  {
+   "scheme": "suzuki6",
+   "name": "Suzuki S6",
+   "order": 6,
+   "n": 32,
+   "seed": 1,
+   "r": 199,
+   "before_per_step": {
+    "CNOT": 9600,
+    "Rz": 5600,
+    "total": 40800
+   },
+   "marginal_per_step": {
+    "CNOT": 6400,
+    "Rz": 4000,
+    "total": 18200
+   },
+   "edge": {
+    "CNOT": 64,
+    "Rz": 32,
+    "total": 164
+   },
+   "before_total": {
+    "CNOT": 1910400,
+    "Rz": 1114400,
+    "total": 8119200
+   },
+   "after_total": {
+    "CNOT": 1273664,
+    "Rz": 796032,
+    "total": 3621964
+   },
+   "optimiser_seconds": 27.0,
+   "verified": false,
+   "verify_state_err": null,
+   "r_eq147": 169
+  },
+  {
+   "scheme": "suzuki6",
+   "name": "Suzuki S6",
+   "order": 6,
+   "n": 40,
+   "seed": 1,
+   "r": 273,
+   "before_per_step": {
+    "CNOT": 12000,
+    "Rz": 7000,
+    "total": 51000
+   },
+   "marginal_per_step": {
+    "CNOT": 8000,
+    "Rz": 5000,
+    "total": 22800
+   },
+   "edge": {
+    "CNOT": 80,
+    "Rz": 40,
+    "total": 204
+   },
+   "before_total": {
+    "CNOT": 3276000,
+    "Rz": 1911000,
+    "total": 13923000
+   },
+   "after_total": {
+    "CNOT": 2184080,
+    "Rz": 1365040,
+    "total": 6224604
+   },
+   "optimiser_seconds": 50.5,
+   "verified": false,
+   "verify_state_err": null,
+   "r_eq147": 226
+  },
+  {
+   "scheme": "suzuki6",
+   "name": "Suzuki S6",
+   "order": 6,
+   "n": 50,
+   "seed": 1,
+   "r": 374,
+   "before_per_step": {
+    "CNOT": 15000,
+    "Rz": 8750,
+    "total": 63750
+   },
+   "marginal_per_step": {
+    "CNOT": 10000,
+    "Rz": 6250,
+    "total": 28550
+   },
+   "edge": {
+    "CNOT": 100,
+    "Rz": 50,
+    "total": 254
+   },
+   "before_total": {
+    "CNOT": 5610000,
+    "Rz": 3272500,
+    "total": 23842500
+   },
+   "after_total": {
+    "CNOT": 3740100,
+    "Rz": 2337550,
+    "total": 10677954
+   },
+   "optimiser_seconds": 61.4,
+   "verified": false,
+   "verify_state_err": null,
+   "r_eq147": 303
+  },
+  {
+   "scheme": "suzuki6",
+   "name": "Suzuki S6",
+   "order": 6,
+   "n": 63,
+   "seed": 1,
+   "r": 519,
+   "before_per_step": {
+    "CNOT": 18900,
+    "Rz": 11025,
+    "total": 80325
+   },
+   "marginal_per_step": {
+    "CNOT": 12600,
+    "Rz": 7875,
+    "total": 36025
+   },
+   "edge": {
+    "CNOT": 126,
+    "Rz": 63,
+    "total": 319
+   },
+   "before_total": {
+    "CNOT": 9809100,
+    "Rz": 5721975,
+    "total": 41688675
+   },
+   "after_total": {
+    "CNOT": 6539526,
+    "Rz": 4087188,
+    "total": 18697294
+   },
+   "optimiser_seconds": 92.0,
+   "verified": false,
+   "verify_state_err": null,
+   "r_eq147": 410
+  },
+  {
+   "scheme": "suzuki6",
+   "name": "Suzuki S6",
+   "order": 6,
+   "n": 79,
+   "seed": 1,
+   "r": 716,
+   "before_per_step": {
+    "CNOT": 23700,
+    "Rz": 13825,
+    "total": 100725
+   },
+   "marginal_per_step": {
+    "CNOT": 15800,
+    "Rz": 9875,
+    "total": 45225
+   },
+   "edge": {
+    "CNOT": 158,
+    "Rz": 79,
+    "total": 399
+   },
+   "before_total": {
+    "CNOT": 16969200,
+    "Rz": 9898700,
+    "total": 72119100
+   },
+   "after_total": {
+    "CNOT": 11312958,
+    "Rz": 7070579,
+    "total": 32381499
+   },
+   "optimiser_seconds": 110.4,
+   "verified": false,
+   "verify_state_err": null,
+   "r_eq147": 551
+  },
+  {
+   "scheme": "suzuki6",
+   "name": "Suzuki S6",
+   "order": 6,
+   "n": 100,
+   "seed": 1,
+   "r": 1001,
+   "before_per_step": {
+    "CNOT": 30000,
+    "Rz": 17500,
+    "total": 127500
+   },
+   "marginal_per_step": {
+    "CNOT": 20000,
+    "Rz": 12500,
+    "total": 57300
+   },
+   "edge": {
+    "CNOT": 200,
+    "Rz": 100,
+    "total": 504
+   },
+   "before_total": {
+    "CNOT": 30030000,
+    "Rz": 17517500,
+    "total": 127627500
+   },
+   "after_total": {
+    "CNOT": 20020200,
+    "Rz": 12512600,
+    "total": 57357804
+   },
+   "optimiser_seconds": 235.1,
+   "verified": false,
+   "verify_state_err": null,
+   "r_eq147": 751
+  },
+  {
+   "scheme": "suzuki8",
+   "name": "Suzuki S8",
+   "order": 8,
+   "n": 13,
+   "seed": 1,
+   "r": 23,
+   "before_per_step": {
+    "CNOT": 19500,
+    "Rz": 11375,
+    "total": 82875
+   },
+   "marginal_per_step": {
+    "CNOT": 13000,
+    "Rz": 8125,
+    "total": 36375
+   },
+   "edge": {
+    "CNOT": 26,
+    "Rz": 13,
+    "total": 69
+   },
+   "before_total": {
+    "CNOT": 448500,
+    "Rz": 261625,
+    "total": 1906125
+   },
+   "after_total": {
+    "CNOT": 299026,
+    "Rz": 186888,
+    "total": 836694
+   },
+   "optimiser_seconds": 48.9,
+   "verified": true,
+   "verify_state_err": 5.925313462746117e-12,
+   "r_eq147": 22
+  },
+  {
+   "scheme": "suzuki8",
+   "name": "Suzuki S8",
+   "order": 8,
+   "n": 16,
+   "seed": 1,
+   "r": 31,
+   "before_per_step": {
+    "CNOT": 24000,
+    "Rz": 14000,
+    "total": 102000
+   },
+   "marginal_per_step": {
+    "CNOT": 16000,
+    "Rz": 10000,
+    "total": 45000
+   },
+   "edge": {
+    "CNOT": 32,
+    "Rz": 16,
+    "total": 84
+   },
+   "before_total": {
+    "CNOT": 744000,
+    "Rz": 434000,
+    "total": 3162000
+   },
+   "after_total": {
+    "CNOT": 496032,
+    "Rz": 310016,
+    "total": 1395084
+   },
+   "optimiser_seconds": 64.9,
+   "verified": true,
+   "verify_state_err": 6.754922862522759e-12,
+   "r_eq147": 28
+  },
+  {
+   "scheme": "suzuki8",
+   "name": "Suzuki S8",
+   "order": 8,
+   "n": 20,
+   "seed": 1,
+   "r": 41,
+   "before_per_step": {
+    "CNOT": 30000,
+    "Rz": 17500,
+    "total": 127500
+   },
+   "marginal_per_step": {
+    "CNOT": 20000,
+    "Rz": 12500,
+    "total": 56500
+   },
+   "edge": {
+    "CNOT": 40,
+    "Rz": 20,
+    "total": 104
+   },
+   "before_total": {
+    "CNOT": 1230000,
+    "Rz": 717500,
+    "total": 5227500
+   },
+   "after_total": {
+    "CNOT": 820040,
+    "Rz": 512520,
+    "total": 2316604
+   },
+   "optimiser_seconds": 81.9,
+   "verified": false,
+   "verify_state_err": null,
+   "r_eq147": 35
+  },
+  {
+   "scheme": "suzuki8",
+   "name": "Suzuki S8",
+   "order": 8,
+   "n": 25,
+   "seed": 1,
+   "r": 54,
+   "before_per_step": {
+    "CNOT": 37500,
+    "Rz": 21875,
+    "total": 159375
+   },
+   "marginal_per_step": {
+    "CNOT": 25000,
+    "Rz": 15625,
+    "total": 70875
+   },
+   "edge": {
+    "CNOT": 50,
+    "Rz": 25,
+    "total": 129
+   },
+   "before_total": {
+    "CNOT": 2025000,
+    "Rz": 1181250,
+    "total": 8606250
+   },
+   "after_total": {
+    "CNOT": 1350050,
+    "Rz": 843775,
+    "total": 3827379
+   },
+   "optimiser_seconds": 112.0,
+   "verified": false,
+   "verify_state_err": null,
+   "r_eq147": 46
+  },
+  {
+   "scheme": "suzuki8",
+   "name": "Suzuki S8",
+   "order": 8,
+   "n": 32,
+   "seed": 1,
+   "r": 75,
+   "before_per_step": {
+    "CNOT": 48000,
+    "Rz": 28000,
+    "total": 204000
+   },
+   "marginal_per_step": {
+    "CNOT": 32000,
+    "Rz": 20000,
+    "total": 91000
+   },
+   "edge": {
+    "CNOT": 64,
+    "Rz": 32,
+    "total": 164
+   },
+   "before_total": {
+    "CNOT": 3600000,
+    "Rz": 2100000,
+    "total": 15300000
+   },
+   "after_total": {
+    "CNOT": 2400064,
+    "Rz": 1500032,
+    "total": 6825164
+   },
+   "optimiser_seconds": 151.7,
+   "verified": false,
+   "verify_state_err": null,
+   "r_eq147": 60
+  },
+  {
+   "scheme": "suzuki8",
+   "name": "Suzuki S8",
+   "order": 8,
+   "n": 40,
+   "seed": 1,
+   "r": 100,
+   "before_per_step": {
+    "CNOT": 60000,
+    "Rz": 35000,
+    "total": 255000
+   },
+   "marginal_per_step": {
+    "CNOT": 40000,
+    "Rz": 25000,
+    "total": 114000
+   },
+   "edge": {
+    "CNOT": 80,
+    "Rz": 40,
+    "total": 204
+   },
+   "before_total": {
+    "CNOT": 6000000,
+    "Rz": 3500000,
+    "total": 25500000
+   },
+   "after_total": {
+    "CNOT": 4000080,
+    "Rz": 2500040,
+    "total": 11400204
+   },
+   "optimiser_seconds": 220.7,
+   "verified": false,
+   "verify_state_err": null,
+   "r_eq147": 77
+  },
+  {
+   "scheme": "suzuki8",
+   "name": "Suzuki S8",
+   "order": 8,
+   "n": 50,
+   "seed": 1,
+   "r": 134,
+   "before_per_step": {
+    "CNOT": 75000,
+    "Rz": 43750,
+    "total": 318750
+   },
+   "marginal_per_step": {
+    "CNOT": 50000,
+    "Rz": 31250,
+    "total": 142750
+   },
+   "edge": {
+    "CNOT": 100,
+    "Rz": 50,
+    "total": 254
+   },
+   "before_total": {
+    "CNOT": 10050000,
+    "Rz": 5862500,
+    "total": 42712500
+   },
+   "after_total": {
+    "CNOT": 6700100,
+    "Rz": 4187550,
+    "total": 19128754
+   },
+   "optimiser_seconds": 310.3,
+   "verified": false,
+   "verify_state_err": null,
+   "r_eq147": 100
+  },
+  {
+   "scheme": "suzuki8",
+   "name": "Suzuki S8",
+   "order": 8,
+   "n": 63,
+   "seed": 1,
+   "r": 181,
+   "before_per_step": {
+    "CNOT": 94500,
+    "Rz": 55125,
+    "total": 401625
+   },
+   "marginal_per_step": {
+    "CNOT": 63000,
+    "Rz": 39375,
+    "total": 180125
+   },
+   "edge": {
+    "CNOT": 126,
+    "Rz": 63,
+    "total": 319
+   },
+   "before_total": {
+    "CNOT": 17104500,
+    "Rz": 9977625,
+    "total": 72694125
+   },
+   "after_total": {
+    "CNOT": 11403126,
+    "Rz": 7126938,
+    "total": 32602944
+   },
+   "optimiser_seconds": 471.8,
+   "verified": false,
+   "verify_state_err": null,
+   "r_eq147": 130
+  },
+  {
+   "scheme": "suzuki8",
+   "name": "Suzuki S8",
+   "order": 8,
+   "n": 79,
+   "seed": 1,
+   "r": 243,
+   "before_per_step": {
+    "CNOT": 118500,
+    "Rz": 69125,
+    "total": 503625
+   },
+   "marginal_per_step": {
+    "CNOT": 79000,
+    "Rz": 49375,
+    "total": 226125
+   },
+   "edge": {
+    "CNOT": 158,
+    "Rz": 79,
+    "total": 399
+   },
+   "before_total": {
+    "CNOT": 28795500,
+    "Rz": 16797375,
+    "total": 122380875
+   },
+   "after_total": {
+    "CNOT": 19197158,
+    "Rz": 11998204,
+    "total": 54948774
+   },
+   "optimiser_seconds": 851.5,
+   "verified": false,
+   "verify_state_err": null,
+   "r_eq147": 168
+  },
+  {
+   "scheme": "suzuki8",
+   "name": "Suzuki S8",
+   "order": 8,
+   "n": 100,
+   "seed": 1,
+   "r": 330,
+   "before_per_step": {
+    "CNOT": 150000,
+    "Rz": 87500,
+    "total": 637500
+   },
+   "marginal_per_step": {
+    "CNOT": 100000,
+    "Rz": 62500,
+    "total": 286500
+   },
+   "edge": {
+    "CNOT": 200,
+    "Rz": 100,
+    "total": 504
+   },
+   "before_total": {
+    "CNOT": 49500000,
+    "Rz": 28875000,
+    "total": 210375000
+   },
+   "after_total": {
+    "CNOT": 33000200,
+    "Rz": 20625100,
+    "total": 94545504
+   },
+   "optimiser_seconds": 914.4,
+   "verified": false,
+   "verify_state_err": null,
+   "r_eq147": 219
+  },
+  {
+   "scheme": "mo-q6",
+   "name": "M&O q=6 (rec., Tab. 2)",
+   "order": 4,
+   "n": 13,
+   "seed": 1,
+   "r": 119,
+   "before_per_step": {
+    "CNOT": 936,
+    "Rz": 624,
+    "total": 4056
+   },
+   "marginal_per_step": {
+    "CNOT": 624,
+    "Rz": 390,
+    "total": 1746
+   },
+   "edge": {
+    "CNOT": 26,
+    "Rz": 13,
+    "total": 69
+   },
+   "before_total": {
+    "CNOT": 111384,
+    "Rz": 74256,
+    "total": 482664
+   },
+   "after_total": {
+    "CNOT": 74282,
+    "Rz": 46423,
+    "total": 207843
+   },
+   "optimiser_seconds": 2.7,
+   "verified": true,
+   "verify_state_err": 2.679975389726282e-13
+  },
+  {
+   "scheme": "mo-q6",
+   "name": "M&O q=6 (rec., Tab. 2)",
+   "order": 4,
+   "n": 16,
+   "seed": 1,
+   "r": 157,
+   "before_per_step": {
+    "CNOT": 1152,
+    "Rz": 768,
+    "total": 4992
+   },
+   "marginal_per_step": {
+    "CNOT": 768,
+    "Rz": 480,
+    "total": 2160
+   },
+   "edge": {
+    "CNOT": 32,
+    "Rz": 16,
+    "total": 84
+   },
+   "before_total": {
+    "CNOT": 180864,
+    "Rz": 120576,
+    "total": 783744
+   },
+   "after_total": {
+    "CNOT": 120608,
+    "Rz": 75376,
+    "total": 339204
+   },
+   "optimiser_seconds": 3.4,
+   "verified": true,
+   "verify_state_err": 3.045592024998164e-13
+  },
+  {
+   "scheme": "mo-q6",
+   "name": "M&O q=6 (rec., Tab. 2)",
+   "order": 4,
+   "n": 20,
+   "seed": 1,
+   "r": 211,
+   "before_per_step": {
+    "CNOT": 1440,
+    "Rz": 960,
+    "total": 6240
+   },
+   "marginal_per_step": {
+    "CNOT": 960,
+    "Rz": 600,
+    "total": 2712
+   },
+   "edge": {
+    "CNOT": 40,
+    "Rz": 20,
+    "total": 104
+   },
+   "before_total": {
+    "CNOT": 303840,
+    "Rz": 202560,
+    "total": 1316640
+   },
+   "after_total": {
+    "CNOT": 202600,
+    "Rz": 126620,
+    "total": 572336
+   },
+   "optimiser_seconds": 4.5,
+   "verified": false,
+   "verify_state_err": null
+  },
+  {
+   "scheme": "mo-q6",
+   "name": "M&O q=6 (rec., Tab. 2)",
+   "order": 4,
+   "n": 25,
+   "seed": 1,
+   "r": 284,
+   "before_per_step": {
+    "CNOT": 1800,
+    "Rz": 1200,
+    "total": 7800
+   },
+   "marginal_per_step": {
+    "CNOT": 1200,
+    "Rz": 750,
+    "total": 3402
+   },
+   "edge": {
+    "CNOT": 50,
+    "Rz": 25,
+    "total": 129
+   },
+   "before_total": {
+    "CNOT": 511200,
+    "Rz": 340800,
+    "total": 2215200
+   },
+   "after_total": {
+    "CNOT": 340850,
+    "Rz": 213025,
+    "total": 966297
+   },
+   "optimiser_seconds": 5.8,
+   "verified": false,
+   "verify_state_err": null
+  },
+  {
+   "scheme": "mo-q6",
+   "name": "M&O q=6 (rec., Tab. 2)",
+   "order": 4,
+   "n": 32,
+   "seed": 1,
+   "r": 395,
+   "before_per_step": {
+    "CNOT": 2304,
+    "Rz": 1536,
+    "total": 9984
+   },
+   "marginal_per_step": {
+    "CNOT": 1536,
+    "Rz": 960,
+    "total": 4368
+   },
+   "edge": {
+    "CNOT": 64,
+    "Rz": 32,
+    "total": 164
+   },
+   "before_total": {
+    "CNOT": 910080,
+    "Rz": 606720,
+    "total": 3943680
+   },
+   "after_total": {
+    "CNOT": 606784,
+    "Rz": 379232,
+    "total": 1725524
+   },
+   "optimiser_seconds": 7.4,
+   "verified": false,
+   "verify_state_err": null
+  },
+  {
+   "scheme": "mo-q6",
+   "name": "M&O q=6 (rec., Tab. 2)",
+   "order": 4,
+   "n": 40,
+   "seed": 1,
+   "r": 531,
+   "before_per_step": {
+    "CNOT": 2880,
+    "Rz": 1920,
+    "total": 12480
+   },
+   "marginal_per_step": {
+    "CNOT": 1920,
+    "Rz": 1200,
+    "total": 5472
+   },
+   "edge": {
+    "CNOT": 80,
+    "Rz": 40,
+    "total": 204
+   },
+   "before_total": {
+    "CNOT": 1529280,
+    "Rz": 1019520,
+    "total": 6626880
+   },
+   "after_total": {
+    "CNOT": 1019600,
+    "Rz": 637240,
+    "total": 2905836
+   },
+   "optimiser_seconds": 12.7,
+   "verified": false,
+   "verify_state_err": null
+  },
+  {
+   "scheme": "mo-q6",
+   "name": "M&O q=6 (rec., Tab. 2)",
+   "order": 4,
+   "n": 50,
+   "seed": 1,
+   "r": 715,
+   "before_per_step": {
+    "CNOT": 3600,
+    "Rz": 2400,
+    "total": 15600
+   },
+   "marginal_per_step": {
+    "CNOT": 2400,
+    "Rz": 1500,
+    "total": 6852
+   },
+   "edge": {
+    "CNOT": 100,
+    "Rz": 50,
+    "total": 254
+   },
+   "before_total": {
+    "CNOT": 2574000,
+    "Rz": 1716000,
+    "total": 11154000
+   },
+   "after_total": {
+    "CNOT": 1716100,
+    "Rz": 1072550,
+    "total": 4899434
+   },
+   "optimiser_seconds": 13.9,
+   "verified": false,
+   "verify_state_err": null
+  },
+  {
+   "scheme": "mo-q6",
+   "name": "M&O q=6 (rec., Tab. 2)",
+   "order": 4,
+   "n": 63,
+   "seed": 1,
+   "r": 974,
+   "before_per_step": {
+    "CNOT": 4536,
+    "Rz": 3024,
+    "total": 19656
+   },
+   "marginal_per_step": {
+    "CNOT": 3024,
+    "Rz": 1890,
+    "total": 8646
+   },
+   "edge": {
+    "CNOT": 126,
+    "Rz": 63,
+    "total": 319
+   },
+   "before_total": {
+    "CNOT": 4418064,
+    "Rz": 2945376,
+    "total": 19144944
+   },
+   "after_total": {
+    "CNOT": 2945502,
+    "Rz": 1840923,
+    "total": 8421523
+   },
+   "optimiser_seconds": 22.0,
+   "verified": false,
+   "verify_state_err": null
+  },
+  {
+   "scheme": "mo-q6",
+   "name": "M&O q=6 (rec., Tab. 2)",
+   "order": 4,
+   "n": 79,
+   "seed": 1,
+   "r": 1317,
+   "before_per_step": {
+    "CNOT": 5688,
+    "Rz": 3792,
+    "total": 24648
+   },
+   "marginal_per_step": {
+    "CNOT": 3792,
+    "Rz": 2370,
+    "total": 10854
+   },
+   "edge": {
+    "CNOT": 158,
+    "Rz": 79,
+    "total": 399
+   },
+   "before_total": {
+    "CNOT": 7491096,
+    "Rz": 4994064,
+    "total": 32461416
+   },
+   "after_total": {
+    "CNOT": 4994222,
+    "Rz": 3121369,
+    "total": 14295117
+   },
+   "optimiser_seconds": 40.6,
+   "verified": false,
+   "verify_state_err": null
+  },
+  {
+   "scheme": "mo-q6",
+   "name": "M&O q=6 (rec., Tab. 2)",
+   "order": 4,
+   "n": 100,
+   "seed": 1,
+   "r": 1804,
+   "before_per_step": {
+    "CNOT": 7200,
+    "Rz": 4800,
+    "total": 31200
+   },
+   "marginal_per_step": {
+    "CNOT": 4800,
+    "Rz": 3000,
+    "total": 13752
+   },
+   "edge": {
+    "CNOT": 200,
+    "Rz": 100,
+    "total": 504
+   },
+   "before_total": {
+    "CNOT": 12988800,
+    "Rz": 8659200,
+    "total": 56284800
+   },
+   "after_total": {
+    "CNOT": 8659400,
+    "Rz": 5412100,
+    "total": 24809112
+   },
+   "optimiser_seconds": 35.4,
+   "verified": false,
+   "verify_state_err": null
+  },
+  {
+   "scheme": "mo-q14",
+   "name": "M&O q=14 (rec., Tab. 3)",
+   "order": 6,
+   "n": 13,
+   "seed": 1,
+   "r": 40,
+   "before_per_step": {
+    "CNOT": 2184,
+    "Rz": 1456,
+    "total": 9464
+   },
+   "marginal_per_step": {
+    "CNOT": 1456,
+    "Rz": 910,
+    "total": 4074
+   },
+   "edge": {
+    "CNOT": 26,
+    "Rz": 13,
+    "total": 69
+   },
+   "before_total": {
+    "CNOT": 87360,
+    "Rz": 58240,
+    "total": 378560
+   },
+   "after_total": {
+    "CNOT": 58266,
+    "Rz": 36413,
+    "total": 163029
+   },
+   "optimiser_seconds": 5.7,
+   "verified": true,
+   "verify_state_err": 5.533104613558546e-13
+  },
+  {
+   "scheme": "mo-q14",
+   "name": "M&O q=14 (rec., Tab. 3)",
+   "order": 6,
+   "n": 16,
+   "seed": 1,
+   "r": 53,
+   "before_per_step": {
+    "CNOT": 2688,
+    "Rz": 1792,
+    "total": 11648
+   },
+   "marginal_per_step": {
+    "CNOT": 1792,
+    "Rz": 1120,
+    "total": 5040
+   },
+   "edge": {
+    "CNOT": 32,
+    "Rz": 16,
+    "total": 84
+   },
+   "before_total": {
+    "CNOT": 142464,
+    "Rz": 94976,
+    "total": 617344
+   },
+   "after_total": {
+    "CNOT": 95008,
+    "Rz": 59376,
+    "total": 267204
+   },
+   "optimiser_seconds": 8.1,
+   "verified": true,
+   "verify_state_err": 7.475226387166006e-13
+  },
+  {
+   "scheme": "mo-q14",
+   "name": "M&O q=14 (rec., Tab. 3)",
+   "order": 6,
+   "n": 20,
+   "seed": 1,
+   "r": 71,
+   "before_per_step": {
+    "CNOT": 3360,
+    "Rz": 2240,
+    "total": 14560
+   },
+   "marginal_per_step": {
+    "CNOT": 2240,
+    "Rz": 1400,
+    "total": 6328
+   },
+   "edge": {
+    "CNOT": 40,
+    "Rz": 20,
+    "total": 104
+   },
+   "before_total": {
+    "CNOT": 238560,
+    "Rz": 159040,
+    "total": 1033760
+   },
+   "after_total": {
+    "CNOT": 159080,
+    "Rz": 99420,
+    "total": 449392
+   },
+   "optimiser_seconds": 11.0,
+   "verified": false,
+   "verify_state_err": null
+  },
+  {
+   "scheme": "mo-q14",
+   "name": "M&O q=14 (rec., Tab. 3)",
+   "order": 6,
+   "n": 25,
+   "seed": 1,
+   "r": 95,
+   "before_per_step": {
+    "CNOT": 4200,
+    "Rz": 2800,
+    "total": 18200
+   },
+   "marginal_per_step": {
+    "CNOT": 2800,
+    "Rz": 1750,
+    "total": 7938
+   },
+   "edge": {
+    "CNOT": 50,
+    "Rz": 25,
+    "total": 129
+   },
+   "before_total": {
+    "CNOT": 399000,
+    "Rz": 266000,
+    "total": 1729000
+   },
+   "after_total": {
+    "CNOT": 266050,
+    "Rz": 166275,
+    "total": 754239
+   },
+   "optimiser_seconds": 12.3,
+   "verified": false,
+   "verify_state_err": null
+  },
+  {
+   "scheme": "mo-q14",
+   "name": "M&O q=14 (rec., Tab. 3)",
+   "order": 6,
+   "n": 32,
+   "seed": 1,
+   "r": 132,
+   "before_per_step": {
+    "CNOT": 5376,
+    "Rz": 3584,
+    "total": 23296
+   },
+   "marginal_per_step": {
+    "CNOT": 3584,
+    "Rz": 2240,
+    "total": 10192
+   },
+   "edge": {
+    "CNOT": 64,
+    "Rz": 32,
+    "total": 164
+   },
+   "before_total": {
+    "CNOT": 709632,
+    "Rz": 473088,
+    "total": 3075072
+   },
+   "after_total": {
+    "CNOT": 473152,
+    "Rz": 295712,
+    "total": 1345508
+   },
+   "optimiser_seconds": 21.7,
+   "verified": false,
+   "verify_state_err": null
+  },
+  {
+   "scheme": "mo-q14",
+   "name": "M&O q=14 (rec., Tab. 3)",
+   "order": 6,
+   "n": 40,
+   "seed": 1,
+   "r": 178,
+   "before_per_step": {
+    "CNOT": 6720,
+    "Rz": 4480,
+    "total": 29120
+   },
+   "marginal_per_step": {
+    "CNOT": 4480,
+    "Rz": 2800,
+    "total": 12768
+   },
+   "edge": {
+    "CNOT": 80,
+    "Rz": 40,
+    "total": 204
+   },
+   "before_total": {
+    "CNOT": 1196160,
+    "Rz": 797440,
+    "total": 5183360
+   },
+   "after_total": {
+    "CNOT": 797520,
+    "Rz": 498440,
+    "total": 2272908
+   },
+   "optimiser_seconds": 28.2,
+   "verified": false,
+   "verify_state_err": null
+  },
+  {
+   "scheme": "mo-q14",
+   "name": "M&O q=14 (rec., Tab. 3)",
+   "order": 6,
+   "n": 50,
+   "seed": 1,
+   "r": 239,
+   "before_per_step": {
+    "CNOT": 8400,
+    "Rz": 5600,
+    "total": 36400
+   },
+   "marginal_per_step": {
+    "CNOT": 5600,
+    "Rz": 3500,
+    "total": 15988
+   },
+   "edge": {
+    "CNOT": 100,
+    "Rz": 50,
+    "total": 254
+   },
+   "before_total": {
+    "CNOT": 2007600,
+    "Rz": 1338400,
+    "total": 8699600
+   },
+   "after_total": {
+    "CNOT": 1338500,
+    "Rz": 836550,
+    "total": 3821386
+   },
+   "optimiser_seconds": 38.1,
+   "verified": false,
+   "verify_state_err": null
+  },
+  {
+   "scheme": "mo-q14",
+   "name": "M&O q=14 (rec., Tab. 3)",
+   "order": 6,
+   "n": 63,
+   "seed": 1,
+   "r": 325,
+   "before_per_step": {
+    "CNOT": 10584,
+    "Rz": 7056,
+    "total": 45864
+   },
+   "marginal_per_step": {
+    "CNOT": 7056,
+    "Rz": 4410,
+    "total": 20174
+   },
+   "edge": {
+    "CNOT": 126,
+    "Rz": 63,
+    "total": 319
+   },
+   "before_total": {
+    "CNOT": 3439800,
+    "Rz": 2293200,
+    "total": 14905800
+   },
+   "after_total": {
+    "CNOT": 2293326,
+    "Rz": 1433313,
+    "total": 6556869
+   },
+   "optimiser_seconds": 97.2,
+   "verified": false,
+   "verify_state_err": null
+  },
+  {
+   "scheme": "mo-q14",
+   "name": "M&O q=14 (rec., Tab. 3)",
+   "order": 6,
+   "n": 79,
+   "seed": 1,
+   "r": 440,
+   "before_per_step": {
+    "CNOT": 13272,
+    "Rz": 8848,
+    "total": 57512
+   },
+   "marginal_per_step": {
+    "CNOT": 8848,
+    "Rz": 5530,
+    "total": 25326
+   },
+   "edge": {
+    "CNOT": 158,
+    "Rz": 79,
+    "total": 399
+   },
+   "before_total": {
+    "CNOT": 5839680,
+    "Rz": 3893120,
+    "total": 25305280
+   },
+   "after_total": {
+    "CNOT": 3893278,
+    "Rz": 2433279,
+    "total": 11143839
+   },
+   "optimiser_seconds": 80.9,
+   "verified": false,
+   "verify_state_err": null
+  },
+  {
+   "scheme": "mo-q14",
+   "name": "M&O q=14 (rec., Tab. 3)",
+   "order": 6,
+   "n": 100,
+   "seed": 1,
+   "r": 602,
+   "before_per_step": {
+    "CNOT": 16800,
+    "Rz": 11200,
+    "total": 72800
+   },
+   "marginal_per_step": {
+    "CNOT": 11200,
+    "Rz": 7000,
+    "total": 32088
+   },
+   "edge": {
+    "CNOT": 200,
+    "Rz": 100,
+    "total": 504
+   },
+   "before_total": {
+    "CNOT": 10113600,
+    "Rz": 6742400,
+    "total": 43825600
+   },
+   "after_total": {
+    "CNOT": 6742600,
+    "Rz": 4214100,
+    "total": 19317480
+   },
+   "optimiser_seconds": 88.7,
+   "verified": false,
+   "verify_state_err": null
+  },
+  {
+   "scheme": "bm-q10",
+   "name": "Blanes & Moan q=10",
+   "order": 6,
+   "n": 13,
+   "seed": 1,
+   "r": 64,
+   "before_per_step": {
+    "CNOT": 1560,
+    "Rz": 1040,
+    "total": 6760
+   },
+   "marginal_per_step": {
+    "CNOT": 1040,
+    "Rz": 650,
+    "total": 2910
+   },
+   "edge": {
+    "CNOT": 26,
+    "Rz": 13,
+    "total": 69
+   },
+   "before_total": {
+    "CNOT": 99840,
+    "Rz": 66560,
+    "total": 432640
+   },
+   "after_total": {
+    "CNOT": 66586,
+    "Rz": 41613,
+    "total": 186309
+   },
+   "optimiser_seconds": 4.0,
+   "verified": true,
+   "verify_state_err": 4.3488207508620677e-13
+  },
+  {
+   "scheme": "bm-q10",
+   "name": "Blanes & Moan q=10",
+   "order": 6,
+   "n": 16,
+   "seed": 1,
+   "r": 82,
+   "before_per_step": {
+    "CNOT": 1920,
+    "Rz": 1280,
+    "total": 8320
+   },
+   "marginal_per_step": {
+    "CNOT": 1280,
+    "Rz": 800,
+    "total": 3600
+   },
+   "edge": {
+    "CNOT": 32,
+    "Rz": 16,
+    "total": 84
+   },
+   "before_total": {
+    "CNOT": 157440,
+    "Rz": 104960,
+    "total": 682240
+   },
+   "after_total": {
+    "CNOT": 104992,
+    "Rz": 65616,
+    "total": 295284
+   },
+   "optimiser_seconds": 4.8,
+   "verified": true,
+   "verify_state_err": 5.073720167252374e-13
+  },
+  {
+   "scheme": "bm-q10",
+   "name": "Blanes & Moan q=10",
+   "order": 6,
+   "n": 20,
+   "seed": 1,
+   "r": 108,
+   "before_per_step": {
+    "CNOT": 2400,
+    "Rz": 1600,
+    "total": 10400
+   },
+   "marginal_per_step": {
+    "CNOT": 1600,
+    "Rz": 1000,
+    "total": 4520
+   },
+   "edge": {
+    "CNOT": 40,
+    "Rz": 20,
+    "total": 104
+   },
+   "before_total": {
+    "CNOT": 259200,
+    "Rz": 172800,
+    "total": 1123200
+   },
+   "after_total": {
+    "CNOT": 172840,
+    "Rz": 108020,
+    "total": 488264
+   },
+   "optimiser_seconds": 8.7,
+   "verified": false,
+   "verify_state_err": null
+  },
+  {
+   "scheme": "bm-q10",
+   "name": "Blanes & Moan q=10",
+   "order": 6,
+   "n": 25,
+   "seed": 1,
+   "r": 141,
+   "before_per_step": {
+    "CNOT": 3000,
+    "Rz": 2000,
+    "total": 13000
+   },
+   "marginal_per_step": {
+    "CNOT": 2000,
+    "Rz": 1250,
+    "total": 5670
+   },
+   "edge": {
+    "CNOT": 50,
+    "Rz": 25,
+    "total": 129
+   },
+   "before_total": {
+    "CNOT": 423000,
+    "Rz": 282000,
+    "total": 1833000
+   },
+   "after_total": {
+    "CNOT": 282050,
+    "Rz": 176275,
+    "total": 799599
+   },
+   "optimiser_seconds": 7.5,
+   "verified": false,
+   "verify_state_err": null
+  },
+  {
+   "scheme": "bm-q10",
+   "name": "Blanes & Moan q=10",
+   "order": 6,
+   "n": 32,
+   "seed": 1,
+   "r": 191,
+   "before_per_step": {
+    "CNOT": 3840,
+    "Rz": 2560,
+    "total": 16640
+   },
+   "marginal_per_step": {
+    "CNOT": 2560,
+    "Rz": 1600,
+    "total": 7280
+   },
+   "edge": {
+    "CNOT": 64,
+    "Rz": 32,
+    "total": 164
+   },
+   "before_total": {
+    "CNOT": 733440,
+    "Rz": 488960,
+    "total": 3178240
+   },
+   "after_total": {
+    "CNOT": 489024,
+    "Rz": 305632,
+    "total": 1390644
+   },
+   "optimiser_seconds": 15.9,
+   "verified": false,
+   "verify_state_err": null
+  },
+  {
+   "scheme": "bm-q10",
+   "name": "Blanes & Moan q=10",
+   "order": 6,
+   "n": 40,
+   "seed": 1,
+   "r": 250,
+   "before_per_step": {
+    "CNOT": 4800,
+    "Rz": 3200,
+    "total": 20800
+   },
+   "marginal_per_step": {
+    "CNOT": 3200,
+    "Rz": 2000,
+    "total": 9120
+   },
+   "edge": {
+    "CNOT": 80,
+    "Rz": 40,
+    "total": 204
+   },
+   "before_total": {
+    "CNOT": 1200000,
+    "Rz": 800000,
+    "total": 5200000
+   },
+   "after_total": {
+    "CNOT": 800080,
+    "Rz": 500040,
+    "total": 2280204
+   },
+   "optimiser_seconds": 23.6,
+   "verified": false,
+   "verify_state_err": null
+  },
+  {
+   "scheme": "bm-q10",
+   "name": "Blanes & Moan q=10",
+   "order": 6,
+   "n": 50,
+   "seed": 1,
+   "r": 328,
+   "before_per_step": {
+    "CNOT": 6000,
+    "Rz": 4000,
+    "total": 26000
+   },
+   "marginal_per_step": {
+    "CNOT": 4000,
+    "Rz": 2500,
+    "total": 11420
+   },
+   "edge": {
+    "CNOT": 100,
+    "Rz": 50,
+    "total": 254
+   },
+   "before_total": {
+    "CNOT": 1968000,
+    "Rz": 1312000,
+    "total": 8528000
+   },
+   "after_total": {
+    "CNOT": 1312100,
+    "Rz": 820050,
+    "total": 3746014
+   },
+   "optimiser_seconds": 25.0,
+   "verified": false,
+   "verify_state_err": null
+  },
+  {
+   "scheme": "bm-q10",
+   "name": "Blanes & Moan q=10",
+   "order": 6,
+   "n": 63,
+   "seed": 1,
+   "r": 434,
+   "before_per_step": {
+    "CNOT": 7560,
+    "Rz": 5040,
+    "total": 32760
+   },
+   "marginal_per_step": {
+    "CNOT": 5040,
+    "Rz": 3150,
+    "total": 14410
+   },
+   "edge": {
+    "CNOT": 126,
+    "Rz": 63,
+    "total": 319
+   },
+   "before_total": {
+    "CNOT": 3281040,
+    "Rz": 2187360,
+    "total": 14217840
+   },
+   "after_total": {
+    "CNOT": 2187486,
+    "Rz": 1367163,
+    "total": 6254259
+   },
+   "optimiser_seconds": 48.7,
+   "verified": false,
+   "verify_state_err": null
+  },
+  {
+   "scheme": "bm-q10",
+   "name": "Blanes & Moan q=10",
+   "order": 6,
+   "n": 79,
+   "seed": 1,
+   "r": 572,
+   "before_per_step": {
+    "CNOT": 9480,
+    "Rz": 6320,
+    "total": 41080
+   },
+   "marginal_per_step": {
+    "CNOT": 6320,
+    "Rz": 3950,
+    "total": 18090
+   },
+   "edge": {
+    "CNOT": 158,
+    "Rz": 79,
+    "total": 399
+   },
+   "before_total": {
+    "CNOT": 5422560,
+    "Rz": 3615040,
+    "total": 23497760
+   },
+   "after_total": {
+    "CNOT": 3615198,
+    "Rz": 2259479,
+    "total": 10347879
+   },
+   "optimiser_seconds": 67.5,
+   "verified": false,
+   "verify_state_err": null
+  },
+  {
+   "scheme": "bm-q10",
+   "name": "Blanes & Moan q=10",
+   "order": 6,
+   "n": 100,
+   "seed": 1,
+   "r": 763,
+   "before_per_step": {
+    "CNOT": 12000,
+    "Rz": 8000,
+    "total": 52000
+   },
+   "marginal_per_step": {
+    "CNOT": 8000,
+    "Rz": 5000,
+    "total": 22920
+   },
+   "edge": {
+    "CNOT": 200,
+    "Rz": 100,
+    "total": 504
+   },
+   "before_total": {
+    "CNOT": 9156000,
+    "Rz": 6104000,
+    "total": 39676000
+   },
+   "after_total": {
+    "CNOT": 6104200,
+    "Rz": 3815100,
+    "total": 17488464
+   },
+   "optimiser_seconds": 60.6,
+   "verified": false,
+   "verify_state_err": null
+  },
+  {
+   "scheme": "mo-o8-q21",
+   "name": "M&O q=21 order 8 (exploratory)",
+   "order": 8,
+   "n": 13,
+   "seed": 1,
+   "r": 41,
+   "before_per_step": {
+    "CNOT": 3276,
+    "Rz": 2184,
+    "total": 14196
+   },
+   "marginal_per_step": {
+    "CNOT": 2184,
+    "Rz": 1365,
+    "total": 6111
+   },
+   "edge": {
+    "CNOT": 26,
+    "Rz": 13,
+    "total": 69
+   },
+   "before_total": {
+    "CNOT": 134316,
+    "Rz": 89544,
+    "total": 582036
+   },
+   "after_total": {
+    "CNOT": 89570,
+    "Rz": 55978,
+    "total": 250620
+   },
+   "optimiser_seconds": 8.7,
+   "verified": true,
+   "verify_state_err": 8.795372330798143e-13
+  },
+  {
+   "scheme": "mo-o8-q21",
+   "name": "M&O q=21 order 8 (exploratory)",
+   "order": 8,
+   "n": 16,
+   "seed": 1,
+   "r": 55,
+   "before_per_step": {
+    "CNOT": 4032,
+    "Rz": 2688,
+    "total": 17472
+   },
+   "marginal_per_step": {
+    "CNOT": 2688,
+    "Rz": 1680,
+    "total": 7560
+   },
+   "edge": {
+    "CNOT": 32,
+    "Rz": 16,
+    "total": 84
+   },
+   "before_total": {
+    "CNOT": 221760,
+    "Rz": 147840,
+    "total": 960960
+   },
+   "after_total": {
+    "CNOT": 147872,
+    "Rz": 92416,
+    "total": 415884
+   },
+   "optimiser_seconds": 14.1,
+   "verified": true,
+   "verify_state_err": 1.0880468267121532e-12
+  },
+  {
+   "scheme": "mo-o8-q21",
+   "name": "M&O q=21 order 8 (exploratory)",
+   "order": 8,
+   "n": 20,
+   "seed": 1,
+   "r": 74,
+   "before_per_step": {
+    "CNOT": 5040,
+    "Rz": 3360,
+    "total": 21840
+   },
+   "marginal_per_step": {
+    "CNOT": 3360,
+    "Rz": 2100,
+    "total": 9492
+   },
+   "edge": {
+    "CNOT": 40,
+    "Rz": 20,
+    "total": 104
+   },
+   "before_total": {
+    "CNOT": 372960,
+    "Rz": 248640,
+    "total": 1616160
+   },
+   "after_total": {
+    "CNOT": 248680,
+    "Rz": 155420,
+    "total": 702512
+   },
+   "optimiser_seconds": 15.1,
+   "verified": false,
+   "verify_state_err": null
+  },
+  {
+   "scheme": "mo-o8-q21",
+   "name": "M&O q=21 order 8 (exploratory)",
+   "order": 8,
+   "n": 25,
+   "seed": 1,
+   "r": 100,
+   "before_per_step": {
+    "CNOT": 6300,
+    "Rz": 4200,
+    "total": 27300
+   },
+   "marginal_per_step": {
+    "CNOT": 4200,
+    "Rz": 2625,
+    "total": 11907
+   },
+   "edge": {
+    "CNOT": 50,
+    "Rz": 25,
+    "total": 129
+   },
+   "before_total": {
+    "CNOT": 630000,
+    "Rz": 420000,
+    "total": 2730000
+   },
+   "after_total": {
+    "CNOT": 420050,
+    "Rz": 262525,
+    "total": 1190829
+   },
+   "optimiser_seconds": 17.2,
+   "verified": false,
+   "verify_state_err": null
+  },
+  {
+   "scheme": "mo-o8-q21",
+   "name": "M&O q=21 order 8 (exploratory)",
+   "order": 8,
+   "n": 32,
+   "seed": 1,
+   "r": 139,
+   "before_per_step": {
+    "CNOT": 8064,
+    "Rz": 5376,
+    "total": 34944
+   },
+   "marginal_per_step": {
+    "CNOT": 5376,
+    "Rz": 3360,
+    "total": 15288
+   },
+   "edge": {
+    "CNOT": 64,
+    "Rz": 32,
+    "total": 164
+   },
+   "before_total": {
+    "CNOT": 1120896,
+    "Rz": 747264,
+    "total": 4857216
+   },
+   "after_total": {
+    "CNOT": 747328,
+    "Rz": 467072,
+    "total": 2125196
+   },
+   "optimiser_seconds": 38.1,
+   "verified": false,
+   "verify_state_err": null
+  },
+  {
+   "scheme": "mo-o8-q21",
+   "name": "M&O q=21 order 8 (exploratory)",
+   "order": 8,
+   "n": 40,
+   "seed": 1,
+   "r": 188,
+   "before_per_step": {
+    "CNOT": 10080,
+    "Rz": 6720,
+    "total": 43680
+   },
+   "marginal_per_step": {
+    "CNOT": 6720,
+    "Rz": 4200,
+    "total": 19152
+   },
+   "edge": {
+    "CNOT": 80,
+    "Rz": 40,
+    "total": 204
+   },
+   "before_total": {
+    "CNOT": 1895040,
+    "Rz": 1263360,
+    "total": 8211840
+   },
+   "after_total": {
+    "CNOT": 1263440,
+    "Rz": 789640,
+    "total": 3600780
+   },
+   "optimiser_seconds": 46.6,
+   "verified": false,
+   "verify_state_err": null
+  },
+  {
+   "scheme": "mo-o8-q21",
+   "name": "M&O q=21 order 8 (exploratory)",
+   "order": 8,
+   "n": 50,
+   "seed": 1,
+   "r": 255,
+   "before_per_step": {
+    "CNOT": 12600,
+    "Rz": 8400,
+    "total": 54600
+   },
+   "marginal_per_step": {
+    "CNOT": 8400,
+    "Rz": 5250,
+    "total": 23982
+   },
+   "edge": {
+    "CNOT": 100,
+    "Rz": 50,
+    "total": 254
+   },
+   "before_total": {
+    "CNOT": 3213000,
+    "Rz": 2142000,
+    "total": 13923000
+   },
+   "after_total": {
+    "CNOT": 2142100,
+    "Rz": 1338800,
+    "total": 6115664
+   },
+   "optimiser_seconds": 55.1,
+   "verified": false,
+   "verify_state_err": null
+  },
+  {
+   "scheme": "mo-o8-q21",
+   "name": "M&O q=21 order 8 (exploratory)",
+   "order": 8,
+   "n": 63,
+   "seed": 1,
+   "r": 348,
+   "before_per_step": {
+    "CNOT": 15876,
+    "Rz": 10584,
+    "total": 68796
+   },
+   "marginal_per_step": {
+    "CNOT": 10584,
+    "Rz": 6615,
+    "total": 30261
+   },
+   "edge": {
+    "CNOT": 126,
+    "Rz": 63,
+    "total": 319
+   },
+   "before_total": {
+    "CNOT": 5524848,
+    "Rz": 3683232,
+    "total": 23941008
+   },
+   "after_total": {
+    "CNOT": 3683358,
+    "Rz": 2302083,
+    "total": 10531147
+   },
+   "optimiser_seconds": 84.3,
+   "verified": false,
+   "verify_state_err": null
+  },
+  {
+   "scheme": "mo-o8-q21",
+   "name": "M&O q=21 order 8 (exploratory)",
+   "order": 8,
+   "n": 79,
+   "seed": 1,
+   "r": 474,
+   "before_per_step": {
+    "CNOT": 19908,
+    "Rz": 13272,
+    "total": 86268
+   },
+   "marginal_per_step": {
+    "CNOT": 13272,
+    "Rz": 8295,
+    "total": 37989
+   },
+   "edge": {
+    "CNOT": 158,
+    "Rz": 79,
+    "total": 399
+   },
+   "before_total": {
+    "CNOT": 9436392,
+    "Rz": 6290928,
+    "total": 40891032
+   },
+   "after_total": {
+    "CNOT": 6291086,
+    "Rz": 3931909,
+    "total": 18007185
+   },
+   "optimiser_seconds": 124.0,
+   "verified": false,
+   "verify_state_err": null
+  },
+  {
+   "scheme": "mo-o8-q21",
+   "name": "M&O q=21 order 8 (exploratory)",
+   "order": 8,
+   "n": 100,
+   "seed": 1,
+   "r": 652,
+   "before_per_step": {
+    "CNOT": 25200,
+    "Rz": 16800,
+    "total": 109200
+   },
+   "marginal_per_step": {
+    "CNOT": 16800,
+    "Rz": 10500,
+    "total": 48132
+   },
+   "edge": {
+    "CNOT": 200,
+    "Rz": 100,
+    "total": 504
+   },
+   "before_total": {
+    "CNOT": 16430400,
+    "Rz": 10953600,
+    "total": 71198400
+   },
+   "after_total": {
+    "CNOT": 10953800,
+    "Rz": 6846100,
+    "total": 31382568
+   },
+   "optimiser_seconds": 124.8,
+   "verified": false,
+   "verify_state_err": null
+  },
+  {
+   "scheme": "morales-y8m10",
+   "name": "Morales Y8m10 (21 steps)",
+   "order": 8,
+   "n": 13,
+   "seed": 1,
+   "r": 43,
+   "before_per_step": {
+    "CNOT": 3276,
+    "Rz": 2184,
+    "total": 14196
+   },
+   "marginal_per_step": {
+    "CNOT": 2184,
+    "Rz": 1365,
+    "total": 6111
+   },
+   "edge": {
+    "CNOT": 26,
+    "Rz": 13,
+    "total": 69
+   },
+   "before_total": {
+    "CNOT": 140868,
+    "Rz": 93912,
+    "total": 610428
+   },
+   "after_total": {
+    "CNOT": 93938,
+    "Rz": 58708,
+    "total": 262842
+   },
+   "optimiser_seconds": 9.0,
+   "verified": true,
+   "verify_state_err": 9.367888418300015e-13
+  },
+  {
+   "scheme": "morales-y8m10",
+   "name": "Morales Y8m10 (21 steps)",
+   "order": 8,
+   "n": 16,
+   "seed": 1,
+   "r": 56,
+   "before_per_step": {
+    "CNOT": 4032,
+    "Rz": 2688,
+    "total": 17472
+   },
+   "marginal_per_step": {
+    "CNOT": 2688,
+    "Rz": 1680,
+    "total": 7560
+   },
+   "edge": {
+    "CNOT": 32,
+    "Rz": 16,
+    "total": 84
+   },
+   "before_total": {
+    "CNOT": 225792,
+    "Rz": 150528,
+    "total": 978432
+   },
+   "after_total": {
+    "CNOT": 150560,
+    "Rz": 94096,
+    "total": 423444
+   },
+   "optimiser_seconds": 19.1,
+   "verified": true,
+   "verify_state_err": 1.057731637586727e-12
+  },
+  {
+   "scheme": "morales-y8m10",
+   "name": "Morales Y8m10 (21 steps)",
+   "order": 8,
+   "n": 20,
+   "seed": 1,
+   "r": 74,
+   "before_per_step": {
+    "CNOT": 5040,
+    "Rz": 3360,
+    "total": 21840
+   },
+   "marginal_per_step": {
+    "CNOT": 3360,
+    "Rz": 2100,
+    "total": 9492
+   },
+   "edge": {
+    "CNOT": 40,
+    "Rz": 20,
+    "total": 104
+   },
+   "before_total": {
+    "CNOT": 372960,
+    "Rz": 248640,
+    "total": 1616160
+   },
+   "after_total": {
+    "CNOT": 248680,
+    "Rz": 155420,
+    "total": 702512
+   },
+   "optimiser_seconds": 13.8,
+   "verified": false,
+   "verify_state_err": null
+  },
+  {
+   "scheme": "morales-y8m10",
+   "name": "Morales Y8m10 (21 steps)",
+   "order": 8,
+   "n": 25,
+   "seed": 1,
+   "r": 98,
+   "before_per_step": {
+    "CNOT": 6300,
+    "Rz": 4200,
+    "total": 27300
+   },
+   "marginal_per_step": {
+    "CNOT": 4200,
+    "Rz": 2625,
+    "total": 11907
+   },
+   "edge": {
+    "CNOT": 50,
+    "Rz": 25,
+    "total": 129
+   },
+   "before_total": {
+    "CNOT": 617400,
+    "Rz": 411600,
+    "total": 2675400
+   },
+   "after_total": {
+    "CNOT": 411650,
+    "Rz": 257275,
+    "total": 1167015
+   },
+   "optimiser_seconds": 17.3,
+   "verified": false,
+   "verify_state_err": null
+  },
+  {
+   "scheme": "morales-y8m10",
+   "name": "Morales Y8m10 (21 steps)",
+   "order": 8,
+   "n": 32,
+   "seed": 1,
+   "r": 134,
+   "before_per_step": {
+    "CNOT": 8064,
+    "Rz": 5376,
+    "total": 34944
+   },
+   "marginal_per_step": {
+    "CNOT": 5376,
+    "Rz": 3360,
+    "total": 15288
+   },
+   "edge": {
+    "CNOT": 64,
+    "Rz": 32,
+    "total": 164
+   },
+   "before_total": {
+    "CNOT": 1080576,
+    "Rz": 720384,
+    "total": 4682496
+   },
+   "after_total": {
+    "CNOT": 720448,
+    "Rz": 450272,
+    "total": 2048756
+   },
+   "optimiser_seconds": 35.0,
+   "verified": false,
+   "verify_state_err": null
+  },
+  {
+   "scheme": "morales-y8m10",
+   "name": "Morales Y8m10 (21 steps)",
+   "order": 8,
+   "n": 40,
+   "seed": 1,
+   "r": 178,
+   "before_per_step": {
+    "CNOT": 10080,
+    "Rz": 6720,
+    "total": 43680
+   },
+   "marginal_per_step": {
+    "CNOT": 6720,
+    "Rz": 4200,
+    "total": 19152
+   },
+   "edge": {
+    "CNOT": 80,
+    "Rz": 40,
+    "total": 204
+   },
+   "before_total": {
+    "CNOT": 1794240,
+    "Rz": 1196160,
+    "total": 7775040
+   },
+   "after_total": {
+    "CNOT": 1196240,
+    "Rz": 747640,
+    "total": 3409260
+   },
+   "optimiser_seconds": 38.8,
+   "verified": false,
+   "verify_state_err": null
+  },
+  {
+   "scheme": "morales-y8m10",
+   "name": "Morales Y8m10 (21 steps)",
+   "order": 8,
+   "n": 50,
+   "seed": 1,
+   "r": 237,
+   "before_per_step": {
+    "CNOT": 12600,
+    "Rz": 8400,
+    "total": 54600
+   },
+   "marginal_per_step": {
+    "CNOT": 8400,
+    "Rz": 5250,
+    "total": 23982
+   },
+   "edge": {
+    "CNOT": 100,
+    "Rz": 50,
+    "total": 254
+   },
+   "before_total": {
+    "CNOT": 2986200,
+    "Rz": 1990800,
+    "total": 12940200
+   },
+   "after_total": {
+    "CNOT": 1990900,
+    "Rz": 1244300,
+    "total": 5683988
+   },
+   "optimiser_seconds": 55.6,
+   "verified": false,
+   "verify_state_err": null
+  },
+  {
+   "scheme": "morales-y8m10",
+   "name": "Morales Y8m10 (21 steps)",
+   "order": 8,
+   "n": 63,
+   "seed": 1,
+   "r": 319,
+   "before_per_step": {
+    "CNOT": 15876,
+    "Rz": 10584,
+    "total": 68796
+   },
+   "marginal_per_step": {
+    "CNOT": 10584,
+    "Rz": 6615,
+    "total": 30261
+   },
+   "edge": {
+    "CNOT": 126,
+    "Rz": 63,
+    "total": 319
+   },
+   "before_total": {
+    "CNOT": 5064444,
+    "Rz": 3376296,
+    "total": 21945924
+   },
+   "after_total": {
+    "CNOT": 3376422,
+    "Rz": 2110248,
+    "total": 9653578
+   },
+   "optimiser_seconds": 88.6,
+   "verified": false,
+   "verify_state_err": null
+  },
+  {
+   "scheme": "morales-y8m10",
+   "name": "Morales Y8m10 (21 steps)",
+   "order": 8,
+   "n": 79,
+   "seed": 1,
+   "r": 425,
+   "before_per_step": {
+    "CNOT": 19908,
+    "Rz": 13272,
+    "total": 86268
+   },
+   "marginal_per_step": {
+    "CNOT": 13272,
+    "Rz": 8295,
+    "total": 37989
+   },
+   "edge": {
+    "CNOT": 158,
+    "Rz": 79,
+    "total": 399
+   },
+   "before_total": {
+    "CNOT": 8460900,
+    "Rz": 5640600,
+    "total": 36663900
+   },
+   "after_total": {
+    "CNOT": 5640758,
+    "Rz": 3525454,
+    "total": 16145724
+   },
+   "optimiser_seconds": 143.8,
+   "verified": false,
+   "verify_state_err": null
+  },
+  {
+   "scheme": "morales-y8m10",
+   "name": "Morales Y8m10 (21 steps)",
+   "order": 8,
+   "n": 100,
+   "seed": 1,
+   "r": 575,
+   "before_per_step": {
+    "CNOT": 25200,
+    "Rz": 16800,
+    "total": 109200
+   },
+   "marginal_per_step": {
+    "CNOT": 16800,
+    "Rz": 10500,
+    "total": 48132
+   },
+   "edge": {
+    "CNOT": 200,
+    "Rz": 100,
+    "total": 504
+   },
+   "before_total": {
+    "CNOT": 14490000,
+    "Rz": 9660000,
+    "total": 62790000
+   },
+   "after_total": {
+    "CNOT": 9660200,
+    "Rz": 6037600,
+    "total": 27676404
+   },
+   "optimiser_seconds": 126.6,
+   "verified": false,
+   "verify_state_err": null
+  },
+  {
+   "scheme": "morales-m8",
+   "name": "Morales m=8 (17 steps)",
+   "order": 8,
+   "n": 13,
+   "seed": 1,
+   "r": 45,
+   "before_per_step": {
+    "CNOT": 2652,
+    "Rz": 1768,
+    "total": 11492
+   },
+   "marginal_per_step": {
+    "CNOT": 1768,
+    "Rz": 1105,
+    "total": 4947
+   },
+   "edge": {
+    "CNOT": 26,
+    "Rz": 13,
+    "total": 69
+   },
+   "before_total": {
+    "CNOT": 119340,
+    "Rz": 79560,
+    "total": 517140
+   },
+   "after_total": {
+    "CNOT": 79586,
+    "Rz": 49738,
+    "total": 222684
+   },
+   "optimiser_seconds": 7.1,
+   "verified": true,
+   "verify_state_err": 6.807896681278655e-13
+  },
+  {
+   "scheme": "morales-m8",
+   "name": "Morales m=8 (17 steps)",
+   "order": 8,
+   "n": 16,
+   "seed": 1,
+   "r": 58,
+   "before_per_step": {
+    "CNOT": 3264,
+    "Rz": 2176,
+    "total": 14144
+   },
+   "marginal_per_step": {
+    "CNOT": 2176,
+    "Rz": 1360,
+    "total": 6120
+   },
+   "edge": {
+    "CNOT": 32,
+    "Rz": 16,
+    "total": 84
+   },
+   "before_total": {
+    "CNOT": 189312,
+    "Rz": 126208,
+    "total": 820352
+   },
+   "after_total": {
+    "CNOT": 126240,
+    "Rz": 78896,
+    "total": 355044
+   },
+   "optimiser_seconds": 15.7,
+   "verified": true,
+   "verify_state_err": 8.992963262763721e-13
+  },
+  {
+   "scheme": "morales-m8",
+   "name": "Morales m=8 (17 steps)",
+   "order": 8,
+   "n": 20,
+   "seed": 1,
+   "r": 75,
+   "before_per_step": {
+    "CNOT": 4080,
+    "Rz": 2720,
+    "total": 17680
+   },
+   "marginal_per_step": {
+    "CNOT": 2720,
+    "Rz": 1700,
+    "total": 7684
+   },
+   "edge": {
+    "CNOT": 40,
+    "Rz": 20,
+    "total": 104
+   },
+   "before_total": {
+    "CNOT": 306000,
+    "Rz": 204000,
+    "total": 1326000
+   },
+   "after_total": {
+    "CNOT": 204040,
+    "Rz": 127520,
+    "total": 576404
+   },
+   "optimiser_seconds": 14.0,
+   "verified": false,
+   "verify_state_err": null
+  },
+  {
+   "scheme": "morales-m8",
+   "name": "Morales m=8 (17 steps)",
+   "order": 8,
+   "n": 25,
+   "seed": 1,
+   "r": 97,
+   "before_per_step": {
+    "CNOT": 5100,
+    "Rz": 3400,
+    "total": 22100
+   },
+   "marginal_per_step": {
+    "CNOT": 3400,
+    "Rz": 2125,
+    "total": 9639
+   },
+   "edge": {
+    "CNOT": 50,
+    "Rz": 25,
+    "total": 129
+   },
+   "before_total": {
+    "CNOT": 494700,
+    "Rz": 329800,
+    "total": 2143700
+   },
+   "after_total": {
+    "CNOT": 329850,
+    "Rz": 206150,
+    "total": 935112
+   },
+   "optimiser_seconds": 15.6,
+   "verified": false,
+   "verify_state_err": null
+  },
+  {
+   "scheme": "morales-m8",
+   "name": "Morales m=8 (17 steps)",
+   "order": 8,
+   "n": 32,
+   "seed": 1,
+   "r": 130,
+   "before_per_step": {
+    "CNOT": 6528,
+    "Rz": 4352,
+    "total": 28288
+   },
+   "marginal_per_step": {
+    "CNOT": 4352,
+    "Rz": 2720,
+    "total": 12376
+   },
+   "edge": {
+    "CNOT": 64,
+    "Rz": 32,
+    "total": 164
+   },
+   "before_total": {
+    "CNOT": 848640,
+    "Rz": 565760,
+    "total": 3677440
+   },
+   "after_total": {
+    "CNOT": 565824,
+    "Rz": 353632,
+    "total": 1609044
+   },
+   "optimiser_seconds": 22.3,
+   "verified": false,
+   "verify_state_err": null
+  },
+  {
+   "scheme": "morales-m8",
+   "name": "Morales m=8 (17 steps)",
+   "order": 8,
+   "n": 40,
+   "seed": 1,
+   "r": 170,
+   "before_per_step": {
+    "CNOT": 8160,
+    "Rz": 5440,
+    "total": 35360
+   },
+   "marginal_per_step": {
+    "CNOT": 5440,
+    "Rz": 3400,
+    "total": 15504
+   },
+   "edge": {
+    "CNOT": 80,
+    "Rz": 40,
+    "total": 204
+   },
+   "before_total": {
+    "CNOT": 1387200,
+    "Rz": 924800,
+    "total": 6011200
+   },
+   "after_total": {
+    "CNOT": 924880,
+    "Rz": 578040,
+    "total": 2635884
+   },
+   "optimiser_seconds": 32.7,
+   "verified": false,
+   "verify_state_err": null
+  },
+  {
+   "scheme": "morales-m8",
+   "name": "Morales m=8 (17 steps)",
+   "order": 8,
+   "n": 50,
+   "seed": 1,
+   "r": 221,
+   "before_per_step": {
+    "CNOT": 10200,
+    "Rz": 6800,
+    "total": 44200
+   },
+   "marginal_per_step": {
+    "CNOT": 6800,
+    "Rz": 4250,
+    "total": 19414
+   },
+   "edge": {
+    "CNOT": 100,
+    "Rz": 50,
+    "total": 254
+   },
+   "before_total": {
+    "CNOT": 2254200,
+    "Rz": 1502800,
+    "total": 9768200
+   },
+   "after_total": {
+    "CNOT": 1502900,
+    "Rz": 939300,
+    "total": 4290748
+   },
+   "optimiser_seconds": 43.7,
+   "verified": false,
+   "verify_state_err": null
+  },
+  {
+   "scheme": "morales-m8",
+   "name": "Morales m=8 (17 steps)",
+   "order": 8,
+   "n": 63,
+   "seed": 1,
+   "r": 290,
+   "before_per_step": {
+    "CNOT": 12852,
+    "Rz": 8568,
+    "total": 55692
+   },
+   "marginal_per_step": {
+    "CNOT": 8568,
+    "Rz": 5355,
+    "total": 24497
+   },
+   "edge": {
+    "CNOT": 126,
+    "Rz": 63,
+    "total": 319
+   },
+   "before_total": {
+    "CNOT": 3727080,
+    "Rz": 2484720,
+    "total": 16150680
+   },
+   "after_total": {
+    "CNOT": 2484846,
+    "Rz": 1553013,
+    "total": 7104449
+   },
+   "optimiser_seconds": 71.1,
+   "verified": false,
+   "verify_state_err": null
+  },
+  {
+   "scheme": "morales-m8",
+   "name": "Morales m=8 (17 steps)",
+   "order": 8,
+   "n": 79,
+   "seed": 1,
+   "r": 379,
+   "before_per_step": {
+    "CNOT": 16116,
+    "Rz": 10744,
+    "total": 69836
+   },
+   "marginal_per_step": {
+    "CNOT": 10744,
+    "Rz": 6715,
+    "total": 30753
+   },
+   "edge": {
+    "CNOT": 158,
+    "Rz": 79,
+    "total": 399
+   },
+   "before_total": {
+    "CNOT": 6107964,
+    "Rz": 4071976,
+    "total": 26467844
+   },
+   "after_total": {
+    "CNOT": 4072134,
+    "Rz": 2545064,
+    "total": 11655786
+   },
+   "optimiser_seconds": 94.4,
+   "verified": false,
+   "verify_state_err": null
+  },
+  {
+   "scheme": "morales-m8",
+   "name": "Morales m=8 (17 steps)",
+   "order": 8,
+   "n": 100,
+   "seed": 1,
+   "r": 501,
+   "before_per_step": {
+    "CNOT": 20400,
+    "Rz": 13600,
+    "total": 88400
+   },
+   "marginal_per_step": {
+    "CNOT": 13600,
+    "Rz": 8500,
+    "total": 38964
+   },
+   "edge": {
+    "CNOT": 200,
+    "Rz": 100,
+    "total": 504
+   },
+   "before_total": {
+    "CNOT": 10220400,
+    "Rz": 6813600,
+    "total": 44288400
+   },
+   "after_total": {
+    "CNOT": 6813800,
+    "Rz": 4258600,
+    "total": 19521468
+   },
+   "optimiser_seconds": 104.7,
+   "verified": false,
+   "verify_state_err": null
+  }
+ ]
+}

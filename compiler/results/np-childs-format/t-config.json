@@ -1,0 +1,39 @@
+{
+ "id": "main-t-all-formulas",
+ "line_style": "suzuki-dashed",
+ "title": "Every formula, X-Y-Z grouping, T gates vs n (Clifford+T, every extrapolated step synthesised)",
+ "runs": {
+  "aggregate": "../np-main/aggregate.json",
+  "extra": [
+   "../np-main-n9/seed{seed}",
+   "../np-main-n11/seed{seed}"
+  ],
+  "dirty_exception": {
+   "commit": "e42ff29",
+   "reason": "np-main-n9/-n11 were run at e42ff29 with one uncommitted change: the signature of pfseeds.load_runs (per_seed_keys), which pfcompare does not import; e42ff29 differs from np-main's 01d3c27 only by the plsimcount->pysimcount rename. Spot-checked by recomputing from committed code on 2026-11-08 (see fit-change-checks.md)."
+  }
+ },
+ "like": "main-cnot-all-formulas.json",
+ "fit_sizes": [
+  5,
+  6,
+  7,
+  8,
+  9,
+  10,
+  11
+ ],
+ "extrapolate_sizes": [
+  13,
+  20,
+  30,
+  50,
+  70,
+  100,
+  200,
+  300,
+  500
+ ],
+ "workers": 6,
+ "cache": "t-counts-fit5-11.json"
+}
