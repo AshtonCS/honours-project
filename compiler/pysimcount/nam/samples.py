@@ -18,6 +18,7 @@ thousand gates rather than tens of millions.
 
 from __future__ import annotations
 
+import os
 from dataclasses import dataclass
 from pathlib import Path
 
@@ -25,7 +26,9 @@ from . import quipper
 from .gates import Circuit
 from .optimiser import LIGHT, OptimiseResult, optimise
 
-SAMPLES_ROOT = Path("/Users/ashsearle/Documents/simcount/samples")
+# simcount's published sample circuits (njross/simcount, samples/). Set SIMCOUNT_SAMPLES to
+# point elsewhere; the default is where they live on the author's machine.
+SAMPLES_ROOT = Path(os.environ.get("SIMCOUNT_SAMPLES", Path.home() / "Documents/simcount/samples"))
 
 ALGORITHMS = ("pf4ana", "pf4min", "pf4com", "pf4emp", "pf6emp")
 SIZES = (13, 16, 20, 25, 32, 40, 50, 63, 79, 100)
