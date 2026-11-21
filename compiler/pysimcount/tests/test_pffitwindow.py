@@ -49,7 +49,7 @@ def test_real_record_window_reproduces_and_tables_written(tmp_path):
     cfg["out"] = str(tmp_path / "t")  # absolute: Path join keeps it, so the real outputs are untouched
     res = pffitwindow.run(cfg, here)  # raises unless the record's own window reproduces the record
     by = {w["label"]: w for w in res["windows"]}
-    assert by["5-10 (no 9)"]["cheapest"]["500"] == "morales-m8"
+    assert by["5-11"]["cheapest"]["500"] == "bm-q10"
     assert by["6-11"]["cheapest"]["500"] == "mo-q14"
     assert all(w["ratio"]["500"]["suzuki4"] > 4 for w in res["windows"])
     assert (tmp_path / "t.tex").exists() and (tmp_path / "t.md").exists()
